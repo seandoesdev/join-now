@@ -4,10 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 24da412b1d618b44a513de7f9e2af5af3fe3424e
 ### STS ###
 .apt_generated
 .classpath
