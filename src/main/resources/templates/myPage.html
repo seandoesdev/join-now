@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>JoiNow</title>
+<link
+	th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css}"
+	rel="stylesheet">
+<style>
+body {
+	background-color: #6da86b; /* 연두색 배경 */
+}
+
+.navbar {
+	background-color: #6da86b; /* 네비게이션 바 배경 */
+	color: white; /* 네비게이션 바 글자색 */
+	padding: 15px;
+}
+
+.container {
+	background-color: white; /* 마이페이지 양식 배경 */
+	color: #6c706c; /* 마이페이지 양식 글자색 */
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.transparent-button {
+	background: transparent !important;
+	border: none;
+	color: #6c706c;
+}
+
+.page-buttons {
+	background: transparent !important;
+	border: none;
+	color: #f5faf5;
+	font-weight: bold;
+	font-size: 10px;
+	margin-right: 25px;
+}
+</style>
+</head>
+<body>
+		<a href="" class="page-buttons" style="float: right;">로그아웃</a>
+		<a href="/app/mypage" class="page-buttons" style="float: right;">내프로필</a>
+		<a href="" class="page-buttons" style="float: right;">메인</a><br>
+	<nav class="navbar navbar-dark">
+		<div class="container">
+			<span class="navbar-brand mb-0 h1" style="color: green;">JoiNow</span>
+		</div>
+
+	</nav>
+	<div class="container mt-5">
+		<h2>마이페이지</h2>
+		<button type="button" class="transparent-button">정보</button>
+		<button type="button" class="transparent-button">모임</button>
+		<button type="button" class="transparent-button">알림</button>
+		<button type="button" class="transparent-button">프로덕트</button>
+		<br>
+		<hr>
+		<center>
+			<img src="images/default_img.jpg" class="img-thumbnail"
+				style="width: 10%"><br>
+				왜 안 될까?!
+			<!-- <p class="nickname" th:text="${MyPgDTO.nickname}" /p> -->
+		</center>
+		<hr>
+		<div class="form-group">
+			<label for="email">이메일</label><br>
+			email@email.com
+			<!-- <p class="email" th:text="${MyPgDTO.email}" /p> -->
+		</div>
+		<div class="form-group">
+			<label for="pofol">포트폴리오 링크</label><br>
+			github.com/TTTTTT
+			<!-- <p class="pofol" th:text="${MyPgDTO.pofol}" /p>	 -->	
+		</div>
+		<div class="form-group">
+			<label for="phone">연락처</label><br>
+			010-1234-5678
+			<!-- <p class="email" th:text="${MyPgDTO.phone}" /p> -->
+		</div>
+		<hr>
+		<div class="form-group">
+			<label for="skills">직무</label><br>
+			백엔드 웹 서버
+			<!-- <p class="skills" th:text="${MyPgDTO.skills}" /p> -->
+		</div>
+		
+		<div class="form-group">
+			<label for="tools">사용 도구</label><br>
+			spring
+			<!-- <p class="tools" th:text="${MyPgDTO.tools}" /p> -->
+		</div>
+<!-- 		<div class="mb-3">
+			<label for="proficiency" class="form-label">숙련도</label> <input
+				type="range" class="form-range" min="0" max="5" step="1"
+				id="proficiency">
+		</div> -->
+		<hr>
+		<div class="form-group">
+			<label for="intro">한 줄 소개</label><br>
+			개큰울음남
+			<!-- <p class="intro" th:text="${MyPgDTO.intro}" /p> -->		
+		</div><br>
+		<a href="/app/pgmodify" class="btn btn-success" style="float: center;">수정</a>
+	</div>
+	<!-- Bootstrap JS 및 Popper.js 스크립트 연동 -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@2.10.2/dist/umd/popper.min.js"></script>
+</body>
+</html>
