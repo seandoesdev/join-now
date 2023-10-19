@@ -1,0 +1,47 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PostMapper">
+
+	<select id="postList" resultType="PostDTO">
+		select postNo,title,userid,post_date,viewCount
+		from post
+	</select>
+
+	<insert id="postAdd" parameterType="PostDTO">
+		insert into post ( studyType, title, onoff, region, recruitType ,memberSize,
+		content, contact,deadline,startDate )
+		values (
+		#{studyType},#{title},#{onoff},#{region},#{recruitType},#{memberSize},#{content},#{contact},#{deadline},#{startDate}
+		)
+	</insert>
+
+	<select id="postListbyNo" resultType="PostDTO">
+		select
+		postNo,title,studyType,onoff,region,recruitType,content,startDate,deadline,contact,viewCount,memberSize
+		from post
+		where postNo=#{postNo}
+	</select>
+
+	<update id="postUpdate" parameterType="PostDTO">
+		update post
+		set
+		studyType=#{studyType},title=#{title},onoff=#{onoff},region=#{region},recruitType=#{recruitType},memberSize=#{memberSize},content=#{content},contact=#{contact}
+		where postNo=#{postNo}
+	</update>
+
+	<update id="viewCount" parameterType="int">
+		update post
+		set viewCount = viewCount + 1
+		where postNo = #{postNo}
+	</update>
+	
+	<delete id="postDelete" >
+		delete from post
+		where postNo=#{postNo}
+	</delete>
+	
+</mapper>
+
+
