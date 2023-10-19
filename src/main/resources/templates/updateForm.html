@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<title>프로젝트 게시글 수정하기 화면</title>
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<script type="text/javascript"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+
+	//category change
+	$("#category").on("change", function() {
+	    var a = ['게임기획', '프로젝트 매니저', 'UX/UI기획'];
+	    var b = ['UI/UX 디자인', '웹페이지 디자인', '디자이너'];
+	    var c = ['프론트엔드', '백엔드', '풀스택'];
+	    var o;
+	    var category = $("#category").val();
+	    if (category == "기획자") {
+	        o = a;
+	    } else if (category == "디자이너") {
+	        o = b;
+	    } else if (category == "개발자") {
+	        o = c;
+	    } else {
+	        o = [];
+	    }
+
+	    $("#recruitType").empty();
+
+	    for (var i = 0; i < o.length; i++) {
+	        $("#recruitType").append("<option>" + o[i] + "</option>");
+	    }
+	});//end category change
+	
+	$(document).on("change", "#category", function() {
+	    var a = ['게임기획', '프로젝트 매니저', 'UX/UI기획'];
+	    var b = ['UI/UX 디자인', '웹페이지 디자인', '디자이너'];
+	    var c = ['프론트엔드', '백엔드', '풀스택'];
+	    var o;
+	    var category = $(this).val();
+	    
+	    if (category == "기획자") {
+	        o = a;
+	    } else if (category == "디자이너") {
+	        o = b;
+	    } else if (category == "개발자") {
+	        o = c;
+	    } else {
+	        o = [];
+	    }
+	    console.log(category);
+
+	    $(this).next(".recruitType").empty();
+
+	    for (var i = 0; i < o.length; i++) {
+	        $(this).next(".recruitType").append("<option value='" + o[i] + "'>" + o[i] + "</option>");
+	    }
+
+	});
+
+	
+	
+
+
+					$('.btn-number').click(function(e) {
+										e.preventDefault();
+
+										fieldName = $(this).attr('data-field');
+										type = $(this).attr('data-type');
+										var input = $("input[name='"+ fieldName + "']");
+										var currentVal = parseInt(input.val());
+										if (!isNaN(currentVal)) {
+											if (type == 'minus') {
+
+												if (currentVal > input.attr('min')) {
+													input.val(currentVal - 1).change();
+												}if (parseInt(input.val()) == input.attr('min')) {
+													$(this).attr('disabled',true);}
+
+											} else if (type == 'plus') {
+
+												if (currentVal < input.attr('max')) {
+													input.val(currentVal + 1).change();
+												}
+												if (parseInt(input.val()) == input.attr('max')) {
+													$(this).attr('disabled',true);
+												}
+
+											}
+										} else {
+											input.val(0);
+										}
+									});
+					$('.input-number')
+							.change(
+									function() {
+
+										minValue = parseInt($(this).attr(
+												'min'));
+										maxValue = parseInt($(this).attr(
+												'max'));
+										valueCurrent = parseInt($(this)
+												.val());
+
+										name = $(this).attr('name');
+										if (valueCurrent >= minValue) {
+											$(
+													".btn-number[data-type='minus'][data-field='"
+															+ name + "']")
+													.removeAttr('disabled')
+										} else {
+											alert('Sorry, the minimum value was reached');
+											$(this)
+													.val(
+															$(this)
+																	.data(
+																			'oldValue'));
+										}
+										if (valueCurrent <= maxValue) {
+											$(
+													".btn-number[data-type='plus'][data-field='"
+															+ name + "']")
+													.removeAttr('disabled')
+										} else {
+											alert('Sorry, the maximum value was reached');
+											$(this)
+													.val(
+															$(this)
+																	.data(
+																			'oldValue'));
+										}
+
+									});
+					
+					//add-btn
+					$(document).on("click", "#add-btn", function() {
+					    var newSelectCategory = $("<select id='category' name='category' class='form-control'></select>");
+					    
+					    // Add options to the new select element
+					    var newSelectRecruitType = $("<div class='row'><div class='col-sm-6'><select name='recruitType' name='recruitType' class='form-control'></select>");
+					    
+					    newSelectCategory.append("<option value=''>옵션을 선택해주세요.</option>");
+					    newSelectCategory.append("<option value='기획자'>기획자</option>");
+					    newSelectCategory.append("<option value='디자이너'>디자이너</option>");
+					    newSelectCategory.append("<option value='개발자'>개발자</option>");
+					    
+					    newSelectRecruitType.append("<option value=''>옵션을 선택해주세요.</option>");
+					    
+					    var newMsize = $("<div class='input-group'><span class='input-group-btn'></div>");
+						newMsize.append("<button type='button' class='btn btn-default btn-number'disabled='disabled' data-type='minus' data-field='memberSize'></button>");
+						newMsize.append("<span class='glyphicon glyphicon-minus'></span>");
+						newMsize.append("<input type='text' name='memberSize'class='form-control input-number' value='1' min='1' max='10'>");
+						newMsize.append("<span class='input-group-btn'><button type='button' class='btn btn-default btn-number' data-type='plus' data-field='memberSize'></span>");
+						newMsize.append("<span class='glyphicon glyphicon-plus'></span>");
+					    
+					    $("#addSelect").prepend(newMsize).prepend(newSelectRecruitType).prepend(newSelectCategory);
+						
+					});//end add-btn
+
+				});//end ready
+						
+						
+</script>
+<style>
+      body{ background-color: #F7FFF5;}
+    </style>
+</head>
+<body>
+
+	<div class="container">
+		<form class="form" action="update" method="post">
+		<div class="form-group">
+			<input type="hidden" th:value="${postListbyNum.postNo}" name="postNo">
+			<div align="right">
+				<h6>
+					글번호:&nbsp;<span th:text="${postListbyNum.postNo}"></span>
+				</h6>
+				<h6>
+					조회수:&nbsp;<span th:text="${postListbyNum.viewCount}"></span>
+				</h6>
+			</div>
+			<div class="form-group">
+					<h2 class="text-center">프로젝트 모집요강</h2>
+				</div>
+			</div>
+			<hr>
+
+			<div class="form-group">
+					<h4>
+						<label for="title" >프로젝트명</label>
+					</h4>
+					<div>
+						<input type="text" class="form-control" name="title"
+							th:value="${postListbyNum.title}">
+					</div>
+					<br>
+				<div class="form-group">
+					<h4>
+						<label for="studyType">유형</label>
+					</h4>
+					<br>
+						<input type="radio" name="studyType" value="project" checked>
+						프로젝트 <input type="radio" name="studyType" value="study">
+						스터디
+				</div>
+				</div>
+					<br>
+
+				<div class="form-group">
+					<h4>
+						<label>지역</label>
+					</h4>
+					<div class="row">
+        <div class="col-sm-6">
+					<div>
+						<select th:value="${postListbyNum.onoff}" name="onoff" class="form-control">
+							<option th:selected="${postListbyNum.onoff}=='무관'" value="무관">무관</option>
+							<option th:selected="${postListbyNum.onoff}=='온라인'" value="온라인">온라인</option>
+							<option th:selected="${postListbyNum.onoff}=='오프라인'" value="오프라인">오프라인</option>
+							<option th:selected="${postListbyNum.onoff}=='온라인 /오프라인 모두 가능'" value="온라인 /오프라인 모두 가능">온라인/오프라인 모두 가능</option>
+						</select>
+						<select th:value="${postListbyNum.region}" name="region" class="form-control">
+							<option th:selected="${postListbyNum.region}=='무관'" value="">무관</option>
+							<option th:selected="${postListbyNum.region}=='서울특별시'" value="서울특별시">서울특별시</option>
+							<option th:selected="${postListbyNum.region}=='경기도'" value="경기도">경기도</option>
+							<option th:selected="${postListbyNum.region}=='강원도'" value="강원도">강원도</option>
+						</select>
+					</div>
+				</div>
+				</div>
+				</div>
+				<br>
+				<div class="form-group">
+					<h4>
+						<label for="recruitType">모집인원</label>
+					</h4>
+					<div class="row">
+        <div class="col-sm-6">
+						<select name="category" class="form-control">
+							<option value="기획자">기획자</option>
+							<option value="디자이너">디자이너</option>
+							<option value="개발자">개발자</option>
+						</select>
+						<select th:value="${postListbyNum.recruitType}" name="recruitType"
+							class="form-control">
+							<option selected value="프로젝트 매니저">프로젝트 매니저</option>
+							<option th:selected="${postListbyNum.recruitType}=='프로젝트 매니저'" value="프로젝트 매니저">프로젝트 매니저</option>
+							<option th:selected="${postListbyNum.recruitType}=='UI/UX 기획'" value="UI/UX 기획">UI/UX 기획</option>
+							<option th:selected="${postListbyNum.recruitType}=='게임 기획'" value="게임 기획">게임 기획</option>
+							<option th:selected="${postListbyNum.recruitType}=='UI/UX 디자이너'" value="UI/UX 디자이너">UI/UX 디자이너</option>
+							<option th:selected="${postListbyNum.recruitType}=='프론트엔드'" value="프론트엔드">프론트엔드</option>
+							<option th:selected="${postListbyNum.recruitType}=='백엔드'" value="백엔드">백엔드</option>
+							<option th:selected="${postListbyNum.recruitType}=='풀스택'" value="백엔드">풀스택</option>
+						</select>
+						</div>
+						<div class="input-group">
+						<span class="input-group-btn">
+							<button id="minus-btn" type="button" class="btn btn-default btn-number"
+								disabled="disabled" data-type="minus" data-field="memberSize">
+								<span class="glyphicon glyphicon-minus"></span>
+							</button>
+						</span>
+						<input type="text" name="memberSize"
+							class="form-control input-number" value="1" min="1" max="10">
+						<span class="input-group-btn">
+							<button id="plus-btn" type="button" class="btn btn-default btn-number"
+								data-type="plus" data-field="memberSize">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+						</span>
+					</div>
+				</div>
+<p class="form-group" id="addSelect">
+				<button type="button" class="btn rounded-pill me-2 btn-success"
+					id="add-btn">추가</button>
+				<button type="button" class="btn rounded-pill btn-outline-success"
+					id="del-btn">삭제</button>
+			</p>
+			<br>
+
+				<div class="form-group">
+					<h4>
+						<label for="content">프로젝트
+							설명</label>
+					</h4>
+					<br>
+					<div class="form-group">
+						<textarea class="form-control" rows="3" name="content"
+							th:value="${postListbyNum.content}" th:text="${postListbyNum.content}">
+							</textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h4>
+						<label for="html5-date-input" >프로젝트 시작일</label>
+					</h4>
+
+						<input class="form-control" type="date" name="startDate"
+							id="html5-date-input" th:value="${postListbyNum.startDate}" />
+</div>
+				<div class="form-group">
+					<h4>
+						<label for="html5-date-input" >공고 마감일</label>
+					</h4>
+						<input class="form-control" type="date" name="deadline"
+							id="html5-date-input" th:value="${postListbyNum.deadline}" />
+				</div>
+<br>
+				<div class="form-group">
+					<h4>
+						<label for="html5-tel-input" >연락처</label>
+					</h4>
+					<br>
+						<input class="form-control" type="text" name="contact"
+							id="html5-tel-input" th:value="${postListbyNum.contact}" />
+				</div>
+<br>
+				<div class="form-group">
+						<button type="reset" class="btn rounded-pill me-2">reset</button>
+						<input type="submit" value="수정완료"
+							class="btn rounded-pill me-2 btn-success">
+				</div>
+			</div>
+		</form>
+
+	</div>
+</body>
+</html>
