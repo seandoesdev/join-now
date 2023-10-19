@@ -1,147 +1,122 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    .card {
+        height: 400px;
+    }
+    
+    a{
+	    color: inherit; /* 기본 링크 색상 유지 */
+	}
+    
+    a:hover {
+    	text-decoration: none; /* 링크에 마우스를 올렸을 때 밑줄 효과 제거 */    
+	}
+   
+</style>
+</head>
 
-<html
-  lang="en"
-  class="light-style customizer-hide"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="assets/"
-  data-template="vertical-menu-template-no-customizer">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
-    <title>Sneat - Free Bootstrap 5 HTML Admin Template</title>
-
-    <meta name="description" content="" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico" />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="assets/vendor/css/core.css" />
-    <link rel="stylesheet" href="assets/vendor/css/theme-default.css" />
-    <link rel="stylesheet" href="assets/css/demo.css" />
-  </head>
-
-  <body>
-    <!-- Content -->
-    <div class="container flex-grow-1 container-p-y my-2">
-      <h3>Thank you for using Sneat - Free Bootstrap 5 HTML Admin Template! 😇</h3>
-      <p>
-        If you’re a developer looking for most Powerful & comprehensive Bootstrap 5 HTML Admin Dashboard Template built
-        for developers, rich with features, and highly customizable look no further than Sneat. We’ve followed the
-        highest industry standards to bring you the very best admin template that is not only fast and easy to use but
-        highly scalable. Offering ultimate convenience and flexibility, you’ll be able to build whatever application you
-        want with very little hassle.
-      </p>
-
-      <!-- Examples -->
-      <div class="row mt-sm-4 mt-3">
-        <div class="col-12 mb-3">
-          <div class="card">
-            <h5 class="card-header">Template Links</h5>
-            <!-- Template Demo Links -->
-            <table class="table">
-              <tbody>
-                <tr>
-                  <th>Free Version</th>
-                  <td><a href="html/index.html" target="_blank">Vertical Menu Template</a></td>
-                </tr>
-              </tbody>
-            </table>
-            <!--/ Template Demo Links -->
-          </div>
+<body>
+	
+    <header class="bg-white d-flex justify-content-between align-items-center p-2">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1><a href="" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
+            <nav>
+                <ul class="list-inline m-0">
+                    <li class="list-inline-item">
+                        <a href="" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
+    </header>
 
-        <div class="col-12 mb-3">
-          <div class="card">
-            <h5 class="card-header">Other Important Links</h5>
-            <!-- Other Links -->
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">URL</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>License</td>
-                  <td>
-                    <a href="https://themeselection.com/license/" target="_blank"
-                      >https://themeselection.com/license/</a
-                    >
-                  </td>
-                </tr>
+    <section class="banner text-center py-5 mb-5" style="background-color: #2CA40E; color: #ffffff;">
+        <h2 style="font-size: 37px;">JoiNow</h2>
+        <h3 style="font-size: 18px;">지금 함께 하세요</h3>
+        
+    </section>
 
-                <tr>
-                  <td>Documentation</td>
-                  <td>
-                    <a
-                      href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                      target="_blank"
-                      >https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/</a
-                    >
-                  </td>
-                </tr>
+    
+    <section class="features container">
+    	<!-- 카드 -->	
+       <div class="row">
+		    <th:block th:each="postDTO, index : ${pageDTO.list}">
+		        <div class="col-md-4 mb-4">
+		            	<a th:href="main">
+			                <div class="card">
+			                    <div class="card-body">	
+			                        <span class="icon"></span>
+			                        <h3 class="card-title" th:text="${postDTO.title}">Feature Title</h3>
+			                        <p class="card-text" th:text="${postDTO.postNo}">Dummy text</p>
+			                       
+			                    </div>
+			                    
+			                </div>
+		           		</a>
+		        </div>
+		    </th:block>
+		</div>
 
-                <tr>
-                  <td>Changelog</td>
-                  <td>
-                    <a
-                      href="https://github.com/themeselection/sneat-bootstrap-html-admin-template-free/blob/main/CHANGELOG.md"
-                      target="_blank"
-                      >https://github.com/themeselection/sneat-bootstrap-html-admin-template-free/blob/main/CHANGELOG.md</a
-                    >
-                  </td>
-                </tr>
 
-                <tr>
-                  <td>GitHub Repository</td>
-                  <td>
-                    <a href="https://github.com/themeselection/sneat-html-admin-template-free" target="_blank"
-                      >https://github.com/themeselection/sneat-html-admin-template-free</a
-                    >
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Support</td>
-                  <td>
-                    <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                      >https://github.com/themeselection/sneat-html-admin-template-free/issues</a
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <!--/ Other Links -->
-          </div>
+		<!-- 페이징 처리 -->              
+		<th:block th:with="perPage=${pageDTO.perPage}, curPage=${pageDTO.curPage},
+							totalCount=${pageDTO.totalCount}, pageNum=${pageDTO.pageNum}">
+							
+	        <div class="row mb-4">
+	            <div class="col-md-12 text-center">
+	                <nav aria-label="Page navigation">
+	                    <ul class="pagination justify-content-center">
+														                                        
+	                        <li class="page-item">
+	                        	<th:block th:switch="${curPage}">
+	                        		<a class="page-link text-dark" th:href="${'main?curPage=1'}" th:case="1">Previous</a>
+	                            	<a class="page-link text-dark" th:href="${'main?curPage='+(curPage-1)}" th:case="*">Previous</a>
+	                            </th:block>
+	                        </li>
+	                        
+	                        <th:block th:each="num : ${#numbers.sequence(1,pageNum)}" th:switch="${curPage}">	                        
+		                        <li class="page-item active"><span class="page-link bg-white text-dark" th:case="${num}" th:text="${num}">1</span></li>
+		                        <li class="page-item"><a class="page-link text-dark" th:href="${'main?curPage='+num}" th:case="*" th:text="${num}">1</a></li>
+	                        </th:block>
+	                        
+	                        
+	                        <li class="page-item">
+	                        	<th:block th:switch="${curPage}">
+	                        		<a class="page-link text-dark" th:href="${'main?curPage='+pageNum}" th:case="${pageNum}">Next</a>
+	                            	<a class="page-link text-dark" th:href="${'main?curPage='+(curPage+1)}" th:case="*">Next</a>
+	                            </th:block>
+	                        </li>
+	                        	                       	                        
+	                    </ul>
+	                </nav>
+	            </div>
+	        </div>
+        </th:block>
+        
+    </section>
+	
+	
+	<footer style="background-color: #f2f2f2; bottom: 0; width: 100%; left: 0;">
+        <div class="copyright text-center py-3">
+            <p class="m-0" style="font-size: 14px;">JoiNow</p>
+            <p class="m-0" style="font-size: 14px;">asdf@qwer.com</p>
         </div>
+	</footer>
+	
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-        <div class="col-12 mb-3">
-          <p>Looking for <strong>PRO</strong> version with <strong>Premium support</strong>?</p>
-          <div class="upgrade-to-pro">
-            <a
-              href="https://themeselection.com/item/sneat-bootstrap-html-admin-template/"
-              target="_blank"
-              class="btn btn-danger"
-              >Upgrade to <strong class="ms-1">Sneat Pro</strong></a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- / Content -->
-  </body>
+</body>
+
 </html>
+
+
