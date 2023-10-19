@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<title>프로젝트 게시글 수정하기 화면</title>
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<title>프로젝트 자세히보기 화면</title>
+
+<script type="text/javascript">
+	function go_list() {
+		location.href = "postMain";
+	}
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+
+		//up
+		$("#delete").on("click", function() {
+			alert("해당 게시글이 삭제되었습니다.");
+		});
+
+	});
+</script>
+
+<style>
+body{ background-color: #F7FFF5;}
+
+form {margin:0;display:inline;height:20px; float:right; }
+
+
+</style>
+</head>
+<body>
+	<div class="container">
+		<div align="right">
+			<h6>
+				글번호:&nbsp;<span th:text="${postListbyNum.postNo}"></span>
+			</h6>
+			<h6>
+				조회수:&nbsp;<span th:text="${postListbyNum.viewCount}"></span>
+			</h6>
+		</div>
+		<div class="form-group">
+				<h2 class="text-center">프로젝트 모집요강</h2>
+			</div>
+		<hr>
+		
+			<div class="form-group">
+				<h4>
+					<label for="title" >프로젝트명</label>
+				</h4>
+				<div>
+					<input type="text" class="form-control" name="title"
+						th:value="${postListbyNum.title}" readonly="readonly">
+						</div>
+		</div>
+				<br>
+		<div class="form-group">
+			<h4>
+				<label for="studyType">유형</label>
+			</h4>
+			
+				<input type="text" class="form-control" name="studyType"
+					th:value="${postListbyNum.studyType}" readonly="readonly">
+		</div>
+			<br>
+		<div class="form-group">
+			<h4>
+				<label>지역</label>
+			</h4>
+			
+			<div>
+					<input type="text" class="form-control" name="onoff"
+						th:value="${postListbyNum.onoff}" readonly="readonly"><br>
+					<input type="text" class="form-control" name="region"
+						th:value="${postListbyNum.region}" readonly="readonly">
+				
+			</div>
+		</div>
+		<br>
+		<div class="form-group">
+			<h4>
+				<label for="recruitType">모집인원</label>
+			</h4>
+			
+			<div>
+					<input type="text" class="form-control" name="recruitType"
+						th:value="${postListbyNum.recruitType}" readonly="readonly"><br>
+					<input type="text" class="form-control" name="memberSize"
+						th:value="${postListbyNum.memberSize}" readonly="readonly">
+</div>
+</div>
+<br>
+			<div class="form-group">
+				<h4>
+					<label for="content">프로젝트 설명</label>
+				</h4>
+				
+				<div class="form-group">
+					<input type="text" class="form-control" name="content"
+						th:value="${postListbyNum.content}" readonly="readonly">
+				</div>
+			</div>
+<br>
+			<div class="form-group">
+				<h4>
+					<label for="html5-date-input" >프로젝트
+						시작일</label>
+				</h4>
+					<input type="date" class="form-control" name="startDate"
+						th:value="${postListbyNum.startDate}" readonly="readonly">
+				</div>
+<br>
+			<div class="form-group">
+				<h4>
+					<label for="html5-date-input" class="col-sm-3 control-label">공고
+						마감일</label>
+				</h4>
+				<div class="form-group">
+				<br>
+					<input type="date" class="form-control" name="deadline"
+						th:value="${postListbyNum.deadline}" readonly="readonly">
+				</div>
+			</div>
+<br>
+			<div class="form-group">
+				<h4>
+					<label for="html5-tel-input" >연락처</label>
+				</h4>
+				
+				<div class="form-group">
+					<input type="text" class="form-control" name="contact"
+						th:value="${postListbyNum.contact}" readonly="readonly">
+				</div>
+			</div>
+		<div class="form-group">
+				<input type="submit" value="목록보기"
+					class="btn icon-btn btn-success" onclick="go_list()">
+
+				<form action="updateUI" method="get">
+					<input type="submit" value="수정하기"
+						class="btn icon-btn btn-success"> <input
+						type="hidden" th:value="${postListbyNum.postNo}" name="postNo">
+				</form>
+
+				<form action="delete" method="post">
+					<input id="delete" type="submit" value="삭제하기"
+						onclick="delete_alert()" class="btn rounded-pill me-2 btn-dark">
+					<input type="hidden" th:value="${postListbyNum.postNo}"
+						name="postNo">
+				</form>
+		
+
+<!-- 여기서부터 지원하기 modal 구현 -->
+		<!-- Button trigger modal -->
+<button type="button" class="btn icon-btn btn-success" data-toggle="modal" data-target="#myModal">
+  지원하기
+</button>
+
+<!-- Modal -->
+<div class="container">
+<div class="modal fade" id="myModal" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalScrollableTitle"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						<form action="apply" method="post">
+							<h5 class="modal-title" id="exampleModalScrollableTitle">지원
+								양식</h5>
+							<h6 align="right">
+								글번호:&nbsp;<span th:text="${postListbyNum.postNo}"></span>
+							</h6>
+							
+						</div>
+						<input type="hidden" th:value="${postListbyNum.postNo}" name="postNo">
+							<div class="modal-body">
+								<div class="form-group">
+
+									<h4>
+										<label for="applyType">지원분야</label>
+									</h4>
+									<br>
+									<div>
+										<select name="applyType"
+											class="form-select form-select-md">
+											<option value="프론트엔드">프론트엔드</option>
+											<option value="백엔드">백엔드</option>
+											<option value="풀스택">풀스택</option>
+										</select>
+									</div>
+									<br>
+									<h4>
+										<label for="skills">보유기술</label>
+									</h4>
+									<br>
+									<div>
+										<select name="skills" data-depth="0"
+											class="form-select form-select-md"
+											onchange="selectCategory(this);">
+											<option value="Java">Java</option>
+											<option value="C++">C++</option>
+											<option value="Kotlin">Kotlin</option>
+										</select>
+									</div>
+									<br>
+									<div>
+										<h4>
+											<label for="html5-tel-input">연락처</label>
+										</h4>
+										<br>
+										<div>
+											<input class="form-control" type="text" name="contact"
+												id="html5-tel-input" />
+										</div>
+									</div>
+									<br>
+									<div>
+										<h4>
+											<label for="html5-tel-input">지원자
+												소개</label>
+										</h4>
+										<br>
+										<div>
+											<input class="form-control" type="text" name="content"
+												id="html5-tel-input" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+
+								<button type="button" class="btn rounded-pill me-2 btn-success"
+									data-dismiss="modal">Close</button>
+								<input type="submit" value="제출"
+									class="btn rounded-pill me-2 btn-outline-success">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			</div>
+<!-- 지원하기 끝 -->
+	</div>
+		</div>
+</body>
+</html>
