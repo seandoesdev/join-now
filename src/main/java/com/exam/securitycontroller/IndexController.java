@@ -26,8 +26,8 @@ public class IndexController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@GetMapping({ "", "/app" })
-	public @ResponseBody String index() {
-		return "인덱스 페이지입니다.";
+	public String index() {
+		return "redirect:main";
 	}
 
 	@GetMapping("/user")
