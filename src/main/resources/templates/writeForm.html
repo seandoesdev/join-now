@@ -16,7 +16,7 @@
 
 <script type="text/javascript">
 	function go_list() {
-		location.href = "postMain";
+		location.href = "main";
 	}//end go_list
 </script>
 <script
@@ -75,60 +75,55 @@ $(document).ready(function() {
 	});
 
 	//up
-	$("#up-btn").on(
-			"click",
-			function() {
-				var memberSize = Number.parseInt($(
-						"#memberSize").val());
-				$("#memberSize").val(memberSize + 1);
-			});//end up
+	$("#groupList").on("click", "#up-btn",function() {
+		var memberSize = Number.parseInt($("#memberSize").val());
+		$("#memberSize").val(memberSize + 1);
+	});//end up
 
 	//down ==> 최저값 1
-	$("#down-btn").on(
-			"click",
-			function() {
-				var memberSize = Number.parseInt($(
-						"#memberSize").val());
-				if (memberSize == 1) {
-					$("#memberSize").val(1);
-				} else {
-					$("#memberSize").val(memberSize - 1);
-				}
-			});//end down
+	$("#groupList").on("click", "#down-btn", function() {
+		var memberSize = Number.parseInt($("#memberSize").val());
+		if (memberSize == 1){
+			$("#memberSize").val(1);
+		} else{
+			$("#memberSize").val(memberSize - 1);
+		}
+	});//end down
 	
 
-					//add-btn
-					$("#add-btn").click(function() {
-					    var newSelectCategory = $("<select id='category' name='category' class='form-select form-select'></select>");
-					    
-					    // Add options to the new select element
-					    var newSelectRecruitType = $("<select id='recruitType' name='recruitType' class='form-select form-select'></select>");
-					    
-					    newSelectCategory.append("<option value=''>옵션을 선택해주세요.</option>");
-					    newSelectCategory.append("<option value='기획자'>기획자</option>");
-					    newSelectCategory.append("<option value='디자이너'>디자이너</option>");
-					    newSelectCategory.append("<option value='개발자'>개발자</option>");
-					    
-					    newSelectRecruitType.append("<option value=''>옵션을 선택해주세요.</option>");
-					    
-					    var newMsize = $("<div id='mSize'</div>");
-						newMsize.append("<img src='images/down.png' id='down-btn' style='width:35px; height:35px;'>");
-						newMsize.append("<input type='text' name='memberSize' value='1' id='memberSize'>");
-						newMsize.append("<img src='images/up.png' id='up-btn' style='width:40px; height:40px;'>");
-						
-					    $("#addSelect").prepend(newMsize).prepend(newSelectRecruitType).prepend(newSelectCategory);
-						
-					});//end add-btn
+	//add-btn
+	$("#add-btn").click(function() {
+	    /*var newSelectCategory = $("<select id='category' name='category' class='form-select form-select'></select>");
+	    
+	    // Add options to the new select element
+	    var newSelectRecruitType = $("<select id='recruitType' name='recruitType' class='form-select form-select'></select>");
+	    
+	    newSelectCategory.append("<option value=''>옵션을 선택해주세요.</option>");
+	    newSelectCategory.append("<option value='기획자'>기획자</option>");
+	    newSelectCategory.append("<option value='디자이너'>디자이너</option>");
+	    newSelectCategory.append("<option value='개발자'>개발자</option>");
+	    
+	    newSelectRecruitType.append("<option value=''>옵션을 선택해주세요.</option>");
+	    
+	    var newMsize = $("<div id='mSize'</div>");
+		newMsize.append("<img src='images/down.png' class='down-btn' style='width:35px; height:35px;'>");
+		newMsize.append("<input type='text' name='memberSize' value='1' id='memberSize1'>");
+		newMsize.append("<img src='images/up.png' class='up-btn' style='width:40px; height:40px;'>");
+		
+	    $("#addSelect").prepend(newMsize).prepend(newSelectRecruitType).prepend(newSelectCategory);*/
+	    
+		var clonedGroup = $("#groupObject").clone();
+        $("#groupList").append(clonedGroup);    
+		
+	});//end add-btn
 					
 					
-					 $("#del-btn").click(function() {
-				            // Remove the entire select box
-				            $("#category").remove();
-				            $("#recruitType").remove();
-				            $("#mSize").remove();
-				        });
+	$("#del-btn").click(function() {
+		// Remove the entire select box
+		$("#groupObject").remove();
+	}); //end del
 
-				});//end ready
+});//end ready
 </script>
 <style>
       body{ background-color: #F7FFF5;}
@@ -166,62 +161,74 @@ $(document).ready(function() {
 				프로젝트 <input type="radio" name="studyType" value="스터디"> 스터디
 			</div>
 			<br>
+			
+			<!-- 지역 -->
 			<div class="form-group">
 				<h4>
 					<label>지역</label>
 				</h4>
 
-    <div class="row">
-        <div class="col-sm-6">
-<select class="form-control" name="onoff">
-  <option value="무관">무관</option>
-						<option value="온라인">온라인</option>
-						<option value="오프라인">오프라인</option>
-						<option value="온라인 /오프라인 모두 가능">온라인/오프라인 모두 가능</option>
+				<div class="row">
+					<div class="col-sm-6">
+						<select class="form-control" name="onoff">
+							<option value="무관">무관</option>
+							<option value="온라인">온라인</option>
+							<option value="오프라인">오프라인</option>
+							<option value="온라인 /오프라인 모두 가능">온라인/오프라인 모두 가능</option>
+						</select> <select class="form-control" name="region">
+							<option value="">무관</option>
+							<option value="서울특별시">서울특별시</option>
+							<option value="경기도">경기도</option>
+							<option value="강원도">강원도</option>
 						</select>
-  <select class="form-control" name="region">
-						<option value="">무관</option>
-						<option value="서울특별시">서울특별시</option>
-						<option value="경기도">경기도</option>
-						<option value="강원도">강원도</option>
-					</select>
-</div>
-</div>
-</div>
+					</div>
+				</div>
+			</div>
 			<br>
+			<!-- 지역 end -->
+			
+			<!-- 모집 인원 -->
 			<div class="form-group">
 				<h4>
 					<label for="recruitType">모집인원</label>
 				</h4>
-				<div class="row">
-        <div class="col-sm-6">
-				<select class="form-control" id="category"  name="category">
-					<option>옵션을 선택해주세요.</option>
-					<option value="기획자">기획자</option>
-					<option value="디자이너">디자이너</option>
-					<option value="개발자">개발자</option>
-				</select> 
-				<select class="form-control" id="recruitType" name="recruitType">
-					<option>옵션을 선택해주세요.</option>
-				</select>
-				<!-- 버튼 -->
-				<div>
-                        <div id="mSize">
-						<img src="images/down.PNG" id="down-btn" style="width:35px; height:35px;">
-						<input type="text" name="memberSize" value="1" id="memberSize">
-						<img src="images/up.PNG" id="up-btn" style="width:40px; height:40px;">
+				<div id="groupList">
+					<div class="row" id="groupObject">
+						<div class="col-sm-6">
+						
+							<select class="form-control" id="category" name="category">
+								<option>옵션을 선택해주세요.</option>
+								<option value="기획자">기획자</option>
+								<option value="디자이너">디자이너</option>
+								<option value="개발자">개발자</option>							
+							</select> 
+							
+							<select class="form-control" id="recruitType" name="recruitType">
+								<option>옵션을 선택해주세요.</option>
+							</select>
+							
+							<!-- 버튼 -->
+							<div>
+								<div id="mSize">
+									<img src="images/down.PNG" id="down-btn" style="width: 35px; height: 35px;"> 
+									<input type="text" name="memberSize" value="1" id="memberSize"> 
+									<img src="images/up.PNG" id="up-btn" style="width: 40px; height: 40px;">
+								</div>
+							</div>
+							
 						</div>
+					</div>
+				</div>
 			</div>
-			</div>
-			</div>
-</div>
+						
 			<p class="form-group" id="addSelect">
-				<button type="button" class="btn rounded-pill me-2 btn-success"
-					id="add-btn">추가</button>
-				<button type="button" class="btn rounded-pill btn-outline-success"
-					id="del-btn">삭제</button>
+				<button type="button" class="btn rounded-pill me-2 btn-success" id="add-btn">추가</button>
+				<button type="button" class="btn rounded-pill btn-outline-success" id="del-btn">삭제</button>
 			</p>
+			
+			<!-- 모집 인원 end -->
 			<br>
+			
 			<div class="form-group">
 				<h4>
 					<label for="content">프로젝트 설명</label>

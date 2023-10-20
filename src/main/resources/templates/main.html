@@ -28,43 +28,51 @@
             <nav>
                 <ul class="list-inline m-0">
                     <li class="list-inline-item">
-                        <a href="" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
+                        <a th:href="@{loginPage}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>
+                        <a th:href="@{loginPage}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
-
+	<!-- 배너 -->
     <section class="banner text-center py-5 mb-5" style="background-color: #2CA40E; color: #ffffff;">
         <h2 style="font-size: 37px;">JoiNow</h2>
         <h3 style="font-size: 18px;">지금 함께 하세요</h3>
         
     </section>
-
+    <!-- 배너 end -->
+	
+	<!-- 글작성 네비게이션 -->
+	<section class="navigation py-2" style="margin-bottom: 10px;">
+	    <div class="container d-flex justify-content-start"> 
+	        <a th:href="@{write}" class="btn btn-outline-dark" style="border-color: #878787; color:#515151; font-weight: bold;">게시물 작성</a>
+	    </div>
+	</section>
+	<!-- 글작성 네비게이션 end -->
     
     <section class="features container">
-    	<!-- 카드 -->	
-       <div class="row">
-		    <th:block th:each="postDTO, index : ${pageDTO.list}">
-		        <div class="col-md-4 mb-4">
-		            	<a th:href="main">
-			                <div class="card">
-			                    <div class="card-body">	
-			                        <span class="icon"></span>
-			                        <h3 class="card-title" th:text="${postDTO.title}">Feature Title</h3>
-			                        <p class="card-text" th:text="${postDTO.postNo}">Dummy text</p>
-			                       
-			                    </div>
+		<!-- 카드 -->	
+		<div class="row">
+			<th:block th:each="postDTO, index : ${pageDTO.list}">
+			    <div class="col-md-4 mb-4">
+			        	<a th:href="retrieve">
+			             <div class="card">
+			                 <div class="card-body">	
+			                     <span class="icon"></span>
+			                     <h3 class="card-title" th:text="${postDTO.title}">Feature Title</h3>
+			                     <p class="card-text" th:text="${postDTO.postNo}">Dummy text</p>
 			                    
-			                </div>
-		           		</a>
-		        </div>
-		    </th:block>
+			                 </div>
+			                 
+			             </div>
+			       		</a>
+			    </div>
+			</th:block>
 		</div>
-
+		<!-- 카드 end -->	
 
 		<!-- 페이징 처리 -->              
 		<th:block th:with="perPage=${pageDTO.perPage}, curPage=${pageDTO.curPage},
@@ -100,7 +108,7 @@
 	            </div>
 	        </div>
         </th:block>
-        
+        <!-- 페이징 처리 end -->  
     </section>
 	
 	
