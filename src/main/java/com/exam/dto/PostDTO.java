@@ -5,24 +5,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("PostDTO")
 public class PostDTO {
 	
-//	int no;
-//	String application_status;
-//	String recruitment_period;
-//	String start_date;
-//	String type;
-//	String progress;
-//	String contact;
-//	String skills;
-//	String title;
-//	String region;
-//	String context;
-//	int readcnt;
-//	String userid;
-//	String deadline;
-//	String write_date;
-//	int memberSize;
-	
-
+	// TODO:
 	
 	int postNo;
 	String title;
@@ -30,9 +13,7 @@ public class PostDTO {
 	String onoff;
 	String region;
 	String recruitType;
-	String recruitType2;
-	String recruitType3;
-	int memberSize;
+	int memberSize1;
 	int memberSize2;
 	int memberSize3;
 	String content;
@@ -44,24 +25,22 @@ public class PostDTO {
 	String startDate;
 	String skills;
 	String contact;
+	String category1;
+	String category2;
 	
 	public PostDTO() {}
 
-
-
 	public PostDTO(int postNo, String title, String studyType, String onoff, String region, String recruitType,
-			String recruitType2, String recruitType3, int memberSize, int memberSize2, int memberSize3, String content,
-			String userid, boolean closing, String post_date, int viewCount, String deadline, String startDate,
-			String skills, String contact) {
+			int memberSize1, int memberSize2, int memberSize3, String content, String userid, boolean closing,
+			String post_date, int viewCount, String deadline, String startDate, String skills, String contact,
+			String category1, String category2) {
 		this.postNo = postNo;
 		this.title = title;
 		this.studyType = studyType;
 		this.onoff = onoff;
 		this.region = region;
 		this.recruitType = recruitType;
-		this.recruitType2 = recruitType2;
-		this.recruitType3 = recruitType3;
-		this.memberSize = memberSize;
+		this.memberSize1 = memberSize1;
 		this.memberSize2 = memberSize2;
 		this.memberSize3 = memberSize3;
 		this.content = content;
@@ -73,91 +52,9 @@ public class PostDTO {
 		this.startDate = startDate;
 		this.skills = skills;
 		this.contact = contact;
+		this.category1 = category1;
+		this.category2 = category2;
 	}
-
-
-
-
-
-
-
-
-
-	public String getRecruitType2() {
-		return recruitType2;
-	}
-
-
-
-	public void setRecruitType2(String recruitType2) {
-		this.recruitType2 = recruitType2;
-	}
-
-
-
-	public String getRecruitType3() {
-		return recruitType3;
-	}
-
-
-
-	public void setRecruitType3(String recruitType3) {
-		this.recruitType3 = recruitType3;
-	}
-
-
-
-	public int getMemberSize2() {
-		return memberSize2;
-	}
-
-
-
-	public void setMemberSize2(int memberSize2) {
-		this.memberSize2 = memberSize2;
-	}
-
-
-
-	public int getMemberSize3() {
-		return memberSize3;
-	}
-
-
-
-	public void setMemberSize3(int memberSize3) {
-		this.memberSize3 = memberSize3;
-	}
-
-
-
-	public String getOnoff() {
-		return onoff;
-	}
-
-
-
-
-	public void setOnoff(String onoff) {
-		this.onoff = onoff;
-	}
-
-
-
-
-	public String getContact() {
-		return contact;
-	}
-
-
-
-
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
-
-
-
 
 	public int getPostNo() {
 		return postNo;
@@ -165,6 +62,14 @@ public class PostDTO {
 
 	public void setPostNo(int postNo) {
 		this.postNo = postNo;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getStudyType() {
@@ -175,12 +80,12 @@ public class PostDTO {
 		this.studyType = studyType;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getOnoff() {
+		return onoff;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setOnoff(String onoff) {
+		this.onoff = onoff;
 	}
 
 	public String getRegion() {
@@ -199,12 +104,28 @@ public class PostDTO {
 		this.recruitType = recruitType;
 	}
 
-	public int getMemberSize() {
-		return memberSize;
+	public int getMemberSize1() {
+		return memberSize1;
 	}
 
-	public void setMemberSize(int memberSize) {
-		this.memberSize = memberSize;
+	public void setMemberSize1(int memberSize1) {
+		this.memberSize1 = memberSize1;
+	}
+
+	public int getMemberSize2() {
+		return memberSize2;
+	}
+
+	public void setMemberSize2(int memberSize2) {
+		this.memberSize2 = memberSize2;
+	}
+
+	public int getMemberSize3() {
+		return memberSize3;
+	}
+
+	public void setMemberSize3(int memberSize3) {
+		this.memberSize3 = memberSize3;
 	}
 
 	public String getContent() {
@@ -271,16 +192,41 @@ public class PostDTO {
 		this.skills = skills;
 	}
 
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public String getCategory1() {
+		return category1;
+	}
+
+	public void setCategory1(String category1) {
+		this.category1 = category1;
+	}
+
+	public String getCategory2() {
+		return category2;
+	}
+
+	public void setCategory2(String category2) {
+		this.category2 = category2;
+	}
 
 	@Override
 	public String toString() {
 		return "PostDTO [postNo=" + postNo + ", title=" + title + ", studyType=" + studyType + ", onoff=" + onoff
-				+ ", region=" + region + ", recruitType=" + recruitType + ", recruitType2=" + recruitType2
-				+ ", recruitType3=" + recruitType3 + ", memberSize=" + memberSize + ", memberSize2=" + memberSize2
-				+ ", memberSize3=" + memberSize3 + ", content=" + content + ", userid=" + userid + ", closing="
-				+ closing + ", post_date=" + post_date + ", viewCount=" + viewCount + ", deadline=" + deadline
-				+ ", startDate=" + startDate + ", skills=" + skills + ", contact=" + contact + "]";
+				+ ", region=" + region + ", recruitType=" + recruitType + ", memberSize1=" + memberSize1
+				+ ", memberSize2=" + memberSize2 + ", memberSize3=" + memberSize3 + ", content=" + content + ", userid="
+				+ userid + ", closing=" + closing + ", post_date=" + post_date + ", viewCount=" + viewCount
+				+ ", deadline=" + deadline + ", startDate=" + startDate + ", skills=" + skills + ", contact=" + contact
+				+ ", category1=" + category1 + ", category2=" + category2 + "]";
 	}
+
+
 
 
 	

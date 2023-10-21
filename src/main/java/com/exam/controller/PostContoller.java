@@ -1,6 +1,7 @@
 package com.exam.controller;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,8 +39,17 @@ public class PostContoller {
 
 	// 삽입하기
 	@PostMapping("/postAdd")
-	public String noticeAdd(PostDTO dto) {
+	public String noticeAdd(PostDTO dto, @RequestParam String category) {
 		int n = service.postAdd(dto);
+		StringTokenizer st = new StringTokenizer(category, ",");
+		while(st.hasMoreElements()) {
+			String category1 = st.nextToken();
+			String category2 = st.nextToken();
+			dto.setCategory1(category1);
+			dto.setCategory2(category2);
+		}
+		System.out.println(dto.toString());
+		
 		return "redirect:postMain";
 	}
 

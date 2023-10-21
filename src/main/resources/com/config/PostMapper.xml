@@ -10,16 +10,16 @@
 	</select>
 
 	<insert id="postAdd" parameterType="PostDTO">
-		insert into post ( studyType, title, onoff, region, recruitType ,memberSize,
+		insert into post ( studyType, title, onoff, region, recruitType, category1, category2 ,memberSize1,memberSize2,memberSize3,
 		content, contact,deadline,startDate )
 		values (
-		#{studyType},#{title},#{onoff},#{region},#{recruitType},#{memberSize},#{content},#{contact},#{deadline},#{startDate}
+		#{studyType},#{title},#{onoff},#{region},#{recruitType},#{category1},#{category2},#{memberSize1},#{memberSize2},#{memberSize3},#{content},#{contact},#{deadline},#{startDate}
 		)
 	</insert>
 
 	<select id="postListbyNo" resultType="PostDTO">
 		select
-		postNo,title,studyType,onoff,region,recruitType,content,startDate,deadline,contact,viewCount,memberSize
+		postNo,title,studyType,onoff,region,recruitType,content,startDate,deadline,contact,viewCount,memberSize1,memberSize2,memberSize3,category
 		from post
 		where postNo=#{postNo}
 	</select>
@@ -27,7 +27,7 @@
 	<update id="postUpdate" parameterType="PostDTO">
 		update post
 		set
-		studyType=#{studyType},title=#{title},onoff=#{onoff},region=#{region},recruitType=#{recruitType},memberSize=#{memberSize},content=#{content},contact=#{contact}
+		studyType=#{studyType},title=#{title},onoff=#{onoff},region=#{region},recruitType=#{recruitType},memberSize1=#{memberSize1},memberSize2=#{memberSize2},memberSize3=#{memberSize3},content=#{content},contact=#{contact},category=#{category}
 		where postNo=#{postNo}
 	</update>
 
