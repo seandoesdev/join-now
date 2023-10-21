@@ -11,8 +11,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Alias("MyPgDTO")
 public class MyPgDTO {
 	
