@@ -23,7 +23,7 @@
 $(document).ready(function() {
 
 	//category change
-	$("#category").on("change", function() {
+	$("#category"+idx).on("change", function() {
 	    var a = ['게임기획', '프로젝트 매니저', 'UX/UI기획'];
 	    var b = ['UI/UX 디자인', '웹페이지 디자인', '디자이너'];
 	    var c = ['프론트엔드', '백엔드', '풀스택'];
@@ -64,114 +64,137 @@ $(document).ready(function() {
 	    }
 	    console.log(category);
 
-	    $(this).next(".recruitType").empty();
+	    $(this).next("#recruitType").empty();
 
 	    for (var i = 0; i < o.length; i++) {
-	        $(this).next(".recruitType").append("<option value='" + o[i] + "'>" + o[i] + "</option>");
+	        $(this).next("#recruitType").append("<option value='" + o[i] + "'>" + o[i] + "</option>");
 	    }
 
 	});
-
 	
-	
-
-
-					$('.btn-number').click(function(e) {
-										e.preventDefault();
-
-										fieldName = $(this).attr('data-field');
-										type = $(this).attr('data-type');
-										var input = $("input[name='"+ fieldName + "']");
-										var currentVal = parseInt(input.val());
-										if (!isNaN(currentVal)) {
-											if (type == 'minus') {
-
-												if (currentVal > input.attr('min')) {
-													input.val(currentVal - 1).change();
-												}if (parseInt(input.val()) == input.attr('min')) {
-													$(this).attr('disabled',true);}
-
-											} else if (type == 'plus') {
-
-												if (currentVal < input.attr('max')) {
-													input.val(currentVal + 1).change();
-												}
-												if (parseInt(input.val()) == input.attr('max')) {
-													$(this).attr('disabled',true);
-												}
-
-											}
-										} else {
-											input.val(0);
-										}
-									});
-					$('.input-number')
-							.change(
-									function() {
-
-										minValue = parseInt($(this).attr(
-												'min'));
-										maxValue = parseInt($(this).attr(
-												'max'));
-										valueCurrent = parseInt($(this)
-												.val());
-
-										name = $(this).attr('name');
-										if (valueCurrent >= minValue) {
-											$(
-													".btn-number[data-type='minus'][data-field='"
-															+ name + "']")
-													.removeAttr('disabled')
-										} else {
-											alert('Sorry, the minimum value was reached');
-											$(this)
-													.val(
-															$(this)
-																	.data(
-																			'oldValue'));
-										}
-										if (valueCurrent <= maxValue) {
-											$(
-													".btn-number[data-type='plus'][data-field='"
-															+ name + "']")
-													.removeAttr('disabled')
-										} else {
-											alert('Sorry, the maximum value was reached');
-											$(this)
-													.val(
-															$(this)
-																	.data(
-																			'oldValue'));
-										}
-
-									});
-					
-					//add-btn
-					$(document).on("click", "#add-btn", function() {
-					    var newSelectCategory = $("<select id='category' name='category' class='form-control'></select>");
-					    
-					    // Add options to the new select element
-					    var newSelectRecruitType = $("<div class='row'><div class='col-sm-6'><select name='recruitType' name='recruitType' class='form-control'></select>");
-					    
-					    newSelectCategory.append("<option value=''>옵션을 선택해주세요.</option>");
-					    newSelectCategory.append("<option value='기획자'>기획자</option>");
-					    newSelectCategory.append("<option value='디자이너'>디자이너</option>");
-					    newSelectCategory.append("<option value='개발자'>개발자</option>");
-					    
-					    newSelectRecruitType.append("<option value=''>옵션을 선택해주세요.</option>");
-					    
-					    var newMsize = $("<div class='input-group'><span class='input-group-btn'></div>");
-						newMsize.append("<button type='button' class='btn btn-default btn-number'disabled='disabled' data-type='minus' data-field='memberSize'></button>");
-						newMsize.append("<span class='glyphicon glyphicon-minus'></span>");
-						newMsize.append("<input type='text' name='memberSize'class='form-control input-number' value='1' min='1' max='10'>");
-						newMsize.append("<span class='input-group-btn'><button type='button' class='btn btn-default btn-number' data-type='plus' data-field='memberSize'></span>");
-						newMsize.append("<span class='glyphicon glyphicon-plus'></span>");
-					    
-					    $("#addSelect").prepend(newMsize).prepend(newSelectRecruitType).prepend(newSelectCategory);
+			
+			//up-btn
+			var idx=1;
+			$(document).on("click","#up-btn"+idx, function() {
+				var memberSize = Number.parseInt($(
+				"#memberSize1").val());
+		$("#memberSize1").val(memberSize + 1);
+		});//end up
+			
+			//down-btn
+			$(document).on("click","#down-btn"+idx,  function() {
 						
-					});//end add-btn
+							var memberSize = Number.parseInt($(
+									"#memberSize1").val());
+							if (memberSize == 1) {
+								$("#memberSize1").val(1);
+							} else {
+								$("#memberSize1").val(memberSize - 1);
+							}	
+					});//end down
+					
+					
+					//up-btn
+					var idx=2;
+					$(document).on("click","#up-btn"+idx, function() {
+						var memberSize = Number.parseInt($(
+						"#memberSize2").val());
+				$("#memberSize2").val(memberSize + 1);
+				});//end up
+					
+					//down-btn
+					$(document).on("click","#down-btn"+idx,  function() {
+									var memberSize = Number.parseInt($(
+											"#memberSize2").val());
+									if (memberSize == 1) {
+										$("#memberSize2").val(1);
+									} else {
+										$("#memberSize2").val(memberSize - 1);
+									}	
+							});//end down
+							
+							
+							//up-btn
+							var idx=3;
+							$(document).on("click","#up-btn"+idx, function() {
+								var memberSize = Number.parseInt($(
+								"#memberSize3").val());
+						$("#memberSize3").val(memberSize + 1);
+						});//end up
+							
+							//down-btn
+							$(document).on("click","#down-btn"+idx,  function() {
+										
+											var memberSize = Number.parseInt($(
+													"#memberSize3").val());
+											if (memberSize == 1) {
+												$("#memberSize3").val(1);
+											} else {
+												$("#memberSize3").val(memberSize - 1);
+											}	
+									});//end down
+					
+					
+		
+					
+					$("[id~=memberSize]").each(function(index) { // memberSize로 시작하는 id값을 가진 모든 것들을
+					    var idx = index + 1;
+					    $(this).attr('id', 'memberSize'+idx);
+					})
+					
+					$("[id~=up-btn]").each(function(index) { // up-btn로 시작하는 id값을 가진 모든 것들을
+					    var idx = index + 1;
+					    $(this).attr('id', 'up-btn'+idx);
+					})
+					
+					$("[id~=down-btn]").each(function(index) { // down-btn로 시작하는 id값을 가진 모든 것들을
+					    var idx = index + 1;
+					    $(this).attr('id', 'down-btn'+idx);
+					})
+					
+						 
+					
+			var index = 2; 
+			var addUp = function() {
+ 				 $("body").append("<img src='images/up.png' id='up-btn"+index+"'style='width:40px; height:40px;'>");
+ 				$("body").append("<img src='images/down.png' id='down-btn"+index+"'style='width:35px; height:35px;'>");
+  					index++;
+				};
+						
+			//addSelect
+			
+			$("#add-btn").on("click",function(){
 
-				});//end ready
+				var newSelectCategory = "<select id='category' class='form-control' name='category' >"
+					newSelectCategory += "<option value=''>옵션을 선택해주세요.</option>"
+					newSelectCategory += "<option value='기획자'>기획자</option>"
+					newSelectCategory += "<option value='디자이너'>디자이너</option>"
+					newSelectCategory += "<option value='개발자'>개발자</option></select>"
+				
+			    
+			    // Add options to the new select element
+				var newSelectRecruitType = "<select id='recruitType' name='recruitType' class='form-control'>"
+					newSelectRecruitType += "<option value=''>옵션을 선택해주세요.</option></select>"
+			    
+			    var newMsize = "<div id='mSize'>";
+					newMsize += "<img src='images/down.png' id='down-btn"+index+"' style='width:35px; height:35px;'>";
+					newMsize += "<input type='text' name='memberSize' value='1' id='memberSize"+index+"'>";
+					newMsize += "<img src='images/up.png' id='up-btn"+index+"' style='width:40px; height:40px;'></div>";
+					index++;
+			    $(".addSelect").prepend(newMsize).prepend(newSelectRecruitType).prepend(newSelectCategory);
+				
+			});
+					
+					 $("#del-btn").on("click",function() {
+						 $(this).prev().prev().prev().prev().remove();
+						 $(this).prev().prev().prev().remove();
+						 $(this).prev().prev().remove();
+				        });
+		
+				
+					 
+
+});//end ready
 						
 						
 </script>
@@ -213,9 +236,9 @@ $(document).ready(function() {
 						<label for="studyType">유형</label>
 					</h4>
 					<br>
-						<input type="radio" name="studyType" value="project" checked>
-						프로젝트 <input type="radio" name="studyType" value="study">
-						스터디
+						<input type="radio" name="studyType" value="project" th:checked="${postListbyNum.studyType}=='project'"> 프로젝트 <br>
+						<input type="radio" name="studyType" value="study" th:checked="${postListbyNum.studyType}=='study'"> 스터디
+						
 				</div>
 				</div>
 					<br>
@@ -224,8 +247,6 @@ $(document).ready(function() {
 					<h4>
 						<label>지역</label>
 					</h4>
-					<div class="row">
-        <div class="col-sm-6">
 					<div>
 						<select th:value="${postListbyNum.onoff}" name="onoff" class="form-control">
 							<option th:selected="${postListbyNum.onoff}=='무관'" value="무관">무관</option>
@@ -241,49 +262,25 @@ $(document).ready(function() {
 						</select>
 					</div>
 				</div>
-				</div>
-				</div>
-				<br>
 				<div class="form-group">
-					<h4>
-						<label for="recruitType">모집인원</label>
-					</h4>
-					<div class="row">
-        <div class="col-sm-6">
-						<select name="category" class="form-control">
-							<option value="기획자">기획자</option>
-							<option value="디자이너">디자이너</option>
-							<option value="개발자">개발자</option>
-						</select>
-						<select th:value="${postListbyNum.recruitType}" name="recruitType"
-							class="form-control">
-							<option selected value="프로젝트 매니저">프로젝트 매니저</option>
-							<option th:selected="${postListbyNum.recruitType}=='프로젝트 매니저'" value="프로젝트 매니저">프로젝트 매니저</option>
-							<option th:selected="${postListbyNum.recruitType}=='UI/UX 기획'" value="UI/UX 기획">UI/UX 기획</option>
-							<option th:selected="${postListbyNum.recruitType}=='게임 기획'" value="게임 기획">게임 기획</option>
-							<option th:selected="${postListbyNum.recruitType}=='UI/UX 디자이너'" value="UI/UX 디자이너">UI/UX 디자이너</option>
-							<option th:selected="${postListbyNum.recruitType}=='프론트엔드'" value="프론트엔드">프론트엔드</option>
-							<option th:selected="${postListbyNum.recruitType}=='백엔드'" value="백엔드">백엔드</option>
-							<option th:selected="${postListbyNum.recruitType}=='풀스택'" value="백엔드">풀스택</option>
-						</select>
+    <h4>
+        <label for="memberRecruit">모집인원</label>
+    </h4>
+    <table>
+            <tr th:each="dto : ${positionList}">
+                <input type="text" class="form-control" th:value="${dto.category}">
+                <input type="text" class="form-control" th:value="${dto.recruitType}"></span>
+                <input type="text" class="form-control" th:value="${dto.memberSize != null ? dto.memberSize + '명' : 'N/A'}"><br>
+            </tr>
+        </table>
+</div>
+						<div>
+                        <div id="mSize">
+						<img src="images/down.PNG" id="down-btn" style="width:35px; height:35px;">
+						<input type="text" name="memberSize" value="1" id="memberSize">
+						<img src="images/up.PNG" id="up-btn" style="width:40px; height:40px;">
 						</div>
-						<div class="input-group">
-						<span class="input-group-btn">
-							<button id="minus-btn" type="button" class="btn btn-default btn-number"
-								disabled="disabled" data-type="minus" data-field="memberSize">
-								<span class="glyphicon glyphicon-minus"></span>
-							</button>
-						</span>
-						<input type="text" name="memberSize"
-							class="form-control input-number" value="1" min="1" max="10">
-						<span class="input-group-btn">
-							<button id="plus-btn" type="button" class="btn btn-default btn-number"
-								data-type="plus" data-field="memberSize">
-								<span class="glyphicon glyphicon-plus"></span>
-							</button>
-						</span>
-					</div>
-				</div>
+			</div>
 <p class="form-group" id="addSelect">
 				<button type="button" class="btn rounded-pill me-2 btn-success"
 					id="add-btn">추가</button>

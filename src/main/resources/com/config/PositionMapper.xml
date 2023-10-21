@@ -1,0 +1,37 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PositionMapper">
+
+	<select id="positionList" resultType="PositionDTO" parameterType="int">
+		select postNo,category,recruitType,memberSize
+		from position
+		where postNo=#{postNo}
+	</select>
+
+	<insert id="positionAdd" parameterType="PositionDTO">
+		insert into position ( category, recruitType, memberSize )
+		values ( #{category},#{recruitType},#{memberSize} )
+	</insert>
+	
+	<insert id="positionNoAdd">
+		insert into position ( postNo)
+		values (#{postNo})
+	</insert>
+
+	<update id="positionUpdate" parameterType="PositionDTO">
+		update position
+		set
+		category=#{category},recruitType=#{recruitType},memberSize=#{memberSize}
+		where postNo=#{postNo}
+	</update>
+
+	<delete id="positionDelete" >
+		delete from position
+		where postNo=#{postNo}
+	</delete>
+	
+</mapper>
+
+

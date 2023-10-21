@@ -181,7 +181,7 @@ $(document).ready(function() {
 			    
 			    var newMsize = "<div id='mSize'>";
 					newMsize += "<img src='images/down.png' id='down-btn"+index+"' style='width:35px; height:35px;'>";
-					newMsize += "<input type='text' name='memberSize"+index+"' value='1' id='memberSize"+index+"'>";
+					newMsize += "<input type='text' name='memberSize' value='1' id='memberSize"+index+"'>";
 					newMsize += "<img src='images/up.png' id='up-btn"+index+"' style='width:40px; height:40px;'></div>";
 					index++;
 			    $(".addSelect").prepend(newMsize).prepend(newSelectRecruitType).prepend(newSelectCategory);
@@ -197,7 +197,7 @@ $(document).ready(function() {
 				
 					 
 
-				});//end ready
+});//end ready
 				
 				
 				
@@ -234,8 +234,8 @@ $(document).ready(function() {
 				<h4>
 					<label for="studyType">유형</label>
 				</h4>
-				<br> <input type="radio" name="studyType" value="프로젝트">
-				프로젝트 <input type="radio" name="studyType" value="스터디"> 스터디
+				<br> <input type="radio" name="studyType" value="project">
+				프로젝트 <input type="radio" name="studyType" value="study"> 스터디
 			</div>
 			<br>
 			<div class="form-group">
@@ -274,7 +274,7 @@ $(document).ready(function() {
 				<div>
                         <div id="mSize"> 
 						<img src="images/down.PNG" id="down-btn" style="width:35px; height:35px;">
-						<input type="text" name="memberSize1" value="1" id="memberSize">
+						<input type="text" name="memberSize" value="1" id="memberSize1">
 						<img onclick="addUp()" src="images/up.PNG" id="up-btn" style="width:40px; height:40px;">
 						</div>
 			</div>
@@ -325,7 +325,7 @@ $(document).ready(function() {
 			<br>
 			<div class="form-group">
 				<button type="reset" class="btn rounded-pill me-2">reset</button>
-				<input type="submit" value="apply"
+				<input type="submit" value="공고 등록"
 					class="btn rounded-pill me-2 btn-success" onclick="go_list()">
 			</div>
 		</form>
