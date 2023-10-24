@@ -1,0 +1,24 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ProjTeamMapper">
+ 
+   <!-- <insert id="insertSch" parameterType="ScheduleDTO">
+    insert into calendar (calendarId, title, startDate, endDate, color)
+	values ()
+   </insert> -->
+   
+  	<select id="selectAllbyId" resultType="ProjDTO">
+  		select title, intro, process, tMember 
+  		from project
+  	</select>
+  	
+  	<insert id="createPost" parameterType="QuestionDTO">
+  		insert into (title, content)
+  		values (#{title}, #{content})
+  	</insert>
+   
+</mapper>
+
+

@@ -5,7 +5,7 @@
 <mapper namespace="TestMapper">
  
    <select id="testSelect" resultType="TestDTO">
-     select id, pw
+    select id, pw
 	from test
    </select>
    

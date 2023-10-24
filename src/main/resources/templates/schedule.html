@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="light-style customizer-hide" dir="ltr" xmlns:th="http://www.thymeleaf.org" data-theme="theme-default" data-assets-path="/assets/" data-template="vertical-menu-template-no-customizer">
+<head>
+<meta charset="utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+<title>일정표</title>
+
+<meta name="description" content="" />
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" th:href="@{/assets/img/favicon/favicon.ico}" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="../js/calendar.js"></script>
+
+
+</head>
+
+<body>
+
+	<header th:replace="fragments/header :: header"></header>
+
+	
+	<div id="calender-container">
+		<div id='calendar'></div>
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
+		<div class="modal-dialog">
+			<form class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="backDropModalTitle">일정 추가</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col mb-3">
+							<label for="nameBackdrop" class="form-label">일정 <span class="text-danger">*</span></label>
+							<input type="text" id="eventContent" class="form-control" placeholder="일정 입력해주세요." required>
+						</div>
+						<div class="row">
+							<div class="col mb-0">
+								<label for="dobBackdrop" class="form-label">시작일 <span class="text-danger">*</span></label>
+								<input type="date" id="event_start_date" class="form-control" required>
+							</div>
+							<div class="col mb-0">
+								<label for="dobBackdrop" class="form-label">마감일 - <small class="text-muted">선택사항</small></label>
+								<input type="date" id="event_end_date" class="form-control">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col mb-3">
+								<label for="nameBackdrop" class="form-label">색상 </label>
+								<input type="color" id="event_color" class="form-control" value="#3788d8" required>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="addEvent">추가</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+	<footer th:replace="fragments/footer :: footer"></footer>
+
+	<!-- Core JS -->
+	<!-- build:js assets/vendor/js/core.js -->
+
+	
+
+</body>
+</html>
