@@ -5,6 +5,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.exam.dto.UserInfoDTO;
 import com.exam.securitymodel.User;
 
 
@@ -19,6 +20,11 @@ public class UserDAO {
 	public User idCheck(String username) {
 		User user = session.selectOne("UserMapper.idCheck", username);
 		return user;
-		}
+	}
+	
+	// 유저 정보 select
+	public UserInfoDTO selectAll(String username) {
+		return session.selectOne("UserMapper.selectAll", username);
+	}
 
 }

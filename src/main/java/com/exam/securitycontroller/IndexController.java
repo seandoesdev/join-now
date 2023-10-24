@@ -1,10 +1,10 @@
 package com.exam.securitycontroller;
 
-import java.util.Iterator;
-
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.exam.dto.UserInfoDTO;
 import com.exam.repository.UserRepository;
 import com.exam.securityconfig.auth.PrincipalDetails;
 import com.exam.securitymodel.User;
@@ -32,7 +32,20 @@ public class IndexController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@GetMapping({ "", "/app" })
-	public String index() {
+	public String index(
+			Authentication authentication, @AuthenticationPrincipal PrincipalDetails userDetails,
+			HttpSession session){
+		
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        System.out.println("authentication:" + principalDetails.getUser());
+        User user = principalDetails.getUser();
+        System.out.println(user.getEmail());
+        
+        UserInfoDTO dto = service.selectAll(user.getUsername());
+        System.out.println(dto);
+        
+        session.setAttribute("loginInfo", dto);
+		
 		return "redirect:main";
 	}
 

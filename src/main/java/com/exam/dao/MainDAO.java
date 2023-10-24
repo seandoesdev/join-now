@@ -22,6 +22,8 @@ public class MainDAO {
 	
 	public PageDTO selectList(int curPage){
 		PageDTO pageDTO = new PageDTO();
+		// pageDTO.setPerPage(11); => 한 페이지의 리스트 개수를 11개로 설정
+		// RowBounds(offset, limit) 한 페이지에 나오는 리스트 개수 만큼, List<PostDTO> list에 담는다. 
 		int offset = (curPage-1)*pageDTO.getPerPage();
 		int limit = pageDTO.getPerPage();
 		List<PostDTO> list =  session.selectList("MainMapper.selectList", null, new RowBounds(offset, limit));
@@ -30,6 +32,8 @@ public class MainDAO {
 		pageDTO.setCurPage(curPage);
 		pageDTO.setTotalCount(totalCount());
 		
+		// 페이지 개수 조정 -> 설정을 안하고 설계를 하면 리스트가 6개일 경우 페이지가 1장만 있으면 모두 출력 가능하지만 2장이 출력되게끔 밖에 설계가 불가능함.
+		// 그래서 if문을 사용하여 페이징을 처리 함.
 		if(totalCount()%pageDTO.getPerPage()==0) {
 			pageDTO.setPageNum(totalCount()/pageDTO.getPerPage());
 		}else {

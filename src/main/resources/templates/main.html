@@ -24,21 +24,35 @@
 	
     <header class="bg-white d-flex justify-content-between align-items-center p-2">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1><a href="" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
+            <h1><a th:href="@{main}" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
             <nav>
                 <ul class="list-inline m-0">
-                    <li class="list-inline-item">
-                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>
-                    </li>
+                    <th:block th:switch="${session.loginInfo}">
+                    	<th:block th:case="null">
+	                    	<li class="list-inline-item">
+	                        	<a th:href="@{join}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
+		                    </li>
+		                    <li class="list-inline-item">
+		                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>                        
+		                    </li>
+                    	</th:block>
+                    	<th:block th:case="*">
+	                    	<li class="list-inline-item">
+	                        	<a th:href="@{mypage}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">MyPage</a>
+		                    </li>
+		                    <li class="list-inline-item">
+		                        <a th:href="@{logout}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log Out</a>                        
+		                    </li>
+                    	</th:block>
+	                        		
+					</th:block>
                 </ul>
             </nav>
         </div>
     </header>
 	<!-- 배너 -->
     <section class="banner text-center py-5 mb-5" style="background-color: #2CA40E; color: #ffffff;">
+    	    	
         <h2 style="font-size: 37px;">JoiNow</h2>
         <h3 style="font-size: 18px;">지금 함께 하세요</h3>
         
@@ -58,15 +72,13 @@
 		<div class="row">
 			<th:block th:each="postDTO, index : ${pageDTO.list}">
 			    <div class="col-md-4 mb-4">
-			        	<a th:href="retrieve">
+			        	<a th:href="'retrieve?postNo='+${postDTO.postNo}">
 			             <div class="card">
 			                 <div class="card-body">	
 			                     <span class="icon"></span>
 			                     <h3 class="card-title" th:text="${postDTO.title}">Feature Title</h3>
-			                     <p class="card-text" th:text="${postDTO.postNo}">Dummy text</p>
-			                    
+			                     <p class="card-text" th:text="${postDTO.postNo}">Dummy text</p>			                    
 			                 </div>
-			                 
 			             </div>
 			       		</a>
 			    </div>
