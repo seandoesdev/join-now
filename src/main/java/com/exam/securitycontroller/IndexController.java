@@ -10,14 +10,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.exam.repository.UserRepository;
 import com.exam.securityconfig.auth.PrincipalDetails;
 import com.exam.securitymodel.User;
+import com.exam.service.UserService;
 
 @Controller
 public class IndexController {
+	
+	@Autowired
+	UserService service;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -77,4 +83,21 @@ public class IndexController {
 		userRepository.save(user);
 		return "redirect:/";
 	}
+	
+	// 아이디 중복 확인
+	@GetMapping(value="/UserIdCheckServlet", 
+				produces = "text/plain;charset=utf-8") // 한글이 깨져서 utf-8설정
+	@ResponseBody // 응답을 jsp가 아닌 일반 데이터(문자열, JSON 형태)로 전송
+	public String idCheck(@RequestParam("username")
+								String username) {
+		User user = service.idCheck(username);
+		
+		String mesg = "아이디 사용 가능";
+		if(user!=null) {
+			mesg = "아이디 중복";
+		}
+		
+		return mesg; //@ResponseBody이니 문자열로 리턴하고, .jsp는 맵핑값을 따라간다  
+		// /WEB-INF/views/MemberIdCheckServlet.jsp
+		}
 }
