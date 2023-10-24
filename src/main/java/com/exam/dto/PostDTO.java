@@ -17,19 +17,15 @@ public class PostDTO {
 	boolean closing;
 	String postDate;
 	int viewCount;
-
-
 	String deadline;
 	String startDate;
 	String contact;
 	
 	public PostDTO() {}
 
-
 	public PostDTO(int postNo, String title, String studyType, String onoff, String region, String content,
 			int userid, boolean closing, String postDate, int viewCount, String deadline, String startDate,
 			String contact) {
-
 		this.postNo = postNo;
 		this.title = title;
 		this.studyType = studyType;
@@ -44,7 +40,6 @@ public class PostDTO {
 		this.startDate = startDate;
 		this.contact = contact;
 	}
-
 
 	public int getPostNo() {
 		return postNo;
@@ -85,47 +80,6 @@ public class PostDTO {
 	public void setRegion(String region) {
 		this.region = region;
 	}
-
-	public String getRecruitType() {
-		return recruitType;
-
-	}
-
-	public void setRecruitType(String recruitType) {
-		this.recruitType = recruitType;
-	}
-
-
-	public String getTitle() {
-		return title;
-
-
-	public void setRecruitType3(String recruitType3) {
-		this.recruitType3 = recruitType3;
-	}
-
-
-	public String getStudyType() {
-		return studyType;
-	}
-
-
-	public String getOnoff() {
-		return onoff;
-	}
-
-	public void setOnoff(String onoff) {
-		this.onoff = onoff;
-	}
-
-	public String getRegion() {
-		return region;
-	}
-
-	public void setRegion(String region) {
-		this.region = region;
-
-	
 
 	public String getContent() {
 		return content;
@@ -198,5 +152,7 @@ public class PostDTO {
 				+ ", postDate=" + postDate + ", viewCount=" + viewCount + ", deadline=" + deadline + ", startDate="
 				+ startDate + ", contact=" + contact + "]";
 	}
+
+
 	
 }
