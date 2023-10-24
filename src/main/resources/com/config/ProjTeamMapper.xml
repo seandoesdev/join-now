@@ -9,6 +9,32 @@
 	values ()
    </insert> -->
    
+   
+   <!-- 팀 정보 -->
+   <!-- <select id="selectById">
+   		
+   </select> -->
+   
+   
+   <!-- 일정표 -->
+   <select id="selectAllEventbyId" resultType="ScheduleDTO">
+   	select scheduleId, teamId, title, start, end, color 
+   	from schedule
+   </select>
+   
+   <insert id="insertEvent" parameterType="java.util.List">
+   	insert into schedule (title, start, end, color)
+   	values 
+   	<foreach collection="list" item="item" separator=",">
+   		(#{item.title}, #{item.start}, #{item.end}, #{item.color})
+   	</foreach>
+   </insert>
+   
+   <!-- 회의록 -->
+   
+   
+   <!-- 공고 신청 관리-->
+   
   	<select id="selectAllbyId" resultType="ProjDTO">
   		select title, intro, process, tMember 
   		from project

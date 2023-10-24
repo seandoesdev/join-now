@@ -8,12 +8,12 @@ import com.exam.dto.TestDTO;
 
 
 public interface ProjTeamService {
-	public List<ScheduleDTO> insertSch();
-	public List<TestDTO> testSelect();
+  
+    // 일정표 
+	public int insertEvent(List<ScheduleDTO> scheduleDTO);
+	public List<ScheduleDTO> selectAllEventbyId();
 	
 	
+	// 팀 정보
 	public ProjDTO selectAllbyId();
-	
-	// projTeam question에서 게시글 생성 
-	public int createPost (QuestionDTO questionDTO);
 }
