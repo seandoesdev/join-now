@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    .card {
+        height: 400px;
+    }
+    
+    a{
+	    color: inherit; /* 기본 링크 색상 유지 */
+	}
+    
+    a:hover {
+    	text-decoration: none; /* 링크에 마우스를 올렸을 때 밑줄 효과 제거 */    
+	}
+   
+</style>
+</head>
+
+<body>
+	
+    <header class="bg-white d-flex justify-content-between align-items-center p-2">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1><a href="" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
+            <nav>
+                <ul class="list-inline m-0">
+                    <li class="list-inline-item">
+                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+	
+	<!-- 리스트 -->
+	<section class="features container">
+		
+		<div class="row justify-content-center">
+		    <div class="col-md-12 mb-4">
+		        <a th:href="retrieve">
+		            <div class="list-item d-flex justify-content-center">
+		                <p class="list-title d-inline-block" >Feature Title	</p>
+		                <p class="list-text d-inline-block" >Dummy text	</p>
+		                <p class="list-text d-inline-block" >Dummy text	</p>
+		            </div>
+		        </a>
+		    </div>
+		</div>
+		
+
+	</section>
+	<!-- 리스트 end -->
+	
+	
+	
+	
+	<footer style="background-color: #f2f2f2; bottom: 0; width: 100%; left: 0;">
+        <div class="copyright text-center py-3">
+            <p class="m-0" style="font-size: 14px;">JoiNow</p>
+            <p class="m-0" style="font-size: 14px;">asdf@qwer.com</p>
+        </div>
+	</footer>
+	
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+
+
