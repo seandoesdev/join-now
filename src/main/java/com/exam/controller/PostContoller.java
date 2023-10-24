@@ -2,6 +2,8 @@ package com.exam.controller;
 
 import java.util.List;
 
+import javax.swing.text.Position;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -79,14 +81,16 @@ public class PostContoller {
 		m.addAttribute("postListbyNum", dto);
 		m.addAttribute("postList", list);
 		m.addAttribute("positionList", positionList);
+		System.out.println(dto);
 		return "updateForm";
 
 	}
 
 	// 게시글 업데이트 화면
 	@PostMapping("/update")
-	public String postUpdate(PostDTO dto) {
+	public String postUpdate(PostDTO dto, PositionDTO dto2) {
 		int n = service.postUpdate(dto);
+		int n2 = positionService.positionUpdate(dto2);
 		return "redirect:postMain";
 	}
 	

@@ -13,20 +13,19 @@ public class PostDTO {
 	String onoff;
 	String region;
 	String content;
-	String userid;
+	int userid;
 	boolean closing;
-	String post_date;
+	String postDate;
 	int viewCount;
 	String deadline;
 	String startDate;
-	String skills;
 	String contact;
 	
 	public PostDTO() {}
 
 	public PostDTO(int postNo, String title, String studyType, String onoff, String region, String content,
-			String userid, boolean closing, String post_date, int viewCount, String deadline, String startDate,
-			String skills, String contact) {
+			int userid, boolean closing, String postDate, int viewCount, String deadline, String startDate,
+			String contact) {
 		this.postNo = postNo;
 		this.title = title;
 		this.studyType = studyType;
@@ -35,11 +34,10 @@ public class PostDTO {
 		this.content = content;
 		this.userid = userid;
 		this.closing = closing;
-		this.post_date = post_date;
+		this.postDate = postDate;
 		this.viewCount = viewCount;
 		this.deadline = deadline;
 		this.startDate = startDate;
-		this.skills = skills;
 		this.contact = contact;
 	}
 
@@ -91,11 +89,11 @@ public class PostDTO {
 		this.content = content;
 	}
 
-	public String getUserid() {
+	public int getUserid() {
 		return userid;
 	}
 
-	public void setUserid(String userid) {
+	public void setUserid(int userid) {
 		this.userid = userid;
 	}
 
@@ -107,12 +105,12 @@ public class PostDTO {
 		this.closing = closing;
 	}
 
-	public String getPost_date() {
-		return post_date;
+	public String getPostDate() {
+		return postDate;
 	}
 
-	public void setPost_date(String post_date) {
-		this.post_date = post_date;
+	public void setPostDate(String postDate) {
+		this.postDate = postDate;
 	}
 
 	public int getViewCount() {
@@ -139,14 +137,6 @@ public class PostDTO {
 		this.startDate = startDate;
 	}
 
-	public String getSkills() {
-		return skills;
-	}
-
-	public void setSkills(String skills) {
-		this.skills = skills;
-	}
-
 	public String getContact() {
 		return contact;
 	}
@@ -159,10 +149,9 @@ public class PostDTO {
 	public String toString() {
 		return "PostDTO [postNo=" + postNo + ", title=" + title + ", studyType=" + studyType + ", onoff=" + onoff
 				+ ", region=" + region + ", content=" + content + ", userid=" + userid + ", closing=" + closing
-				+ ", post_date=" + post_date + ", viewCount=" + viewCount + ", deadline=" + deadline + ", startDate="
-				+ startDate + ", skills=" + skills + ", contact=" + contact + "]";
+				+ ", postDate=" + postDate + ", viewCount=" + viewCount + ", deadline=" + deadline + ", startDate="
+				+ startDate + ", contact=" + contact + "]";
 	}
-
 
 
 	

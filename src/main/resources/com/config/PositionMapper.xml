@@ -15,11 +15,6 @@
 		values ( #{category},#{recruitType},#{memberSize} )
 	</insert>
 	
-	<insert id="positionNoAdd">
-		insert into position ( postNo)
-		values (#{postNo})
-	</insert>
-
 	<update id="positionUpdate" parameterType="PositionDTO">
 		update position
 		set

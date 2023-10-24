@@ -84,7 +84,7 @@ $(document).ready(function () {
 														<a th:href="'/app/retrieve?postNo='+${dto.postNo}">[[${dto.title}]]</a>
 														<span class="pull-right" style="font-size:12px" th:text="'조회수: '+${dto.viewCount}"></span>
 														<br>
-														<span class="pull-right" style="font-size:12px" th:text="'작성일: '+${dto.post_date}">(Pagado)</span>
+														<span class="pull-right" style="font-size:12px" th:text="'작성일: '+${dto.postDate}">(Pagado)</span>
 													</h4>
 													<p class="summary"  value="${dto.content}">..</p>
 												</div>

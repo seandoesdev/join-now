@@ -263,24 +263,18 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="form-group">
+   <div class="form-group">
     <h4>
         <label for="memberRecruit">모집인원</label>
     </h4>
     <table>
             <tr th:each="dto : ${positionList}">
-                <input type="text" class="form-control" th:value="${dto.category}">
-                <input type="text" class="form-control" th:value="${dto.recruitType}"></span>
-                <input type="text" class="form-control" th:value="${dto.memberSize != null ? dto.memberSize + '명' : 'N/A'}"><br>
+                <span type="text" class="form-control" th:text="${dto.category}"></span>
+                <span type="text" class="form-control" th:text="${dto.recruitType}"></span>
+                <span type="text" class="form-control" th:text="${dto.memberSize != null ? dto.memberSize + '명' : 'N/A'}"></span><br>
             </tr>
         </table>
-</div>
-						<div>
-                        <div id="mSize">
-						<img src="images/down.PNG" id="down-btn" style="width:35px; height:35px;">
-						<input type="text" name="memberSize" value="1" id="memberSize">
-						<img src="images/up.PNG" id="up-btn" style="width:40px; height:40px;">
-						</div>
-			</div>
+   
 <p class="form-group" id="addSelect">
 				<button type="button" class="btn rounded-pill me-2 btn-success"
 					id="add-btn">추가</button>
