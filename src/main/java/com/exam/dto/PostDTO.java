@@ -5,76 +5,41 @@ import org.apache.ibatis.type.Alias;
 @Alias("PostDTO")
 public class PostDTO {
 	
-//	int no;
-//	String application_status;
-//	String recruitment_period;
-//	String start_date;
-//	String type;
-//	String progress;
-//	String contact;
-//	String skills;
-//	String title;
-//	String region;
-//	String context;
-//	int readcnt;
-//	String userid;
-//	String deadline;
-//	String write_date;
-//	int memberSize;
-	
-
+	// TODO:
 	
 	int postNo;
 	String title;
 	String studyType;
 	String onoff;
 	String region;
-	String recruitType;
-	String recruitType2;
-	String recruitType3;
-	int memberSize;
-	int memberSize2;
-	int memberSize3;
 	String content;
-	String userid;
+	int userid;
 	boolean closing;
-	String post_date;
+	String postDate;
 	int viewCount;
-
-
 	String deadline;
 	String startDate;
-	String skills;
 	String contact;
 	
 	public PostDTO() {}
 
-	public PostDTO(int postNo, String title, String studyType, String onoff, String region, String recruitType,
-			String recruitType2, String recruitType3, int memberSize, int memberSize2, int memberSize3, String content,
-			String userid, boolean closing, String post_date, int viewCount, String deadline, String startDate,
-			String skills, String contact) {
+	public PostDTO(int postNo, String title, String studyType, String onoff, String region, String content,
+			int userid, boolean closing, String postDate, int viewCount, String deadline, String startDate,
+			String contact) {
 		this.postNo = postNo;
 		this.title = title;
 		this.studyType = studyType;
 		this.onoff = onoff;
 		this.region = region;
-		this.recruitType = recruitType;
-		this.recruitType2 = recruitType2;
-		this.recruitType3 = recruitType3;
-		this.memberSize = memberSize;
-		this.memberSize2 = memberSize2;
-		this.memberSize3 = memberSize3;
 		this.content = content;
 		this.userid = userid;
 		this.closing = closing;
-		this.post_date = post_date;
+		this.postDate = postDate;
 		this.viewCount = viewCount;
 		this.deadline = deadline;
 		this.startDate = startDate;
-		this.skills = skills;
 		this.contact = contact;
 	}
-
 
 	public int getPostNo() {
 		return postNo;
@@ -116,54 +81,6 @@ public class PostDTO {
 		this.region = region;
 	}
 
-	public String getRecruitType() {
-		return recruitType;
-	}
-
-	public void setRecruitType(String recruitType) {
-		this.recruitType = recruitType;
-	}
-
-	public String getRecruitType2() {
-		return recruitType2;
-	}
-
-	public void setRecruitType2(String recruitType2) {
-		this.recruitType2 = recruitType2;
-	}
-
-	public String getRecruitType3() {
-		return recruitType3;
-	}
-
-	public void setRecruitType3(String recruitType3) {
-		this.recruitType3 = recruitType3;
-	}
-
-	public int getMemberSize() {
-		return memberSize;
-	}
-
-	public void setMemberSize(int memberSize) {
-		this.memberSize = memberSize;
-	}
-
-	public int getMemberSize2() {
-		return memberSize2;
-	}
-
-	public void setMemberSize2(int memberSize2) {
-		this.memberSize2 = memberSize2;
-	}
-
-	public int getMemberSize3() {
-		return memberSize3;
-	}
-
-	public void setMemberSize3(int memberSize3) {
-		this.memberSize3 = memberSize3;
-	}
-
 	public String getContent() {
 		return content;
 	}
@@ -172,11 +89,11 @@ public class PostDTO {
 		this.content = content;
 	}
 
-	public String getUserid() {
+	public int getUserid() {
 		return userid;
 	}
 
-	public void setUserid(String userid) {
+	public void setUserid(int userid) {
 		this.userid = userid;
 	}
 
@@ -188,12 +105,12 @@ public class PostDTO {
 		this.closing = closing;
 	}
 
-	public String getPost_date() {
-		return post_date;
+	public String getPostDate() {
+		return postDate;
 	}
 
-	public void setPost_date(String post_date) {
-		this.post_date = post_date;
+	public void setPostDate(String postDate) {
+		this.postDate = postDate;
 	}
 
 	public int getViewCount() {
@@ -220,14 +137,6 @@ public class PostDTO {
 		this.startDate = startDate;
 	}
 
-	public String getSkills() {
-		return skills;
-	}
-
-	public void setSkills(String skills) {
-		this.skills = skills;
-	}
-
 	public String getContact() {
 		return contact;
 	}
@@ -239,11 +148,11 @@ public class PostDTO {
 	@Override
 	public String toString() {
 		return "PostDTO [postNo=" + postNo + ", title=" + title + ", studyType=" + studyType + ", onoff=" + onoff
-				+ ", region=" + region + ", recruitType=" + recruitType + ", recruitType2=" + recruitType2
-				+ ", recruitType3=" + recruitType3 + ", memberSize=" + memberSize + ", memberSize2=" + memberSize2
-				+ ", memberSize3=" + memberSize3 + ", content=" + content + ", userid=" + userid + ", closing="
-				+ closing + ", post_date=" + post_date + ", viewCount=" + viewCount + ", deadline=" + deadline
-				+ ", startDate=" + startDate + ", skills=" + skills + ", contact=" + contact + "]";
+				+ ", region=" + region + ", content=" + content + ", userid=" + userid + ", closing=" + closing
+				+ ", postDate=" + postDate + ", viewCount=" + viewCount + ", deadline=" + deadline + ", startDate="
+				+ startDate + ", contact=" + contact + "]";
 	}
+
+
 	
 }

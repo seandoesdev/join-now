@@ -2,7 +2,10 @@ package com.exam.controller;
 
 import java.util.List;
 
+import javax.swing.text.Position;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.exam.dto.ApplyDTO;
+import com.exam.dto.PositionDTO;
 import com.exam.dto.PostDTO;
 import com.exam.service.ApplyService;
+import com.exam.service.PositionService;
 import com.exam.service.PostServiceImpl;
 
 @Controller
@@ -22,6 +27,9 @@ public class PostContoller {
 	
 	@Autowired
 	ApplyService applyService;
+	
+	@Autowired
+	PositionService positionService;
 
 	@GetMapping("/postMain")
 	public String main(Model m) {
@@ -36,23 +44,32 @@ public class PostContoller {
 		return "writeForm";
 	}
 
+	
 	// 삽입하기
 	@PostMapping("/postAdd")
-	public String noticeAdd(PostDTO dto) {
-		int n = service.postAdd(dto);
-		return "redirect:postMain";
-	}
+	public String postAdd(PostDTO dto, PositionDTO dto2) {
+			
+			int postNo = dto.getPostNo();
+			positionService.positionAdd(postNo, dto, dto2);
+			ResponseEntity.ok("Data inserted successfully.");
+			
+			System.out.println(dto2.toString());
+			    
+			return "redirect:postMain";
+		}
+		    
 
 	// 게시글 자세히보기 화면
 	@GetMapping("/retrieve")
 	public String postRetrieve(Model m, @RequestParam int postNo) {
 		List<PostDTO> list = service.postList();
-		PostDTO dto = service.postListbyNo(postNo);
+		PostDTO postDTO = service.postListbyNo(postNo);
 		int n = service.viewCount(postNo);
-		m.addAttribute("postListbyNum", dto);
+		List<PositionDTO> positionList = positionService.positionList(postNo);
+		m.addAttribute("postListbyNum", postDTO);
 		m.addAttribute("postList", list);
+		m.addAttribute("positionList", positionList);
 		return "retrieve";
-
 	}
 
 	// 게시글 업데이트 화면 UI
@@ -60,16 +77,20 @@ public class PostContoller {
 	public String updateUI(Model m, @RequestParam int postNo) {
 		List<PostDTO> list = service.postList();
 		PostDTO dto = service.postListbyNo(postNo);
+		List<PositionDTO> positionList = positionService.positionList(postNo);
 		m.addAttribute("postListbyNum", dto);
 		m.addAttribute("postList", list);
+		m.addAttribute("positionList", positionList);
+		System.out.println(dto);
 		return "updateForm";
 
 	}
 
 	// 게시글 업데이트 화면
 	@PostMapping("/update")
-	public String postUpdate(PostDTO dto) {
+	public String postUpdate(PostDTO dto, PositionDTO dto2) {
 		int n = service.postUpdate(dto);
+		int n2 = positionService.positionUpdate(dto2);
 		return "redirect:postMain";
 	}
 	

@@ -11,7 +11,7 @@
 <!-- 부가적인 테마 -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<title>프로젝트 게시글 수정하기 화면</title>
+<title>프로젝트 게시글 자세히보기 화면</title>
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
@@ -29,9 +29,14 @@
 <script>
 	$(document).ready(function() {
 
-		//up
+		//delete alert
 		$("#delete").on("click", function() {
 			alert("해당 게시글이 삭제되었습니다.");
+		});
+		
+		//delete alert
+		$("#apply-btn").on("click", function() {
+			alert("지원이 완료되었습니다.");
 		});
 
 	});
@@ -94,16 +99,18 @@ form {margin:0;display:inline;height:20px; float:right; }
 		</div>
 		<br>
 		<div class="form-group">
-			<h4>
-				<label for="recruitType">모집인원</label>
-			</h4>
-			
-			<div>
-					<input type="text" class="form-control" name="recruitType"
-						th:value="${postListbyNum.recruitType}" readonly="readonly"><br>
-					<input type="text" class="form-control" name="memberSize"
-						th:value="${postListbyNum.memberSize}" readonly="readonly">
-</div>
+    <h4>
+        <label for="memberRecruit">모집인원</label>
+    </h4>
+    <div>
+        <table>
+            <tr th:each="dto : ${positionList}">
+                <span type="text" class="form-control" th:text="${dto.category}"></span>
+                <span type="text" class="form-control" th:text="${dto.recruitType}"></span>
+                <span type="text" class="form-control" th:text="${dto.memberSize != null ? dto.memberSize + '명' : 'N/A'}"></span><br>
+            </tr>
+        </table>
+    </div>
 </div>
 <br>
 			<div class="form-group">
@@ -185,8 +192,7 @@ form {margin:0;display:inline;height:20px; float:right; }
 								<span aria-hidden="true">&times;</span>
 							</button>
 						<form action="apply" method="post">
-							<h5 class="modal-title" id="exampleModalScrollableTitle">지원
-								양식</h5>
+							<h4 class="modal-title" id="exampleModalScrollableTitle">지원 양식</h4>
 							<h6 align="right">
 								글번호:&nbsp;<span th:text="${postListbyNum.postNo}"></span>
 							</h6>
@@ -202,7 +208,7 @@ form {margin:0;display:inline;height:20px; float:right; }
 									<br>
 									<div>
 										<select name="applyType"
-											class="form-select form-select-md">
+											class="form-control">
 											<option value="프론트엔드">프론트엔드</option>
 											<option value="백엔드">백엔드</option>
 											<option value="풀스택">풀스택</option>
@@ -215,7 +221,7 @@ form {margin:0;display:inline;height:20px; float:right; }
 									<br>
 									<div>
 										<select name="skills" data-depth="0"
-											class="form-select form-select-md"
+											class="form-control"
 											onchange="selectCategory(this);">
 											<option value="Java">Java</option>
 											<option value="C++">C++</option>
@@ -251,7 +257,7 @@ form {margin:0;display:inline;height:20px; float:right; }
 
 								<button type="button" class="btn rounded-pill me-2 btn-success"
 									data-dismiss="modal">Close</button>
-								<input type="submit" value="제출"
+								<input type="submit" value="제출" id="apply-btn"
 									class="btn rounded-pill me-2 btn-outline-success">
 							</div>
 						</form>
@@ -262,5 +268,6 @@ form {margin:0;display:inline;height:20px; float:right; }
 <!-- 지원하기 끝 -->
 	</div>
 		</div>
+</div>
 </body>
 </html>
