@@ -18,15 +18,15 @@
    
    <!-- 일정표 -->
    <select id="selectAllEventbyId" resultType="ScheduleDTO">
-   	select scheduleId, teamId, title, start, end, color 
+   	select scheduleId, teamId, title, start, end, backgroundColor 
    	from schedule
    </select>
    
    <insert id="insertEvent" parameterType="java.util.List">
-   	insert into schedule (title, start, end, color)
+   	insert into schedule (title, start, end, backgroundColor)
    	values 
    	<foreach collection="list" item="item" separator=",">
-   		(#{item.title}, #{item.start}, #{item.end}, #{item.color})
+   		(#{item.title}, #{item.start}, #{item.end}, #{item.backgroundColor})
    	</foreach>
    </insert>
    

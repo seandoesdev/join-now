@@ -3,7 +3,7 @@ var event = {
 		title : "",
 		start : "",
 		end : "",
-		color : ""
+		backgroundColor : ""
 	};
 
 $(document).ready(function() {
@@ -97,14 +97,14 @@ $(document).ready(function() {
 			event.title = $("#eventContent").val().trim();
 			event.start = $("#event_start_date").val();
 			event.end = $("#event_end_date").val();
-			event.color = $("#event_color").val();
+			event.backgroundColor = $("#event_color").val();
 			
 			// 일정 검증
 			if (event.title == null || event.title == "") {
 				alert("내용을 입력하세요.");
 			} else if (new Date(event.end) - new Date(event.start) < 0) {
 				alert("종료일이 시작일보다 먼저입니다.");
-			} else if (event.color == null || event.color == "") {
+			} else if (event.backgroundColor == null || event.backgroundColor == "") {
 				alert("색상을 선택해주세요.");
 			} else {
 
