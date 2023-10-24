@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>로그인 페이지</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+	a{
+	    color: inherit; /* 기본 링크 색상 유지 */
+	}
+    a:hover {
+    	text-decoration: none; /* 링크에 마우스를 올렸을 때 밑줄 효과 제거 */
+	}
+</style>
+<body>
+	 <header class="bg-white d-flex justify-content-between align-items-center p-2">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1><a href="" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
+            <!--
+            <nav>
+                <ul class="list-inline m-0">
+                    <li class="list-inline-item">
+                        <a href="" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>
+                    </li>
+                </ul>
+            </nav> -->
+        </div>
+    </header>
+	<section style="background-color: white; padding: 50px; text-align: center; border: 2.5px solid #DCDCDC; margin: 80px auto; margin-bottom:25px; max-width: 450px; border-radius: 10px;">
+	    <h1 style="color: #2CA40E; font-size: 1.5em; margin-bottom: 30px;">JoiNow Login</h1>
+	    <!-- 시큐리티는 x-www-form-url-encoded 타입만 인식 -->
+	    <form action="/app/loginProc" method="post">
+		    <input type="text" name="username" style="width: 59%; padding: 2px 0.7em; margin-bottom: 8px; background-color: #F5F5F5; border: 1px solid #F5F5F5; color: #444;" placeholder="ID" /><br />
+			<input type="password" name="password" style="width: 59%; padding: 2px 0.7em; margin-bottom: 30px; background-color: #F5F5F5; border: 1px solid #F5F5F5; color: #444;" placeholder="PW" /><br />
+		    <button style="width: 59%; padding: 6px 2px; margin-bottom: 10px; background-color: #2CA40E; color: white; border: none; border-radius: 5px; font-size: 1em;">Login</button>
+		</form>
+	</section>
+	
+	<hr style="width: 450px; margin: 0 auto;">
+	
+	<section class="text-center" style="margin-top: 20px;">		
+	    <div class="my-3">
+		    <a href="/app/oauth2/authorization/google" style="padding: 0 5px;">
+		        <img th:src="@{images/google.png}" width="45" height="45"/>
+		    </a>
+		   
+		    <a href="/app/oauth2/authorization/facebook" style="padding: 0 5px;">
+		        <img th:src="@{images/Facebook.png}" width="45" height="45"/>
+		    </a>
+		   
+		    <a href="/app/oauth2/authorization/naver" style="padding: 0 5px;">
+		        <img th:src="@{images/naver.png}" width="45" height="45"/>
+		    </a>
+		</div>
+	</section>
+	
+	
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
