@@ -1,0 +1,45 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<!--headerFragment 선언-->
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" th:href="@{/assets/vendor/css/core.css}" />
+<link rel="stylesheet" th:href="@{/assets/vendor/css/theme-default.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/demo.css}" />
+</head>
+<div th:fragment="header">
+	<!-- <h3 th:text={project_name}>[project_name]팀</h3> -->
+	<div style="margin-top: 5%">
+		<h3 style="text-align: center">[JoiNow]팀</h3>
+	</div>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+		<div class="container-fluid">
+			<div class="collapse navbar-collapse" id="navbar-ex-7">
+				<div class="navbar-nav me-auto">
+					<a class="nav-item nav-link" th:href="@{../team/info}">팀정보</a>
+					<a class="nav-item nav-link" th:href="@{../team/question}">질문</a>
+					<a class="nav-item nav-link" th:href="@{../team/schedule}">일정표</a>
+					<a class="nav-item nav-link" th:href="@{../team/meeting}">회의록</a>
+				</div>
+				<div>
+					<ul class="navbar-nav ms-lg-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:void(0)">
+								<i class="tf-icons navbar-icon bx bx-user"></i>
+								Profile
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:void(0)">
+								<i class="tf-icons navbar-icon bx bx-lock-open-alt"></i>
+								Logout
+							</a>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</nav>
+</div>
+</html>

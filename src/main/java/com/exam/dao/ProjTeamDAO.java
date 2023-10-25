@@ -20,15 +20,18 @@ public class ProjTeamDAO {
 	@Autowired
 	SqlSessionTemplate session;
 	
-	// db 연결 테스트
-    public List<TestDTO> testSelect() {
-      return session.selectList("TestMapper.testSelect");
-    }	
-	
+	/**
+	 * 일정표
+	 */
     // 일정 추가
-	public List<ScheduleDTO> insertSch(){
-		return session.selectList("ProjTeamMapper.insertSch");
+	public int insertEvent(List<ScheduleDTO> scheduleDTO){
+		return session.insert("ProjTeamMapper.insertEvent", scheduleDTO);
 	}
+	
+	public List<ScheduleDTO> selectAllEventbyId(){
+	  return session.selectList("ProjTeamMapper.selectAllEventbyId");
+	}
+	
 	
 	
 	// 프로젝트 팀 페이지 - 프로젝트 팀 정보 얻기 
@@ -36,7 +39,7 @@ public class ProjTeamDAO {
 	  return session.selectOne("ProjTeamMapper.selectAllbyId");
 	}
 	
-	
+	// 질문 생성
 	public int createPost (QuestionDTO questionDTO) {
 	  return session.insert("ProjTeamMapper.createPost", questionDTO);
 	}

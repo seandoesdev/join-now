@@ -7,10 +7,10 @@
 	
 
 	<insert id="applyAdd" parameterType="ApplyDTO">
-		insert into apply ( postNo,applyNo,applyType, skills, contact, content
+		insert into apply ( postNo,applyNo,applyType, skills, contact, content, userid
 		)
 		values (
-		#{postNo},#{applyNo},#{applyType},#{skills},#{contact},#{content}
+		#{postNo},#{applyNo},#{applyType},#{skills},#{contact},#{content},#{userid}
 		)
 	</insert>
 

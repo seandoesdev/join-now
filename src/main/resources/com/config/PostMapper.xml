@@ -19,7 +19,7 @@
 
 	<select id="postListbyNo" resultType="PostDTO">
 		select
-		postNo,title,studyType,onoff,region,content,startDate,deadline,contact,viewCount
+		postNo,title,studyType,onoff,region,content,startDate,deadline,contact,viewCount,userid
 		from post
 		where postNo=#{postNo}
 	</select>
