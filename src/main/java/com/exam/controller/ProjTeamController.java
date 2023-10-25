@@ -19,11 +19,14 @@ import com.exam.dto.ProjDTO;
 import com.exam.dto.QuestionDTO;
 import com.exam.dto.ScheduleDTO;
 import com.exam.dto.TestDTO;
+import com.exam.dto.UserInfoDTO;
 import com.exam.service.ProjTeamServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 
 
 
 @Controller
+@Slf4j
 @RequestMapping("/team")
 public class ProjTeamController {
 
@@ -31,6 +34,13 @@ public class ProjTeamController {
 
   @Autowired
   ProjTeamServiceImpl service;
+
+  @GetMapping("/test")
+  public String test(HttpSession session) {
+    UserInfoDTO dto = (UserInfoDTO) session.getAttribute("loginInfo");
+    System.out.println(dto);
+    return "schedule";
+  }
 
   // 팀정보
   @GetMapping("/")
@@ -52,14 +62,14 @@ public class ProjTeamController {
     System.out.println("meeting test");
     return "meeting";
   }
-  
-  
+
+
   ////// 기능 구현 //////
-  
+
   /**
    * 일정표 기능 구현
    */
-  
+
   // 일정표 - 이벤트 조회 기능
   @PostMapping("/schedule/select/event")
   public @ResponseBody List<ScheduleDTO> select() {
@@ -74,12 +84,32 @@ public class ProjTeamController {
       System.out.println(dto.getTitle());
     }
     int n = service.insertEvent(scheduleDTO);
+
+    return "schedule";
+  }
+
+  // 일정표 - 이벤트 수정 기능
+  @PostMapping("/schedule/update/event")
+  public String updateEvent(@RequestBody ScheduleDTO scheduleDTO) {
+    System.out.println("event update test");
+    try {
+      service.updateEvent(scheduleDTO);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     
     return "schedule";
   }
 
-  
-  
+  // 일정표 - 이벤트 삭제 기능
+  @PostMapping("/schedule/delete/event")
+  public String deleteEvent(@RequestBody ScheduleDTO scheduleDTO) {
+    System.out.println("event delete test");
+    return "schedule";
+  }
+
+
+
   /**
    * 
    * @param model

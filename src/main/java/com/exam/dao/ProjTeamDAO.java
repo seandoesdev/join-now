@@ -28,9 +28,20 @@ public class ProjTeamDAO {
 		return session.insert("ProjTeamMapper.insertEvent", scheduleDTO);
 	}
 	
+	// 일정 조회
 	public List<ScheduleDTO> selectAllEventbyId(){
 	  return session.selectList("ProjTeamMapper.selectAllEventbyId");
 	}
+	
+	// 일정 수정
+	public int updateEvent(ScheduleDTO scheduleDTO) {
+	  return session.update("ProjTeamMapper.updateEvent", scheduleDTO);
+	}
+	
+	// 일정 수정
+    public int deleteEvent(ScheduleDTO scheduleDTO) {
+      return session.delete("ProjTeamMapper.deleteEvent", scheduleDTO);
+    }
 	
 	
 	

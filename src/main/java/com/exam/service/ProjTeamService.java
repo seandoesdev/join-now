@@ -12,6 +12,8 @@ public interface ProjTeamService {
     // 일정표 
 	public int insertEvent(List<ScheduleDTO> scheduleDTO);
 	public List<ScheduleDTO> selectAllEventbyId();
+	public int updateEvent(ScheduleDTO scheduleDTO);
+	public int deleteEvent(ScheduleDTO scheduleDTO);
 	
 	
 	// 팀 정보

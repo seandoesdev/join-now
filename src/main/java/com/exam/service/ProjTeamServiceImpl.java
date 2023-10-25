@@ -21,14 +21,28 @@ public class ProjTeamServiceImpl implements ProjTeamService {
   /**
    * 일정표
    */
+  // 일정 추가
   @Override
   public int insertEvent(List<ScheduleDTO> scheduleDTO) {
     return dao.insertEvent(scheduleDTO);
   }
   
+  // 일정 조회
   @Override
   public List<ScheduleDTO> selectAllEventbyId() {
     return dao.selectAllEventbyId();
+  }
+  
+  // 일정 수정
+  @Override
+  public int updateEvent(ScheduleDTO scheduleDTO) {
+    return dao.updateEvent(scheduleDTO);
+  }
+  
+  // 일정 삭제
+  @Override
+  public int deleteEvent(ScheduleDTO scheduleDTO) {
+    return dao.deleteEvent(scheduleDTO);
   }
 
 

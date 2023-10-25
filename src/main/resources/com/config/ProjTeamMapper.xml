@@ -30,6 +30,17 @@
    	</foreach>
    </insert>
    
+   <update id="updateEvent" parameterType="ScheduleDTO">
+   	update schedule
+   	set title = #{title}, start = #{start}, end = #{end}, backgroundColor = #{backgroundColor}
+   </update>
+   
+   <delete id="deleteEvent" parameterType="ScheduleDTO">
+   	delete from schedule
+   	where teamId = #{teamId} and title = #{title}
+   </delete>
+   
+   
    <!-- 회의록 -->
    
    
