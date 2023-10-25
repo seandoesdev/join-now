@@ -8,5 +8,6 @@ public interface UserService {
 	public User idCheck(String username);
 	
 	public UserInfoDTO selectAll(String username);
-
+	
+	public UserInfoDTO selectAllById(int id);
 }

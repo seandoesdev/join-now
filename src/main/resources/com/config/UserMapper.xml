@@ -19,6 +19,13 @@
  	  where username = #{username}
  	</select>
  	
+ 	<select id="selectAllById" parameterType="int" 
+ 	  resultType="UserInfoDTO">
+ 	  select *
+ 	  from User
+ 	  where id = #{id}
+ 	</select>
+ 	
 </mapper>
 
 

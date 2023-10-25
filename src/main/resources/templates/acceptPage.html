@@ -16,7 +16,7 @@
     a:hover {
     	text-decoration: none; /* 링크에 마우스를 올렸을 때 밑줄 효과 제거 */    
 	}
-   
+	   
 </style>
 </head>
 
@@ -24,48 +24,63 @@
 	
     <header class="bg-white d-flex justify-content-between align-items-center p-2">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1><a href="" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
+            <h1><a th:href="@{main}" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
             <nav>
                 <ul class="list-inline m-0">
-                    <li class="list-inline-item">
-                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>
-                    </li>
+                    <th:block th:switch="${session.loginInfo}">
+                    	<th:block th:case="null">
+	                    	<li class="list-inline-item">
+	                        	<a th:href="@{join}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
+		                    </li>
+		                    <li class="list-inline-item">
+		                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>                        
+		                    </li>
+                    	</th:block>
+                    	<th:block th:case="*">
+	                    	<li class="list-inline-item">
+	                        	<a th:href="@{mypage}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">MyPage</a>
+		                    </li>
+		                    <li class="list-inline-item">
+		                        <a th:href="@{logout}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log Out</a>                        
+		                    </li>
+                    	</th:block>
+	                        		
+					</th:block>
                 </ul>
             </nav>
         </div>
     </header>
+		
+	<!-- 배너 -->
+    <section class="banner text-center py-5 mb-5" style="background-color: #2CA40E; color: #ffffff;">
+    	    	
+        <h2 style="font-size: 37px;">JoiNow</h2>
+        <h3 style="font-size: 18px;">내 프로젝트신청 현황</h3>
+        
+    </section>
+    <!-- 배너 end -->
 	
 	<!-- 리스트 -->
 	<section class="features container">
 		
-		<div class="row justify-content-center">
-		    <div class="col-md-12 mb-4">
-		        <a th:href="retrieve">
-		            <div class="list-item d-flex justify-content-center">
-		                <p class="list-title d-inline-block" >Feature Title	</p>
-		                <p class="list-text d-inline-block" >Dummy text	</p>
-		                <p class="list-text d-inline-block" >Dummy text	</p>
-		            </div>
-		        </a>
-		    </div>
+		<div class="row justify-content-center">    
+		    <th:block th:each="acceptPrintDTO : ${acceptPrintList}">
+		        <div class="col-md-12 mb-0.5">
+			        <a th:href="'retrieve?postNo='+${acceptPrintDTO.postDTO.postNo}">           
+			            <div class="list-item d-flex justify-content-center">
+			                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.applyUserInfoDTO.id}">Dummy text</p>
+			                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.acceptUserInfoDTO.id}">Dummy text</p>
+			                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.postDTO.title}">Dummy text</p>
+			                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.acceptDTO.accept}">Dummy text</p>                            
+			            </div>
+			        </a>              
+		        </div>
+		     </th:block>
 		</div>
-		
 
 	</section>
 	<!-- 리스트 end -->
-	
-	
-	
-	
-	<footer style="background-color: #f2f2f2; bottom: 0; width: 100%; left: 0;">
-        <div class="copyright text-center py-3">
-            <p class="m-0" style="font-size: 14px;">JoiNow</p>
-            <p class="m-0" style="font-size: 14px;">asdf@qwer.com</p>
-        </div>
-	</footer>
+
 	
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>

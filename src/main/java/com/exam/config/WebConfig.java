@@ -24,7 +24,7 @@ public class WebConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(interceptor).addPathPatterns("/mypage", "/write");
+		registry.addInterceptor(interceptor).addPathPatterns("/mypage", "/write", "/apply");
 	}
 
 	// <mvc:view-controller path="/mypage" view-name="main" />
