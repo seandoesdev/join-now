@@ -16,28 +16,8 @@ public class AcceptDAO {
 	@Autowired
 	SqlSessionTemplate session;
 	
-	public int totalCount() {
-		return session.selectOne("AcceptMapper.totalCount");
-	}
-	
-	public PageDTO selectList(int curPage){
-		PageDTO pageDTO = new PageDTO();
-		pageDTO.setPerPage(10);
-		int offset = (curPage-1)*pageDTO.getPerPage();
-		int limit = pageDTO.getPerPage();
-		List<PostDTO> list =  session.selectList("AcceptMapper.selectList", null, new RowBounds(offset, limit));
-		
-		pageDTO.setList(list);
-		pageDTO.setCurPage(curPage);
-		pageDTO.setTotalCount(totalCount());
-		
-		if(totalCount()%pageDTO.getPerPage()==0) {
-			pageDTO.setPageNum(totalCount()/pageDTO.getPerPage());
-		}else {
-			pageDTO.setPageNum(totalCount()/pageDTO.getPerPage()+1);
-		}
-		
-		return pageDTO;
+	public List<AcceptDTO> selectListApplyUser(int userid){
+		return session.selectList("AcceptMapper.selectListApplyUser", userid);
 	}
 	
 	public int acceptAdd(AcceptDTO dto) {

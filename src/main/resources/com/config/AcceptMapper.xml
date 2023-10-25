@@ -4,15 +4,12 @@
 
 <mapper namespace="AcceptMapper">
  
-   <select id="selectList" resultType="PostDTO">
+   <select id="selectListApplyUser" resultType="AcceptDTO" parameterType="int">
 	    select *
-		from post
+		from accept
+		where applyUserId = #{userid}
    </select>
-   
-   <select id="totalCount" resultType="int">
-	     select count(*)
-	     from post
-   </select>
+      
    
    <insert id="acceptAdd" parameterType="AcceptDTO">
    	insert into accept(applicationNo, applyUserId, acceptUserId, accept, postNo)

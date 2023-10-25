@@ -25,4 +25,9 @@ public class UserServiceImpl implements UserService {
 		return dao.selectAll(username);
 	}
 
+	@Override
+	public UserInfoDTO selectAllById(int id) {
+		return dao.selectAllById(id);
+	}
+
 }

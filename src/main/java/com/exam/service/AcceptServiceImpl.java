@@ -1,5 +1,7 @@
 package com.exam.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +15,17 @@ public class AcceptServiceImpl implements AcceptService {
 	@Autowired
 	AcceptDAO dao;
 	
-	@Override
-	public PageDTO selectList(int curPage) {
-		return dao.selectList(curPage);
-	}
-
+	// 테이블 추가 
 	@Override
 	public int acceptAdd(AcceptDTO dto) {
 		return dao.acceptAdd(dto);
 	}
+
+	// 테이블 출력
+	@Override
+	public List<AcceptDTO> selectListApplyUser(int userid) {
+		return dao.selectListApplyUser(userid);
+	}
+	
+	
 }

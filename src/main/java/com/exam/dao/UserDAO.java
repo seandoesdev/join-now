@@ -26,5 +26,10 @@ public class UserDAO {
 	public UserInfoDTO selectAll(String username) {
 		return session.selectOne("UserMapper.selectAll", username);
 	}
+	
+	// 유저 정보 select by id
+	public UserInfoDTO selectAllById(int id) {
+		return session.selectOne("UserMapper.selectAllById", id);		
+	}
 
 }
