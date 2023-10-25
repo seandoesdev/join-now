@@ -10,9 +10,9 @@
 		where postNo=#{postNo}
 	</select>
 
-	<insert id="positionAdd" parameterType="PositionDTO">
-		insert into position ( category, recruitType, memberSize )
-		values ( #{category},#{recruitType},#{memberSize} )
+	<insert id="positionOneAdd" parameterType="PositionDTO">
+		insert into position ( postNo, category, recruitType, memberSize )
+		values (#{postNo}, #{category},#{recruitType},#{memberSize} )
 	</insert>
 	
 	<update id="positionUpdate" parameterType="PositionDTO">

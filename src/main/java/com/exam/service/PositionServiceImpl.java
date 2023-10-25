@@ -26,19 +26,30 @@ public class PositionServiceImpl implements PositionService {
 
 	@Override
 	@Transactional
-	public int positionAdd(int postNo, PostDTO dto, PositionDTO dto2) {
-		return dao.positionAdd(postNo, dto, dto2);
+	public int positionAdd(PostDTO dto, List<PositionDTO> list) {
+		return dao.positionAdd(dto, list);
 	}
 	
+//	@Override
+//	@Transactional
+//	public int positionAdd(int postNo, PostDTO dto, PositionDTO dto2) {
+//		return dao.positionAdd(postNo, dto, dto2);
+//	}
+	
 
-	@Override
-	public int positionUpdate(PositionDTO dto) {
-		return dao.positionUpdate(dto);
-	}
+//	@Override
+//	public int positionUpdate(PositionDTO dto) {
+//		return dao.positionUpdate(dto);
+//	}
 
 	@Override
 	public int positionDelete(int postNo) {
 		return dao.positionDelete(postNo);
+	}
+
+	@Override
+	public int positionOneAdd(PositionDTO dto) {
+		return dao.positionOneAdd(dto);
 	}
 
 	
