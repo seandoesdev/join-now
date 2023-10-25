@@ -2,6 +2,7 @@ package com.exam.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.swing.text.Position;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.exam.dto.ApplyDTO;
 import com.exam.dto.PositionDTO;
 import com.exam.dto.PostDTO;
+import com.exam.dto.UserInfoDTO;
 import com.exam.service.ApplyService;
 import com.exam.service.PositionService;
 import com.exam.service.PostServiceImpl;
@@ -103,9 +105,13 @@ public class PostContoller {
 	
 	//지원하기 화면
 		@PostMapping("/apply")
-		public String postApply(ApplyDTO dto) {
+		public String postApply(ApplyDTO dto, HttpSession session ) {
+			
+			UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo"); 
+			dto.setUserid(userInfoDTO.getId());			
+						
 			int n = applyService.applyAdd(dto);
-			return "redirect:postMain";
+			return "redirect:main";
 		}
 		
 

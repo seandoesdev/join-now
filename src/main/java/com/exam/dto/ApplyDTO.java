@@ -5,16 +5,17 @@ import org.apache.ibatis.type.Alias;
 @Alias("ApplyDTO")
 public class ApplyDTO {
 	
-	String userid;
+	int userid;
 	String applyType;
 	String skills;
 	String contact;
 	String content;
 	int applyNo;
 	int postNo;
-	public ApplyDTO() {}
 	
-	public ApplyDTO(String userid, String applyType, String skills, String contact, String content, int applyNo,
+	public ApplyDTO() {}
+
+	public ApplyDTO(int userid, String applyType, String skills, String contact, String content, int applyNo,
 			int postNo) {
 		this.userid = userid;
 		this.applyType = applyType;
@@ -25,41 +26,50 @@ public class ApplyDTO {
 		this.postNo = postNo;
 	}
 
-
-
-	public String getUserid() {
+	public int getUserid() {
 		return userid;
 	}
-	public void setUserid(String userid) {
+
+	public void setUserid(int userid) {
 		this.userid = userid;
 	}
+
 	public String getApplyType() {
 		return applyType;
 	}
+
 	public void setApplyType(String applyType) {
 		this.applyType = applyType;
 	}
+
 	public String getSkills() {
 		return skills;
 	}
+
 	public void setSkills(String skills) {
 		this.skills = skills;
 	}
+
 	public String getContact() {
 		return contact;
 	}
+
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public int getApplyNo() {
 		return applyNo;
 	}
+
 	public void setApplyNo(int applyNo) {
 		this.applyNo = applyNo;
 	}
@@ -77,6 +87,6 @@ public class ApplyDTO {
 		return "ApplyDTO [userid=" + userid + ", applyType=" + applyType + ", skills=" + skills + ", contact=" + contact
 				+ ", content=" + content + ", applyNo=" + applyNo + ", postNo=" + postNo + "]";
 	}
-	
+		
 	
 }
