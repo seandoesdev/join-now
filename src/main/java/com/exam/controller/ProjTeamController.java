@@ -68,7 +68,7 @@ public class ProjTeamController {
   @GetMapping("/meeting/write")
   public String meetingWrite(Model model) {
     
-    model.addAttribute(attributeName, attributeValue);
+//    model.addAttribute(attributeName, attributeValue);
     return "meetingWrite";
   }
 
