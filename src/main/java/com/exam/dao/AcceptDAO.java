@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.exam.dto.AcceptDTO;
 import com.exam.dto.PageDTO;
 import com.exam.dto.PostDTO;
 
@@ -37,5 +38,9 @@ public class AcceptDAO {
 		}
 		
 		return pageDTO;
+	}
+	
+	public int acceptAdd(AcceptDTO dto) {
+		return session.insert("AcceptMapper.acceptAdd", dto);
 	}
 }

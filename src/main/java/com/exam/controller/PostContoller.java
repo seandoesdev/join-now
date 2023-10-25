@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.exam.dto.AcceptDTO;
 import com.exam.dto.ApplyDTO;
 import com.exam.dto.PositionDTO;
 import com.exam.dto.PostDTO;
 import com.exam.dto.UserInfoDTO;
+import com.exam.service.AcceptService;
 import com.exam.service.ApplyService;
 import com.exam.service.PositionService;
 import com.exam.service.PostServiceImpl;
@@ -32,6 +34,9 @@ public class PostContoller {
 	
 	@Autowired
 	PositionService positionService;
+	
+	@Autowired
+	AcceptService acceptService;
 
 	@GetMapping("/postMain")
 	public String main(Model m) {
@@ -105,12 +110,24 @@ public class PostContoller {
 	
 	//지원하기 화면
 		@PostMapping("/apply")
-		public String postApply(ApplyDTO dto, HttpSession session ) {
+		public String postApply(ApplyDTO dto, HttpSession session, int postNo) {
+			PostDTO postDTO = service.postListbyNo(postNo);
+			System.out.println(postDTO);
 			
+			// apply 테이블 정보 저장
 			UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo"); 
-			dto.setUserid(userInfoDTO.getId());			
-						
+			dto.setUserid(userInfoDTO.getId());									
 			int n = applyService.applyAdd(dto);
+						
+			// accept 테이블 정보 저장
+			AcceptDTO acceptDTO = new AcceptDTO();
+			acceptDTO.setAcceptUserId(postDTO.getUserid()); // 작성자
+			acceptDTO.setApplyUserId(dto.getUserid()); // 신청자
+			acceptDTO.setAccept(false); // 수락 여부
+			acceptDTO.setPostNo(postDTO.getPostNo()); // 게시판 정보
+			System.out.println(acceptDTO);			
+			int n2 = acceptService.acceptAdd(acceptDTO);
+						
 			return "redirect:main";
 		}
 		

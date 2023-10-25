@@ -14,6 +14,11 @@
 	     from post
    </select>
    
+   <insert id="acceptAdd" parameterType="AcceptDTO">
+   	insert into accept(applicationNo, applyUserId, acceptUserId, accept, postNo)
+   	values(#{applicationNo}, #{applyUserId}, #{acceptUserId}, #{accept}, #{postNo})
+   </insert>
+   
 </mapper>
 
 
