@@ -1,6 +1,7 @@
 package com.exam.dto;
 
 import org.apache.ibatis.type.Alias;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,78 +9,77 @@ import lombok.ToString;
 
 
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
 @Alias("ScheduleDTO")
 public class ScheduleDTO {
-	private int calendarId;
-	private String title;
-	private String startDate;
-	private String endDate;
-	private String color;
-	
+  private int calendarId;
+  private int teamId;
+  private String title;
+  private String start;
+  private String end;
+  private String color;
 
-  public ScheduleDTO(int calendarId, String title, String startDate, String endDate, String color) {
+  public ScheduleDTO() {}
+
+  public ScheduleDTO(int calendarId, int teamId, String title, String start, String end,
+      String color) {
     this.calendarId = calendarId;
+    this.teamId = teamId;
     this.title = title;
-    this.startDate = startDate;
-    this.endDate = endDate;
+    this.start = start;
+    this.end = end;
     this.color = color;
   }
-
 
   public int getCalendarId() {
     return calendarId;
   }
 
-
   public void setCalendarId(int calendarId) {
     this.calendarId = calendarId;
   }
 
+  public int getTeamId() {
+    return teamId;
+  }
+
+  public void setTeamId(int teamId) {
+    this.teamId = teamId;
+  }
 
   public String getTitle() {
     return title;
   }
 
-
   public void setTitle(String title) {
     this.title = title;
   }
 
-
-  public String getStartDate() {
-    return startDate;
+  public String getStart() {
+    return start;
   }
 
-
-  public void setStartDate(String startDate) {
-    this.startDate = startDate;
+  public void setStart(String start) {
+    this.start = start;
   }
 
-
-  public String getEndDate() {
-    return endDate;
+  public String getEnd() {
+    return end;
   }
 
-
-  public void setEndDate(String endDate) {
-    this.endDate = endDate;
+  public void setEnd(String end) {
+    this.end = end;
   }
-
 
   public String getColor() {
     return color;
   }
 
-
   public void setColor(String color) {
     this.color = color;
   }
-  
-	
-	
-	
+
+
+
+ 
+
 }
