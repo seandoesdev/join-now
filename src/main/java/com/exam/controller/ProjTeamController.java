@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,6 +64,15 @@ public class ProjTeamController {
     return "meeting";
   }
 
+  // 회의록 작성 페이지
+  @GetMapping("/meeting/write")
+  public String meetingWrite(Model model) {
+    
+    model.addAttribute(attributeName, attributeValue);
+    return "meetingWrite";
+  }
+
+
 
   ////// 기능 구현 //////
 
@@ -97,7 +107,7 @@ public class ProjTeamController {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    
+
     return "schedule";
   }
 
@@ -106,6 +116,19 @@ public class ProjTeamController {
   public String deleteEvent(@RequestBody ScheduleDTO scheduleDTO) {
     System.out.println("event delete test");
     return "schedule";
+  }
+
+  /**
+   * 희의록 기능
+   */
+  
+  @PostMapping("/meeting/")
+
+  // 회의록 작성
+  @GetMapping("/meeting/write/do")
+  public String addMeeeting(Model model) {
+    System.out.println("meetingWrite test");
+    return "meetingWrite";
   }
 
 

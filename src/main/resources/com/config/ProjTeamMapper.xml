@@ -42,6 +42,16 @@
    
    
    <!-- 회의록 -->
+   <select id="selectAllMeetingById" resultType="MeetingDTO">
+   	select writer, title, content, createDate  
+   	from meeting
+   	<!-- where teamId = #{teamId} -->
+   </select>
+   
+   <insert id="addMeeting" parameterType="MeetingDTO">
+   	insert into meeting (writer, title, content, createDate)
+   	values (#{writer}, #{title}, #{content}, #{createDate} )
+   </insert>
    
    
    <!-- 공고 신청 관리-->

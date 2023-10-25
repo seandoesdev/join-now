@@ -13,34 +13,25 @@
 	<th:block>
 
 		<div class="container">
-			<h1>회의록 목록</h1>
-			<div class="row">
-				<div class="col-md-9">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th>제목</th>
-								<th>작성일</th>
-								<th>작성자</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="meeting : ${meetings}">
-								<td><a th:href="@{'/meeting/' + ${meeting.id}}">
-										<!-- 각 회의록의 상세 페이지로 이동 -->
-										<span th:text="${meeting.title}"></span>
-									</a></td>
-								<td th:text="${meeting.date}"></td>
-								<td th:text="${meeting.author}"></td>
-							</tr>
-						</tbody>
-					</table>
-						<div class="col-md-3">
-							<a th:href="@{/team/meeting/write}" class="btn btn-primary" float-right>작성</a>
-						</div>
+			<h1>회의록 작성</h1>
+			<form th:action="@{/team/meeting/write/do}" method="post">
+				<!-- 회의록 작성 폼 -->
+				<div class="form-group">
+					<label for="title">회의록 제목</label>
+					<input type="text" id="title" name="title" class="form-control" required />
 				</div>
-			</div>
+				<div class="form-group">
+					<label for="content">내용</label>
+					<textarea id="content" name="content" class="form-control" rows="5" required></textarea>
+				</div>
+				<div class="form-group">
+					<label for="author">작성자</label>
+					<input type="text" id="author" name="author" class="form-control" required />
+				</div>
+				<button type="submit" class="btn btn-primary">작성 완료</button>
+			</form>
 		</div>
+
 	</th:block>
 
 
