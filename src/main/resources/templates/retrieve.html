@@ -35,10 +35,60 @@
 			alert("해당 게시글이 삭제되었습니다.");
 		});
 
-		//delete alert
+		//apply alert
 		$("#apply-btn").on("click", function() {
 			alert("지원이 완료되었습니다.");
 		});
+		
+		function loadComments(postNo) {
+			var postNo = $("#postNo").val();
+	        $.ajax({
+	            url: 'commentList',
+	            type: 'get', 
+	            dataType: 'json',
+	            data: { postNo: postNo }, 
+	            success: function(data) {
+	                var tag = ''; 
+	                $.each(data, function(idx, dto) {
+	                    
+	                    tag += '<span>' +dto.writer+dto.create_date+'<br>'+dto.content + '</span><br>';
+	                });
+	                $("#commentResult").html(tag);
+	            },
+	            error: function(xhr, status, error) {
+	                console.error('Error: ' + error);
+	                console.log(xhr.responseText);
+	            }
+	        });
+	    }
+
+	    loadComments();
+		
+		$("#comment-btn").on("click", function(event) {
+			var commentContent = document.getElementById("commentContent").value; 
+			var postNo = $("#postNo").val();
+		    console.log(commentContent,postNo);
+		  //ajax
+			$.ajax({
+				url:'commentAdd',
+				type:"post", //post로 요청
+				dataType:"text", //text로 응답받을거야 (응답데이터 타입)
+				headers:{ //요청데이터 타입
+					"Content-type":"application/json" //전달할 타입(json)을 알려줌
+				},
+				data:JSON.stringify({content:commentContent, postNo:postNo}), //보내는 데이터는 data속성으로 보낼 수 있다.
+				success: function(data,status,xhr){
+					console.log(data);
+					loadComments(postNo);
+	                $('#commentContent').val('');
+				},
+				error: function(xhr, status, error) {
+				    console.error("Error: " + error);
+				    console.log(xhr.responseText); 
+				}
+			});//end ajax
+			
+		});//end comment-btn
 
 	});
 </script>
@@ -271,6 +321,17 @@ form {
 				</div>
 			</div>
 			<!-- 지원하기 끝 -->
+			<!-- 댓글기능 시작 -->
+        <div>
+    <h2>Comments</h2>
+    <h4>Leave a comment</h4>
+        <div class="comment-form">
+            <textarea placeholder="Add your comment..." name="content" id="commentContent"></textarea>
+        <span id="commentResult"></span>
+            <button type="submit" class="btn icon-btn btn-success" id="comment-btn">댓글저장</button>
+        </div>
+        </div>
+			<!-- 댓글기능 끝 -->
 		</div>
 	</div>
 	</div>
