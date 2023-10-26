@@ -22,6 +22,7 @@
 <script>
 $(document).ready(function() {
 
+	
 	//category change
 	$("#category"+idx).on("change", function() {
 	    var a = ['게임기획', '프로젝트 매니저', 'UX/UI기획'];
@@ -73,85 +74,20 @@ $(document).ready(function() {
 	});
 	
 			
-			//up-btn
-			var idx=1;
-			$(document).on("click","#up-btn"+idx, function() {
-				var memberSize = Number.parseInt($(
-				"#memberSize1").val());
-		$("#memberSize1").val(memberSize + 1);
-		});//end up
-			
-			//down-btn
-			$(document).on("click","#down-btn"+idx,  function() {
-						
-							var memberSize = Number.parseInt($(
-									"#memberSize1").val());
-							if (memberSize == 1) {
-								$("#memberSize1").val(1);
-							} else {
-								$("#memberSize1").val(memberSize - 1);
-							}	
-					});//end down
-					
-					
-					//up-btn
-					var idx=2;
-					$(document).on("click","#up-btn"+idx, function() {
-						var memberSize = Number.parseInt($(
-						"#memberSize2").val());
-				$("#memberSize2").val(memberSize + 1);
-				});//end up
-					
-					//down-btn
-					$(document).on("click","#down-btn"+idx,  function() {
-									var memberSize = Number.parseInt($(
-											"#memberSize2").val());
-									if (memberSize == 1) {
-										$("#memberSize2").val(1);
-									} else {
-										$("#memberSize2").val(memberSize - 1);
-									}	
-							});//end down
-							
-							
-							//up-btn
-							var idx=3;
-							$(document).on("click","#up-btn"+idx, function() {
-								var memberSize = Number.parseInt($(
-								"#memberSize3").val());
-						$("#memberSize3").val(memberSize + 1);
-						});//end up
-							
-							//down-btn
-							$(document).on("click","#down-btn"+idx,  function() {
-										
-											var memberSize = Number.parseInt($(
-													"#memberSize3").val());
-											if (memberSize == 1) {
-												$("#memberSize3").val(1);
-											} else {
-												$("#memberSize3").val(memberSize - 1);
-											}	
-									});//end down
-					
-					
-		
-					
-					$("[id~=memberSize]").each(function(index) { // memberSize로 시작하는 id값을 가진 모든 것들을
-					    var idx = index + 1;
-					    $(this).attr('id', 'memberSize'+idx);
-					})
-					
-					$("[id~=up-btn]").each(function(index) { // up-btn로 시작하는 id값을 가진 모든 것들을
-					    var idx = index + 1;
-					    $(this).attr('id', 'up-btn'+idx);
-					})
-					
-					$("[id~=down-btn]").each(function(index) { // down-btn로 시작하는 id값을 가진 모든 것들을
-					    var idx = index + 1;
-					    $(this).attr('id', 'down-btn'+idx);
-					})
-					
+	//up-btn
+	var idx=1;
+	$(document).on("click", ".up-btn", function () {
+        var memberSize = Number.parseInt($(this).siblings(".memberSize").val());
+        $(this).siblings(".memberSize").val(memberSize + 1);
+    });//end up
+	
+	//down-btn
+	$(document).on("click", ".down-btn", function () {
+        var memberSize = Number.parseInt($(this).siblings(".memberSize").val());
+        if (memberSize > 1) {
+            $(this).siblings(".memberSize").val(memberSize - 1);
+        }
+    });//end down
 						 
 					
 			var index = 2; 
@@ -160,7 +96,67 @@ $(document).ready(function() {
  				$("body").append("<img src='images/down.png' id='down-btn"+index+"'style='width:35px; height:35px;'>");
   					index++;
 				};
+				
+
+				//up-btn
+				var idx=2;
+				$(document).on("click","#up-btn"+idx, function() {
+					var memberSize = Number.parseInt($(
+					"#memberSize2").val());
+			$("#memberSize2").val(memberSize + 1);
+			});//end up
+				
+				//down-btn
+				$(document).on("click","#down-btn"+idx,  function() {
+								var memberSize = Number.parseInt($(
+										"#memberSize2").val());
+								if (memberSize == 1) {
+									$("#memberSize2").val(1);
+								} else {
+									$("#memberSize2").val(memberSize - 1);
+								}	
+						});//end down
 						
+						
+						//up-btn
+						var idx=3;
+						$(document).on("click","#up-btn"+idx, function() {
+							var memberSize = Number.parseInt($(
+							"#memberSize3").val());
+					$("#memberSize3").val(memberSize + 1);
+					});//end up
+						
+						//down-btn
+						$(document).on("click","#down-btn"+idx,  function() {
+									
+										var memberSize = Number.parseInt($(
+												"#memberSize3").val());
+										if (memberSize == 1) {
+											$("#memberSize3").val(1);
+										} else {
+											$("#memberSize3").val(memberSize - 1);
+										}	
+								});//end down
+				
+				
+	
+				
+				$("[id~=memberSize]").each(function(index) { // memberSize로 시작하는 id값을 가진 모든 것들을
+				    var idx = index + 1;
+				    $(this).attr('id', 'memberSize'+idx);
+				})
+				
+				$("[id~=up-btn]").each(function(index) { // up-btn로 시작하는 id값을 가진 모든 것들을
+				    var idx = index + 1;
+				    $(this).attr('id', 'up-btn'+idx);
+				})
+				
+				$("[id~=down-btn]").each(function(index) { // down-btn로 시작하는 id값을 가진 모든 것들을
+				    var idx = index + 1;
+				    $(this).attr('id', 'down-btn'+idx);
+				})
+				
+				
 			//addSelect
 			
 			$("#add-btn").on("click",function(){
@@ -190,18 +186,16 @@ $(document).ready(function() {
 						 $(this).prev().prev().prev().remove();
 						 $(this).prev().prev().remove();
 				        });
-		
-				
-					 
 
 });//end ready
-						
-						
+
 </script>
+
 <style>
       body{ background-color: #F7FFF5;}
-    </style>
+</style>
 </head>
+
 <body>
 
 	<div class="container">
@@ -267,22 +261,43 @@ $(document).ready(function() {
     <h4>
         <label for="memberRecruit">모집인원</label>
     </h4>
-    <table>
-            <tr th:each="dto : ${positionList}">
-                <span type="text" class="form-control" th:text="${dto.category}"></span>
-                <span type="text" class="form-control" th:text="${dto.recruitType}"></span>
-                <span type="text" class="form-control" th:text="${dto.memberSize != null ? dto.memberSize + '명' : 'N/A'}"></span><br>
+    <table th:each="dto, idx : ${positionList}">
+            <tr>
+				<select th:value="${dto.category}" class="form-control" id="category"  name="category">
+					<option th:selected="${dto.category}=='기획자'" value="기획자">기획자</option>
+					<option th:selected="${dto.category}=='디자이너'" value="디자이너">디자이너</option>
+					<option th:selected="${dto.category}=='개발자'" value="개발자">개발자</option>
+				</select> 
             </tr>
+            <tr>
+				<select th:value="${dto.recruitType}" class="form-control" id="recruitType"  name="recruitType">
+					<option th:selected="${dto.recruitType}=='게임기획'" value="게임기획">게임기획</option>
+					<option th:selected="${dto.recruitType}=='프로젝트 매니저'" value="프로젝트 매니저">프로젝트 매니저</option>
+					<option th:selected="${dto.recruitType}=='UX/UI기획'" value="UX/UI기획">UX/UI기획</option>
+					<option th:selected="${dto.recruitType}=='UI/UX 디자인'" value="UI/UX 디자인">UI/UX 디자인</option>
+					<option th:selected="${dto.recruitType}=='웹페이지 디자인'" value="웹페이지 디자인">웹페이지 디자인</option>
+					<option th:selected="${dto.recruitType}=='디자이너'" value="디자이너">디자이너</option>
+					<option th:selected="${dto.recruitType}=='프론트엔드'" value="프론트엔드">프론트엔드</option>
+					<option th:selected="${dto.recruitType}=='백엔드'" value="백엔드">백엔드</option>
+					<option th:selected="${dto.recruitType}=='풀스택'" value="풀스택">풀스택</option>
+				</select> 
+            </tr>
+            <tr>
+            <div class="mSize">
+                  <img src="images/down.PNG" class="down-btn" style="width: 35px; height: 35px;">
+                   <input type="text" name="memberSize" th:value="${dto.memberSize}" class="memberSize" id="memberSize${idx.index}">
+                    <img src="images/up.PNG" class="up-btn" style="width: 40px; height: 40px;">
+            </div>
+            </tr>
+            <br>
         </table>
-   
-<p class="form-group" id="addSelect">
-				<button type="button" class="btn rounded-pill me-2 btn-success"
-					id="add-btn">추가</button>
-				<button type="button" class="btn rounded-pill btn-outline-success"
-					id="del-btn">삭제</button>
-			</p>
-			<br>
-
+	</div>
+        
+        <div class="addSelect">
+                <button type="button" class="btn rounded-pill me-2 btn-success" id="add-btn">모집 포지션 추가</button>
+                <button type="button" class="btn rounded-pill btn-outline-success" id="del-btn">삭제</button>
+            </div>
+<br>
 				<div class="form-group">
 					<h4>
 						<label for="content">프로젝트
