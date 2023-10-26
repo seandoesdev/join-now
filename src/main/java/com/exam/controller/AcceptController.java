@@ -1,6 +1,7 @@
 package com.exam.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.exam.dto.AcceptDTO;
 import com.exam.dto.AcceptPrintDTO;
+import com.exam.dto.ApplyDTO;
 import com.exam.dto.UserInfoDTO;
 import com.exam.service.AcceptService;
+import com.exam.service.ApplyService;
 import com.exam.service.PostService;
 import com.exam.service.UserService;
 
@@ -31,11 +34,14 @@ public class AcceptController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired 
+	ApplyService applyService;
+	
 	@GetMapping("/applyPage")
 	public String applyPage(Model m, HttpSession session) {
 		// 로그인 정보 확인
 		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
-		// 로그인 유저 아이디와 신청자 id를 비교해서 리스트를 들고옴 -> 신청자 내역확인
+		// 로그인 유저 아이디와 작성자 id를 비교해서 리스트를 들고옴 -> 작성자가 받은 신청자 내역확인
 		List<AcceptDTO> acceptDTOList = acceptService.selectListApplyUser(userInfoDTO.getId());
 		
 		// 콘솔에 신청자 정보 출력
@@ -55,7 +61,7 @@ public class AcceptController {
 			printdto.setAcceptUserInfoDTO(userService.selectAllById(acceptdto.getAcceptUserId()));
 			printdto.setApplyUserInfoDTO(userService.selectAllById(acceptdto.getApplyUserId()));
 			printdto.setPostDTO(postService.postListbyNo(acceptdto.getPostNo()));
-			
+						
 			acceptPrintList.add(printdto);
 		}
 		
@@ -74,20 +80,25 @@ public class AcceptController {
 		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
 		// 로그인 유저 아이디와 작성자 id를 비교해서 리스트를 들고옴 -> 작성자가 받은 신청자 내역확인
 		List<AcceptDTO> acceptDTOList = acceptService.selectListAcceptUser(userInfoDTO.getId());
+		
+		// 콘솔에 신청자 정보 출력
 		System.out.println("########################");
 		for(AcceptDTO acceptdto : acceptDTOList) {
 			System.out.println(acceptdto);
 		}
-				
+		
+		// 출력 dto를 가진 리스트 생성
 		List<AcceptPrintDTO> acceptPrintList = new ArrayList<>();
 		
+		// 출력 dto를 가진 리스트에 값저장 acceptDTOList에 있는 정보를 accpetdto에 저장해서 그 정보를 바탕으로 이용해서
+		// 출력 dto에 신청자, 작성자, 게시판 정보, 신청 정보 저장
 		for(AcceptDTO acceptdto : acceptDTOList) {
 			AcceptPrintDTO printdto = new AcceptPrintDTO();
 			printdto.setAcceptDTO(acceptdto);
 			printdto.setAcceptUserInfoDTO(userService.selectAllById(acceptdto.getAcceptUserId()));
 			printdto.setApplyUserInfoDTO(userService.selectAllById(acceptdto.getApplyUserId()));
 			printdto.setPostDTO(postService.postListbyNo(acceptdto.getPostNo()));
-			
+						
 			acceptPrintList.add(printdto);
 		}
 		
@@ -99,5 +110,14 @@ public class AcceptController {
 		
 		return "acceptPage";
 	}
+	
+	@GetMapping("/applyRetrieve")
+	public String applyRetrieve(Model m, int applyNo){
+		ApplyDTO dto = applyService.selectOne(applyNo);
+		m.addAttribute("applyDTO", dto);		
+		m.addAttribute("UserInfoDTO", userService.selectAllById(dto.getUserid()));
+		return "applyRetrieve";
+	}
+	
 		
 }
