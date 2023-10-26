@@ -16,18 +16,18 @@ public class ScheduleDTO {
   private String title;
   private String start;
   private String end;
-  private String color;
+  private String backgroundColor;
 
   public ScheduleDTO() {}
 
   public ScheduleDTO(int calendarId, int teamId, String title, String start, String end,
-      String color) {
+      String backgroundColor) {
     this.calendarId = calendarId;
     this.teamId = teamId;
     this.title = title;
     this.start = start;
     this.end = end;
-    this.color = color;
+    this.backgroundColor = backgroundColor;
   }
 
   public int getCalendarId() {
@@ -70,12 +70,12 @@ public class ScheduleDTO {
     this.end = end;
   }
 
-  public String getColor() {
-    return color;
+  public String getBackgroundColor() {
+    return backgroundColor;
   }
 
-  public void setColor(String color) {
-    this.color = color;
+  public void setBackgroundColor(String backgroundColor) {
+    this.backgroundColor = backgroundColor;
   }
 
 
