@@ -11,10 +11,10 @@
 
 	<insert id="postAdd" parameterType="PostDTO">
 		insert into post ( studyType, title, onoff, region, 
-		content, contact,deadline,startDate, userId )
+		content, contact,deadline,startDate, userId, postDate, closing, viewCount )
 		values (
-		#{studyType},#{title},#{onoff},#{region},#{content},#{contact},#{deadline},#{startDate}, #{userid}
-		)
+		#{studyType},#{title},#{onoff},#{region},#{content},#{contact},#{deadline},#{startDate},#{userid},#{postDate}
+		,#{closing},#{viewCount})
 	</insert>
 
 	<select id="postListbyNo" resultType="PostDTO">

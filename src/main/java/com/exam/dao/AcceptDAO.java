@@ -20,6 +20,10 @@ public class AcceptDAO {
 		return session.selectList("AcceptMapper.selectListApplyUser", userid);
 	}
 	
+	public List<AcceptDTO> selectListAcceptUser(int userid){
+		return session.selectList("AcceptMapper.selectListAcceptUser", userid);
+	}
+	
 	public int acceptAdd(AcceptDTO dto) {
 		return session.insert("AcceptMapper.acceptAdd", dto);
 	}

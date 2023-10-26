@@ -27,5 +27,9 @@ public class AcceptServiceImpl implements AcceptService {
 		return dao.selectListApplyUser(userid);
 	}
 	
+	public List<AcceptDTO> selectListAcceptUser(int userid){
+		return dao.selectListAcceptUser(userid);
+	}
+	
 	
 }
