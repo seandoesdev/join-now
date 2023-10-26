@@ -24,18 +24,38 @@ public class PositionDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+//	@Transactional
+//	public int positionAdd(PostDTO dto, List<PositionDTO> list) {
+//	    //번호 자동 생성
+//		String postSql = "INSERT INTO post (studyType, title, onoff, region, content, contact, deadline, startDate, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//	    jdbcTemplate.update(postSql, dto.getStudyType(), dto.getTitle(), dto.getOnoff(), dto.getRegion(), dto.getContent(), dto.getContact(), dto.getDeadline(), dto.getStartDate(), dto.getUserid());
+//
+//	    //postNo 값 삽입
+//	    String retrievePostNoSql = "SELECT LAST_INSERT_ID()";
+//	    int postNo = jdbcTemplate.queryForObject(retrievePostNoSql, Integer.class);
+//
+//	    int totalInserts = 0;
+//
+//	    for (PositionDTO pd:list) {
+//	    	
+//	        //positionDTO에 삽입
+//	        String positionSql = "INSERT INTO position (postNo, category, recruitType, memberSize) VALUES (?, ?, ?, ?)";
+//	        jdbcTemplate.update(positionSql, postNo, pd.getCategory(), pd.getRecruitType(), pd.getMemberSize());
+//	        totalInserts++;
+//	    }
+//
+//	    return totalInserts;
+//	}
+	
 	@Transactional
 	public int positionAdd(PostDTO dto, List<PositionDTO> list) {
 	    //번호 자동 생성
-	    String postSql = "INSERT INTO post (studyType, title, onoff, region, content, contact, deadline, startDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-	    jdbcTemplate.update(postSql, dto.getStudyType(), dto.getTitle(), dto.getOnoff(), dto.getRegion(), dto.getContent(), dto.getContact(), dto.getDeadline(), dto.getStartDate());
-
+	    String postSql = "INSERT INTO post (studyType, title, onoff, region, content, contact, deadline, startDate, userId, viewCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	    jdbcTemplate.update(postSql, dto.getStudyType(), dto.getTitle(), dto.getOnoff(), dto.getRegion(), dto.getContent(), dto.getContact(), dto.getDeadline(), dto.getStartDate(), dto.getUserid(), dto.getViewCount());
 	    //postNo 값 삽입
 	    String retrievePostNoSql = "SELECT LAST_INSERT_ID()";
 	    int postNo = jdbcTemplate.queryForObject(retrievePostNoSql, Integer.class);
-
 	    int totalInserts = 0;
-
 	    for (PositionDTO pd:list) {
 	    	
 	        //positionDTO에 삽입
@@ -43,7 +63,6 @@ public class PositionDAO {
 	        jdbcTemplate.update(positionSql, postNo, pd.getCategory(), pd.getRecruitType(), pd.getMemberSize());
 	        totalInserts++;
 	    }
-
 	    return totalInserts;
 	}
 

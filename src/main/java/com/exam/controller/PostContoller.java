@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import javax.swing.text.Position;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpLogging;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +16,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.exam.dto.AcceptDTO;
 import com.exam.dto.ApplyDTO;
 import com.exam.dto.PositionDTO;
 import com.exam.dto.PostDTO;
+import com.exam.dto.UserInfoDTO;
+import com.exam.service.AcceptService;
 import com.exam.service.ApplyService;
 import com.exam.service.PositionService;
 import com.exam.service.PostServiceImpl;
@@ -33,6 +37,9 @@ public class PostContoller {
 
 	@Autowired
 	PositionService positionService;
+	
+	@Autowired
+	AcceptService acceptService;
 
 	@GetMapping("/postMain")
 	public String main(Model m) {
@@ -48,16 +55,43 @@ public class PostContoller {
 		return "writeForm";
 	}
 
-	// 삽입하기
+//	// 삽입하기
+//	@PostMapping("/postAdd")
+//	public String postAdd(PostDTO dto, PositionDTO dto2, HttpSession session) {
+//		
+//		//List로 반환된 position정보를 split함
+//		//postNo는 값 없음.
+//		List<PositionDTO> list = positionSplit(dto2);
+//
+//		//post & position 삽입
+//		//split한 데이터 insert
+//		int n = positionService.positionAdd(dto, list);
+////		int n = positionService.positionAdd(postNo, dto, dto2);
+//		
+//		//이전 데이터
+//		//postNo정보 가지고 옴
+////		int postNo = dto.getPostNo();
+////		positionService.positionAdd(postNo, dto, dto2);
+////		ResponseEntity.ok("Data inserted successfully.");
+//		
+//		//로그인 정보 확인
+//		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
+//		dto.setUserid(userInfoDTO.getId());
+//		System.out.println("postAdd:"+dto);
+//		
+//		return "redirect:postMain";
+//	}
+	
 	@PostMapping("/postAdd")
-	public String postAdd(PostDTO dto, PositionDTO dto2) {
-		
+	public String postAdd(PostDTO dto, PositionDTO dto2, HttpSession session) {
+		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
 		//List로 반환된 position정보를 split함
 		//postNo는 값 없음.
 		List<PositionDTO> list = positionSplit(dto2);
-
 		//post & position 삽입
 		//split한 데이터 insert
+		dto.setUserid(userInfoDTO.getId());
+		System.out.println(dto);
 		int n = positionService.positionAdd(dto, list);
 //		int n = positionService.positionAdd(postNo, dto, dto2);
 		
@@ -131,8 +165,23 @@ public class PostContoller {
 
 	// 지원하기 화면
 	@PostMapping("/apply")
-	public String postApply(ApplyDTO dto) {
-		int n = applyService.applyAdd(dto);
+	public String postApply(ApplyDTO dto, HttpSession session, int postNo) {
+		PostDTO postDTO = service.postListbyNo(postNo);
+		System.out.println("apply:"+postDTO);
+		
+		//apply 테이블 정보 저장
+		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
+		dto.setUserid(userInfoDTO.getId());
+		int n = applyService.applyAdd(dto); 
+		
+		//accept 테이블 정보 저장
+		AcceptDTO acceptDTO = new AcceptDTO();
+		acceptDTO.setAcceptUserId(postDTO.getUserid()); //작성자
+		acceptDTO.setApplyUserId(dto.getUserid()); //신청자
+		acceptDTO.setAccept(false); //수락 여부
+		acceptDTO.setPostNo(postDTO.getPostNo()); //게시판 정보
+		System.out.println(acceptDTO);
+		int n2 = acceptService.acceptAdd(acceptDTO);
 		return "redirect:postMain";
 	}
 
