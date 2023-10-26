@@ -9,15 +9,17 @@ public class AcceptDTO {
 	int acceptUserId; // 작성자
 	boolean accept; // 수락 여부
 	int postNo; // 게시판 넘버
+	int applyNo; // 신청서 넘버
 	
 	public AcceptDTO() {}
 
-	public AcceptDTO(int applicationNo, int applyUserId, int acceptUserId, boolean accept, int postNo) {
+	public AcceptDTO(int applicationNo, int applyUserId, int acceptUserId, boolean accept, int postNo, int applyNo) {
 		this.applicationNo = applicationNo;
 		this.applyUserId = applyUserId;
 		this.acceptUserId = acceptUserId;
 		this.accept = accept;
 		this.postNo = postNo;
+		this.applyNo = applyNo;
 	}
 
 	public int getApplicationNo() {
@@ -60,10 +62,18 @@ public class AcceptDTO {
 		this.postNo = postNo;
 	}
 
+	public int getApplyNo() {
+		return applyNo;
+	}
+
+	public void setApplyNo(int applyNo) {
+		this.applyNo = applyNo;
+	}
+
 	@Override
 	public String toString() {
 		return "AcceptDTO [applicationNo=" + applicationNo + ", applyUserId=" + applyUserId + ", acceptUserId="
-				+ acceptUserId + ", accept=" + accept + ", postNo=" + postNo + "]";
+				+ acceptUserId + ", accept=" + accept + ", postNo=" + postNo + ", applyNo=" + applyNo + "]";
 	}
 	
 	

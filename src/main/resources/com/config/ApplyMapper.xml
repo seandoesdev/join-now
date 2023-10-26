@@ -6,7 +6,7 @@
 
 	
 
-	<insert id="applyAdd" parameterType="ApplyDTO">
+	<insert id="applyAdd" parameterType="ApplyDTO" useGeneratedKeys="true" keyProperty="applyNo">
 		insert into apply ( postNo,applyNo,applyType, skills, contact, content, userid
 		)
 		values (
@@ -14,6 +14,17 @@
 		)
 	</insert>
 
+	<select id="selectListApplyByIdAndPostNo" parameterType="hashmap" resultType="ApplyDTO">
+		select *
+		from apply
+		where postNo=#{postNo} and userid=#{userid}		
+	</select>
+	
+	<select id="selectOne" parameterType="int" resultType="ApplyDTO">
+		select *
+		from apply
+		where applyNo = #{applyNo}
+	</select>
 	
 </mapper>
 
