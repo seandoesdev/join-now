@@ -42,15 +42,20 @@
    
    
    <!-- 회의록 -->
-   <select id="selectAllMeetingById" resultType="MeetingDTO">
-   	select writer, title, content, createDate  
+   <select id="totalCount" resultType="int">
+	     select count(*)
+	     from meeting
+   </select>
+   
+   <select id="selectAllPostById" resultType="MeetingDTO">
+   	select meetingId, writer, title, content, createdDate  
    	from meeting
    	<!-- where teamId = #{teamId} -->
    </select>
    
    <insert id="addMeeting" parameterType="MeetingDTO">
-   	insert into meeting (writer, title, content, createDate)
-   	values (#{writer}, #{title}, #{content}, #{createDate} )
+   	insert into meeting (writer, title, content, createdDate)
+   	values (#{writer}, #{title}, #{content}, #{createdDate} )
    </insert>
    
    
@@ -61,10 +66,6 @@
   		from project
   	</select>
   	
-  	<insert id="createPost" parameterType="QuestionDTO">
-  		insert into (title, content)
-  		values (#{title}, #{content})
-  	</insert>
    
 </mapper>
 
