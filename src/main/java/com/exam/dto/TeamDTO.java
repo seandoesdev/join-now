@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Alias("ProjDTO")
-public class ProjDTO {
+public class TeamDTO {
 
   private int id;
   private String title;
@@ -19,7 +19,7 @@ public class ProjDTO {
   private String porcess;
   private String tMember;
   
-  public ProjDTO(int id, String title, String intro, String porcess, String tMember) {
+  public TeamDTO(int id, String title, String intro, String porcess, String tMember) {
     this.id = id;
     this.title = title;
     this.intro = intro;
