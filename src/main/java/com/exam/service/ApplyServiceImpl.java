@@ -1,5 +1,8 @@
 package com.exam.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,16 @@ public class ApplyServiceImpl implements ApplyService {
 	@Override
 	public int applyAdd(ApplyDTO dto) {
 		return dao.applyAdd(dto);
+	}
+
+	@Override
+	public List<ApplyDTO> selectListApplyByIdAndPostNo(HashMap<String, Integer> map) {
+		return dao.selectListApplyByIdAndPostNo(map);
+	}
+
+	@Override
+	public ApplyDTO selectOne(int applyNo) {
+		return dao.selectOne(applyNo);
 	}
 
 }

@@ -9,11 +9,16 @@
 		from accept
 		where applyUserId = #{userid}
    </select>
-      
+   
+   <select id="selectListAcceptUser" resultType="AcceptDTO" parameterType="int">
+	    select *
+		from accept
+		where acceptUserId = #{userid}
+   </select>   
    
    <insert id="acceptAdd" parameterType="AcceptDTO">
-   	insert into accept(applicationNo, applyUserId, acceptUserId, accept, postNo)
-   	values(#{applicationNo}, #{applyUserId}, #{acceptUserId}, #{accept}, #{postNo})
+	   	insert into accept(applicationNo, applyUserId, acceptUserId, accept, postNo, applyNo)
+	   	values(#{applicationNo}, #{applyUserId}, #{acceptUserId}, #{accept}, #{postNo}, #{applyNo})
    </insert>
    
 </mapper>

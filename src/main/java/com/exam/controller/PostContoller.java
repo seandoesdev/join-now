@@ -173,6 +173,7 @@ public class PostContoller {
 		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
 		dto.setUserid(userInfoDTO.getId());
 		int n = applyService.applyAdd(dto); 
+		System.out.println("*************"+dto.getApplyNo());
 		
 		//accept 테이블 정보 저장
 		AcceptDTO acceptDTO = new AcceptDTO();
@@ -180,6 +181,7 @@ public class PostContoller {
 		acceptDTO.setApplyUserId(dto.getUserid()); //신청자
 		acceptDTO.setAccept(false); //수락 여부
 		acceptDTO.setPostNo(postDTO.getPostNo()); //게시판 정보
+		acceptDTO.setApplyNo(dto.getApplyNo()); // 신청서 정보
 		System.out.println(acceptDTO);
 		int n2 = acceptService.acceptAdd(acceptDTO);
 		return "redirect:postMain";
