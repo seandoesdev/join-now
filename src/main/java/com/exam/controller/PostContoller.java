@@ -14,15 +14,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.exam.dto.AcceptDTO;
 import com.exam.dto.ApplyDTO;
+import com.exam.dto.CommentDTO;
 import com.exam.dto.PositionDTO;
 import com.exam.dto.PostDTO;
 import com.exam.dto.UserInfoDTO;
 import com.exam.service.AcceptService;
 import com.exam.service.ApplyService;
+import com.exam.service.CommentService;
 import com.exam.service.PositionService;
 import com.exam.service.PostServiceImpl;
 
@@ -40,6 +44,9 @@ public class PostContoller {
 	
 	@Autowired
 	AcceptService acceptService;
+	
+	@Autowired
+	CommentService commentService;
 
 	@GetMapping("/postMain")
 	public String main(Model m) {
@@ -206,5 +213,30 @@ public class PostContoller {
 	    }
 	    return list;
 	}
+	
+	// 댓글 출력
+		@GetMapping(value="/commentList")
+		@ResponseBody
+		public List<CommentDTO> commentList(@RequestParam int postNo) {
+			//댓글정보 출력
+			List<CommentDTO> list = commentService.commentListbyNo(postNo);
+			System.out.println("commentAdd:" + list);
+			return list;
+		}
+		
+		// 댓글 저장
+			@PostMapping(value="/commentAdd")
+			@ResponseBody
+			public String commentAdd(@RequestBody CommentDTO dto, HttpSession session) {
+				// 댓글정보 생성
+				UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+				dto.setWriter(userInfoDTO.getId());
+				int n = commentService.commentAdd(dto);
+				System.out.println("commentAdd:" + dto);
+				//댓글정보 출력
+				List<CommentDTO> list = commentService.commentListbyNo(dto.getPostNo());
+				System.out.println("commentAdd:" + list);
+				return "ok";
+			}
 
 }

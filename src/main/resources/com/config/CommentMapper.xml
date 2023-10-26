@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CommentMapper">
+
+	<insert id="commentAdd" parameterType="CommentDTO">
+		insert into comment_test2 (postNo,content, writer)
+		values (#{postNo},#{content},#{writer})
+	</insert>
+
+	<select id="commentListbyNo" parameterType="int" resultType="CommentDTO">
+		select *
+		from comment_test2
+		where postNo=#{postNo}
+	</select>
+	
+</mapper>
+
+
