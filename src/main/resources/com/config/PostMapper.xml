@@ -11,9 +11,9 @@
 
 	<insert id="postAdd" parameterType="PostDTO">
 		insert into post ( studyType, title, onoff, region, 
-		content, contact,deadline,startDate )
+		content, contact,deadline,startDate, userId )
 		values (
-		#{studyType},#{title},#{onoff},#{region},#{content},#{contact},#{deadline},#{startDate}
+		#{studyType},#{title},#{onoff},#{region},#{content},#{contact},#{deadline},#{startDate}, #{userid}
 		)
 	</insert>
 

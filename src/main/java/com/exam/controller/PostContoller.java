@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.exam.dto.ApplyDTO;
 import com.exam.dto.PositionDTO;
 import com.exam.dto.PostDTO;
+import com.exam.dto.UserInfoDTO;
 import com.exam.service.ApplyService;
 import com.exam.service.PositionService;
 import com.exam.service.PostServiceImpl;
@@ -50,14 +51,16 @@ public class PostContoller {
 
 	// 삽입하기
 	@PostMapping("/postAdd")
-	public String postAdd(PostDTO dto, PositionDTO dto2) {
-		
+	public String postAdd(PostDTO dto, PositionDTO dto2, HttpSession session) {
+		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
 		//List로 반환된 position정보를 split함
 		//postNo는 값 없음.
 		List<PositionDTO> list = positionSplit(dto2);
 
 		//post & position 삽입
 		//split한 데이터 insert
+		dto.setUserid(userInfoDTO.getId());
+		System.out.println(dto);
 		int n = positionService.positionAdd(dto, list);
 //		int n = positionService.positionAdd(postNo, dto, dto2);
 		

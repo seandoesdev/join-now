@@ -27,8 +27,8 @@ public class PositionDAO {
 	@Transactional
 	public int positionAdd(PostDTO dto, List<PositionDTO> list) {
 	    //번호 자동 생성
-	    String postSql = "INSERT INTO post (studyType, title, onoff, region, content, contact, deadline, startDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-	    jdbcTemplate.update(postSql, dto.getStudyType(), dto.getTitle(), dto.getOnoff(), dto.getRegion(), dto.getContent(), dto.getContact(), dto.getDeadline(), dto.getStartDate());
+	    String postSql = "INSERT INTO post (studyType, title, onoff, region, content, contact, deadline, startDate, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	    jdbcTemplate.update(postSql, dto.getStudyType(), dto.getTitle(), dto.getOnoff(), dto.getRegion(), dto.getContent(), dto.getContact(), dto.getDeadline(), dto.getStartDate(), dto.getUserid());
 
 	    //postNo 값 삽입
 	    String retrievePostNoSql = "SELECT LAST_INSERT_ID()";
