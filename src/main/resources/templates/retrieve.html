@@ -40,6 +40,7 @@
 			alert("지원이 완료되었습니다.");
 		});
 		
+		
 		function loadComments(postNo) {
 			var postNo = $("#postNo").val();
 	        $.ajax({
@@ -89,14 +90,30 @@
 			});//end ajax
 			
 		});//end comment-btn
+		    
 
-	});
+	});//end ready
 </script>
 
 <style>
 body {
-	background-color: #F7FFF5;
-}
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+
+.container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        font-size: 24px;
+    }
 
 form {
 	margin: 0;
@@ -104,6 +121,43 @@ form {
 	height: 20px;
 	float: right;
 }
+
+/* Comment Styles */
+    .comment {
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #fff;
+    }
+
+    .comment p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .comment .user {
+        font-weight: bold;
+    }
+
+    .comment .timestamp {
+        font-size: 12px;
+        color: #888;
+    }
+
+    /* Comment Form Styles */
+    .comment-form {
+        margin-top: 20px;
+    }
+
+    .comment-form textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+
 </style>
 </head>
 <body>
@@ -218,7 +272,7 @@ form {
 
 			<form action="updateUI" method="get">
 				<input type="submit" value="수정하기" class="btn icon-btn btn-success">
-				<input type="hidden" th:value="${postListbyNum.postNo}"
+				<input id="postNo" type="hidden" th:value="${postListbyNum.postNo}"
 					name="postNo">
 			</form>
 
@@ -312,14 +366,15 @@ form {
 
 								<button type="button" class="btn rounded-pill me-2 btn-success"
 									data-dismiss="modal">Close</button>
-								<input type="submit" value="제출" id="apply-btn"
+								<input type="submit" value="제출" 
 									class="btn rounded-pill me-2 btn-outline-success">
 							</div>
-							</form>
 						</div>
 					</div>
 				</div>
+						</form>
 			</div>
+		</div>
 			<!-- 지원하기 끝 -->
 			<!-- 댓글기능 시작 -->
         <div>
@@ -332,8 +387,6 @@ form {
         </div>
         </div>
 			<!-- 댓글기능 끝 -->
-		</div>
-	</div>
 	</div>
 </body>
 </html>
