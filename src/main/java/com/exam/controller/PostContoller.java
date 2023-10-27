@@ -23,12 +23,15 @@ import com.exam.dto.ApplyDTO;
 import com.exam.dto.CommentDTO;
 import com.exam.dto.PositionDTO;
 import com.exam.dto.PostDTO;
+import com.exam.dto.TeamDTO;
+import com.exam.dto.TeamMemberDTO;
 import com.exam.dto.UserInfoDTO;
 import com.exam.service.AcceptService;
 import com.exam.service.ApplyService;
 import com.exam.service.CommentService;
 import com.exam.service.PositionService;
 import com.exam.service.PostServiceImpl;
+import com.exam.service.TeamService;
 
 @Controller
 public class PostContoller {
@@ -47,6 +50,9 @@ public class PostContoller {
 	
 	@Autowired
 	CommentService commentService;
+	
+	@Autowired
+	TeamService teamService;
 
 	@GetMapping("/postMain")
 	public String main(Model m) {
@@ -100,8 +106,21 @@ public class PostContoller {
 		dto.setUserid(userInfoDTO.getId());
 		System.out.println(dto);
 		int n = positionService.positionAdd(dto, list);
-//		int n = positionService.positionAdd(postNo, dto, dto2);
+		System.out.println(n); // postNo
 		
+		// 게시물 작성시 팀 정보 테이블 생성
+		TeamDTO teamDTO = new TeamDTO();
+		teamDTO.setPostNo(n);
+		teamDTO.setUserId(userInfoDTO.getId());
+		int n2 = teamService.teamAdd(teamDTO);
+		
+				
+		TeamMemberDTO teamMemberDTO = new TeamMemberDTO();
+		teamMemberDTO.setTeamId(teamDTO.getTeamId());
+		teamMemberDTO.setUserId(userInfoDTO.getId());
+		int n3 = teamService.teamMemberAdd(teamMemberDTO);
+		
+//		int n = positionService.positionAdd(postNo, dto, dto2);		
 		//이전 데이터
 		//postNo정보 가지고 옴
 //		int postNo = dto.getPostNo();
