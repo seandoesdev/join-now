@@ -1,0 +1,19 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TeamMapper">
+
+	<insert id="teamAdd" parameterType="TeamDTO" useGeneratedKeys="true" keyProperty="teamId">
+		insert into team(postNo, userId)
+		values(#{postNo}, #{userId})
+	</insert>
+	
+	<insert id="teamMemberAdd" parameterType="TeamMemberDTO">
+		insert into teammember(teamId, userId)
+		values (#{teamId}, #{userId})
+	</insert>
+	
+</mapper>
+
+
