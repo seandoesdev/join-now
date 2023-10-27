@@ -13,6 +13,11 @@
 		#{postNo},#{applyNo},#{applyType},#{skills},#{contact},#{content},#{userid}
 		)
 	</insert>
+	
+	<delete id="applyDel" parameterType="int">
+		delete from apply
+		where applyNo = #{applyNo}
+	</delete>
 
 	<select id="selectListApplyByIdAndPostNo" parameterType="hashmap" resultType="ApplyDTO">
 		select *

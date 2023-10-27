@@ -20,4 +20,8 @@ public class TeamDAO {
 	public int teamMemberAdd(TeamMemberDTO dto) {
 		return session.insert("TeamMapper.teamMemberAdd",dto);
 	}
+	
+	public TeamDTO selectByPostNo(int postNo) {
+		return session.selectOne("TeamMapper.selectByPostNo", postNo);
+	}
 }

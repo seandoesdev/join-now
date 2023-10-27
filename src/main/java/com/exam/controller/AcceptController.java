@@ -11,15 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.exam.dto.AcceptDTO;
 import com.exam.dto.AcceptPrintDTO;
 import com.exam.dto.ApplyDTO;
+import com.exam.dto.PostDTO;
+import com.exam.dto.TeamDTO;
+import com.exam.dto.TeamMemberDTO;
 import com.exam.dto.UserInfoDTO;
 import com.exam.service.AcceptService;
 import com.exam.service.ApplyService;
 import com.exam.service.PostService;
+import com.exam.service.TeamService;
 import com.exam.service.UserService;
 
 @Controller
@@ -36,6 +41,9 @@ public class AcceptController {
 	
 	@Autowired 
 	ApplyService applyService;
+	
+	@Autowired
+	TeamService teamService;
 	
 	@GetMapping("/applyPage")
 	public String applyPage(Model m, HttpSession session) {
@@ -117,6 +125,28 @@ public class AcceptController {
 		m.addAttribute("applyDTO", dto);		
 		m.addAttribute("UserInfoDTO", userService.selectAllById(dto.getUserid()));
 		return "applyRetrieve";
+	}
+	
+	@GetMapping("/acceptYN")
+	public String acceptYN(int applyNo, int applicationNo, String YN, int applyUserId, int postNo) {
+		System.out.println(applyNo); // 신청서 정보
+		System.out.println(applicationNo); // 신청 정보
+		System.out.println(YN);
+		System.out.println(applyUserId);
+		System.out.println(postNo);
+		
+		// 수락하면 팀원 정보 등록
+		if(YN.equals("수락")) {
+			TeamDTO teamDTO = teamService.selectByPostNo(postNo);
+			TeamMemberDTO teamMemberDTO = new TeamMemberDTO();
+			teamMemberDTO.setTeamId(teamDTO.getTeamId());
+			teamMemberDTO.setUserId(applyUserId);			
+			teamService.teamMemberAdd(teamMemberDTO);		
+		}
+		
+		acceptService.acceptApplyDel(applyNo, applicationNo); // 신청 정보, 신청서 삭제 
+		
+		return "redirect:acceptPage";
 	}
 	
 		

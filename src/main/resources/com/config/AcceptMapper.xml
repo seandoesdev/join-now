@@ -21,6 +21,11 @@
 	   	values(#{applicationNo}, #{applyUserId}, #{acceptUserId}, #{accept}, #{postNo}, #{applyNo})
    </insert>
    
+   <delete id="acceptDel" parameterType="int">
+   		delete from accept
+   		where applicationNo = #{applicationNo}
+   </delete>
+   
 </mapper>
 
 

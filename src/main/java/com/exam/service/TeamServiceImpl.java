@@ -22,5 +22,10 @@ public class TeamServiceImpl implements TeamService {
 	public int teamMemberAdd(TeamMemberDTO dto) {
 		return dao.teamMemberAdd(dto);
 	}
+
+	@Override
+	public TeamDTO selectByPostNo(int postNo) {
+		return dao.selectByPostNo(postNo);
+	}
 	
 }
