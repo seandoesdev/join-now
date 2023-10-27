@@ -1,11 +1,13 @@
 package com.exam.dto;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
 
 @Alias("AcceptPrintDTO")
 public class AcceptPrintDTO {
-	UserInfoDTO applyUserInfoDTO; //신청자
-	UserInfoDTO acceptUserInfoDTO; //작성자
+	UserInfoDTO applyUserInfoDTO; // 신청자
+	UserInfoDTO acceptUserInfoDTO; // 작성자
 	PostDTO postDTO; // 게시판 정보
 	AcceptDTO acceptDTO; // 신청 정보
 	
@@ -58,5 +60,6 @@ public class AcceptPrintDTO {
 	}
 
 	
+
 	
 }

@@ -3,7 +3,7 @@ var event = {
 		title : "",
 		start : "",
 		end : "",
-		color : ""
+		backgroundColor : ""
 	};
 
 $(document).ready(function() {
@@ -65,6 +65,10 @@ $(document).ready(function() {
                 }
             });
         },
+        
+        eventClick: function(info) {
+        	editAndDelete(info);
+        },
 		
 		select : function(info) {
 			addEvent(info);
@@ -97,14 +101,14 @@ $(document).ready(function() {
 			event.title = $("#eventContent").val().trim();
 			event.start = $("#event_start_date").val();
 			event.end = $("#event_end_date").val();
-			event.color = $("#event_color").val();
+			event.backgroundColor = $("#event_color").val();
 			
 			// 일정 검증
 			if (event.title == null || event.title == "") {
 				alert("내용을 입력하세요.");
 			} else if (new Date(event.end) - new Date(event.start) < 0) {
 				alert("종료일이 시작일보다 먼저입니다.");
-			} else if (event.color == null || event.color == "") {
+			} else if (event.backgroundColor == null || event.backgroundColor == "") {
 				alert("색상을 선택해주세요.");
 			} else {
 
@@ -117,7 +121,6 @@ $(document).ready(function() {
 			console.log(calendar.getEvents());
 
 		});
-		return event;
 	}
 	
 	function save(){
@@ -144,6 +147,58 @@ $(document).ready(function() {
 			alert();
 			location.href='login.jsp';
 		}
+	}
+	
+	function editAndDelete(info){
+		$('#editDeleteModal').modal('show');
+		
+		// 수정 모달창 열릴 때 누른 이벤트 값 보이도록 설정
+		$("#mEventContent").val(info.event.title);
+		$("#mEvent_start_date").val(info.event.startStr);
+		$("#mEvent_end_date").val(info.event.endStr);
+		$("#mEvent_color").val(info.event.backgroundColor);
+		
+		$("#editEventButton").off('click').on("click", function() {
+			const modifiedEvent = {
+				title : $("#mEventContent").val().trim(),
+				start : $("#mEvent_start_date").val(),
+				end : $("#mEvent_end_date").val(),
+				backgroundColor : $("#mEvent_color").val()
+			};
+			console.log(modifiedEvent);
+			$.ajax({
+				type:'POST',
+				url: './schedule/update/event',
+				data: JSON.stringify(modifiedEvent),
+				contentType: 'application/json; charset=utf-8',
+				success: function(response) {
+	                console.log('데이터 전송 성공. 서버 응답: ');
+	                $("#backDropModal").modal("hide");
+	            	
+	            },
+	            error: function(xhr, status, error) {
+	                console.error('데이터 전송 실패. 에러: ' + error);
+	            }
+			});
+		});
+		
+		$("#deleteEventButton").off('click').on("click", function() {
+			$.ajax({
+				type:'POST',
+				url: './schedule/delete/event',
+				data: JSON.stringify({title:$("#mEventContent").val().trim()}),
+				contentType: 'application/json; charset=utf-8',
+				success: function(response) {
+	                console.log('데이터 전송 성공. 서버 응답: ');
+	                $("#backDropModal").modal("hide");
+	            	
+	            },
+	            error: function(xhr, status, error) {
+	                console.error('데이터 전송 실패. 에러: ' + error);
+	            }
+			});
+		});
+		
 	}
 	
 });

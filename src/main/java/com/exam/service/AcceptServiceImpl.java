@@ -27,5 +27,14 @@ public class AcceptServiceImpl implements AcceptService {
 		return dao.selectListApplyUser(userid);
 	}
 	
+	public List<AcceptDTO> selectListAcceptUser(int userid){
+		return dao.selectListAcceptUser(userid);
+	}
+
+	@Override
+	public int acceptApplyDel(int applyNo, int applicationNo) {
+		return dao.acceptApplyDel(applyNo, applicationNo);
+	}
+	
 	
 }

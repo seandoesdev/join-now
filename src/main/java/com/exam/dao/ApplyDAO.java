@@ -1,6 +1,9 @@
 package com.exam.dao;
 
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,5 +20,11 @@ public class ApplyDAO {
 		return session.insert("ApplyMapper.applyAdd", dto);
 	}
 	
+	public List<ApplyDTO> selectListApplyByIdAndPostNo(HashMap<String, Integer> map) {
+		return session.selectList("ApplyMapper.selectListApplyByIdAndPostNo",map);
+	}
 	
+	public ApplyDTO selectOne(int applyNo) {
+		return session.selectOne("ApplyMapper.selectOne", applyNo);
+	}
 }

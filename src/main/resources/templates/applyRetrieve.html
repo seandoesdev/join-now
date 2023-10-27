@@ -59,35 +59,42 @@
         
     </section>
     <!-- 배너 end -->
-	
-	<!-- 리스트 -->
-	<section class="features container">
 		
-		<div class="row justify-content-center">    
-		    <th:block th:each="acceptPrintDTO : ${acceptPrintList}">
-		        <div class="col-md-12 mb-0.5">
-			                
-			            <div class="list-item d-flex justify-content-center">
-			            	<form action="acceptYN" method="get">
-				            	<a th:href="'retrieve?postNo='+${acceptPrintDTO.postDTO.postNo}"><p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.postDTO.title}">게시물 정보</p></a>
-				                <a th:href="'applyRetrieve?applyNo='+${acceptPrintDTO.acceptDTO.applyNo}"><p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.applyUserInfoDTO.id}">신청자</p></a>
-				                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.acceptUserInfoDTO.id}">작성자</p>
-				                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.acceptDTO.accept}">신청 여부</p>
-				                <input type="hidden" th:value="${acceptPrintDTO.acceptDTO.applyNo}" name="applyNo">
-				                <input type="hidden" th:value="${acceptPrintDTO.acceptDTO.applicationNo}" name="applicationNo">
-				                <input type="hidden" th:value="${acceptPrintDTO.applyUserInfoDTO.id}" name="applyUserId">
-				                <input type="hidden" th:value="${acceptPrintDTO.postDTO.postNo}" name="postNo">
-				                <input type="submit" value="수락" name="YN" class="btn btn-light text-dark bPostNoorder btn-sm">                          
-				                <input type="submit" value="거절" name="YN" class="btn btn-light text-dark border btn-sm">
-                     		</form>
-			            </div>
-			                      
-		        </div>
-		     </th:block>
-		</div>
+	<!-- Modal -->
+	<div class="container">
+    <div class="form-group p-4 border rounded">
+        <h4 class="mb-4">지원 정보</h4>
+		
+		<div class="mb-3">
+            <h5 class="mb-2">지원자 명</h5>
+            <p class="fs-5 fw-bold" th:text="${UserInfoDTO.id}">dummy</p>
+        </div>
+		
+        <div class="mb-3">
+            <h5 class="mb-2">지원분야</h5>
+            <p class="fs-5 fw-bold" th:text="${applyDTO.applyType}">dummy</p>
+        </div>
 
-	</section>
-	<!-- 리스트 end -->
+        <div class="mb-3">
+            <h5 class="mb-2">보유기술</h5>
+            <p class="fs-5" th:text="${applyDTO.skills}">dummy</p>
+        </div>
+
+        <div class="mb-3">
+            <h5 class="mb-2">연락처</h5>
+            <p class="fs-5" th:text="${applyDTO.contact}">dummy</p>
+        </div>
+
+        <div>
+            <h5 class="mb-2">지원자 소개</h5>
+            <p class="fs-5" th:text="${applyDTO.content}">dummy</p>
+        </div>
+    </div>
+</div>
+
+
+
+	
 
 	
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

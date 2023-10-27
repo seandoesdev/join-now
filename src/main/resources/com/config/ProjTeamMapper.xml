@@ -18,32 +18,50 @@
    
    <!-- 일정표 -->
    <select id="selectAllEventbyId" resultType="ScheduleDTO">
-   	select scheduleId, teamId, title, start, end, color 
+   	select scheduleId, teamId, title, start, end, backgroundColor 
    	from schedule
    </select>
    
    <insert id="insertEvent" parameterType="java.util.List">
-   	insert into schedule (title, start, end, color)
+   	insert into schedule (title, start, end, backgroundColor)
    	values 
    	<foreach collection="list" item="item" separator=",">
-   		(#{item.title}, #{item.start}, #{item.end}, #{item.color})
+   		(#{item.title}, #{item.start}, #{item.end}, #{item.backgroundColor})
    	</foreach>
    </insert>
    
+   <update id="updateEvent" parameterType="ScheduleDTO">
+   	update schedule
+   	set title = #{title}, start = #{start}, end = #{end}, backgroundColor = #{backgroundColor}
+   </update>
+   
+   <delete id="deleteEvent" parameterType="ScheduleDTO">
+   	delete from schedule
+   	where teamId = #{teamId} and title = #{title}
+   </delete>
+   
+   
    <!-- 회의록 -->
+   <select id="totalCount" resultType="int">
+	     select count(*)
+	     from meeting
+   </select>
+   
+   <select id="selectAllPostById" resultType="MeetingDTO">
+   	select meetingId, writer, title, content, createdDate  
+   	from meeting
+   	<!-- where teamId = #{teamId} -->
+   </select>
+   
+   <insert id="addMeeting" parameterType="MeetingDTO">
+   	insert into meeting (writer, title, content, createdDate)
+   	values (#{writer}, #{title}, #{content}, #{createdDate} )
+   </insert>
    
    
    <!-- 공고 신청 관리-->
    
-  	<select id="selectAllbyId" resultType="ProjDTO">
-  		select title, intro, process, tMember 
-  		from project
-  	</select>
-  	
-  	<insert id="createPost" parameterType="QuestionDTO">
-  		insert into (title, content)
-  		values (#{title}, #{content})
-  	</insert>
+
    
 </mapper>
 

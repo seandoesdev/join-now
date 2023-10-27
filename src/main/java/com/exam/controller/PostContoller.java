@@ -23,12 +23,15 @@ import com.exam.dto.ApplyDTO;
 import com.exam.dto.CommentDTO;
 import com.exam.dto.PositionDTO;
 import com.exam.dto.PostDTO;
+import com.exam.dto.TeamDTO;
+import com.exam.dto.TeamMemberDTO;
 import com.exam.dto.UserInfoDTO;
 import com.exam.service.AcceptService;
 import com.exam.service.ApplyService;
 import com.exam.service.CommentService;
 import com.exam.service.PositionService;
 import com.exam.service.PostServiceImpl;
+import com.exam.service.TeamService;
 
 @Controller
 public class PostContoller {
@@ -47,6 +50,9 @@ public class PostContoller {
 
 	@Autowired
 	CommentService commentService;
+	
+	@Autowired
+	TeamService teamService;
 
 	@GetMapping("/postMain")
 	public String main(Model m) {
@@ -100,10 +106,23 @@ public class PostContoller {
 		dto.setUserid(userInfoDTO.getId());
 		System.out.println(dto);
 		int n = positionService.positionAdd(dto, list);
-//		int n = positionService.positionAdd(postNo, dto, dto2);
-
-		// 이전 데이터
-		// postNo정보 가지고 옴
+		System.out.println(n); // postNo
+		
+		// 게시물 작성시 팀 정보 테이블 생성
+		TeamDTO teamDTO = new TeamDTO();
+		teamDTO.setPostNo(n);
+		teamDTO.setUserId(userInfoDTO.getId());
+		int n2 = teamService.teamAdd(teamDTO);
+		
+				
+		TeamMemberDTO teamMemberDTO = new TeamMemberDTO();
+		teamMemberDTO.setTeamId(teamDTO.getTeamId());
+		teamMemberDTO.setUserId(userInfoDTO.getId());
+		int n3 = teamService.teamMemberAdd(teamMemberDTO);
+		
+//		int n = positionService.positionAdd(postNo, dto, dto2);		
+		//이전 데이터
+		//postNo정보 가지고 옴
 //		int postNo = dto.getPostNo();
 //		positionService.positionAdd(postNo, dto, dto2);
 //		ResponseEntity.ok("Data inserted successfully.");
@@ -178,14 +197,16 @@ public class PostContoller {
 		// apply 테이블 정보 저장
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		dto.setUserid(userInfoDTO.getId());
-		int n = applyService.applyAdd(dto);
-
-		// accept 테이블 정보 저장
+		int n = applyService.applyAdd(dto); 
+		System.out.println("*************"+dto.getApplyNo());
+		
+		//accept 테이블 정보 저장
 		AcceptDTO acceptDTO = new AcceptDTO();
-		acceptDTO.setAcceptUserId(postDTO.getUserid()); // 작성자
-		acceptDTO.setApplyUserId(dto.getUserid()); // 신청자
-		acceptDTO.setAccept(false); // 수락 여부
-		acceptDTO.setPostNo(postDTO.getPostNo()); // 게시판 정보
+		acceptDTO.setAcceptUserId(postDTO.getUserid()); //작성자
+		acceptDTO.setApplyUserId(dto.getUserid()); //신청자
+		acceptDTO.setAccept(false); //수락 여부
+		acceptDTO.setPostNo(postDTO.getPostNo()); //게시판 정보
+		acceptDTO.setApplyNo(dto.getApplyNo()); // 신청서 정보
 		System.out.println(acceptDTO);
 		int n2 = acceptService.acceptAdd(acceptDTO);
 		return "redirect:postMain";
