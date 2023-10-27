@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.exam.dao.ProjTeamDAO;
-import com.exam.dto.TeamDTO;
 import com.exam.dto.MeetingDTO;
 import com.exam.dto.MeetingPageDTO;
 import com.exam.dto.ScheduleDTO;
@@ -55,13 +54,6 @@ public class ProjTeamServiceImpl implements ProjTeamService {
   @Override
   public MeetingPageDTO getAllPost(int curPage) {
     return dao.getAllPost(curPage);
-  }
-
-
-  @Override
-  public TeamDTO selectAllbyId() {
-
-    return dao.selectAllbyId();
   }
 
 
