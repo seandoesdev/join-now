@@ -61,11 +61,7 @@
    
    <!-- 공고 신청 관리-->
    
-  	<select id="selectAllbyId" resultType="ProjDTO">
-  		select title, intro, process, tMember 
-  		from project
-  	</select>
-  	
+
    
 </mapper>
 

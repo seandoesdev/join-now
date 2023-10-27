@@ -16,12 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.exam.dto.TeamDTO;
 import com.exam.dto.MeetingDTO;
 import com.exam.dto.MeetingPageDTO;
 import com.exam.dto.ScheduleDTO;
-import com.exam.dto.TestDTO;
 import com.exam.dto.UserInfoDTO;
+import com.exam.navercloud.openapi.service.ObjectStorageService;
 import com.exam.service.ProjTeamServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -37,14 +36,10 @@ public class ProjTeamController {
   private static final Logger log = LoggerFactory.getLogger(ProjTeamController.class);
 
   @Autowired
-  ProjTeamServiceImpl service;
-
-  @GetMapping("/test")
-  public String test(HttpSession session) {
-    UserInfoDTO dto = (UserInfoDTO) session.getAttribute("loginInfo");
-    log.info("");
-    return "schedule";
-  }
+  private ProjTeamServiceImpl service;
+  
+  @Autowired
+  private ObjectStorageService storageService;
 
   // 팀정보
   @GetMapping("/")
@@ -162,9 +157,6 @@ public class ProjTeamController {
   // project/info
   @GetMapping("/info/team-intro")
   public String selectAllbyId(Model model) {
-    TeamDTO pdto = service.selectAllbyId();
-    model.addAttribute("subject", pdto.getId());
-    model.addAttribute("", pdto.getId());
     return "info";
   }
 

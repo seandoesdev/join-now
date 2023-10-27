@@ -1,7 +1,6 @@
 package com.exam.service;
 
 import java.util.List;
-import com.exam.dto.TeamDTO;
 import com.exam.dto.MeetingDTO;
 import com.exam.dto.MeetingPageDTO;
 import com.exam.dto.ScheduleDTO;
@@ -21,5 +20,5 @@ public interface ProjTeamService {
 	
 	
 	// 팀 정보
-	public TeamDTO selectAllbyId();
+
 }
