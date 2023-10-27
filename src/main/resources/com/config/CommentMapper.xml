@@ -5,15 +5,26 @@
 <mapper namespace="CommentMapper">
 
 	<insert id="commentAdd" parameterType="CommentDTO">
-		insert into comment_test2 (postNo,content, writer)
+		insert into comment (postNo,content, writer)
 		values (#{postNo},#{content},#{writer})
 	</insert>
 
 	<select id="commentListbyNo" parameterType="int" resultType="CommentDTO">
 		select *
-		from comment_test2
+		from comment
 		where postNo=#{postNo}
 	</select>
+	
+	<update id="commentUpdate" parameterType="CommentDTO">
+		update comment
+		set content=#{content}
+		where commentNo=#{commentNo}
+	</update>
+	
+	<delete id="commentDelete" parameterType="int">
+		delete from comment
+		where commentNo=#{commentNo}
+	</delete>
 	
 </mapper>
 

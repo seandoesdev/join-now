@@ -24,4 +24,14 @@ public class CommentServiceImpl implements CommentService {
 		return dao.commentListbyNo(postNo);
 	}
 
+	@Override
+	public int commentUpdate(CommentDTO dto) {
+		return dao.commentUpdate(dto);
+	}
+
+	@Override
+	public int commentDelete(int commentNo) {
+		return dao.commentDelete(commentNo);
+	}
+
 }

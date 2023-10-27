@@ -41,10 +41,10 @@ public class PostContoller {
 
 	@Autowired
 	PositionService positionService;
-	
+
 	@Autowired
 	AcceptService acceptService;
-	
+
 	@Autowired
 	CommentService commentService;
 
@@ -88,27 +88,26 @@ public class PostContoller {
 //		
 //		return "redirect:postMain";
 //	}
-	
+
 	@PostMapping("/postAdd")
 	public String postAdd(PostDTO dto, PositionDTO dto2, HttpSession session) {
-		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
-		//List로 반환된 position정보를 split함
-		//postNo는 값 없음.
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		// List로 반환된 position정보를 split함
+		// postNo는 값 없음.
 		List<PositionDTO> list = positionSplit(dto2);
-		//post & position 삽입
-		//split한 데이터 insert
+		// post & position 삽입
+		// split한 데이터 insert
 		dto.setUserid(userInfoDTO.getId());
 		System.out.println(dto);
 		int n = positionService.positionAdd(dto, list);
 //		int n = positionService.positionAdd(postNo, dto, dto2);
-		
-		//이전 데이터
-		//postNo정보 가지고 옴
+
+		// 이전 데이터
+		// postNo정보 가지고 옴
 //		int postNo = dto.getPostNo();
 //		positionService.positionAdd(postNo, dto, dto2);
 //		ResponseEntity.ok("Data inserted successfully.");
-		
-		
+
 		return "redirect:postMain";
 	}
 
@@ -142,24 +141,24 @@ public class PostContoller {
 	// 게시글 업데이트 화면
 	@PostMapping("/update")
 	public String postUpdate(PostDTO dto, PositionDTO dto2) {
-		//position부분을 제외한 
+		// position부분을 제외한
 		int n = service.postUpdate(dto);
-		
+
 //		int n2 = positionService.positionUpdate(dto2);
-		
-		//기존 데이터 삭제
-		//postNo에 맞는 데이터 deleteAll
+
+		// 기존 데이터 삭제
+		// postNo에 맞는 데이터 deleteAll
 		int n2 = positionService.positionDelete(dto.getPostNo());
-		
-		//함수 사용해서 insert처리
+
+		// 함수 사용해서 insert처리
 		List<PositionDTO> list = positionSplit(dto2);
-		//insert처리
-		//update하면 맨 마지막 변수만 저장이 되어 아예 삭제하고 재삽입.
-		for(PositionDTO pd:list) {
-			System.out.println("update:"+pd);
+		// insert처리
+		// update하면 맨 마지막 변수만 저장이 되어 아예 삭제하고 재삽입.
+		for (PositionDTO pd : list) {
+			System.out.println("update:" + pd);
 			positionService.positionOneAdd(pd);
 		}
-		
+
 		return "redirect:postMain";
 	}
 
@@ -174,19 +173,19 @@ public class PostContoller {
 	@PostMapping("/apply")
 	public String postApply(ApplyDTO dto, HttpSession session, int postNo) {
 		PostDTO postDTO = service.postListbyNo(postNo);
-		System.out.println("apply:"+postDTO);
-		
-		//apply 테이블 정보 저장
-		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
+		System.out.println("apply:" + postDTO);
+
+		// apply 테이블 정보 저장
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		dto.setUserid(userInfoDTO.getId());
-		int n = applyService.applyAdd(dto); 
-		
-		//accept 테이블 정보 저장
+		int n = applyService.applyAdd(dto);
+
+		// accept 테이블 정보 저장
 		AcceptDTO acceptDTO = new AcceptDTO();
-		acceptDTO.setAcceptUserId(postDTO.getUserid()); //작성자
-		acceptDTO.setApplyUserId(dto.getUserid()); //신청자
-		acceptDTO.setAccept(false); //수락 여부
-		acceptDTO.setPostNo(postDTO.getPostNo()); //게시판 정보
+		acceptDTO.setAcceptUserId(postDTO.getUserid()); // 작성자
+		acceptDTO.setApplyUserId(dto.getUserid()); // 신청자
+		acceptDTO.setAccept(false); // 수락 여부
+		acceptDTO.setPostNo(postDTO.getPostNo()); // 게시판 정보
 		System.out.println(acceptDTO);
 		int n2 = acceptService.acceptAdd(acceptDTO);
 		return "redirect:postMain";
@@ -196,45 +195,64 @@ public class PostContoller {
 	public List<PositionDTO> positionSplit(PositionDTO dto) {
 		List<PositionDTO> list = new ArrayList<PositionDTO>();
 		int postNo = dto.getPostNo();
-		//구분자로 나눠줌
-	    String[] categorySplit = dto.getCategory().split(",");
-	    String[] recruitTypeSplit = dto.getRecruitType().split(",");
-	    String[] memberSizeSplit = dto.getMemberSize().split(",");
+		// 구분자로 나눠줌
+		String[] categorySplit = dto.getCategory().split(",");
+		String[] recruitTypeSplit = dto.getRecruitType().split(",");
+		String[] memberSizeSplit = dto.getMemberSize().split(",");
 
-	    int numValues = Math.min(categorySplit.length, Math.min(recruitTypeSplit.length, memberSizeSplit.length));
+		int numValues = Math.min(categorySplit.length, Math.min(recruitTypeSplit.length, memberSizeSplit.length));
 
-	    for (int i = 0; i < numValues; i++) {
+		for (int i = 0; i < numValues; i++) {
 
-	        PositionDTO position = new PositionDTO(postNo,categorySplit[i],recruitTypeSplit[i],memberSizeSplit[i]);
-	        list.add(position);
-	        
-	    }
-	    return list;
-	}
-	
-	// 댓글 출력
-		@GetMapping(value="/commentList")
-		@ResponseBody
-		public List<CommentDTO> commentList(@RequestParam int postNo) {
-			//댓글정보 출력
-			List<CommentDTO> list = commentService.commentListbyNo(postNo);
-			System.out.println("commentAdd:" + list);
-			return list;
+			PositionDTO position = new PositionDTO(postNo, categorySplit[i], recruitTypeSplit[i], memberSizeSplit[i]);
+			list.add(position);
+
 		}
-		
-		// 댓글 저장
-			@PostMapping(value="/commentAdd")
-			@ResponseBody
-			public String commentAdd(@RequestBody CommentDTO dto, HttpSession session) {
-				// 댓글정보 생성
-				UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
-				dto.setWriter(userInfoDTO.getId());
-				int n = commentService.commentAdd(dto);
-				System.out.println("commentAdd:" + dto);
-				//댓글정보 출력
-				List<CommentDTO> list = commentService.commentListbyNo(dto.getPostNo());
-				System.out.println("commentAdd:" + list);
-				return "ok";
-			}
+		return list;
+	}
+
+	// 댓글 출력
+	@GetMapping(value = "/commentList")
+	@ResponseBody
+	public List<CommentDTO> commentList(@RequestParam int postNo) {
+		// 댓글정보 출력
+		List<CommentDTO> list = commentService.commentListbyNo(postNo);
+		System.out.println("commentAdd:" + list);
+		return list;
+	}
+
+	// 댓글 저장
+	@PostMapping(value = "/commentAdd")
+	@ResponseBody
+	public String commentAdd(@RequestBody CommentDTO dto, HttpSession session) {
+		// 댓글정보 생성
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		dto.setWriter(userInfoDTO.getId());
+		int n = commentService.commentAdd(dto);
+		System.out.println("commentAdd:" + dto);
+		return "ok";
+	}
+
+	// 댓글 수정
+	@PostMapping(value = "/commentUpdate")
+	@ResponseBody
+	public String commentUpdate(@RequestBody CommentDTO dto, HttpSession session) {
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		dto.setWriter(userInfoDTO.getId());
+		int n = commentService.commentUpdate(dto);
+		System.out.println("commentUpdate:" + dto);
+		return "updated";
+	}
+
+	// 댓글 삭제
+	@PostMapping(value = "/commentDelete")
+	@ResponseBody
+	public String commentDelete(@RequestBody CommentDTO dto, HttpSession session) {
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		dto.setWriter(userInfoDTO.getId());
+		int n = commentService.commentDelete(dto.getCommentNo());
+		System.out.println("commentDelete:" + dto);
+		return "deleted";
+	}
 
 }
