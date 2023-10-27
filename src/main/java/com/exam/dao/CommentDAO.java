@@ -24,5 +24,12 @@ public class CommentDAO {
 		return session.selectList("CommentMapper.commentListbyNo",postNo);
 	}
 	
+	public int commentUpdate(CommentDTO dto){
+		return session.insert("CommentMapper.commentUpdate", dto);
+	}
+
+	public int commentDelete(int commentNo) {
+		return session.delete("CommentMapper.commentDelete", commentNo);
+	}
 	
 }

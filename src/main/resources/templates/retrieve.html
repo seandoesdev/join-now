@@ -40,32 +40,39 @@
 			alert("지원이 완료되었습니다.");
 		});
 		
-		
+		//postNo에 입력된 모든 댓글 로드
 		function loadComments(postNo) {
-			var postNo = $("#postNo").val();
-	        $.ajax({
-	            url: 'commentList',
-	            type: 'get', 
-	            dataType: 'json',
-	            data: { postNo: postNo }, 
-	            success: function(data) {
-	                var tag = ''; 
-	                $.each(data, function(idx, dto) {
-	                    
-	                    tag += '<span>' +dto.writer+dto.create_date+'<br>'+dto.content + '</span><br>';
-	                });
-	                $("#commentResult").html(tag);
-	            },
-	            error: function(xhr, status, error) {
-	                console.error('Error: ' + error);
-	                console.log(xhr.responseText);
-	            }
-	        });
-	    }
+		    var postNo = $("#postNo").val();
+		    $.ajax({
+		        url: 'commentList',
+		        type: 'get',
+		        dataType: 'json',
+		        data: { postNo: postNo },
+		        success: function(data) {
+		            var tag = '';
+		            $.each(data, function(idx, dto) {
+		                tag += '<div class="comment">';
+		                tag += '<span class="user">작성자: ' + dto.writer + '</span>';
+		                tag += '<button type="button" class="btn btn-sm btn-primary commentUpdate-btn">수정</button>';
+		                tag += '<button type="button" class="btn btn-sm btn-primary commentDelete-btn">삭제</button>';
+		                tag += '<p class="timestamp">' + dto.create_date + '</p>';
+		                tag += '<p class="content commentNo">' + dto.commentNo + '</p>';
+		                tag += '<span class="content">' + dto.content + '</span>';
+		                tag += '</div><hr>';
+		            });
+		            $("#commentResult").html(tag);
+		        },
+		        error: function(xhr, status, error) {
+		            console.error('Error: ' + error);
+		            console.log(xhr.responseText);
+		        }
+		    });
+		}
 
-	    loadComments();
-		
-		$("#comment-btn").on("click", function(event) {
+	    loadComments(); //댓글 로드 function 실행
+	    
+	    //comment Add
+	    $("#comment-btn").on("click", function(event) {
 			var commentContent = document.getElementById("commentContent").value; 
 			var postNo = $("#postNo").val();
 		    console.log(commentContent,postNo);
@@ -90,7 +97,30 @@
 			});//end ajax
 			
 		});//end comment-btn
-		    
+
+	    //commentDelete
+	    $(document).on("click", ".commentDelete-btn", function() {
+		    var commentNo = $(this).closest(".comment").find(".content.commentNo").text();
+
+		    $.ajax({
+		        url: 'commentDelete',
+		        type: 'post',
+		        dataType: 'text',
+		        headers: {
+		            'Content-type': 'application/json',
+		        },
+		        data: JSON.stringify({ commentNo: commentNo }),
+		        success: function(data, status, xhr) {
+		            console.log(data);
+		            loadComments(postNo); // Reload comments after deletion
+		        },
+		        error: function(xhr, status, error) {
+		            console.error("Error: " + error);
+		            console.log(xhr.responseText);
+		        }
+		    });//end ajax
+		});//end commentDelete
+
 
 	});//end ready
 </script>
@@ -356,7 +386,7 @@ form {
 										<br>
 										<div>
 											<input class="form-control" type="text" name="content"
-												id="html5-tel-input" />
+												id="html5-tel-input2" />
 										</div>
 									</div>
 								</div>
@@ -380,9 +410,11 @@ form {
         <div>
     <h2>Comments</h2>
     <h4>Leave a comment</h4>
+    <div class="comment">
+        <p id="commentResult"></p>
+            </div>
         <div class="comment-form">
             <textarea placeholder="Add your comment..." name="content" id="commentContent"></textarea>
-        <span id="commentResult"></span>
             <button type="submit" class="btn icon-btn btn-success" id="comment-btn">댓글저장</button>
         </div>
         </div>
