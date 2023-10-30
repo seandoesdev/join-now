@@ -20,10 +20,16 @@
 		where postNo = #{postNo}
 	</select>
 	
-	<select id="selectByTeamId" parameterType="Integer" resultType="TeamDTO">
-		select teamId, userId, teamName, teamSubject, createDate, teamLogo
+	<select id="selectByTeamId" parameterType="int" resultType="TeamDTO">
+		select *
 		from team
-		where teamId = #{teamId}
+		where teamId = #{teamId} 
+	</select>
+	
+	<select id="selectTeamIdByUserId" parameterType="int" resultType="int">
+		select teamId
+		from teammember
+		where userId = #{userId}
 	</select>
 </mapper>
 

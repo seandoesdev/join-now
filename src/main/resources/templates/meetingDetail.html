@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko" class="light-style customizer-hide" dir="ltr" xmlns:th="http://www.thymeleaf.org" data-theme="theme-default" data-assets-path="/assets/" data-template="vertical-menu-template-no-customizer">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+<title>회의록 상세 페이지</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Orbit" rel="stylesheet">
+<style>
+</style>
+<script th:inline="javascript">
+
+	const goToWrite = () => {
+	    location.href = "/app/team/meeting/1";
+	};
+	
+	const goToRetrieve = () => {
+		location.href = "/app/team/meeting/Retrieve/" + [[${meetingDTO.teamId}]] 
+		   									  + "/" 
+		   									  + [[${meetingDTO.meetingNo}]];
+	};
+	
+	const meeting_delete = () => {
+		let teamId = [[${meetingDTO.teamId}]];
+		let meetingNo = [[${meetingDTO.meetingNo}]];
+		$.ajax({
+			type:"get",
+			url:"/app/team/meeting/delete/"+ teamId + "/" + meetingNo,
+			success: function(){
+				console.log("success");
+				goToWrite();
+			},
+			error: function(){
+				console.log("error");
+			}
+		})
+	};
+
+
+</script>
+</head>
+<body>
+
+	<header th:replace="fragments/header :: header"></header>
+
+	<th:block>
+
+		<h2>회의록 상세 페이지</h2>
+
+		<!-- 회의록 정보를 동적으로 출력 -->
+		<table>
+			<tr>
+				<th>제목</th>
+				<td th:text="${meetingDTO.title}"></td>
+			</tr>
+			<tr>
+				<th>작성일</th>
+				<td th:text="${#temporals.format(meetingDTO.createdDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td th:text="${meetingDTO.writer}"></td>
+			</tr>
+			<!-- 다른 회의록 정보도 필요에 따라 추가 -->
+		</table>
+
+		<!-- 뒤로 가기 버튼 -->
+		<a th:href="@{/team/meeting/1}">
+			<button>뒤로 가기</button>
+		</a>
+		<button id="meeting_delete" onclick="meeting_delete()">삭제</button>
+		<a th:href="@{/team/meeting/retrieve/{teamId}/{meetingNo}(teamId=${meetingDTO.teamId}, 
+    												 meetingNo=${meetingDTO.meetingNo})}">
+			<button>수정</button>
+		</a>
+
+
+	</th:block>
+
+
+
+	<footer th:replace="fragments/footer :: footer"></footer>
+
+
+	<!-- build:js js/core.js -->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+</body>
+</html>

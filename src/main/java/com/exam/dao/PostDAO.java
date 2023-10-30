@@ -38,4 +38,8 @@ public class PostDAO {
 		return session.update("PostMapper.postDelete", postNo);
 	}
 	
+	public List<PostDTO> postListbyId(int userId){
+		return session.selectList("PostMapper.postListbyId", userId);
+	}
+	
 }

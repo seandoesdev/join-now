@@ -78,7 +78,13 @@ public class ScheduleDTO {
     this.backgroundColor = backgroundColor;
   }
 
+  @Override
+  public String toString() {
+    return "ScheduleDTO [calendarId=" + calendarId + ", teamId=" + teamId + ", title=" + title
+        + ", start=" + start + ", end=" + end + ", backgroundColor=" + backgroundColor + "]";
+  }
 
+  
 
  
 

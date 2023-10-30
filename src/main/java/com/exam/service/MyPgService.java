@@ -10,7 +10,9 @@ import com.exam.dto.MyPgDTO;
 
 public interface MyPgService {
 	
-	public MyPgDTO selectList();
-	public int update(MyPgDTO dto);
+//	public MyPgDTO selectList();
+	public List<MyPgDTO> mypageList();
+	public int mypageInsert(MyPgDTO dto);
+	public int mypageUpdate(MyPgDTO dto);
 	
 }

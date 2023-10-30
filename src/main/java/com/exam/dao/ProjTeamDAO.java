@@ -56,18 +56,17 @@ public class ProjTeamDAO {
   }
   
   // 회의록 조회
-  public MeetingPageDTO getAllPost(int curPage) {
+  public MeetingPageDTO getAllPost(HashMap<String, Integer> hashmap) {
     MeetingPageDTO pageDTO = new MeetingPageDTO();
     // pageDTO.setPerPage(11); => 한 페이지의 리스트 개수를 11개로 설정
     // RowBounds(offset, limit) 한 페이지에 나오는 리스트 개수 만큼, List<PostDTO> list에 담는다.
-    int offset = (curPage - 1) * pageDTO.getPerPage();
+    int offset = (hashmap.get("curPage") - 1) * pageDTO.getPerPage();
     int limit = pageDTO.getPerPage();
     List<MeetingDTO> list =
-        session.selectList("ProjTeamMapper.selectAllPostById", null, new RowBounds(offset, limit));
+        session.selectList("ProjTeamMapper.selectAllPostById", hashmap, new RowBounds(offset, limit));
    
-    
     pageDTO.setList(list);
-    pageDTO.setCurPage(curPage);
+    pageDTO.setCurPage(hashmap.get("curPage"));
     pageDTO.setTotalCount(totalCount());
     
     // 페이지 개수 조정 -> 설정을 안하고 설계를 하면 리스트가 6개일 경우 페이지가 1장만 있으면 모두 출력 가능하지만 2장이 출력되게끔 밖에 설계가 불가능함.
@@ -82,10 +81,24 @@ public class ProjTeamDAO {
   }
 
   // 회의록 추가
-  public int addMeeting() {
-    return session.insert("ProjTeamMapper.");
+  public int addMeetingPost(MeetingDTO meetingDTO) {
+    return session.insert("ProjTeamMapper.addMeetingPost", meetingDTO);
   }
-
+  
+  // 회의록 자세히 보기
+  public MeetingDTO selectOneById(HashMap<String, Integer> map) {
+    return session.selectOne("ProjTeamMapper.selectOneById", map);
+  }
+  
+  // 희의록 삭제
+  public int deleteOneById(HashMap<String, Integer> map) {
+    return session.delete("ProjTeamMapper.deleteOneById", map);
+  }
+  
+  // 회의록 수정
+  public int updateMeetingById(HashMap<String, Object> map) {
+    return session.update("ProjTeamMapper.updateMeetingById", map);
+  }
   
 
 

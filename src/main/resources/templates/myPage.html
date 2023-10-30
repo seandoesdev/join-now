@@ -6,11 +6,11 @@
     <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css}" rel="stylesheet">
     <style>
         body {
-            background-color: #6da86b; /* 연두색 배경 */
+            background-color: #2CA40E; /* 연두색 배경 */
         }
 
         .navbar {
-            background-color: #6da86b; /* 네비게이션 바 배경 */
+            background-color: #2CA40E; /* 네비게이션 바 배경 */
             color: white; /* 네비게이션 바 글자색 */
             padding: 15px;
         }
@@ -26,6 +26,7 @@
             background: transparent !important;
             border: none;
             color: #6c706c;
+            text-decoration: none;
         }
 
         .page-buttons {
@@ -35,32 +36,38 @@
             font-weight: bold;
             font-size: 10px;
             margin-right: 25px;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <a href="" class="page-buttons" style="float: right;">로그아웃</a>
-    <a href="/app/mypage" class="page-buttons" style="float: right;">내프로필</a>
-    <a href="/app/main" class="page-buttons" style="float: right;">메인</a>
+    <a th:href="@{logout}" class="page-buttons" style="float: right;">Logout</a> 
+    <a th:href="@{main}" class="page-buttons" style="float: right;">Main</a>
     <br>
     <nav class="navbar navbar-dark">
-        <div class="container">
-            <span class="navbar-brand mb-0 h1" style="color: green;">JoiNow</span>
-        </div>
-    </nav>
+	    <div class="container d-flex justify-content-between align-items-center">
+	        <p class="navbar-brand mb-0 h1" style="color: green;">JoiNow</p>
+	        <div class="d-flex">
+	            <a th:href="@{writeList}" class="btn btn-outline-dark btn-sm mx-1" style="font-size: 0.67em;">공고 작성 내역</a>
+	            <a th:href="@{applyPage}" class="btn btn-outline-dark btn-sm mx-1" style="font-size: 0.67em;">가입 신청 내역</a>
+	            <a th:href="@{teamList}" class="btn btn-outline-dark btn-sm mx-1" style="font-size: 0.67em;">가입 팀 정보</a>
+	        </div>
+	    </div>
+	</nav>
+
     <div class="container mt-5">
         <h2>마이페이지</h2>
-        <button type="button" class="transparent-button">정보</button>
-        <button type="button" class="transparent-button">모임</button>
-        <button type="button" class="transparent-button">알림</button>
-        <button type="button" class="transparent-button">프로덕트</button>
+        <a th:href="@{mypage}" class="transparent-button">정보</a>
+        <a href="" class="transparent-button">모임</a>
+        <a th:href="@{acceptPage}" class="transparent-button">모집</a>
+        <a th:href="@{applyPage}" class="transparent-button">신청</a>
         <br>
         <hr>
-        <ul th:each="mypgDTO: ${mypageList}">
+        <ul th:each="mypgDTO: ${UserInfoDTO}">
             <!-- 프로필 사진, 닉네임 -->
             <center>
                 <img th:src="@{images/default_img.jpg}" class="img-thumbnail" style="width: 10%" /><br>
-                <p class="nickname" th:text="${mypgDTO.nickname}" /p>
+                닉네임: <p class="nickname" th:text="${mypgDTO.nickname}" /p>
             </center>
             <hr>
             <!-- 이메일 -->
@@ -71,7 +78,7 @@
             <!-- 포트폴리오 링크 -->
             <div class="mb-3">
                 <label for="pofol">포트폴리오 링크</label><br>
-                <p class="pofol" th:text="${mypgDTO.pofolLink}" /p>
+                <p class="pofol" th:text="${mypgDTO.pofoLink}" /p>
             </div>
             <!-- 연락처 -->
             <div class="form-group">
@@ -97,7 +104,7 @@
             </div>
         </ul>
         <br>
-        <a href="/app/myupdateui" class="btn btn-success" style="float: center;">수정</a>
+        <a th:href="@{insertui}" class="btn btn-success" style="float: center;">수정</a>
     </div>
     <!-- Bootstrap JS 및 Popper.js 스크립트 연동 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.min.js"></script>

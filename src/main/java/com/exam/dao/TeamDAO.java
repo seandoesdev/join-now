@@ -1,5 +1,7 @@
 package com.exam.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,8 +27,13 @@ public class TeamDAO {
 		return session.selectOne("TeamMapper.selectByPostNo", postNo);
 	}
 	
+
 	// 팀 정보 출력
 	public TeamDTO selectByTeamId(int teamId) {
 	    return session.selectOne("TeamMapper.selectByTeamId", teamId);
+	}
+	
+	public List<Integer> selectTeamIdByUserId(int userId){
+		return session.selectList("TeamMapper.selectTeamIdByUserId", userId);
 	}
 }

@@ -42,21 +42,44 @@
    
    
    <!-- 회의록 -->
+   <select id="getTeamIdByUserId" parameterType="hashmap" resultType="Integer">
+   	select teamId
+   	from team
+   	where userId = #{userId}
+   </select>
+   
    <select id="totalCount" resultType="int">
 	     select count(*)
 	     from meeting
    </select>
    
-   <select id="selectAllPostById" resultType="MeetingDTO">
-   	select meetingId, writer, title, content, createdDate  
+   <select id="selectAllPostById" resultType="MeetingDTO" parameterType="hashmap">
+   	select meetingNo, teamId, writer, title, content, createdDate  
    	from meeting
-   	<!-- where teamId = #{teamId} -->
+   	where teamId = #{teamId}
    </select>
    
-   <insert id="addMeeting" parameterType="MeetingDTO">
-   	insert into meeting (writer, title, content, createdDate)
-   	values (#{writer}, #{title}, #{content}, #{createdDate} )
+   <insert id="addMeetingPost" parameterType="MeetingDTO">
+   	insert into meeting (teamId, writer, title, content)
+   	values (#{teamId}, #{writer}, #{title}, #{content})
    </insert>
+   
+   <select id="selectOneById" resultType="MeetingDTO" parameterType="HashMap">
+   	select meetingNo, teamId, writer, title, content, createdDate
+   	from meeting
+   	where teamId = #{teamId} and meetingNo = #{meetingNo}
+   </select>
+   
+   <delete id="deleteOneById" parameterType="HashMap">
+   	delete from meeting
+   	where meetingNo = #{meetingNo} and teamId = #{teamId}
+   </delete>
+   
+   <update id="updateMeetingById" parameterType="HashMap">
+   	update meeting
+   	set title = #{meetingDTO.title}, content = #{meetingDTO.content}
+   	where meetingNo = #{meetingNo} and teamId = #{teamId}
+   </update>
    
    
    <!-- 공고 신청 관리-->

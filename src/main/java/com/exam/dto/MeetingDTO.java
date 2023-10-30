@@ -1,19 +1,18 @@
 package com.exam.dto;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import org.apache.ibatis.type.Alias;
 
 @Alias("MeetingDTO")
 public class MeetingDTO {
 
-  private int meetingId;
+  private int meetingNo;
   private int teamId;
   private String writer;
   private String title;
   private String content;
   private LocalDateTime createdDate;
-  private Date modifiedDate;
+  private LocalDateTime modifiedDate;
 
 
 
@@ -21,9 +20,9 @@ public class MeetingDTO {
 
 
 
-  public MeetingDTO(int meetingId, int teamId, String writer, String title, String content,
-      LocalDateTime createdDate, Date modifiedDate) {
-    this.meetingId = meetingId;
+  public MeetingDTO(int meetingNo, int teamId, String writer, String title, String content,
+      LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    this.meetingNo = meetingNo;
     this.teamId = teamId;
     this.writer = writer;
     this.title = title;
@@ -34,14 +33,14 @@ public class MeetingDTO {
 
 
 
-  public int getMeetingId() {
-    return meetingId;
+  public int getMeetingNo() {
+    return meetingNo;
   }
 
 
 
-  public void setMeetingId(int meetingId) {
-    this.meetingId = meetingId;
+  public void setMeetingNo(int meetingNo) {
+    this.meetingNo = meetingNo;
   }
 
 
@@ -106,14 +105,23 @@ public class MeetingDTO {
 
 
 
-  public Date getModifiedDate() {
+  public LocalDateTime getModifiedDate() {
     return modifiedDate;
   }
 
 
 
-  public void setModifiedDate(Date modifiedDate) {
+  public void setModifiedDate(LocalDateTime modifiedDate) {
     this.modifiedDate = modifiedDate;
+  }
+
+
+
+  @Override
+  public String toString() {
+    return "MeetingDTO [meetingNo=" + meetingNo + ", teamId=" + teamId + ", writer=" + writer
+        + ", title=" + title + ", content=" + content + ", createdDate=" + createdDate
+        + ", modifiedDate=" + modifiedDate + "]";
   }
 
 

@@ -10,5 +10,6 @@ public interface CommentService {
 	public List<CommentDTO> commentListbyNo(int postNo);
 	public int commentUpdate(CommentDTO dto);
 	public int commentDelete(int commentNo);
+	public CommentDTO commentListbyCno(int commentNo);
 	
 }
