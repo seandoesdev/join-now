@@ -1,5 +1,7 @@
 package com.exam.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +29,17 @@ public class TeamServiceImpl implements TeamService {
 	public TeamDTO selectByPostNo(int postNo) {
 		return dao.selectByPostNo(postNo);
 	}
+	
+
+	@Override
+	public List<Integer> selectTeamIdByUserId(int userId) {
+		return dao.selectTeamIdByUserId(userId);
+	}
+
+	@Override
+	public TeamDTO selectByTeamId(int teamId) {
+		return dao.selectByTeamId(teamId);
+	}
+	
 	
 }
