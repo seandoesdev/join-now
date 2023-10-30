@@ -248,7 +248,7 @@ public class PostContoller {
 	public String commentAdd(@RequestBody CommentDTO dto, HttpSession session) {
 		// 댓글정보 생성
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
-		dto.setWriter(userInfoDTO.getId());
+		dto.setWriter(userInfoDTO.getId()); 	// 인덱스값인 id를 가져온다.
 		int n = commentService.commentAdd(dto);
 		System.out.println("commentAdd:" + dto);
 		return "ok";
