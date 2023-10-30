@@ -45,10 +45,16 @@
     <a th:href="@{main}" class="page-buttons" style="float: right;">Main</a>
     <br>
     <nav class="navbar navbar-dark">
-        <div class="container">
-            <span class="navbar-brand mb-0 h1" style="color: green;">JoiNow</span>
-        </div>
-    </nav>
+	    <div class="container d-flex justify-content-between align-items-center">
+	        <p class="navbar-brand mb-0 h1" style="color: green;">JoiNow</p>
+	        <div class="d-flex">
+	            <a th:href="@{writeList}" class="btn btn-outline-dark btn-sm mx-1" style="font-size: 0.67em;">공고 작성 내역</a>
+	            <a th:href="@{applyPage}" class="btn btn-outline-dark btn-sm mx-1" style="font-size: 0.67em;">가입 신청 내역</a>
+	            <a th:href="@{applyPage}" class="btn btn-outline-dark btn-sm mx-1" style="font-size: 0.67em;">가입 팀 정보</a>
+	        </div>
+	    </div>
+	</nav>
+
     <div class="container mt-5">
         <h2>마이페이지</h2>
         <a th:href="@{mypage}" class="transparent-button">정보</a>
