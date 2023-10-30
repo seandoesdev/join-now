@@ -229,6 +229,7 @@ public class PostContoller {
 			list.add(position);
 
 		}
+
 		return list;
 	}
 
@@ -248,7 +249,7 @@ public class PostContoller {
 	public String commentAdd(@RequestBody CommentDTO dto, HttpSession session) {
 		// 댓글정보 생성
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
-		dto.setWriter(userInfoDTO.getId());
+		dto.setWriter(userInfoDTO.getId()); 	// 인덱스값인 id를 가져온다.
 		int n = commentService.commentAdd(dto);
 		System.out.println("commentAdd:" + dto);
 		return "ok";
@@ -275,5 +276,17 @@ public class PostContoller {
 		System.out.println("commentDelete:" + dto);
 		return "deleted";
 	}
+	
+	// 작성자가 작성한 게시물 리스트 출력
+	@GetMapping("/writeList")
+	public String writeList(Model m, HttpSession session) {
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		int userId = userInfoDTO.getId();
+		
+		m.addAttribute("writeList", service.postListbyId(userId));
+		
+		return "writeList";
+	}
+
 
 }

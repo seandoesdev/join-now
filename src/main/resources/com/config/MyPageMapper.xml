@@ -5,20 +5,21 @@
 <mapper namespace="MyPageMapper">
   
    <select id="mypageList" resultType="MyPgDTO">
-   	select userid, email, nickname, phone, pofolLink, skills, tools, intro
-   	 from profile
+   	select id, email, nickname, phone, pofoLink, skills, tools, intro
+   	 from User
+   	<!--  where id=#{id}  -->
    </select>
    
    <insert id="mypageInsert" parameterType="MyPgDTO">
-   	insert into profile(userid, email, nickname, phone, pofolLink, skills, tools, intro)
-   	values(#{userid}, #{email}, #{nickname}, #{phone}, #{pofolLink}, #{skills}, #{tools}, #{intro})
+   	insert into User(email, nickname, phone, pofoLink, skills, tools, intro)
+   	values(#{email}, #{nickname}, #{phone}, #{pofoLink}, #{skills}, #{tools}, #{intro})
    </insert>
    
    <update id="mypageUpdate" parameterType="MyPgDTO">
-   	update profile
-   	set userid=#{userid}, email=#{email}, nickname=#{nickname}, phone=#{phone},
-   		 pofolLink=#{pofolLink}, skills=#{skills}, tools=#{tools}, intro=#{intro}
-   	  where userid=#{userid} 
+   	update User
+   	set id=#{id}, email=#{email}, nickname=#{nickname}, phone=#{phone},
+   		 pofoLink=#{pofolLink}, skills=#{skills}, tools=#{tools}, intro=#{intro}
+   	 where id=#{id} 
    </update>
    
    

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.exam.dto.MyPgDTO;
-import com.exam.dto.TestDTO;
+
 
 @Repository
 public class MyPgDAO {
@@ -15,16 +15,17 @@ public class MyPgDAO {
 	@Autowired
 	SqlSessionTemplate session;
 	
-	public MyPgDTO selectList(){
-		MyPgDTO mypgDTO = new MyPgDTO();
-		List<MyPgDTO> list = session.selectList("MyPageMapper.selectList", mypgDTO);
-	//	mypgDTO.setList(list); //이것도 안 됨 진짜 눈물나네
-		return mypgDTO;
+	public List<MyPgDTO> mypageList() {		
+		return session.selectList("MyPageMapper.mypageList");
+	}
+	
+	public int mypageInsert(MyPgDTO dto) {
+		return session.insert("MyPageMapper.mypageInsert", dto);
 	}
 	
 	
-	public int update(MyPgDTO dto) {
-		return session.update("MyPageMapper.update", dto);
+	public int mypageUpdate(MyPgDTO dto) {
+		return session.update("MyPageMapper.mypageUpdate", dto);
 	}
 	
 	
