@@ -18,12 +18,14 @@ public class UserInfoDTO {
 	String pofoLink;
 	String phone;
 	String intro;
+	String skills;
+	String tools;
 	
 	public UserInfoDTO() {}
 
 	public UserInfoDTO(int id, String createDate, String email, String password, String provider, String providerId,
 			String role, String username, String nickname, String profileImage, String pofoLink, String phone,
-			String intro) {
+			String intro, String skills, String tools) {
 		super();
 		this.id = id;
 		this.createDate = createDate;
@@ -38,6 +40,8 @@ public class UserInfoDTO {
 		this.pofoLink = pofoLink;
 		this.phone = phone;
 		this.intro = intro;
+		this.skills = skills;
+		this.tools = tools;
 	}
 
 	public int getId() {
@@ -144,13 +148,31 @@ public class UserInfoDTO {
 		this.intro = intro;
 	}
 
+	public String getSkills() {
+		return skills;
+	}
+
+	public void setSkills(String skills) {
+		this.skills = skills;
+	}
+
+	public String getTools() {
+		return tools;
+	}
+
+	public void setTools(String tools) {
+		this.tools = tools;
+	}
+
 	@Override
 	public String toString() {
 		return "UserInfoDTO [id=" + id + ", createDate=" + createDate + ", email=" + email + ", password=" + password
 				+ ", provider=" + provider + ", providerId=" + providerId + ", role=" + role + ", username=" + username
 				+ ", nickname=" + nickname + ", profileImage=" + profileImage + ", pofoLink=" + pofoLink + ", phone="
-				+ phone + ", intro=" + intro + "]";
+				+ phone + ", intro=" + intro + ", skills=" + skills + ", tools=" + tools + "]";
 	}
+
+	
 	
 	
 }
