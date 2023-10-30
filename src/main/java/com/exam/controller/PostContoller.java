@@ -232,14 +232,24 @@ public class PostContoller {
 		return list;
 	}
 
-	// 댓글 출력
+	// 페이지별 댓글 출력
 	@GetMapping(value = "/commentList")
 	@ResponseBody
 	public List<CommentDTO> commentList(@RequestParam int postNo) {
 		// 댓글정보 출력
 		List<CommentDTO> list = commentService.commentListbyNo(postNo);
-		System.out.println("commentAdd:" + list);
 		return list;
+	}
+	
+	//댓글 수정을 위한 고유번호별 댓글 출력
+	@GetMapping(value = "/commentListbyCno")
+	@ResponseBody
+	public CommentDTO commentListbyCno(@RequestParam int commentNo) {
+		//로그인 정보 확인
+		// 댓글정보 출력
+		CommentDTO commentDTO = commentService.commentListbyCno(commentNo);
+		System.out.println("commentListbyCno:" + commentDTO);
+		return commentDTO;
 	}
 
 	// 댓글 저장
@@ -250,7 +260,6 @@ public class PostContoller {
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		dto.setWriter(userInfoDTO.getId());
 		int n = commentService.commentAdd(dto);
-		System.out.println("commentAdd:" + dto);
 		return "ok";
 	}
 
@@ -261,7 +270,6 @@ public class PostContoller {
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		dto.setWriter(userInfoDTO.getId());
 		int n = commentService.commentUpdate(dto);
-		System.out.println("commentUpdate:" + dto);
 		return "updated";
 	}
 
@@ -272,7 +280,6 @@ public class PostContoller {
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		dto.setWriter(userInfoDTO.getId());
 		int n = commentService.commentDelete(dto.getCommentNo());
-		System.out.println("commentDelete:" + dto);
 		return "deleted";
 	}
 

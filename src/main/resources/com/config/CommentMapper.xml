@@ -15,6 +15,12 @@
 		where postNo=#{postNo}
 	</select>
 	
+	<select id="commentListbyCno" parameterType="int" resultType="CommentDTO">
+		select *
+		from comment
+		where commentNo=#{commentNo}
+	</select>
+	
 	<update id="commentUpdate" parameterType="CommentDTO">
 		update comment
 		set content=#{content}
