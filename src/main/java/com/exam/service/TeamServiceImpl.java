@@ -10,22 +10,27 @@ import com.exam.dto.TeamMemberDTO;
 @Service
 public class TeamServiceImpl implements TeamService {
 
-	@Autowired
-	TeamDAO dao;
+  @Autowired
+  TeamDAO dao;
 
-	@Override
-	public int teamAdd(TeamDTO dto) {
-		return dao.teamAdd(dto);
-	}
+  @Override
+  public int teamAdd(TeamDTO dto) {
+    return dao.teamAdd(dto);
+  }
 
-	@Override
-	public int teamMemberAdd(TeamMemberDTO dto) {
-		return dao.teamMemberAdd(dto);
-	}
+  @Override
+  public int teamMemberAdd(TeamMemberDTO dto) {
+    return dao.teamMemberAdd(dto);
+  }
 
-	@Override
-	public TeamDTO selectByPostNo(int postNo) {
-		return dao.selectByPostNo(postNo);
-	}
-	
+  @Override
+  public TeamDTO selectByPostNo(int postNo) {
+    return dao.selectByPostNo(postNo);
+  }
+
+  @Override
+  public TeamDTO selectByTeamId(int teamId) {
+    return dao.selectByTeamId(teamId);
+  }
+
 }

@@ -7,4 +7,5 @@ public interface TeamService {
 	public int teamAdd(TeamDTO dto);
 	public int teamMemberAdd(TeamMemberDTO dto);
 	public TeamDTO selectByPostNo(int postNo);
+	public TeamDTO selectByTeamId(int teamId);
 }

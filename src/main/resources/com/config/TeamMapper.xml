@@ -19,6 +19,12 @@
 		from team
 		where postNo = #{postNo}
 	</select>
+	
+	<select id="selectByTeamId" parameterType="Integer" resultType="TeamDTO">
+		select teamId, userId, teamName, teamSubject, createDate, teamLogo
+		from team
+		where teamId = #{teamId}
+	</select>
 </mapper>
 
 
