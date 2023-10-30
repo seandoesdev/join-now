@@ -34,4 +34,9 @@ public class CommentServiceImpl implements CommentService {
 		return dao.commentDelete(commentNo);
 	}
 
+	@Override
+	public CommentDTO commentListbyCno(int commentNo) {
+		return dao.commentListbyCno(commentNo);
+	}
+
 }
