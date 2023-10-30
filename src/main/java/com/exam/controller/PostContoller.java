@@ -276,6 +276,17 @@ public class PostContoller {
 		System.out.println("commentDelete:" + dto);
 		return "deleted";
 	}
+	
+	// 작성자가 작성한 게시물 리스트 출력
+	@GetMapping("/writeList")
+	public String writeList(Model m, HttpSession session) {
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		int userId = userInfoDTO.getId();
+		
+		m.addAttribute("writeList", service.postListbyId(userId));
+		
+		return "writeList";
+	}
 
 
 }
