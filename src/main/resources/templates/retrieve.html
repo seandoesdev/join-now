@@ -53,9 +53,9 @@
 		            $.each(data, function(idx, dto) {
 		                tag += '<div class="comment">';
 		                tag += '<span class="user">작성자: ' + dto.writer + '</span>';
-		                tag += '<button type="button" class="btn btn-sm btn-primary commentUpdate-btn">수정</button>';
-		                tag += '<button type="button" class="btn btn-sm btn-primary commentDelete-btn">삭제</button>';
-		                tag += '<p class="timestamp">' + dto.create_date + '</p>';
+		                tag += '<button type="button" class="btn btn-sm btn-success commentUpdateUI-btn">수정</button>';
+		                tag += '<button type="button" class="btn btn-sm btn-success commentDelete-btn">삭제</button>';
+		                tag += '<p class="timestamp">' + dto.modified_date + '</p>';
 		                tag += '<p class="content commentNo">' + dto.commentNo + '</p>';
 		                tag += '<span class="content">' + dto.content + '</span>';
 		                tag += '</div><hr>';
@@ -120,6 +120,62 @@
 		        }
 		    });//end ajax
 		});//end commentDelete
+		
+		//댓글 수정 입력
+	    $(document).on("click", ".commentUpdateUI-btn", function() {
+	        var commentNo = $(this).closest(".comment").find(".content.commentNo").text();
+	        var commentdiv = $(this).closest(".comment");
+	        
+	        $.ajax({
+	            url: 'commentListbyCno',
+	            type: 'get',
+	            dataType: 'json',
+	            data: { commentNo: commentNo },
+	            success: function(data, status, xhr) {
+	                var tag = '<div class="comment">' +
+	                    '<span class="user">작성자: ' + data.writer + '</span>' +
+	                    '<button type="button" class="btn btn-sm btn-success commentUpdate-btn">수정완료</button>' +
+	                    '<p class="timestamp">' + data.create_date + '</p>' +
+	                    '<p class="content commentNo">' + data.commentNo + '</p>' +
+	                    '<textarea placeholder="' + data.content + '" name="content" id="commentContent"></textarea>' +
+	                    '</div>';
+	                    
+	                var newElement = $(tag); // string -> jQuery object
+	                commentdiv.replaceWith(newElement);
+	            },
+	            error: function(xhr, status, error) {
+	                console.error("Error: " + error);
+	                console.log(xhr.responseText);
+	            }
+	        });
+	    });
+		
+		//댓글 업데이트 실행
+	   $(document).on("click", ".commentUpdate-btn", function() {
+		   var commentNo = $(this).closest(".comment").find(".content.commentNo").text();
+			var commentContent = document.getElementById("commentContent").value; 
+		    console.log(commentContent,commentNo);
+		  //ajax
+			$.ajax({
+				url:'commentUpdate',
+				type:"post", //post로 요청
+				dataType:"text", //text로 응답받을거야 (응답데이터 타입)
+				headers:{ //요청데이터 타입
+					"Content-type":"application/json" //전달할 타입(json)을 알려줌
+				},
+				data:JSON.stringify({content:commentContent, commentNo:commentNo}),
+				success: function(data,status,xhr){
+					console.log(data);
+					loadComments(postNo);
+	                $('#commentContent').val('');
+				},
+				error: function(xhr, status, error) {
+				    console.error("Error: " + error);
+				    console.log(xhr.responseText); 
+				}
+			});//end ajax
+			
+		});//end comment-btn
 
 
 	});//end ready
