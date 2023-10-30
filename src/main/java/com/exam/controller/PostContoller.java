@@ -244,18 +244,29 @@ public class PostContoller {
 		}
 		
 		// 댓글 저장
-			@PostMapping(value="/commentAdd")
-			@ResponseBody
-			public String commentAdd(@RequestBody CommentDTO dto, HttpSession session) {
-				// 댓글정보 생성
-				UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
-				dto.setWriter(userInfoDTO.getId());
-				int n = commentService.commentAdd(dto);
-				System.out.println("commentAdd:" + dto);
-				//댓글정보 출력
-				List<CommentDTO> list = commentService.commentListbyNo(dto.getPostNo());
-				System.out.println("commentAdd:" + list);
-				return "ok";
-			}
+		@PostMapping(value="/commentAdd")
+		@ResponseBody
+		public String commentAdd(@RequestBody CommentDTO dto, HttpSession session) {
+			// 댓글정보 생성
+			UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+			dto.setWriter(userInfoDTO.getId());
+			int n = commentService.commentAdd(dto);
+			System.out.println("commentAdd:" + dto);
+			//댓글정보 출력
+			List<CommentDTO> list = commentService.commentListbyNo(dto.getPostNo());
+			System.out.println("commentAdd:" + list);
+			return "ok";
+		}
+		
+		// 작성자가 작성한 게시물 리스트 출력
+		@GetMapping("/writeList")
+		public String writeList(Model m, HttpSession session) {
+			UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+			int userId = userInfoDTO.getId();
+			
+			m.addAttribute("writeList", service.postListbyId(userId));
+			
+			return "writeList";
+		}
 
 }

@@ -45,5 +45,10 @@ public class PostServiceImpl implements PostService {
 		return dao.postDelete(postNo);
 	}
 
+	@Override
+	public List<PostDTO> postListbyId(int userId) {
+		return dao.postListbyId(userId);
+	}
+
 
 }

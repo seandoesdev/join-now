@@ -11,4 +11,5 @@ public interface PostService {
 	public int postUpdate(PostDTO dto);
 	public int viewCount(int postNo);
 	public int postDelete(int postNo);
+	public List<PostDTO> postListbyId(int userId);
 }
