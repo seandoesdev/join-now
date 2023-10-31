@@ -36,4 +36,14 @@ public class TeamDAO {
 	public List<Integer> selectTeamIdByUserId(int userId){
 		return session.selectList("TeamMapper.selectTeamIdByUserId", userId);
 	}
+	
+	// 팀 멤버 정보 출력
+	public List<TeamMemberDTO> selectMemberListByTeamId(int teamId){
+		return session.selectList("TeamMapper.selectMemberListByTeamId", teamId);		
+	}
+	
+	// 팀 멤버 삭제
+	public int teamMemberDel(int userId) {
+		return session.delete("TeamMapper.teamMemberDel", userId);
+	}
 }
