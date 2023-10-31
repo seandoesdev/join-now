@@ -27,8 +27,10 @@ public class TeamDAO {
 		return session.selectOne("TeamMapper.selectByPostNo", postNo);
 	}
 	
-	public TeamDTO selectByTeamId(int teamId){
-		return session.selectOne("TeamMapper.selectByTeamId", teamId);
+
+	// 팀 정보 출력
+	public TeamDTO selectByTeamId(int teamId) {
+	    return session.selectOne("TeamMapper.selectByTeamId", teamId);
 	}
 	
 	public List<Integer> selectTeamIdByUserId(int userId){

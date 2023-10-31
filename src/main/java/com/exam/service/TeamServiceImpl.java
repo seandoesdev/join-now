@@ -40,6 +40,4 @@ public class TeamServiceImpl implements TeamService {
 	public TeamDTO selectByTeamId(int teamId) {
 		return dao.selectByTeamId(teamId);
 	}
-	
-	
 }
