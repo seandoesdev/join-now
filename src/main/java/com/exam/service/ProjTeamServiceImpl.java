@@ -1,5 +1,6 @@
 package com.exam.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class ProjTeamServiceImpl implements ProjTeamService {
 
   /**
    * 일정표
+   *    
+   * 일정 추가
+   * 일정 조회
+   * 일정 수정
+   * 일정 삭제
    */
   // 일정 추가
   @Override
@@ -51,11 +57,36 @@ public class ProjTeamServiceImpl implements ProjTeamService {
    * 조회
    */
 
+  // 조회
   @Override
-  public MeetingPageDTO getAllPost(int curPage) {
-    return dao.getAllPost(curPage);
+  public MeetingPageDTO getAllPost(HashMap<String, Integer> hashmap) {
+    return dao.getAllPost(hashmap);
+  }
+  
+  // 추가
+  @Override
+  public int addMeetingPost(MeetingDTO meetingDTO) {
+    return dao.addMeetingPost(meetingDTO);
+  }
+  
+  // 삭제
+  @Override
+  public int deleteOneById(HashMap<String, Integer> map) {
+    return dao.deleteOneById(map);
+  }
+  
+
+  // 자세히보기
+  @Override
+  public MeetingDTO selectOneById(HashMap<String, Integer> map) {
+    return dao.selectOneById(map);
   }
 
+  // 수정
+  @Override
+  public int updateMeetingById(HashMap<String, Object> map){
+    return dao.updateMeetingById(map);
+  }
 
 
 }

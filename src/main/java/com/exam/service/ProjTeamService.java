@@ -1,5 +1,6 @@
 package com.exam.service;
 
+import java.util.HashMap;
 import java.util.List;
 import com.exam.dto.MeetingDTO;
 import com.exam.dto.MeetingPageDTO;
@@ -16,8 +17,11 @@ public interface ProjTeamService {
 	public int deleteEvent(ScheduleDTO scheduleDTO);
 	
 	// 회의록
-	public MeetingPageDTO getAllPost(int curPage);
-	
+	public MeetingPageDTO getAllPost(HashMap<String, Integer> hashmap); // 회의록 목록 조회 + 페이징 처리
+	public int addMeetingPost(MeetingDTO meetingDTO);  // 회의록 작성
+	public MeetingDTO selectOneById(HashMap<String, Integer> map); // 상세페이지
+	public int deleteOneById(HashMap<String, Integer> map); // 회의록 삭제
+	public int updateMeetingById(HashMap<String, Object> map); // 희의록 수정
 	
 	// 팀 정보
 

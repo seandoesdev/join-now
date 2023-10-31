@@ -7,39 +7,47 @@
 <link rel="stylesheet" th:href="@{/assets/css/demo.css}" />
 </head>
 <div th:fragment="header">
-	<!-- <h3 th:text={project_name}>[project_name]팀</h3> -->
-	<div style="margin-top: 5%">
-		<h3 style="text-align: center">[JoiNow]팀</h3>
-	</div>
+	<div class="b-example-divider"></div>
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-success">
-		<div class="container-fluid">
-			<div class="collapse navbar-collapse" id="navbar-ex-7">
-				<div class="navbar-nav me-auto">
-					<a class="nav-item nav-link" th:href="@{../team/info}">팀정보</a>
-					<a class="nav-item nav-link" th:href="@{../team/question}">질문</a>
-					<a class="nav-item nav-link" th:href="@{../team/schedule}">일정표</a>
-					<a class="nav-item nav-link" th:href="@{../team/meeting}">회의록</a>
-				</div>
-				<div>
-					<ul class="navbar-nav ms-lg-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="javascript:void(0)">
-								<i class="tf-icons navbar-icon bx bx-user"></i>
-								Profile
-							</a>
+	<header class="py-3 mb-3 border-bottom">
+		<div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
+			<div class="logo-container">
+				<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+			</div>
+
+			<div class="d-flex align-items-center">
+				<div class="w-100 me-3"></div>
+
+				<div class="flex-shrink-0 dropdown">
+					<a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+						<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+					</a>
+					<ul class="dropdown-menu text-small shadow">
+						<li>
+							<a class="dropdown-item" href="#">New project...</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="javascript:void(0)">
-								<i class="tf-icons navbar-icon bx bx-lock-open-alt"></i>
-								Logout
-							</a>
+						<li>
+							<a class="dropdown-item" href="#">Settings</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="#">Profile</a>
+						</li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<li>
+							<a class="dropdown-item" href="#">Sign out</a>
 						</li>
 					</ul>
 				</div>
-
 			</div>
 		</div>
-	</nav>
+	</header>
+
+	
+
+	<div class="container-fluid pb-3">
+		<div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;"></div>
+	</div>
 </div>
 </html>
