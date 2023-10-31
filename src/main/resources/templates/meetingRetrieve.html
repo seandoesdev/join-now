@@ -67,7 +67,7 @@ body {
 }
 </style>
 <script>
-	
+
 	const submit = () => {
 		const postData = {
 				title : $("#title").val(),
@@ -75,12 +75,13 @@ body {
 			};
 		$.ajax({
 			type : "get",
-			url : "../write.do/" + [[${teamId}]], // 서버 엔드포인트 URL로 대체
+			url : "/app/team/meeting/retrieve.do/" + [[${meetingDTO.teamId}]] + 
+									'/' + [[${meetingDTO.meetingNo}]], // 서버 엔드포인트 URL로 대체
 			data : postData,
 			success : function(response) {
 				// 서버 응답 처리
 				console.log("성공");
-				location.href = "/app/team/meeting/" + [[${teamId}]] + '/1';
+				location.href = "/app/team/meeting/" + [[${meetingDTO.teamId}]] + "/" + '1';
 			},
 			error : function(error) {
 				console.error("오류 발생:", error);
@@ -102,14 +103,14 @@ body {
 
 			<div class="form-group">
 				<label for="meeting-title">회의 제목</label>
-				<input type="text" id="title" name="title" required="required">
+				<input th:value="${meetingDTO.title}" type="text" id="title" name="title" required="required">
 			</div>
 			<div class="form-group">
 				<label for="meeting-notes">회의록</label>
-				<textarea id="content" name="content" required="required"></textarea>
+				<textarea th:field="*{meetingDTO.content}" id="content" name="content" required="required"></textarea>
 			</div>
 			<div class="form-group">
-				<button type="submit" id="submit" onclick="submit()">작성</button>
+				<button type="submit" id="submit" onclick="submit()">수정</button>
 			</div>
 
 		</div>

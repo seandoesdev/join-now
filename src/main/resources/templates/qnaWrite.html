@@ -21,17 +21,19 @@
             // 사용자가 작성한 데이터 가져오기
             var title = $("#title").val();
             var content = $("#content").val();
+            var createdAt = new Date().currentDate.toISOSTring();
 
             // 데이터를 JSON 형식으로 생성
             var postData = {
                 title: title,
                 content: content
+                createdAt: createdAt
             };
 
             // 서버로 AJAX 요청 보내기
             $.ajax({
-                type: "POST",
-                url: "/post",
+                type: "GET",
+                url: "./wrtie/do",
                 contentType: "application/json",
                 data: JSON.stringify(postData),
                 success: function(response) {
@@ -53,7 +55,6 @@
 
 	<header th:replace="fragments/header :: header"></header>
 
-	<div>
 	<div class="container mt-5">
         <h3>질문 게시판</h3>
 
@@ -70,7 +71,7 @@
             <button type="submit" class="btn btn-primary">작성</button>
         </form>
     </div>
-	</div>
+
 
 
 	<footer th:replace="fragments/footer :: footer"></footer>
