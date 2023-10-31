@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 	
 	//category change
-	$("#category"+idx).on("change", function() {
+	$("#category").on("change", function() {
 	    var a = ['게임기획', '프로젝트 매니저', 'UX/UI기획'];
 	    var b = ['UI/UX 디자인', '웹페이지 디자인', '디자이너'];
 	    var c = ['프론트엔드', '백엔드', '풀스택'];
@@ -73,119 +73,47 @@ $(document).ready(function() {
 
 	});
 	
-			
-	//up-btn
-	var idx=1;
-	$(document).on("click", ".up-btn", function () {
-        var memberSize = Number.parseInt($(this).siblings(".memberSize").val());
-        $(this).siblings(".memberSize").val(memberSize + 1);
-    });//end up
-	
-	//down-btn
-	$(document).on("click", ".down-btn", function () {
-        var memberSize = Number.parseInt($(this).siblings(".memberSize").val());
-        if (memberSize > 1) {
-            $(this).siblings(".memberSize").val(memberSize - 1);
-        }
-    });//end down
-						 
-					
-			var index = 2; 
-			var addUp = function() {
- 				 $("body").append("<img src='images/up.png' id='up-btn"+index+"'style='width:40px; height:40px;'>");
- 				$("body").append("<img src='images/down.png' id='down-btn"+index+"'style='width:35px; height:35px;'>");
-  					index++;
-				};
-				
+	//up & down button
+	$(document).on("click", ".up-btn, .down-btn", function() {
+	    var isIncrease = $(this).hasClass('up-btn');
+	    var memberSize = $(this).siblings(".memberSize");
+	    var currentValue = Number.parseInt(memberSize.val());
 
-				//up-btn
-				var idx=2;
-				$(document).on("click","#up-btn"+idx, function() {
-					var memberSize = Number.parseInt($(
-					"#memberSize2").val());
-			$("#memberSize2").val(memberSize + 1);
-			});//end up
-				
-				//down-btn
-				$(document).on("click","#down-btn"+idx,  function() {
-								var memberSize = Number.parseInt($(
-										"#memberSize2").val());
-								if (memberSize == 1) {
-									$("#memberSize2").val(1);
-								} else {
-									$("#memberSize2").val(memberSize - 1);
-								}	
-						});//end down
-						
-						
-						//up-btn
-						var idx=3;
-						$(document).on("click","#up-btn"+idx, function() {
-							var memberSize = Number.parseInt($(
-							"#memberSize3").val());
-					$("#memberSize3").val(memberSize + 1);
-					});//end up
-						
-						//down-btn
-						$(document).on("click","#down-btn"+idx,  function() {
-									
-										var memberSize = Number.parseInt($(
-												"#memberSize3").val());
-										if (memberSize == 1) {
-											$("#memberSize3").val(1);
-										} else {
-											$("#memberSize3").val(memberSize - 1);
-										}	
-								});//end down
-				
-				
-	
-				
-				$("[id~=memberSize]").each(function(index) { // memberSize로 시작하는 id값을 가진 모든 것들을
-				    var idx = index + 1;
-				    $(this).attr('id', 'memberSize'+idx);
-				})
-				
-				$("[id~=up-btn]").each(function(index) { // up-btn로 시작하는 id값을 가진 모든 것들을
-				    var idx = index + 1;
-				    $(this).attr('id', 'up-btn'+idx);
-				})
-				
-				$("[id~=down-btn]").each(function(index) { // down-btn로 시작하는 id값을 가진 모든 것들을
-				    var idx = index + 1;
-				    $(this).attr('id', 'down-btn'+idx);
-				})
-				
-				
-			//addSelect
-			
-			$("#add-btn").on("click",function(){
-
-				var newSelectCategory = "<select id='category' class='form-control' name='category' >"
-					newSelectCategory += "<option value=''>옵션을 선택해주세요.</option>"
-					newSelectCategory += "<option value='기획자'>기획자</option>"
-					newSelectCategory += "<option value='디자이너'>디자이너</option>"
-					newSelectCategory += "<option value='개발자'>개발자</option></select>"
-				
-			    
-			    // Add options to the new select element
-				var newSelectRecruitType = "<select id='recruitType' name='recruitType' class='form-control'>"
-					newSelectRecruitType += "<option value=''>옵션을 선택해주세요.</option></select>"
-			    
-			    var newMsize = "<div id='mSize'>";
-					newMsize += "<img src='images/down.png' id='down-btn"+index+"' style='width:35px; height:35px;'>";
-					newMsize += "<input type='text' name='memberSize' value='1' id='memberSize"+index+"'>";
-					newMsize += "<img src='images/up.png' id='up-btn"+index+"' style='width:40px; height:40px;'></div>";
-					index++;
-			    $(".addSelect").prepend(newMsize).prepend(newSelectRecruitType).prepend(newSelectCategory);
-				
-			});
+	    if ((isIncrease && currentValue < 10) || (!isIncrease && currentValue > 1)) {
+	        memberSize.val(isIncrease ? currentValue + 1 : currentValue - 1);
+	    }
+	});
 					
-					 $("#del-btn").on("click",function() {
-						 $(this).prev().prev().prev().prev().remove();
-						 $(this).prev().prev().prev().remove();
-						 $(this).prev().prev().remove();
-				        });
+					
+						
+	//addSelect
+	$("#add-btn").on("click",function(){
+
+		var newSelectCategory = "<select id='category' class='form-control' name='category' >"
+			newSelectCategory += "<option value=''>옵션을 선택해주세요.</option>"
+			newSelectCategory += "<option value='기획자'>기획자</option>"
+			newSelectCategory += "<option value='디자이너'>디자이너</option>"
+			newSelectCategory += "<option value='개발자'>개발자</option></select>"
+		
+	    
+	    // Add options to the new select element
+		var newSelectRecruitType = "<select id='recruitType' name='recruitType' class='form-control'>"
+			newSelectRecruitType += "<option value=''>옵션을 선택해주세요.</option></select>"
+	    
+	    var newMsize = "<div id='mSize'>";
+			newMsize += "<img src='images/down.png' class='down-btn' style='width:35px; height:35px;'>";
+			newMsize += "<input type='text' name='memberSize' value='1' class='memberSize'>";
+			newMsize += "<img src='images/up.png' class='up-btn' style='width:40px; height:40px;'></div>";
+	    $(".addSelect").prepend(newMsize).prepend(newSelectRecruitType).prepend(newSelectCategory);
+		
+	});//end addSelect
+	
+	//delete button
+	$("#del-btn").on("click",function() {
+		 $(this).prev().prev().prev().prev().remove();
+		 $(this).prev().prev().prev().remove();
+		 $(this).prev().prev().remove();
+       });//end delete button
 
 });//end ready
 
@@ -285,7 +213,7 @@ $(document).ready(function() {
             <tr>
             <div class="mSize">
                   <img src="images/down.PNG" class="down-btn" style="width: 35px; height: 35px;">
-                   <input type="text" name="memberSize" th:value="${dto.memberSize}" class="memberSize" id="memberSize${idx.index}">
+                   <input type="text" name="memberSize" th:value="${dto.memberSize}" class="memberSize">
                     <img src="images/up.PNG" class="up-btn" style="width: 40px; height: 40px;">
             </div>
             </tr>
