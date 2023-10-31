@@ -11,7 +11,7 @@ import lombok.ToString;
 
 @Alias("ScheduleDTO")
 public class ScheduleDTO {
-  private int calendarId;
+  private int id;
   private int teamId;
   private String title;
   private String start;
@@ -20,9 +20,9 @@ public class ScheduleDTO {
 
   public ScheduleDTO() {}
 
-  public ScheduleDTO(int calendarId, int teamId, String title, String start, String end,
+  public ScheduleDTO(int id, int teamId, String title, String start, String end,
       String backgroundColor) {
-    this.calendarId = calendarId;
+    this.id = id;
     this.teamId = teamId;
     this.title = title;
     this.start = start;
@@ -30,12 +30,12 @@ public class ScheduleDTO {
     this.backgroundColor = backgroundColor;
   }
 
-  public int getCalendarId() {
-    return calendarId;
+  public int getId() {
+    return id;
   }
 
-  public void setCalendarId(int calendarId) {
-    this.calendarId = calendarId;
+  public void setId(int id) {
+    this.id = id;
   }
 
   public int getTeamId() {
@@ -80,12 +80,10 @@ public class ScheduleDTO {
 
   @Override
   public String toString() {
-    return "ScheduleDTO [calendarId=" + calendarId + ", teamId=" + teamId + ", title=" + title
-        + ", start=" + start + ", end=" + end + ", backgroundColor=" + backgroundColor + "]";
+    return "ScheduleDTO [id=" + id + ", teamId=" + teamId + ", title=" + title + ", start=" + start
+        + ", end=" + end + ", backgroundColor=" + backgroundColor + "]";
   }
 
-  
 
- 
 
 }

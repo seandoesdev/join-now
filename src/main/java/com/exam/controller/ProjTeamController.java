@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,46 +51,104 @@ public class ProjTeamController {
 
   // 팀정보
   @GetMapping("/{teamId}")
-  public String info(@PathVariable int teamId,
-                     HttpSession session, Model model) {
- // loginValidation(session);
+  public String info(@PathVariable int teamId, HttpSession session, Model model) {
+    // loginValidation(session);
     log.info("info works");
-    
+
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     TeamDTO teamDTO = teamService.selectByTeamId(teamId);
-    
+
     model.addAttribute("teamDTO", teamDTO);
-    
+
     return "info";
   }
 
-  // 일정표
+
+  /**
+   * 일정표 기능 구현
+   */
+
+  // 일정표 
   @GetMapping("/schedule/{teamId}")
-  public String schedule(@PathVariable int teamId,
-      HttpSession session) {
+  public String schedule(@PathVariable int teamId, HttpSession session, Model model) {
     // loginValidation(session);
-    projTeamService.selectAllEventbyId();
+    int scheduleId = projTeamService.selectAi();
+    model.addAttribute("scheduleId", scheduleId);
+    return "schedule";
+  }
+
+  // 일정표 이벤트 조회
+  @GetMapping("/schedule/select/{teamId}")
+  public @ResponseBody List<ScheduleDTO> selectEvents(@PathVariable int teamId, HttpSession session, Model model) {
+    // loginValidation(session);
+    List<ScheduleDTO> events = projTeamService.selectAllEventbyId(teamId);
+    if (events == null) {
+      return null;
+    }else {
+      return events;
+    }
+  }
+
+  // 일정표 - 이벤트 저장 기능
+  @PostMapping("/schedule/add/event/{teamId}")
+  public String saveEvent(@RequestBody ScheduleDTO scheduleDTO, @PathVariable int teamId, Model model) {
+    System.out.println("event insert test");
+    HashMap<String, Object> map = new HashMap<>();
     
-    log.info("schedule works");
+    map.put("teamId", teamId);
+    map.put("scheduleDTO", scheduleDTO);
+    
+    System.out.println(scheduleDTO);
+    int n = projTeamService.insertEvent(map);
+    
+    return "schedule";
+  }
+
+  // 일정표 - 이벤트 수정 기능
+  @PostMapping("/schedule/update/event/{teamId}")
+  public String updateEvent(@RequestBody ScheduleDTO scheduleDTO, @PathVariable int teamId) {
+    System.out.println("event update test");
+    
+    
+    try {
+      projTeamService.updateEvent(scheduleDTO);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    return "schedule";
+  }
+
+  // 일정표 - 이벤트 삭제 기능
+  @PostMapping("/schedule/delete/event/{teamId}")
+  public String deleteEvent(@RequestBody ScheduleDTO scheduleDTO, @PathVariable int teamId) {
+    System.out.println("event delete test");
+    System.out.println("ddd" + scheduleDTO.toString());
+    
+    int check_num = projTeamService.deleteEvent(scheduleDTO);
+    
+    if (check_num == 0) {
+      log.info("schedule Table has already been EMPTY");
+    }
+    
     return "schedule";
   }
 
   // 회의록
   @GetMapping("/meeting/{teamId}/{curPage}")
   public String meeting(@PathVariable int teamId,
-                        @PathVariable(value = "curPage", required = false) int curPage, 
-                        Model model,
-                        HttpSession session) {
+      @PathVariable(value = "curPage", required = false) int curPage, Model model,
+      HttpSession session) {
     // loginValidation(session);
-    UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
-    
+    UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+
     System.out.println("meeting test");
     HashMap<String, Integer> hashmap = new HashMap<>();
-    
+
     hashmap.put("teamId", teamId);
-//    hashmap.put("userId", userInfoDTO.getId());
+    // hashmap.put("userId", userInfoDTO.getId());
     hashmap.put("curPage", curPage);
-    
+
     MeetingPageDTO pageDTO = projTeamService.getAllPost(hashmap);
     model.addAttribute("pageDTO", pageDTO);
     model.addAttribute("teamId", teamId);
@@ -105,51 +163,6 @@ public class ProjTeamController {
     return "meetingWrite";
   }
 
-  ////////////////////
-  ////// 기능 구현 //////
-  ///////////////////
-  
-  /**
-   * 일정표 기능 구현
-   */
-
-  // 일정표 - 이벤트 조회 기능
-  @GetMapping("/schedule/select/event")
-  public @ResponseBody List<ScheduleDTO> select() {
-    return projTeamService.selectAllEventbyId();
-  }
-
-  // 일정표 - 이벤트 추가 기능
-  @PostMapping("/schedule/add/event")
-  public String saveEvent(@RequestBody List<ScheduleDTO> scheduleDTO) {
-    System.out.println("event insert test");
-    for (final ScheduleDTO dto : scheduleDTO) {
-      System.out.println(dto.getTitle());
-    }
-    int n = projTeamService.insertEvent(scheduleDTO);
-
-    return "schedule";
-  }
-
-  // 일정표 - 이벤트 수정 기능
-  @PostMapping("/schedule/update/event")
-  public String updateEvent(@RequestBody ScheduleDTO scheduleDTO) {
-    System.out.println("event update test");
-    try {
-      projTeamService.updateEvent(scheduleDTO);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    return "schedule";
-  }
-
-  // 일정표 - 이벤트 삭제 기능
-  @PostMapping("/schedule/delete/event")
-  public String deleteEvent(@RequestBody ScheduleDTO scheduleDTO) {
-    System.out.println("event delete test");
-    return "schedule";
-  }
 
 
   /**
@@ -158,15 +171,15 @@ public class ProjTeamController {
 
   // 회의록 작성
   @GetMapping("/meeting/write.do/{teamId}")
-  public String addMeeeting(@PathVariable int teamId,
-                            @ModelAttribute MeetingDTO meetingDTO, HttpSession session) {
+  public String addMeeeting(@PathVariable int teamId, @ModelAttribute MeetingDTO meetingDTO,
+      HttpSession session) {
     // loginValidation(session);
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     meetingDTO.setTeamId(teamId);
     meetingDTO.setWriter(userInfoDTO.getNickname());
 
-    System.out.println("meetingWrite test");
-    System.out.println(meetingDTO.getTitle());
+   log.info("meetingWrite test");
+
     projTeamService.addMeetingPost(meetingDTO);
     return "meetingWrite";
   }
@@ -219,28 +232,28 @@ public class ProjTeamController {
     System.out.println("meeting retrieve test");
 
     MeetingDTO meetingDTO = projTeamService.selectOneById(map);
-  
+
     model.addAttribute("meetingDTO", meetingDTO);
 
     return "meetingRetrieve";
   }
-  
-//회의록 수정 기능
- @GetMapping("/meeting/retrieve.do/{teamId}/{meetingNo}")
- public String meetingRetrieveDo(@PathVariable int teamId, @PathVariable int meetingNo,
-                                 MeetingDTO meetingDTO, HttpSession session) {
 
-   HashMap<String, Object> map = new HashMap<>();
-   map.put("teamId", teamId);
-   map.put("meetingNo", meetingNo);
-   map.put("meetingDTO", meetingDTO);
+  // 회의록 수정 기능
+  @GetMapping("/meeting/retrieve.do/{teamId}/{meetingNo}")
+  public String meetingRetrieveDo(@PathVariable int teamId, @PathVariable int meetingNo,
+      MeetingDTO meetingDTO, HttpSession session) {
 
-   System.out.println("meeting retrieve test");
-   System.out.println(meetingDTO.getTitle());
-   projTeamService.updateMeetingById(map);
+    HashMap<String, Object> map = new HashMap<>();
+    map.put("teamId", teamId);
+    map.put("meetingNo", meetingNo);
+    map.put("meetingDTO", meetingDTO);
 
-   return "meetingRetrieve";
- }
+    System.out.println("meeting retrieve test");
+    System.out.println(meetingDTO.getTitle());
+    projTeamService.updateMeetingById(map);
+
+    return "meetingRetrieve";
+  }
 
 
 
@@ -250,11 +263,6 @@ public class ProjTeamController {
    * @return
    */
 
-  // project/info
-  @GetMapping("/info/team-intro")
-  public String selectAllbyId(Model model) {
-    return "info";
-  }
 
   // 로그인 확인
   private String loginValidation(HttpSession session) {
