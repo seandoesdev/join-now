@@ -27,16 +27,31 @@ public class ProjTeamServiceImpl implements ProjTeamService {
    * 일정 수정
    * 일정 삭제
    */
+  // 마지막 일정
+  public int selectAi() {
+   return dao.selectAi(); 
+  }
+  
+  // 중복 체크
+  public int selectIdById(int id) {
+    return dao.selectIdById(id);
+  }
+  
+  
   // 일정 추가
   @Override
-  public int insertEvent(List<ScheduleDTO> scheduleDTO) {
-    return dao.insertEvent(scheduleDTO);
+  public int insertEvent(HashMap<String, Object> map) {
+    return dao.insertEvent(map);
   }
 
   // 일정 조회
   @Override
-  public List<ScheduleDTO> selectAllEventbyId() {
-    return dao.selectAllEventbyId();
+  public List<ScheduleDTO> selectAllEventbyId(int teamId) {
+    try {
+      return dao.selectAllEventbyId(teamId);
+    }catch (NullPointerException e) {
+      return null;
+    } 
   }
 
   // 일정 수정
@@ -48,7 +63,11 @@ public class ProjTeamServiceImpl implements ProjTeamService {
   // 일정 삭제
   @Override
   public int deleteEvent(ScheduleDTO scheduleDTO) {
-    return dao.deleteEvent(scheduleDTO);
+    try {
+      return dao.deleteEvent(scheduleDTO);
+    }catch (NullPointerException e) {
+      return 0;
+    } 
   }
 
   /**
