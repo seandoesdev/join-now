@@ -31,6 +31,17 @@
 		from teammember
 		where userId = #{userId}
 	</select>
+	
+	<select id="selectMemberListByTeamId" parameterType="int" resultType="TeamMemberDTO">
+		select *
+		from teammember
+		where teamId = #{teamId}	
+	</select>
+	
+	<delete id="teamMemberDel" parameterType="int">
+		delete from teammember
+		where userId=#{userId}
+	</delete>
 </mapper>
 
 

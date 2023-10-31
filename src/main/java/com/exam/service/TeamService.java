@@ -12,5 +12,6 @@ public interface TeamService {
 	public TeamDTO selectByTeamId(int teamId);
 
 	public List<Integer> selectTeamIdByUserId(int userId);
-
+	public List<TeamMemberDTO> selectMemberListByTeamId(int teamId);
+	public int teamMemberDel(int userId);
 }

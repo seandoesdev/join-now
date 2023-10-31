@@ -64,21 +64,17 @@
 	<section class="features container">
 		
 		<div class="row justify-content-center">    
-		    <th:block th:each="acceptPrintDTO : ${acceptPrintList}">
+		    <th:block th:each="userInfoDTO : ${memberList}">
 		        <div class="col-md-12 mb-0.5">
 			                
 			            <div class="list-item d-flex justify-content-center">
-			            	<form action="acceptYN" method="get">
-				            	<a th:href="'retrieve?postNo='+${acceptPrintDTO.postDTO.postNo}"><p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.postDTO.title}">게시물 정보</p></a>
-				                <a th:href="'applyRetrieve?applyNo='+${acceptPrintDTO.acceptDTO.applyNo}"><p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.applyUserInfoDTO.id}">신청자</p></a>
-				                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.acceptUserInfoDTO.id}">작성자</p>
-				                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.acceptDTO.accept}">신청 여부</p>
-				                <input type="hidden" th:value="${acceptPrintDTO.acceptDTO.applyNo}" name="applyNo">
-				                <input type="hidden" th:value="${acceptPrintDTO.acceptDTO.applicationNo}" name="applicationNo">
-				                <input type="hidden" th:value="${acceptPrintDTO.applyUserInfoDTO.id}" name="applyUserId">
-				                <input type="hidden" th:value="${acceptPrintDTO.postDTO.postNo}" name="postNo">
-				                <input type="submit" value="수락" name="YN" class="btn btn-light text-dark border btn-sm">                          
-				                <input type="submit" value="거절" name="YN" class="btn btn-light text-dark border btn-sm">
+			            	<form action="memberDelete" method="get">
+				            	<p class="list-text d-inline-block mx-2" th:text="${userInfoDTO.id}">아이디</p>
+				                				                
+				                <input type="hidden" th:value="${userInfoDTO.id}" name="userId">
+				                <input type="hidden" th:value="${teamId}" name="teamId">
+				                
+				                <input th:if="${leader}" type="submit" value="추방" class="btn btn-light text-dark border btn-sm">                          				                
                      		</form>
 			            </div>
 			                      

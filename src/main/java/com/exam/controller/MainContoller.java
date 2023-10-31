@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.exam.dto.PageDTO;
 import com.exam.dto.PostDTO;
+import com.exam.navercloud.openapi.service.ObjectStorageService;
 import com.exam.service.MainServiceImpl;
 
 
@@ -34,10 +35,14 @@ public class MainContoller {
 	@Autowired
 	MainServiceImpl service;
 	
+	@Autowired
+	ObjectStorageService Oservice;
+
+	
 	@GetMapping("/main")
 	public String main(@RequestParam(value = "curPage", required = false, defaultValue = "1")int curPage,
 						Model m) {
-		m.addAttribute("pageDTO", service.selectList(curPage));	
+		m.addAttribute("pageDTO", service.selectList(curPage));
 		return "main";
 	}
 	

@@ -40,4 +40,14 @@ public class TeamServiceImpl implements TeamService {
 	public TeamDTO selectByTeamId(int teamId) {
 		return dao.selectByTeamId(teamId);
 	}
+
+	@Override
+	public List<TeamMemberDTO> selectMemberListByTeamId(int teamId) {
+		return dao.selectMemberListByTeamId(teamId);
+	}
+
+	@Override
+	public int teamMemberDel(int userId) {
+		return dao.teamMemberDel(userId);
+	}
 }
