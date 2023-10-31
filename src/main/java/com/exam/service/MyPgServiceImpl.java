@@ -43,4 +43,10 @@ public class MyPgServiceImpl implements MyPgService {
 	}
 
 
+	@Override
+	public MyPgDTO mypageInfo(int id) {
+		return dao.mypageInfo(id);
+	}
+
+
 }

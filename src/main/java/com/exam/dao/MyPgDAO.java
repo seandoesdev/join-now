@@ -19,6 +19,10 @@ public class MyPgDAO {
 		return session.selectList("MyPageMapper.mypageList");
 	}
 	
+	public MyPgDTO mypageInfo(int id) {		
+		return session.selectOne("MyPageMapper.mypageInfo",id);
+	}
+	
 	public int mypageInsert(MyPgDTO dto) {
 		return session.insert("MyPageMapper.mypageInsert", dto);
 	}

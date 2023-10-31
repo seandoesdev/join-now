@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>JoiNow</title>
@@ -45,7 +45,7 @@
         <h5>기본 정보</h5>
         <div class="mb-3">
             <label for="nickname" class="form-label">닉네임</label>
-            <input type="text" class="form-control" name="nickname" id="nickname">
+            <input type="text" th:value="${mypgDTO.nickname}" class="form-control" name="nickname" id="nickname">
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">이메일</label>
@@ -57,22 +57,22 @@
         </div>
         <div class="mb-3">
             <label for="phone" class="form-label">연락처</label>
-            <input id="phone" type="text" class="form-control" name="phone">
+            <input id="phone" th:value="${mypgDTO.phone}" type="text" class="form-control" name="phone">
         </div>
         <hr>
         <h5>기술 스택</h5>
         <div class="mb-3">
             <label for="skills" class="form-label">직무</label>
-            <input id="skills" type="text" class="form-control" name="skills" placeholder="ex) 프론트엔드 UIUX">
+            <input id="skills" th:value="${mypgDTO.skills}" type="text" class="form-control" name="skills" placeholder="ex) 프론트엔드 UIUX">
         </div>
         <div class="mb-3">
             <label for="tools" class="form-label">사용 툴</label>
-            <input id="tools" type="text" class="form-control" name="tools" placeholder="ex) node.js">
+            <input id="tools" th:value="${mypgDTO.tools}" type="text" class="form-control" name="tools" placeholder="ex) node.js">
         </div>
         <hr>
         <div class="mb-3">
             <label for="tools" class="form-label">한줄 소개</label>
-            <input id="intro" type="text" class="form-control" name="intro" placeholder="ex) 안녕하세요">
+            <input id="intro" type="text" class="form-control" name="intro" th:value="${mypgDTO.intro}">
         </div>
         
         <button type="submit" class="btn btn-success" style="float: center;">확인</button>

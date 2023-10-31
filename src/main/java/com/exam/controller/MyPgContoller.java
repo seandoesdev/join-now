@@ -27,45 +27,49 @@ public class MyPgContoller {
 
 	@Autowired
 	MyPgServiceImpl myService;
-	
+
 	@Autowired
 	UserServiceImpl userService;
 
-	//로그인 후 mypage 요청하면 이메일만 출력
+	// 로그인 후 mypage 요청하면 이메일만 출력
 	@GetMapping("/mypage")
 	public String mypage(Model m, HttpSession session) {
 		System.out.println("mypage!!");
-	
-		//세션에서 id값 받아오기
+
+		// 세션에서 id값 받아오기
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		int id = userInfoDTO.getId();
-		//현재 로그인된 id에 해당하는 정보 받아와서 출력
+		// 현재 로그인된 id에 해당하는 정보 받아와서 출력
 		UserInfoDTO info = userService.selectAllById(id);
 		m.addAttribute("UserInfoDTO", info);
 
 		return "myPage";
 	}
-	
+
 	// 마이페이지 수정 페이지 들어가기
 	@GetMapping("/insertui")
 	public String mypageInsert(Model m, HttpServletRequest request) {
 		HttpSession session = request.getSession();
+		// 세션에서 id값 받아오기
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		MyPgDTO mypgDTO = myService.mypageInfo(userInfoDTO.getId());
+		m.addAttribute("mypgDTO", mypgDTO);
+		System.out.println(mypgDTO);
 		return "myPageAdd";
 	}
 
 	// mypage 수정
-	@PostMapping("/myinsert") 
-	  public String mypageInsert(MyPgDTO dto, HttpSession session) {
-	  System.out.println("mypage 내용추가!!"); 
-	  UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
-	  int n = userInfoDTO.getId();	
-	  
-	  //dto에 사용자 id 설정
-	  dto.setId(userInfoDTO.getId());
-	  int n2 = myService.mypageUpdate(dto);	// insert -> Update로 변경
-	  
-	  return "redirect:mypage"; 
+	@PostMapping("/myinsert")
+	public String mypageInsert(MyPgDTO dto, HttpSession session) {
+		System.out.println("mypage 내용추가!!");
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		int n = userInfoDTO.getId();
+
+		// dto에 사용자 id 설정
+		dto.setId(userInfoDTO.getId());
+		int n2 = myService.mypageUpdate(dto); // insert -> Update로 변경
+
+		return "redirect:mypage";
 	}
 
-	 
 }
