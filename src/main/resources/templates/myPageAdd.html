@@ -32,47 +32,46 @@
         <div class><h2>마이페이지</h2>
         <h5>회원 정보 수정</h5>
         <hr>
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <p>프로필 사진</p>
-            <img src="images/default_img.jpg" class="img-thumbnail" style="width: 10%">
-            <div class="form-group">
-                <input class="form-control" type="file" name="profileImage" id="profileImage">
-            </div>
-        </form>
+        <form action="upload" method="post" enctype="multipart/form-data">
+			comment:<input type="text" name="theText" readonly th:value="${userInfoDTO.username}" style="background-color: #D8D8D8;"><br>
+			*(.jpg 파일만 업로드 가능합니다.)</br>
+			<input type="file" name="theFile"><br>
+			<input type="submit" value="업로드">
+		</form>
         <button class="btn btn-danger" id="deleteProfileBtn" style="display: none;">삭제</button>
         <hr>
       <form class="form" action="myinsert" method="post">
         <h5>기본 정보</h5>
         <div class="mb-3">
             <label for="nickname" class="form-label">닉네임</label>
-            <input type="text" th:value="${mypgDTO.nickname}" class="form-control" name="nickname" id="nickname">
+            <input type="text" th:value="${userInfoDTO.nickname}" class="form-control" name="nickname" id="nickname">
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">이메일</label>
-            <input id="email" type="text" class="form-control" name="email" readonly th:value="@{mypgDTO.email}">
+            <input id="email" type="text" class="form-control" name="email" readonly th:value="${userInfoDTO.email}">
         </div>
         <div class="mb-3">
             <label for="pofol" class="form-label">포트폴리오 링크</label>
-            <input id="pflink" type="text" class="form-control" name="pofolLink">
+            <input id="pflink" type="text" class="form-control" name="pofolLink" th:value="${userInfoDTO.pofoLink}">
         </div>
         <div class="mb-3">
             <label for="phone" class="form-label">연락처</label>
-            <input id="phone" th:value="${mypgDTO.phone}" type="text" class="form-control" name="phone">
+            <input id="phone" th:value="${userInfoDTO.phone}" type="text" class="form-control" name="phone">
         </div>
         <hr>
         <h5>기술 스택</h5>
         <div class="mb-3">
             <label for="skills" class="form-label">직무</label>
-            <input id="skills" th:value="${mypgDTO.skills}" type="text" class="form-control" name="skills" placeholder="ex) 프론트엔드 UIUX">
+            <input id="skills" th:value="${userInfoDTO.skills}" type="text" class="form-control" name="skills" placeholder="ex) 프론트엔드 UIUX">
         </div>
         <div class="mb-3">
             <label for="tools" class="form-label">사용 툴</label>
-            <input id="tools" th:value="${mypgDTO.tools}" type="text" class="form-control" name="tools" placeholder="ex) node.js">
+            <input id="tools" th:value="${userInfoDTO.tools}" type="text" class="form-control" name="tools" placeholder="ex) node.js">
         </div>
         <hr>
         <div class="mb-3">
             <label for="tools" class="form-label">한줄 소개</label>
-            <input id="intro" type="text" class="form-control" name="intro" th:value="${mypgDTO.intro}">
+            <input id="intro" type="text" class="form-control" name="intro" th:value="${userInfoDTO.intro}">
         </div>
         
         <button type="submit" class="btn btn-success" style="float: center;">확인</button>

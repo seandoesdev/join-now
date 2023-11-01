@@ -11,7 +11,7 @@ public class MyPgDTO {
 	String email;
 	String nickname;
 	String phone;
-	String pofolLink;
+	String pofoLink;
 	String skills;
 	String tools;
 	String intro;
@@ -43,11 +43,11 @@ public class MyPgDTO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getPofolLink() {
-		return pofolLink;
+	public String getPofoLink() {
+		return pofoLink;
 	}
-	public void setPofolLink(String pofolLink) {
-		this.pofolLink = pofolLink;
+	public void setPofoLink(String pofoLink) {
+		this.pofoLink = pofoLink;
 	}
 	public String getSkills() {
 		return skills;
@@ -67,24 +67,24 @@ public class MyPgDTO {
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
-	public MyPgDTO(int id, String email, String nickname, String phone, String pofolLink, String skills, String tools,
+	public MyPgDTO(int id, String email, String nickname, String phone, String pofoLink, String skills, String tools,
 			String intro) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.nickname = nickname;
 		this.phone = phone;
-		this.pofolLink = pofolLink;
+		this.pofoLink = pofoLink;
 		this.skills = skills;
 		this.tools = tools;
 		this.intro = intro;
 	}
 	@Override
 	public String toString() {
-		return "MyPgDTO [id=" + id + ", email=" + email + ", nickname=" + nickname + ", phone=" + phone + ", pofolLink="
-				+ pofolLink + ", skills=" + skills + ", tools=" + tools + ", intro=" + intro + "]";
+		return "MyPgDTO [id=" + id + ", email=" + email + ", nickname=" + nickname + ", phone=" + phone + ", pofoLink="
+				+ pofoLink + ", skills=" + skills + ", tools=" + tools + ", intro=" + intro + "]";
 	}
-	
+
 
 	
 	
