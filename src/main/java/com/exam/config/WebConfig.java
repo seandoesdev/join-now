@@ -11,27 +11,27 @@ import com.exam.interceptor.LoginCheckInterceptor;
 @Configuration // servlet-context.xml
 public class WebConfig implements WebMvcConfigurer {
 
-	/*
- 		<mvc:interceptors>
-			<mvc:interceptor>
-			<mvc:mapping path="/loginCheck/*"/>
-			<ref bean="xxx"/>
-        </mvc:interceptor>
-        
-	 */
-	@Autowired
-	LoginCheckInterceptor interceptor;
-	
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(interceptor).addPathPatterns("/mypage", "/write", "/apply");
-	}
+  /*
+   * <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/loginCheck/*"/> <ref bean="xxx"/>
+   * </mvc:interceptor>
+   * 
+   */
+  @Autowired
+  LoginCheckInterceptor interceptor;
 
-	// <mvc:view-controller path="/mypage" view-name="main" />
-	
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		
-	}
-	
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(interceptor).addPathPatterns("/mypage", "/write", "/apply");
+  }
+
+  // <mvc:view-controller path="/mypage" view-name="main" />
+
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+
+  }
+
+ 
+
+
 }

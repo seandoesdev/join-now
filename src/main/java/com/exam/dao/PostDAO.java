@@ -1,5 +1,6 @@
 package com.exam.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -34,8 +35,8 @@ public class PostDAO {
 		return session.update("PostMapper.viewCount", postNo);
 	}
 	
-	public int postDelete(int postNo) {
-		return session.update("PostMapper.postDelete", postNo);
+	public int postDelete(HashMap<String, Object> map) {
+		return session.update("PostMapper.postDelete", map);
 	}
 	
 	public List<PostDTO> postListbyId(int userId){

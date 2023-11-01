@@ -1,5 +1,6 @@
 package com.exam.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public int postDelete(int postNo) {
-		return dao.postDelete(postNo);
+	public int postDelete(HashMap<String, Object> map) {
+		return dao.postDelete(map);
 	}
 
 	@Override

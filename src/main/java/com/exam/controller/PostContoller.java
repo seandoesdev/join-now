@@ -1,7 +1,9 @@
 package com.exam.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -132,14 +134,19 @@ public class PostContoller {
 
 	// 게시글 자세히보기 화면
 	@GetMapping("/retrieve")
-	public String postRetrieve(Model m, @RequestParam int postNo) {
+	public String postRetrieve(Model m, @RequestParam int postNo,HttpSession session, HttpServletRequest request) {
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		int LoggedInId = userInfoDTO.getId(); //로그인한 아이디
 		List<PostDTO> list = service.postList();
 		PostDTO postDTO = service.postListbyNo(postNo);
+		int author = postDTO.getUserid(); //게시글 작성자 아이디
 		int n = service.viewCount(postNo);
 		List<PositionDTO> positionList = positionService.positionList(postNo);
 		m.addAttribute("postListbyNum", postDTO);
 		m.addAttribute("postList", list);
 		m.addAttribute("positionList", positionList);
+		request.setAttribute("LoggedInId", LoggedInId);
+		request.setAttribute("author", author);
 		return "retrieve";
 	}
 
@@ -159,7 +166,11 @@ public class PostContoller {
 
 	// 게시글 업데이트 화면
 	@PostMapping("/update")
-	public String postUpdate(PostDTO dto, PositionDTO dto2) {
+	public String postUpdate(PostDTO dto, PositionDTO dto2, HttpSession session) {
+		//작성자 아이디 확인
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		dto.setUserid(userInfoDTO.getId());
+		
 		// position부분을 제외한
 		int n = service.postUpdate(dto);
 
@@ -183,8 +194,13 @@ public class PostContoller {
 
 	// 게시글 삭제
 	@PostMapping("/delete")
-	public String postDelete(int postNo) {
-		int n = service.postDelete(postNo);
+	public String postDelete(int postNo, HttpSession session) {
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		int loginedId = userInfoDTO.getId(); //로그인한 아이디
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("postNo", postNo);
+		map.put("userid", loginedId);
+		int n = service.postDelete(map);
 		return "redirect:postMain";
 	}
 
@@ -234,7 +250,7 @@ public class PostContoller {
 	}
 
 	// 페이지별 댓글 출력
-	@GetMapping(value = "/commentList")
+	@GetMapping("/commentList")
 	@ResponseBody
 	public List<CommentDTO> commentList(@RequestParam int postNo) {
 		// 댓글정보 출력
@@ -243,18 +259,22 @@ public class PostContoller {
 	}
 	
 	//댓글 수정을 위한 고유번호별 댓글 출력
-	@GetMapping(value = "/commentListbyCno")
+	@GetMapping("/commentListbyCno")
 	@ResponseBody
-	public CommentDTO commentListbyCno(@RequestParam int commentNo) {
+	public CommentDTO commentListbyCno(@RequestParam int commentNo, HttpSession session, Model m) {
 		//로그인 정보 확인
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		// 댓글정보 출력
 		CommentDTO commentDTO = commentService.commentListbyCno(commentNo);
+		int id = userInfoDTO.getId();
+		commentDTO.setWriter(id);
 		System.out.println("commentListbyCno:" + commentDTO);
+		m.addAttribute("id", id);
 		return commentDTO;
 	}
 
 	// 댓글 저장
-	@PostMapping(value = "/commentAdd")
+	@PostMapping("/commentAdd")
 	@ResponseBody
 	public String commentAdd(@RequestBody CommentDTO dto, HttpSession session) {
 		// 댓글정보 생성
@@ -265,23 +285,23 @@ public class PostContoller {
 	}
 
 	// 댓글 수정
-	@PostMapping(value = "/commentUpdate")
+	@PostMapping("/commentUpdate")
 	@ResponseBody
-	public String commentUpdate(@RequestBody CommentDTO dto, HttpSession session) {
-		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
-		dto.setWriter(userInfoDTO.getId());
+	public String commentUpdate(@RequestBody CommentDTO dto) {
 		int n = commentService.commentUpdate(dto);
 		return "updated";
 	}
 
 	// 댓글 삭제
-	@PostMapping(value = "/commentDelete")
+	@PostMapping("/commentDelete")
 	@ResponseBody
-	public String commentDelete(@RequestBody CommentDTO dto, HttpSession session) {
+	public int commentDelete(@RequestBody CommentDTO dto, HttpSession session, Model m) {
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
-		dto.setWriter(userInfoDTO.getId());
+		int id = userInfoDTO.getId();
+		dto.setWriter(id);
 		int n = commentService.commentDelete(dto.getCommentNo());
-		return "deleted";
+		m.addAttribute("id", id);
+		return id;
 	}
 	
 	// 작성자가 작성한 게시물 리스트 출력
@@ -294,6 +314,6 @@ public class PostContoller {
 		
 		return "writeList";
 	}
-
+	
 
 }
