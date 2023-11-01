@@ -49,11 +49,11 @@
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">이메일</label>
-            <input id="email" type="text" class="form-control" name="email" readonly th:value="@{mypgDTO.email}">
+            <input id="email" th:value="${mypgDTO.email}" type="text" class="form-control" name="email" readonly>
         </div>
         <div class="mb-3">
             <label for="pofol" class="form-label">포트폴리오 링크</label>
-            <input id="pflink" type="text" class="form-control" name="pofolLink">
+            <input id="pflink" th:value="${mypgDTO.pofoLink}" type="text" class="form-control" name="pofolLink">
         </div>
         <div class="mb-3">
             <label for="phone" class="form-label">연락처</label>
