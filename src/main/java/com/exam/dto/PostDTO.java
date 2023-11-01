@@ -5,8 +5,6 @@ import org.apache.ibatis.type.Alias;
 @Alias("PostDTO")
 public class PostDTO {
 	
-	// TODO:세션에서 userid 받아오기
-	
 	int postNo;
 	String title;
 	String studyType;

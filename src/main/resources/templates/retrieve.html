@@ -29,11 +29,27 @@
 
 <script>
 	$(document).ready(function() {
-
+		
+		var author = document.getElementById('author').innerText;
+		var LoggedInId = document.getElementById('LoggedInId').value;
+	    
+	    if (LoggedInId !== author) {
+	        $('#delete').hide();
+	        $('#modify-btn').hide();
+	    }
+	    
+	    if (LoggedInId == author) {
+	        $('#apply-btn').hide();
+	    }
+		
 		//delete alert
 		$("#delete").on("click", function() {
-			alert("해당 게시글이 삭제되었습니다.");
-		});
+   		 if (confirm('삭제하시겠습니까?') == false) {
+        return false; 
+   		 } else {
+        alert('해당 게시글이 삭제되었습니다.');
+  	  }
+	});//end delete alert
 
 		//apply alert
 		$("#apply-btn").on("click", function() {
@@ -60,14 +76,32 @@
 		                tag += '<span class="content">' + dto.content + '</span>';
 		                tag += '</div><hr>';
 		            });
+
 		            $("#commentResult").html(tag);
+		            
+		            //로그인한 아이디와 댓글 작성자가 다르면 댓글 수정 버튼 숨김
+		            $(".comment .commentUpdateUI-btn").each(function() {
+		                var writer = $(this).siblings('.user').text().split(': ')[1];
+		                if (LoggedInId !== writer) {
+		                    $(this).hide();
+		                }
+		            });
+		            
+		          //로그인한 아이디와 댓글 작성자가 다르면 댓글 삭제 버튼 숨김
+		            $(".comment .commentDelete-btn").each(function() {
+		                var writer = $(this).siblings('.user').text().split(': ')[1];
+		                if (LoggedInId !== writer) {
+		                    $(this).hide();
+		                }
+		            });
+	                
 		        },
 		        error: function(xhr, status, error) {
 		            console.error('Error: ' + error);
 		            console.log(xhr.responseText);
 		        }
 		    });
-		}
+		}//end function loadComments
 
 	    loadComments(); //댓글 로드 function 실행
 	    
@@ -101,7 +135,7 @@
 	    //commentDelete
 	    $(document).on("click", ".commentDelete-btn", function() {
 		    var commentNo = $(this).closest(".comment").find(".content.commentNo").text();
-
+		    console.log(id);
 		    $.ajax({
 		        url: 'commentDelete',
 		        type: 'post',
@@ -119,6 +153,7 @@
 		            console.log(xhr.responseText);
 		        }
 		    });//end ajax
+		    
 		});//end commentDelete
 		
 		//댓글 수정 입력
@@ -255,6 +290,10 @@ form {
 			<h6>
 				조회수:&nbsp;<span th:text="${postListbyNum.viewCount}"></span>
 			</h6>
+			<h6>
+				작성자:&nbsp;<span id="author" th:text="${author}"></span>
+			</h6>
+			<input id="LoggedInId" hidden="hidden" th:value="${LoggedInId}">
 		</div>
 		<div class="form-group">
 			<h2 class="text-center">프로젝트 모집요강</h2>
@@ -357,14 +396,13 @@ form {
 				onclick="go_list()">
 
 			<form action="updateUI" method="get">
-				<input type="submit" value="수정하기" class="btn icon-btn btn-success">
+				<input id="modify-btn" type="submit" value="수정하기" class="btn icon-btn btn-success">
 				<input id="postNo" type="hidden" th:value="${postListbyNum.postNo}"
 					name="postNo">
 			</form>
 
 			<form action="delete" method="post">
-				<input id="delete" type="submit" value="삭제하기"
-					onclick="delete_alert()" class="btn rounded-pill me-2 btn-dark">
+				<input id="delete" type="submit" value="삭제하기" class="btn rounded-pill me-2 btn-dark">
 				<input type="hidden" th:value="${postListbyNum.postNo}"
 					name="postNo">
 			</form>
@@ -372,7 +410,7 @@ form {
 
 			<!-- 여기서부터 지원하기 modal 구현 -->
 			<!-- Button trigger modal -->
-			<button type="button" class="btn icon-btn btn-success"
+			<button id="apply-btn" type="button" class="btn icon-btn btn-success"
 				data-toggle="modal" data-target="#myModal">지원하기</button>
 					
 
