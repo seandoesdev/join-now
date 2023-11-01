@@ -12,6 +12,7 @@ public interface MyPgService {
 	
 //	public MyPgDTO selectList();
 	public List<MyPgDTO> mypageList();
+	public MyPgDTO mypageInfo(int id);
 	public int mypageInsert(MyPgDTO dto);
 	public int mypageUpdate(MyPgDTO dto);
 	
