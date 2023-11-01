@@ -34,7 +34,7 @@
 		update post
 		set
 		studyType=#{studyType},title=#{title},onoff=#{onoff},region=#{region},content=#{content},contact=#{contact}
-		where postNo=#{postNo}
+		where postNo=#{postNo} and userid=#{userid}
 	</update>
 
 	<update id="viewCount" parameterType="int">
@@ -43,9 +43,9 @@
 		where postNo = #{postNo}
 	</update>
 	
-	<delete id="postDelete" >
+	<delete id="postDelete" parameterType="hashmap">
 		delete from post
-		where postNo=#{postNo}
+		where postNo=#{postNo} and userid=#{userid}
 	</delete>
 	
 </mapper>
