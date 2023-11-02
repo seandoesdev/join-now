@@ -12,42 +12,48 @@ import com.exam.dto.TeamMemberDTO;
 @Service
 public class TeamServiceImpl implements TeamService {
 
-	@Autowired
-	TeamDAO dao;
+  @Autowired
+  TeamDAO dao;
 
-	@Override
-	public int teamAdd(TeamDTO dto) {
-		return dao.teamAdd(dto);
-	}
+  @Override
+  public int teamAdd(TeamDTO dto) {
+    return dao.teamAdd(dto);
+  }
 
-	@Override
-	public int teamMemberAdd(TeamMemberDTO dto) {
-		return dao.teamMemberAdd(dto);
-	}
+  @Override
+  public int teamMemberAdd(TeamMemberDTO dto) {
+    return dao.teamMemberAdd(dto);
+  }
 
-	@Override
-	public TeamDTO selectByPostNo(int postNo) {
-		return dao.selectByPostNo(postNo);
-	}
-	
+  @Override
+  public TeamDTO selectByPostNo(int postNo) {
+    return dao.selectByPostNo(postNo);
+  }
 
-	@Override
-	public List<Integer> selectTeamIdByUserId(int userId) {
-		return dao.selectTeamIdByUserId(userId);
-	}
 
-	@Override
-	public TeamDTO selectByTeamId(int teamId) {
-		return dao.selectByTeamId(teamId);
-	}
+  @Override
+  public List<Integer> selectTeamIdByUserId(int userId) {
+    return dao.selectTeamIdByUserId(userId);
+  }
 
-	@Override
-	public List<TeamMemberDTO> selectMemberListByTeamId(int teamId) {
-		return dao.selectMemberListByTeamId(teamId);
-	}
+  @Override
+  public TeamDTO selectByTeamId(int teamId) {
+    return dao.selectByTeamId(teamId);
+  }
 
-	@Override
-	public int teamMemberDel(int userId) {
-		return dao.teamMemberDel(userId);
-	}
+  @Override
+  public List<TeamMemberDTO> selectMemberListByTeamId(int teamId) {
+    return dao.selectMemberListByTeamId(teamId);
+  }
+
+  @Override
+  public int teamMemberDel(int userId) {
+    return dao.teamMemberDel(userId);
+  }
+  
+  // 팀페이지 팀 정보 수정
+  @Override
+  public int updateTeamInfoById(TeamDTO teamDTO) {
+    return dao.updateTeamInfoById(teamDTO);
+  }
 }
