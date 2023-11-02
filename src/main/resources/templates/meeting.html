@@ -152,9 +152,6 @@ footer {
 }
 </style>
 
-<script th:inline="javascript">
-	
-</script>
 <body>
 
 	<header>
@@ -194,7 +191,7 @@ footer {
                 <a th:href="@{/team/meeting/{teamId}/1(teamId=${teamId})}">회의록</a>
             </li>
             <li>
-                <a href="#">팀 신청관리</a>
+                <a th:href="@{/team/teamManage/{teamId}(teamId=${pageDTO.list[0].teamId})}">팀 신청관리</a>
             </li>
         </ul>
     </section>
