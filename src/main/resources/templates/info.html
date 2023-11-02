@@ -1,145 +1,339 @@
 <!DOCTYPE html>
-<html lang="ko" class="light-style customizer-hide" dir="ltr" xmlns:th="http://www.thymeleaf.org" data-theme="theme-default" data-assets-path="/assets/" data-template="vertical-menu-template-no-customizer">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@200&display=swap" rel="stylesheet">
 
 <title>프로젝트 팀 정보</title>
 
 <style>
-		
-		.row {
-            display: flex;
-            flex-wrap: wrap;
-        }
 
-        /* 왼쪽 콘텐츠 */
-        .col-md-6.left-content {
-            flex: 1; /* 남은 공간을 모두 차지 */
-            border: 1px solid #ccc; /* 테두리 추가 (선 색상은 회색) */
-            padding: 20px;
-        }
-		
-		
-        /* 사이드 패널에 고정 스타일 추가 */
-        .right-panel {
-            flex: 0 0 300px;
-            top: 50px; /* 헤더의 높이와 동일한 값으로 조정 (적절한 값으로 변경) */
-            right: 0;
-            width: 200px;
-            overflow-y: auto; /* 스크롤바 표시를 활성화 */
-            max-height: 80vh; /* 사이드 패널의 최대 높이를 설정합니다. */
-            padding: 10px;
-        }
-        .col-md-6 > p {
-        	font-size: 40px;
-        	text-decoration: solid;
-        }
-        .card-body {
-        	font-size: 20px;    
-        }
-        
-         @media (max-width: 768px) {
-            .col-md-6.right-panel {
-                display: none;
-            }
-        }
-       
-    </style>
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* a hover 효과 */
+li a:hover, li a:focus { animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; } 
+@keyframes rainbowLink {     
+ 0% { color: #ff2a2a; }
+ 15% { color: #ff7a2a; }
+ 30% { color: #ffc52a; }
+ 45% { color: #43ff2a; }
+ 60% { color: #2a89ff; }
+ 75% { color: #202082; }
+ 90% { color: #6b2aff; } 
+ 100% { color: #e82aff; }
+}
+
+a.button {
+  display: block;
+  position: relative;
+  float: right;
+  width: 120px;
+  padding: 0;
+  margin: 10px 0px 10px 0;
+  font-weight: 600;
+  text-align: center;
+  line-height: 50px;
+  color: #FFF;
+  border-radius: 5px;
+  transition: all 0.2s ;
+  text-decoration: none;
+}
+
+.btnBlueGreen {
+  background: #00AE68;
+}
+
+.btnFade.btnBlueGreen:hover {
+  background: #21825B;
+}
+
+h2 {
+    font-weight: bold;
+	font-size: 1.5rem;
+    text-align: center;
+    margin: -40px 0 30px 0;
+}
+
+nav {
+	display: grid;
+	grid-template-columns: auto auto;
+	justify-content: space-between;
+    height: 60px;
+	border: 0;
+	box-shadow: 0.5px 0.5px 0px 0.5px #8080809a
+}
+
+main {
+    height: 90%;
+}
+
+.profile {
+	margin: 0 -20px 0 0;
+}
+
+.profile-dropdown ul {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	gap: 30px;
+	margin: 20px 0 0 5px;
+	list-style-type: none;
+}
+
+.profile-dropdown ul a {
+	color: black;
+	font-weight: 800;
+}
+
+.logo-container {
+	margin: 10px 0 0 20%;
+}
+
+.menu-container {
+	display: grid;
+	grid-template-columns: auto;
+	justify-content: space-around;
+	margin: 5% 0 0 0;
+}
+
+.menu-container ul {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	gap: 35px;
+	list-style-type: none;
+}
+
+.menu-container ul a {
+	text-decoration: none;
+	color: black;
+	font-weight: 800;
+	font-size: 25px;
+}
+
+hr {
+  background-color: #fff;
+  padding: 0;
+  margin: 30px 80px 80px 80px;
+}
+
+hr.hr-1 {
+  border: 0;
+  height: 2px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(14, 174, 9, 0.75), rgba(0, 0, 0, 0));
+}
+
+.left-content {
+	display: inline-block;
+	grid-template-rows: auto;
+    width: 55%;
+    height: 100%;
+    padding: 20px 30px;
+    background-color: white;
+    position: relative;
+	border: 1px solid;
+    left: 20px;
+    border-radius: 6px;
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 10px 30px;
+}
+
+.table th {
+	font-size: 30px;
+	font-family: 'Do Hyeon', sans-serif;
+    text-align: left;
+}
+
+.table td {
+	font-size: 20px;
+	font-family: 'Noto Serif KR', serif;
+}
+
+.sidebar {
+    display: block;
+    float: right;
+    width: 30%;
+    position:sticky;
+    top:50px;
+    border: 1px solid;
+    border-radius: 10px;
+    
+}
+
+footer {
+    display: grid;
+    grid-template-columns: auto auto;
+    position: relative;
+    margin: 10% 0 0 0;
+    bottom: 0;
+    height: 40px;
+    background-color: #f3efef70;
+}
+
+.footer-left {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.footer-right {
+    text-align: right;
+    padding-top: 10px;
+}
+
+
+
+</style>
 
 </head>
 
 <body>
 
-	<header th:replace="fragments/header :: header"></header>
-	
-	<section>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
-						<a class="nav-link" th:href="@{/team/{teamId}(teamId=${teamDTO.teamId})}">팀 정보</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" th:href="@{/team/schedule/{teamId}(teamId=${teamDTO.teamId})}">일정표</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" th:href="@{/team/meeting/{teamId}/1(teamId=${teamDTO.teamId})}">회의록</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">팀 신청 관리</a>
-					</li>
-				</ul>
+	<header>
+		<nav>
+			<!-- 로고 부분 -->
+			<div class="logo-container">
+				<a th:href="@{../main}">
+					<img src="https://kr.object.ncloudstorage.com/team1-bucket/logo" alt="로고">
+				</a>
+			</div>
+
+			<div class="profile">
+				<div class="profile-dropdown">
+					<ul>
+						<li>
+							<a th:href="@{/mypage}">마이프로필</a>
+						</li>
+						<li>
+							<a th:href="@{/logout}">로그아웃</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</nav>
-	</section>
+	</header>
 
-    <div class="container-fluid left-content mt-5">
-        <div class="row">
-            <!-- 왼쪽 콘텐츠 -->
-            <div class="col-md-6">
-                <p>소개</p>
-                <div class="card-body">
-                   <label>주제</label>
-                   <p th:text="${teamDTO.teamSubject}"></p>                                      
-                </div>
-                <div class="card-body">
-                   <label>소개</label>
-                   <p th:text="${intro}"></p>                                      
-                </div>
-                <div class="card-body">
-                   <label>계획</label>
-                   <p th:text="${plan}"></p>                                      
-                </div>
-                <div class="card-body">
-                   <label>팀원</label>
-                   <p th:text="${tMember}"></p>                                      
-                </div>
-<!--                 <p th:text="@{/submitProjectInfo}" method="post"> -->
-                <form method="post">
-                    <!-- 입력 폼은 이전 코드와 동일합니다 -->
-                    
-                </form>
+    <section class="menu-container">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a class="menu-link" th:href="@{/team/{teamId}(teamId=${teamDTO.teamId})}">팀 정보</a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" th:href="@{/team/schedule/{teamId}(teamId=${teamDTO.teamId})}">일정표</a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" th:href="@{/team/meeting/{teamId}/1(teamId=${teamDTO.teamId})}">회의록</a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="#">팀 신청관리</a>
+            </li>
+        </ul>
+    </section>
+
+	<main>
+
+        <hr class="hr-1">
+
+        <h2>팀 정보</h2>
+
+        <div class="main-container">
+            <div class="left-content">
+                <!-- 왼쪽 콘텐츠 -->
+                <table class="table table-bordered">
+                    <tr>
+                        <th colspan="2">주제</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2" >
+                            <p th:text="${teamDTO.teamSubject}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="3">소개</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p th:text="${intro}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="3">계획</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <p th:text="${plan}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="3">팀원</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <p th:text="${tMember}"></p>
+                        </td>
+                    </tr>
+                </table>
+                <!-- 버튼 -->
+                <a href="" class="button btnFade btnBlueGreen">수정</a>
             </div>
+
             
+
             <!-- 오른쪽 사이드 패널 -->
-            <div class="right-panel d-flex justify-content-end">
-                <!-- 팀 정보 -->
-                <div class="card">
-                    <div class="card-body">
-                        <label>팀 정보</label>
-                        <!-- 여기에 팀 정보 내용 추가 -->
-                    </div>
-                    
-	                <!-- 프로젝트 주제 -->
-                    <div class="card-body">
-                        <label>프로젝트 주제</label>
-                        <!-- 여기에 프로젝트 주제 내용 추가 -->
-                    </div>
-	                <!-- 프로젝트 기간 -->
-                    <div class="card-body">
-                        <label>프로젝트 기간</label>
-                        <!-- 여기에 프로젝트 기간 내용 추가 -->
-                    </div>
-	                <!-- 프로젝트 멤버 -->
-                    <div class="card-body">
-                        <label>프로젝트 멤버</label>
-                        <!-- 여기에 프로젝트 멤버 내용 추가 -->
-                    </div>
-                </div>
+
+            <div class="sidebar">
+                <table class="table table-bordered">
+                    <tr>
+                        <th></th>
+                        <th colspan="1">팀 정보</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th colspan="2">프로젝트 주제</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th colspan="2">프로젝트 기간</th>
+                    </tr>
+                </table>
             </div>
         </div>
-    </div>
-    
+    </main>
 
-	<footer th:replace="fragments/footer :: footer"></footer>
+
+
+    <footer class="footer footer-container">
+        <div class="footer-left">
+            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/html/vertical-menu-template" target="_blank" class="footer-text fw-bold">Joinow</a>
+            ©
+        </div>
+        <div class="footer-right">
+            <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+            <a href="javascript:void(0)" class="footer-link me-4">Help</a>
+            <a href="javascript:void(0)" class="footer-link me-4">Contact</a>
+            <a href="javascript:void(0)" class="footer-link">Terms &amp; Conditions</a>
+        </div>
+	</footer>
 
 	<!-- Core JS -->
 	<!-- build:js assets/vendor/js/core.js -->
-	
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
