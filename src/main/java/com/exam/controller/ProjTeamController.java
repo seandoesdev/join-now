@@ -286,12 +286,12 @@ public class ProjTeamController {
   
   
   /**
-   * 
+   * 팀 신청관리
    * @return
    */
   
-  @GetMapping("/teamManage")
-  public String teamManage(Model model, HttpSession session, int teamId) {
+  @GetMapping("/teamManage/{teamId}")
+  public String teamManage(@PathVariable int teamId, Model model, HttpSession session) {
       UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
       List<TeamMemberDTO> memberList = teamService.selectMemberListByTeamId(teamId);
       
@@ -314,11 +314,11 @@ public class ProjTeamController {
       return "TeamManagementPage";
   }
   
-  @GetMapping("/memberDelete")
-  public String teamMemberDelete(int userId, int teamId) {
+  @PostMapping("/memberDelete/{teamId}/{userId}")
+  public String teamMemberDelete(@PathVariable int teamId, @PathVariable int userId) {
       teamService.teamMemberDel(userId);
-              
-      return "redirect:teamManage?teamId="+teamId;
+      System.out.println("memberDel"+teamId + userId);
+      return "redirect:/team/teamManage/"+teamId;
   }
 
 
