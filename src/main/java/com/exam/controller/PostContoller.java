@@ -235,7 +235,7 @@ public class PostContoller {
 		NotificationDTO notificationDTO = new NotificationDTO();
 		notificationDTO.setSendId(dto.getUserid()); // 신청자
 		notificationDTO.setReceiveId(postDTO.getUserid()); // 작성자
-		notificationDTO.setContent("지원 신청");
+		notificationDTO.setContent("지원 신청 하였습니다.");
 		notificationDTO.setPostId(postDTO.getPostNo()); // 공고 정보
 		
 		notificationService.notificationAdd(notificationDTO);

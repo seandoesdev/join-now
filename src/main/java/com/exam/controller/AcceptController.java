@@ -155,7 +155,7 @@ public class AcceptController {
 			NotificationDTO notificationDTO = new NotificationDTO();
 			notificationDTO.setSendId(userInfoDTO.getId()); // 작성자
 			notificationDTO.setReceiveId(applyUserId); // 신청자
-			notificationDTO.setContent("수락");
+			notificationDTO.setContent("신청을 수락 하였습니다.");
 			notificationDTO.setPostId(postNo); // 공고 정보
 			
 			notificationService.notificationAdd(notificationDTO);
@@ -165,7 +165,7 @@ public class AcceptController {
 			NotificationDTO notificationDTO = new NotificationDTO();
 			notificationDTO.setSendId(userInfoDTO.getId()); // 작성자
 			notificationDTO.setReceiveId(applyUserId); // 신청자
-			notificationDTO.setContent("거절");
+			notificationDTO.setContent("신청을 거절 하였습니다.");
 			notificationDTO.setPostId(postNo); // 공고 정보
 			
 			notificationService.notificationAdd(notificationDTO);

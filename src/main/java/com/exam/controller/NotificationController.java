@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.exam.dto.NotificationDTO;
 import com.exam.dto.NotificationPrintDTO;
@@ -46,5 +48,12 @@ public class NotificationController {
 		m.addAttribute("notificationPrintList", NPList);
 		
 		return "notificationPage";
+	}
+	
+	@PostMapping("/notificationCheck")
+	public String notificationCheck(int notificationId) {
+		System.out.println(notificationId);
+		notificationService.updateIsRead(notificationId);
+		return "redirect:notification";
 	}
 }

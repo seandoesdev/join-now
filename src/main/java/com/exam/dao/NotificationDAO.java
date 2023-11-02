@@ -21,4 +21,7 @@ public class NotificationDAO {
 		return session.selectList("NotificationMapper.selectListById", receiveId);
 	}
 	
+	public int updateIsRead (int notificationId) {
+		return session.update("NotificationMapper.updateIsRead",notificationId);
+	}
 }

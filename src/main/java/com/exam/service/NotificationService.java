@@ -8,5 +8,6 @@ public interface NotificationService {
 	
 	public int notificationAdd(NotificationDTO dto);
 	public List<NotificationDTO> selectListById (int receiveId);
+	public int updateIsRead (int notificationId);
 	
 }

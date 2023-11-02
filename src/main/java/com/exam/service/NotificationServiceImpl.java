@@ -22,4 +22,11 @@ public class NotificationServiceImpl implements NotificationService {
 	public List<NotificationDTO> selectListById(int receiveId) {
 		return dao.selectListById(receiveId);
 	}
+
+	@Override
+	public int updateIsRead(int notificationId) {
+		return dao.updateIsRead(notificationId);
+	}
+	
+	
 }
