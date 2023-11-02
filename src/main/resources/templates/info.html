@@ -207,8 +207,8 @@ footer {
 		<nav>
 			<!-- 로고 부분 -->
 			<div class="logo-container">
-				<a th:href="@{../main}">
-					<img src="https://kr.object.ncloudstorage.com/team1-bucket/logo" alt="로고">
+				<a th:href="@{/main}">
+					<img src="https://kr.object.ncloudstorage.com/team1-bucket/logo.png" alt="로고">
 				</a>
 			</div>
 
@@ -267,7 +267,7 @@ footer {
                     </tr>
                     <tr>
                         <td>
-                            <p th:text="${intro}"></p>
+                            <p th:text="${teamDTO.teamIntro}"></p>
                         </td>
                     </tr>
                     <tr>
@@ -275,39 +275,43 @@ footer {
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <p th:text="${plan}"></p>
+                            <p th:text="${teamDTO.teamPlan}"></p>
                         </td>
                     </tr>
                     <tr>
                         <th colspan="3">팀원</th>
                     </tr>
-                    <tr>
-                        <td colspan="3">
-                            <p th:text="${tMember}"></p>
-                        </td>
-                    </tr>
+                    <span th:each="memberDTO, index : ${memberList}">
+						<td style="display: inline-block; margin-left: 10px;" ><a  th:text="${memberDTO.userId}">View Details</a></td>							
+					</span>
                 </table>
+                	
                 <!-- 버튼 -->
-                <a href="" class="button btnFade btnBlueGreen">수정</a>
+                <a th:href="@{'/team/update/' + ${teamDTO.teamId}}" class="button btnFade btnBlueGreen">수정</a>
             </div>
 
-            
 
             <!-- 오른쪽 사이드 패널 -->
 
             <div class="sidebar">
                 <table class="table table-bordered">
                     <tr>
-                        <th></th>
-                        <th colspan="1">팀 정보</th>
+                        <th style="text-decoration: underline; display: inline-block; font-size: 40px;" colspan="1">팀 정보</th>
                     </tr>
                     <tr>
-                        <th></th>
-                        <th colspan="2">프로젝트 주제</th>
+                        <td ></td>
                     </tr>
                     <tr>
-                        <th></th>
-                        <th colspan="2">프로젝트 기간</th>
+                        <th colspan="2">🚀 프로젝트 주제</th>
+                    </tr>
+                    <tr>
+                        <td th:text="${teamDTO.teamSubject}"></td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">📅 프로젝트 수행기간</th>
+                    </tr>
+                    <tr>
+                        <td th:text="${teamDTO.period}"></td>
                     </tr>
                 </table>
             </div>

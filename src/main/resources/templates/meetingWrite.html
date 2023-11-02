@@ -207,7 +207,7 @@ footer {
 		<nav>
 			<!-- 로고 부분 -->
 			<div class="logo-container">
-				<a th:href="@{../main}">
+				<a th:href="@{/main}">
 					<img src="https://kr.object.ncloudstorage.com/team1-bucket/logo" alt="로고">
 				</a>
 			</div>
@@ -217,10 +217,10 @@ footer {
 				<div class="profile-dropdown">
 					<ul>
 						<li>
-							<a th:href="@{../mypage}">마이프로필</a>
+							<a th:href="@{/mypage}">마이프로필</a>
 						</li>
 						<li>
-							<a href="#">로그아웃</a>
+							<a href="/logout">로그아웃</a>
 						</li>
 					</ul>
 				</div>

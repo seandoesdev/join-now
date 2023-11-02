@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" class="light-style customizer-hide" dir="ltr" xmlns:th="http://www.thymeleaf.org" data-theme="theme-default" data-assets-path="/assets/" data-template="vertical-menu-template-no-customizer">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
@@ -92,12 +92,160 @@ body {
 
 
 </script>
+<style>
+
+html{
+	background-color: transparent;
+}
+
+/* a hover 효과 */
+li a:hover, li a:focus { animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; } 
+@keyframes rainbowLink {     
+ 0% { color: #ff2a2a; }
+ 15% { color: #ff7a2a; }
+ 30% { color: #ffc52a; }
+ 45% { color: #43ff2a; }
+ 60% { color: #2a89ff; }
+ 75% { color: #202082; }
+ 90% { color: #6b2aff; } 
+ 100% { color: #e82aff; }
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+nav {
+display: grid;
+grid-template-columns: auto auto;
+justify-content: space-between;
+height: 60px;
+border: 0;
+box-shadow: 0.5px 0.5px 0px 0.5px #8080809a
+}
+
+.profile {
+	margin: 0 -20px 0 0;
+}
+
+.profile-dropdown ul {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	gap: 30px;
+	margin: 20px 0 0 5px;
+	list-style-type: none;
+}
+
+.profile-dropdown ul a {
+	color: black;
+	font-weight: 800;
+}
+
+.logo-container {
+	margin: 10px 0 0 20%;
+}
+
+.menu-container {
+	display: grid;
+	grid-template-columns: auto;
+	justify-content: space-around;
+	margin: 5% 0 0 0;
+}
+
+.menu-container ul {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	gap: 35px;
+	list-style-type: none;
+}
+
+.menu-container ul a {
+	text-decoration: none;
+	color: black;
+	font-weight: 800;
+	font-size: 25px;
+}
+
+hr {
+  background-color: #fff;
+  padding: 0;
+  margin: 30px 80px 80px 80px;
+}
+
+hr.hr-1 {
+  border: 0;
+  height: 2px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(14, 174, 9, 0.75), rgba(0, 0, 0, 0));
+}
+
+footer {
+    display: grid;
+    grid-template-columns: auto auto;
+    position: relative;
+    margin: 10% 0 0 0;
+    bottom: 0;
+    height: 40px;
+    background-color: #f3efef70;
+}
+
+.footer-left {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.footer-right {
+    text-align: right;
+    padding-top: 10px;
+}
+</style>
 </head>
 <body>
+	<header>
+		<nav>
+			<!-- 로고 부분 -->
+			<div class="logo-container">
+				<a th:href="@{/main}">
+					<img src="https://kr.object.ncloudstorage.com/team1-bucket/logo.png" alt="로고">
+				</a>
+			</div>
 
-	<header th:replace="fragments/header :: header"></header>
+			<!-- 프로필 드롭다운 부분 -->
+			<div class="profile">
+				<div class="profile-dropdown">
+					<ul>
+						<li>
+							<a th:href="@{/mypage}">마이프로필</a>
+						</li>
+						<li>
+							<a th:href="@{/logout}">로그아웃</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+    <section class="menu-container">
+        <ul class="menu-list">
+            <li>
+                <a th:href="@{/team/{teamId}(teamId=${teamId})}">팀 정보</a>
+            </li>
+            <li>
+                <a th:href="@{/team/schedule/{teamId}(teamId=${teamId})}">일정표</a>
+            </li>
+            <li>
+                <a th:href="@{/team/meeting/{teamId}/1(teamId=${teamId})}">회의록</a>
+            </li>
+            <li>
+                <a href="#">팀 신청관리</a>
+            </li>
+        </ul>
+    </section>
 
 	<th:block>
+	
+		<hr class="hr-1">
 
 		<div class="container mt-5">
 
@@ -118,8 +266,6 @@ body {
 	</th:block>
 
 
-
-	<footer th:replace="fragments/footer :: footer"></footer>
 
 
 	<!-- build:js js/core.js -->
