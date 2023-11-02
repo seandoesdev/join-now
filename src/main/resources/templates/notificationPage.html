@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    .card {
+        height: 400px;
+    }
+    
+    a{
+	    color: inherit; /* 기본 링크 색상 유지 */
+	}
+    
+    a:hover {
+    	text-decoration: none; /* 링크에 마우스를 올렸을 때 밑줄 효과 제거 */    
+	}
+	   
+</style>
+</head>
+
+<body>
+	
+    <header class="bg-white d-flex justify-content-between align-items-center p-2">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1><a th:href="@{main}" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
+            <nav>
+                <ul class="list-inline m-0">
+                    <th:block th:switch="${session.loginInfo}">
+                    	<th:block th:case="null">
+	                    	<li class="list-inline-item">
+	                        	<a th:href="@{join}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
+		                    </li>
+		                    <li class="list-inline-item">
+		                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>                        
+		                    </li>
+                    	</th:block>
+                    	<th:block th:case="*">
+	                    	<li class="list-inline-item">
+	                        	<a th:href="@{mypage}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">MyPage</a>
+		                    </li>
+		                    <li class="list-inline-item">
+		                        <a th:href="@{logout}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log Out</a>                        
+		                    </li>
+                    	</th:block>
+	                        		
+					</th:block>
+                </ul>
+            </nav>
+        </div>
+    </header>
+		
+	<!-- 배너 -->
+    <section class="banner text-center py-5 mb-5" style="background-color: #2CA40E; color: #ffffff;">
+    	    	
+        <h2 style="font-size: 37px;">JoiNow</h2>
+        <h3 style="font-size: 18px;">내 프로젝트신청 현황</h3>
+        
+    </section>
+    <!-- 배너 end -->
+	
+	<!-- 리스트 -->
+	<section class="features container">
+		
+		<div class="row justify-content-center">    
+		    <th:block th:each="notification : ${notificationPrintList}">
+		        <div class="col-md-12 mb-0.5">
+			                
+			            <div class="list-item d-flex justify-content-center">		            					            	
+			                <p class="list-text d-inline-block mx-2" th:text="${notification.sender.nickname}">발신자</p>
+			                <p class="list-text d-inline-block mx-2">에게서 알림이 왔습니다.</p>
+			            </div>
+			                      
+		        </div>
+		     </th:block>
+		</div>
+
+	</section>
+	<!-- 리스트 end -->
+
+	
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+
+

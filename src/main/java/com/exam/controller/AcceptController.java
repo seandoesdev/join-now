@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.exam.dto.AcceptDTO;
 import com.exam.dto.AcceptPrintDTO;
 import com.exam.dto.ApplyDTO;
+import com.exam.dto.NotificationDTO;
 import com.exam.dto.PostDTO;
 import com.exam.dto.TeamDTO;
 import com.exam.dto.TeamMemberDTO;
 import com.exam.dto.UserInfoDTO;
 import com.exam.service.AcceptService;
 import com.exam.service.ApplyService;
+import com.exam.service.NotificationService;
 import com.exam.service.PostService;
 import com.exam.service.TeamService;
 import com.exam.service.UserService;
@@ -44,6 +46,9 @@ public class AcceptController {
 	
 	@Autowired
 	TeamService teamService;
+	
+	@Autowired
+	NotificationService notificationService;
 	
 	@GetMapping("/applyPage")
 	public String applyPage(Model m, HttpSession session) {
@@ -128,12 +133,15 @@ public class AcceptController {
 	}
 	
 	@GetMapping("/acceptYN")
-	public String acceptYN(int applyNo, int applicationNo, String YN, int applyUserId, int postNo) {
+	public String acceptYN(int applyNo, int applicationNo, String YN, int applyUserId, int postNo, HttpSession session) {
 		System.out.println(applyNo); // 신청서 정보
 		System.out.println(applicationNo); // 신청 정보
 		System.out.println(YN);
 		System.out.println(applyUserId);
 		System.out.println(postNo);
+		
+		// 로그인 정보 -> 작성자
+		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
 		
 		// 수락하면 팀원 정보 등록
 		if(YN.equals("수락")) {
@@ -141,7 +149,27 @@ public class AcceptController {
 			TeamMemberDTO teamMemberDTO = new TeamMemberDTO();
 			teamMemberDTO.setTeamId(teamDTO.getTeamId());
 			teamMemberDTO.setUserId(applyUserId);			
-			teamService.teamMemberAdd(teamMemberDTO);		
+			teamService.teamMemberAdd(teamMemberDTO);
+			
+			// 알림 전송
+			NotificationDTO notificationDTO = new NotificationDTO();
+			notificationDTO.setSendId(userInfoDTO.getId()); // 작성자
+			notificationDTO.setReceiveId(applyUserId); // 신청자
+			notificationDTO.setContent("수락");
+			notificationDTO.setPostId(postNo); // 공고 정보
+			
+			notificationService.notificationAdd(notificationDTO);
+			
+		}else {
+			// 알림 전송
+			NotificationDTO notificationDTO = new NotificationDTO();
+			notificationDTO.setSendId(userInfoDTO.getId()); // 작성자
+			notificationDTO.setReceiveId(applyUserId); // 신청자
+			notificationDTO.setContent("거절");
+			notificationDTO.setPostId(postNo); // 공고 정보
+			
+			notificationService.notificationAdd(notificationDTO);
+			
 		}
 		
 		acceptService.acceptApplyDel(applyNo, applicationNo); // 신청 정보, 신청서 삭제 
