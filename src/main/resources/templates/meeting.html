@@ -152,17 +152,14 @@ footer {
 }
 </style>
 
-<script th:inline="javascript">
-	
-</script>
 <body>
 
 	<header>
 		<nav class="header-nav">
 			<!-- 로고 부분 -->
 			<div class="logo-container">
-				<a th:href="@{../main}">
-					<img src="https://kr.object.ncloudstorage.com/team1-bucket/logo" alt="로고">
+				<a th:href="@{/main}">
+					<img src="https://kr.object.ncloudstorage.com/team1-bucket/logo.png" alt="로고">
 				</a>
 			</div>
 
@@ -194,7 +191,7 @@ footer {
                 <a th:href="@{/team/meeting/{teamId}/1(teamId=${teamId})}">회의록</a>
             </li>
             <li>
-                <a href="#">팀 신청관리</a>
+                <a th:href="@{/team/teamManage/{teamId}(teamId=${pageDTO.list[0].teamId})}">팀 신청관리</a>
             </li>
         </ul>
     </section>
