@@ -56,4 +56,12 @@ public class NotificationController {
 		notificationService.updateIsRead(notificationId);
 		return "redirect:notification";
 	}
+	
+	@PostMapping("/notificationDeleteAll")
+	public String notificationDeleteAll(HttpSession session) {
+		// 로그인 정보 -> 수신자
+		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
+		notificationService.deleteAll(userInfoDTO.getId());
+		return "redirect:notification";
+	}
 }

@@ -27,6 +27,11 @@ public class NotificationServiceImpl implements NotificationService {
 	public int updateIsRead(int notificationId) {
 		return dao.updateIsRead(notificationId);
 	}
+
+	@Override
+	public int deleteAll(int receiveId) {
+		return dao.deleteAll(receiveId);
+	}
 	
 	
 }

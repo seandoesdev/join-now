@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.exam.dto.MyPgDTO;
+import com.exam.dto.NotificationDTO;
 import com.exam.dto.UserInfoDTO;
 import com.exam.service.MyPgServiceImpl;
+import com.exam.service.NotificationService;
 import com.exam.service.UserService;
 import com.exam.service.UserServiceImpl;
 
@@ -30,6 +32,9 @@ public class MyPgContoller {
 
 	@Autowired
 	UserServiceImpl userService;
+	
+	@Autowired
+	NotificationService notificationService;
 
 	// 로그인 후 mypage 요청하면 이메일만 출력
 	@GetMapping("/mypage")
@@ -42,7 +47,19 @@ public class MyPgContoller {
 		// 현재 로그인된 id에 해당하는 정보 받아와서 출력
 		UserInfoDTO info = userService.selectAllById(id);
 		m.addAttribute("UserInfoDTO", info);
-
+		
+		// 알림 정보				
+		List<NotificationDTO> notificationList = notificationService.selectListById(userInfoDTO.getId());
+		
+		int notificationNum=0;
+		
+		for(NotificationDTO dto : notificationList) {
+			if(!dto.isRead()) {
+				notificationNum++;
+			}			
+		}
+		m.addAttribute("notificationNum", notificationNum);
+		
 		return "myPage";
 	}
 

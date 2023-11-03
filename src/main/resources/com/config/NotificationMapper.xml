@@ -21,6 +21,11 @@
 		where notificationId=#{notificationId}
  	</update>
    
+   	<delete id="deleteAll" parameterType="int">
+   		delete from notification
+		where receiveId=#{receiveId}   	
+   	</delete>
+   
 </mapper>
 
 

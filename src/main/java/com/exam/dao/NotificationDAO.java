@@ -24,4 +24,8 @@ public class NotificationDAO {
 	public int updateIsRead (int notificationId) {
 		return session.update("NotificationMapper.updateIsRead",notificationId);
 	}
+	
+	public int deleteAll (int receiveId) {
+		return session.delete("NotificationMapper.deleteAll", receiveId);
+	}
 }
