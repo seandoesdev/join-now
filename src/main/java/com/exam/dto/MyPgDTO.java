@@ -2,6 +2,7 @@ package com.exam.dto;
 import org.apache.ibatis.type.Alias;
 @Alias("MyPgDTO")
 public class MyPgDTO {
+
     int id;
     String email;
     String nickname;
@@ -11,6 +12,21 @@ public class MyPgDTO {
     String tools;
     String intro;
     public MyPgDTO() {}
+
+
+    public MyPgDTO(int id, String email, String nickname, String phone, String pofolLink, String skills,
+            String tools, String intro) {
+        this.id = id;
+        this.email = email;
+        this.nickname = nickname;
+        this.phone = phone;
+        this.pofolLink = pofolLink;
+        this.skills = skills;
+        this.tools = tools;
+        this.intro = intro;
+    }
+
+ 
 	public int getId() {
 		return id;
 	}
@@ -76,4 +92,5 @@ public class MyPgDTO {
 		return "MyPgDTO [id=" + id + ", email=" + email + ", nickname=" + nickname + ", phone=" + phone + ", pofolLink="
 				+ pofolLink + ", skills=" + skills + ", tools=" + tools + ", intro=" + intro + "]";
 	}
+
 }

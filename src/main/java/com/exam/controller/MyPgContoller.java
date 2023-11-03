@@ -98,7 +98,7 @@ public class MyPgContoller {
 		int n = userInfoDTO.getId();
 
 		// dto에 사용자 id 설정
-		dto.setId(userInfoDTO.getId());
+		dto.setId(n);
 		int n2 = myService.mypageUpdate(dto); // insert -> Update로 변경
 		
 		
