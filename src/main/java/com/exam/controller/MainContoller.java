@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.exam.dto.NotificationDTO;
 import com.exam.dto.PageDTO;
 import com.exam.dto.PostDTO;
+import com.exam.dto.UserInfoDTO;
 import com.exam.navercloud.openapi.service.ObjectStorageService;
 import com.exam.service.MainServiceImpl;
+import com.exam.service.NotificationService;
 
 
 @Controller
@@ -34,15 +37,15 @@ public class MainContoller {
 	
 	@Autowired
 	MainServiceImpl service;
-	
-	@Autowired
-	ObjectStorageService Oservice;
+		
 
 	
 	@GetMapping("/main")
 	public String main(@RequestParam(value = "curPage", required = false, defaultValue = "1")int curPage,
 						Model m) {
+				
 		m.addAttribute("pageDTO", service.selectList(curPage));
+		
 		return "main";
 	}
 	
