@@ -4,81 +4,235 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- font -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR:wght@200&display=swap" rel="stylesheet">
 <style>
+    * {
+    padding: 0;
+    margin: 0;
+    }
+
     .card {
         height: 400px;
     }
     
     a{
 	    color: inherit; /* 기본 링크 색상 유지 */
+        text-decoration: none;
 	}
     
     a:hover {
     	text-decoration: none; /* 링크에 마우스를 올렸을 때 밑줄 효과 제거 */    
+	}
+
+    /* a hover 효과 */
+	li a:hover, li a:focus { animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; } 
+	@keyframes rainbowLink {     
+	 0% { color: #ff2a2a; }
+	 15% { color: #ff7a2a; }
+	 30% { color: #ffc52a; }
+	 45% { color: #43ff2a; }
+	 60% { color: #2a89ff; }
+	 75% { color: #202082; }
+	 90% { color: #6b2aff; } 
+	 100% { color: #e82aff; }
+	}
+	
+	h2 {
+	    font-weight: bold;
+		font-size: 30px;
+	    text-align: center;
+	    margin: -40px 0 30px 0;
+	    font-family: 'Do Hyeon', sans-serif;
+	}
+	
+	nav {
+	display: grid;
+	grid-template-columns: auto auto;
+	justify-content: space-between;
+	height: 60px;
+	border: 0;
+	box-shadow: 0.5px 0.5px 0px 0.5px #8080809a
+	}
+	
+	.profile {
+		margin: 0 -20px 0 0;
+	}
+	
+	.profile-dropdown ul {
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		gap: 30px;
+		margin: 20px 0 0 5px;
+		list-style-type: none;
+	}
+	
+	.profile-dropdown ul a {
+		color: black;
+		font-weight: 800;
+	}
+	
+	.logo-container {
+		margin: 10px 0 0 20%;
+	}
+	
+	.menu-container {
+		display: grid;
+		grid-template-columns: auto;
+		justify-content: space-around;
+		margin: 5% 0 0 0;
+	}
+	
+	.menu-container ul {
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		gap: 35px;
+		list-style-type: none;
+	}
+	
+	.menu-container ul a {
+		text-decoration: none;
+		color: black;
+		font-weight: 800;
+		font-size: 25px;
+	}
+	
+	hr {
+	  background-color: #fff;
+	  padding: 0;
+	  margin: 30px 80px 80px 80px;
+	}
+	
+	hr.hr-1 {
+	  border: 0;
+	  height: 2px;
+	  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(14, 174, 9, 0.75), rgba(0, 0, 0, 0));
+	}
+	
+	footer {
+	    display: grid;
+	    grid-template-columns: auto auto;
+	    position: relative;
+	    margin: 10% 0 0 0;
+	    bottom: 0;
+	    height: 40px;
+	    background-color: #f3efef70;
+	}
+	
+	.footer-left {
+	    padding-top: 10px;
+	    padding-left: 10px;
+	}
+	
+	.footer-right {
+	    text-align: right;
+	    padding-top: 10px;
+	}
+	.table-container {
+		display: block;
+		grid-template-rows: auto;
+		margin: 0 auto;
+	    width:40%;
+	    height: 100%;
+	    padding: 20px 30px;
+	    background-color: white;
+	    position: relative;
+		border: 1px solid;
+	    left: 20px;
+	    border-radius: 6px;
+	}
+
+	.tb th {
+		font-size: 30px;
+		font-family: 'Do Hyeon', sans-serif;
+	    text-align: left;
+	}
+	
+	.tb td .btn{
+		margin-left: 100px;
+		font-size: 20px;
+		font-family: 'Noto Serif KR', serif;
 	}
 	   
 </style>
 </head>
 
 <body>
-	
-    <header class="bg-white d-flex justify-content-between align-items-center p-2">
-        <div class="container d-flex justify-content-between align-items-center">
-            <h1><a th:href="@{main}" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
-            <nav>
-                <ul class="list-inline m-0">
-                    <th:block th:switch="${session.loginInfo}">
-                    	<th:block th:case="null">
-	                    	<li class="list-inline-item">
-	                        	<a th:href="@{join}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
-		                    </li>
-		                    <li class="list-inline-item">
-		                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>                        
-		                    </li>
-                    	</th:block>
-                    	<th:block th:case="*">
-	                    	<li class="list-inline-item">
-	                        	<a th:href="@{mypage}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">MyPage</a>
-		                    </li>
-		                    <li class="list-inline-item">
-		                        <a th:href="@{logout}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log Out</a>                        
-		                    </li>
-                    	</th:block>
-	                        		
-					</th:block>
-                </ul>
-            </nav>
-        </div>
-    </header>
-		
-	<!-- 배너 -->
-    <section class="banner text-center py-5 mb-5" style="background-color: #2CA40E; color: #ffffff;">
-    	    	
-        <h2 style="font-size: 37px;">JoiNow</h2>
-        <h3 style="font-size: 18px;">내 프로젝트신청 현황</h3>
-        
+
+<header>
+		<nav>
+			<!-- 로고 부분 -->
+			<div class="logo-container">
+				<a th:href="@{/main}">
+					<img src="https://kr.object.ncloudstorage.com/team1-bucket/logo.png" alt="로고">
+				</a>
+			</div>
+
+			<!-- 프로필 드롭다운 부분 -->
+			<div class="profile">
+				<div class="profile-dropdown">
+					<ul>
+						<li>
+							<a th:href="@{/mypage}">마이프로필</a>
+						</li>
+						<li>
+							<a th:href="@{/logout}">로그아웃</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+    <section class="menu-container">
+        <ul class="menu-list">
+            <li>
+                <a th:href="@{/team/{teamId}(teamId=${teamId})}">팀 정보</a>
+            </li>
+            <li>
+                <a th:href="@{/team/schedule/{teamId}(teamId=${teamId})}">일정표</a>
+            </li>
+            <li>
+                <a th:href="@{/team/meeting/{teamId}/1(teamId=${teamId})}">회의록</a>
+            </li>
+            <li>
+				<a th:href="@{/team/teamManage/{teamId}(teamId=${teamId})}">팀 신청관리</a>
+			</li>
+        </ul>
     </section>
+    
+    <hr class="hr-1">
+	
+	<!-- 배너 -->
+    <section class="banner-container">
+
+		<h2>내 프로젝트신청 현황</h2>
+
+	</section>
     <!-- 배너 end -->
 	
 	<!-- 리스트 -->
-	<section class="features container">
+	<section class="">
 		
-		<div class="row justify-content-center">    
+		<div class="">    
 		    <th:block th:each="userInfoDTO : ${memberList}">
-		        <div class="col-md-12 mb-0.5">
-			                
-			            <div class="list-item d-flex justify-content-center">
-			            	<form action="memberDelete" method="get">
-				            	<p class="list-text d-inline-block mx-2" th:text="${userInfoDTO.id}">아이디</p>
-				                				                
-				                <input type="hidden" th:value="${userInfoDTO.id}" name="userId">
-				                <input type="hidden" th:value="${teamId}" name="teamId">
-				                
-				                <input th:if="${leader}" type="submit" value="추방" class="btn btn-light text-dark border btn-sm">                          				                
-                     		</form>
-			            </div>
-			                      
-		        </div>
+		        <table class="tb table-container">
+				    <tr>
+				        <th>
+				            <div class="list-item d-flex justify-content-center">
+				                <form th:action="@{/team/memberDelete/{teamId}/{userId}(teamId=${teamId}, userId=${userInfoDTO.id})}" method="post">
+				                    <p class="list-text d-inline-block mx-2" th:text="${userInfoDTO.id}">아이디</p>
+				                    <input type="hidden" th:value="${userInfoDTO.id}" name="userId">
+				                    <input type="hidden" th:value="${teamId}" name="teamId">
+				                    <td><input th:if="${leader}" type="submit" value="추방" class="btn btn-light text-dark border btn-sm"></td>
+				                </form>
+				            </div>
+				        </th>
+				    </tr>
+				</table>
+
 		     </th:block>
 		</div>
 

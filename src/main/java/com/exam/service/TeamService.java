@@ -14,4 +14,7 @@ public interface TeamService {
 	public List<Integer> selectTeamIdByUserId(int userId);
 	public List<TeamMemberDTO> selectMemberListByTeamId(int teamId);
 	public int teamMemberDel(int userId);
+	
+	// 팀 페이지 팀 정보 수정
+	public int updateTeamInfoById(TeamDTO teamDTO);
 }
