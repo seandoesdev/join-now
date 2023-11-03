@@ -25,8 +25,8 @@ $(document).ready(function() {
 	
 	//category change
 	$("#category").on("change", function() {
-	    var a = ['게임기획', '프로젝트 매니저', 'UX/UI기획'];
-	    var b = ['UI/UX 디자인', '웹페이지 디자인', '디자이너'];
+	    var a = ['게임 기획', '서비스 기획', 'UX/UI 기획'];
+	    var b = ['UI/UX 디자인', '웹 디자인', '영상 디자인'];
 	    var c = ['프론트엔드', '백엔드', '풀스택'];
 	    var o;
 	    var category = $("#category").val();
@@ -48,8 +48,8 @@ $(document).ready(function() {
 	});//end category change
 	
 	$(document).on("change", "#category", function() {
-	    var a = ['게임기획', '프로젝트 매니저', 'UX/UI기획'];
-	    var b = ['UI/UX 디자인', '웹페이지 디자인', '디자이너'];
+	    var a = ['게임 기획', '서비스 기획', 'UX/UI 기획'];
+	    var b = ['UI/UX 디자인', '웹 디자인', '영상 디자인'];
 	    var c = ['프론트엔드', '백엔드', '풀스택'];
 	    var o;
 	    var category = $(this).val();
@@ -100,10 +100,10 @@ $(document).ready(function() {
 		var newSelectRecruitType = "<select id='recruitType' name='recruitType' class='form-control'>"
 			newSelectRecruitType += "<option value=''>옵션을 선택해주세요.</option></select>"
 	    
-	    var newMsize = "<div id='mSize'>";
-			newMsize += "<img src='images/down.png' class='down-btn' style='width:35px; height:35px;'>";
+				 var newMsize = "<div id='mSize' align='right'>";
 			newMsize += "<input type='text' name='memberSize' value='1' class='memberSize'>";
-			newMsize += "<img src='images/up.png' class='up-btn' style='width:40px; height:40px;'></div>";
+			newMsize += "<img src='images/up.png' class='up-btn' style='width:40px; height:40px;'>";
+			newMsize += "<img src='images/down.png' class='down-btn' style='width:40px; height:40px;'></div>";
 	    $(".addSelect").prepend(newMsize).prepend(newSelectRecruitType).prepend(newSelectCategory);
 		
 	});//end addSelect
@@ -120,7 +120,42 @@ $(document).ready(function() {
 </script>
 
 <style>
-      body{ background-color: #F7FFF5;}
+      body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
 </style>
 </head>
 
@@ -199,22 +234,22 @@ $(document).ready(function() {
             </tr>
             <tr>
 				<select th:value="${dto.recruitType}" class="form-control" id="recruitType"  name="recruitType">
-					<option th:selected="${dto.recruitType}=='게임기획'" value="게임기획">게임기획</option>
-					<option th:selected="${dto.recruitType}=='프로젝트 매니저'" value="프로젝트 매니저">프로젝트 매니저</option>
-					<option th:selected="${dto.recruitType}=='UX/UI기획'" value="UX/UI기획">UX/UI기획</option>
+					<option th:selected="${dto.recruitType}=='게임 기획'" value="게임 기획">게임 기획</option>
+					<option th:selected="${dto.recruitType}=='서비스 기획'" value="서비스 기획">서비스 기획</option>
+					<option th:selected="${dto.recruitType}=='UX/UI 기획'" value="UX/UI 기획">UX/UI 기획</option>
 					<option th:selected="${dto.recruitType}=='UI/UX 디자인'" value="UI/UX 디자인">UI/UX 디자인</option>
-					<option th:selected="${dto.recruitType}=='웹페이지 디자인'" value="웹페이지 디자인">웹페이지 디자인</option>
-					<option th:selected="${dto.recruitType}=='디자이너'" value="디자이너">디자이너</option>
+					<option th:selected="${dto.recruitType}=='웹 디자인'" value="웹 디자인">웹 디자인</option>
+					<option th:selected="${dto.recruitType}=='영상 디자인'" value="영상 디자인">영상 디자인</option>
 					<option th:selected="${dto.recruitType}=='프론트엔드'" value="프론트엔드">프론트엔드</option>
 					<option th:selected="${dto.recruitType}=='백엔드'" value="백엔드">백엔드</option>
 					<option th:selected="${dto.recruitType}=='풀스택'" value="풀스택">풀스택</option>
 				</select> 
             </tr>
             <tr>
-            <div class="mSize">
-                  <img src="images/down.PNG" class="down-btn" style="width: 35px; height: 35px;">
+            <div class="mSize" align="right">
                    <input type="text" name="memberSize" th:value="${dto.memberSize}" class="memberSize">
                     <img src="images/up.PNG" class="up-btn" style="width: 40px; height: 40px;">
+                  <img src="images/down.PNG" class="down-btn" style="width: 35px; height: 35px;">
             </div>
             </tr>
             <br>

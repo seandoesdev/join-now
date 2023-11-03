@@ -134,7 +134,7 @@ public class PostContoller {
 //		positionService.positionAdd(postNo, dto, dto2);
 //		ResponseEntity.ok("Data inserted successfully.");
 
-		return "redirect:postMain";
+		return "redirect:main";
 	}
 
 	// 게시글 자세히보기 화면
@@ -194,7 +194,7 @@ public class PostContoller {
 			positionService.positionOneAdd(pd);
 		}
 
-		return "redirect:postMain";
+		return "redirect:main";
 	}
 
 	// 게시글 삭제
@@ -206,7 +206,7 @@ public class PostContoller {
 		map.put("postNo", postNo);
 		map.put("userid", loginedId);
 		int n = service.postDelete(map);
-		return "redirect:postMain";
+		return "redirect:main";
 	}
 
 	// 지원하기 화면
@@ -231,6 +231,7 @@ public class PostContoller {
 		System.out.println(acceptDTO);
 		int n2 = acceptService.acceptAdd(acceptDTO);
 
+
 		// 알림 전송
 		NotificationDTO notificationDTO = new NotificationDTO();
 		notificationDTO.setSendId(dto.getUserid()); // 신청자
@@ -240,7 +241,8 @@ public class PostContoller {
 		
 		notificationService.notificationAdd(notificationDTO);
 
-		return "redirect:postMain";
+		return "redirect:main";
+
 	}
 
 	// position data split method
