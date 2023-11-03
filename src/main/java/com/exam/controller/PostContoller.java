@@ -189,7 +189,7 @@ public class PostContoller {
 			positionService.positionOneAdd(pd);
 		}
 
-		return "redirect:postMain";
+		return "redirect:main";
 	}
 
 	// 게시글 삭제
@@ -201,7 +201,7 @@ public class PostContoller {
 		map.put("postNo", postNo);
 		map.put("userid", loginedId);
 		int n = service.postDelete(map);
-		return "redirect:postMain";
+		return "redirect:main";
 	}
 
 	// 지원하기 화면
@@ -225,7 +225,7 @@ public class PostContoller {
 		acceptDTO.setApplyNo(dto.getApplyNo()); // 신청서 정보
 		System.out.println(acceptDTO);
 		int n2 = acceptService.acceptAdd(acceptDTO);
-		return "redirect:postMain";
+		return "redirect:main";
 	}
 
 	// position data split method

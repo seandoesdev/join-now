@@ -20,7 +20,7 @@
 
 <script type="text/javascript">
 	function go_list() {
-		location.href = "postMain";
+		location.href = "main";
 	}
 </script>
 
@@ -135,7 +135,6 @@
 	    //commentDelete
 	    $(document).on("click", ".commentDelete-btn", function() {
 		    var commentNo = $(this).closest(".comment").find(".content.commentNo").text();
-		    console.log(id);
 		    $.ajax({
 		        url: 'commentDelete',
 		        type: 'post',
@@ -445,7 +444,7 @@
 
 			<!-- 여기서부터 지원하기 modal 구현 -->
 			<!-- Button trigger modal -->
-			<button id="apply-btn" type="button" class="btn icon-btn btn-success"
+			<button type="button" class="btn-custom btn-custom-success"
 				data-toggle="modal" data-target="#myModal">지원하기</button>
 					
 
@@ -523,9 +522,9 @@
 																					
 							<div class="modal-footer">
 
-								<button type="button" class="btn rounded-pill me-2 btn-success"
+								<button type="button" class="btn-custom btn-custom-success"
 									data-dismiss="modal">Close</button>
-								<input type="submit" value="제출" 
+								<input id="apply-btn" type="submit" value="제출" 
 									class="btn-custom btn-custom-success">
 							</div>
 						</div>
