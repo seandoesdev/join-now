@@ -18,6 +18,7 @@ public class PostDTO {
 	String deadline;
 	String startDate;
 	String contact;
+	String nickname;
 	
 	public PostDTO() {}
 
@@ -37,6 +38,15 @@ public class PostDTO {
 		this.deadline = deadline;
 		this.startDate = startDate;
 		this.contact = contact;
+	}
+	
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public int getPostNo() {
@@ -148,8 +158,9 @@ public class PostDTO {
 		return "PostDTO [postNo=" + postNo + ", title=" + title + ", studyType=" + studyType + ", onoff=" + onoff
 				+ ", region=" + region + ", content=" + content + ", userid=" + userid + ", closing=" + closing
 				+ ", postDate=" + postDate + ", viewCount=" + viewCount + ", deadline=" + deadline + ", startDate="
-				+ startDate + ", contact=" + contact + "]";
+				+ startDate + ", contact=" + contact + ", nickname=" + nickname + "]";
 	}
+
 
 
 	
