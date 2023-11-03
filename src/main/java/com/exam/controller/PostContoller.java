@@ -129,7 +129,7 @@ public class PostContoller {
 //		positionService.positionAdd(postNo, dto, dto2);
 //		ResponseEntity.ok("Data inserted successfully.");
 
-		return "redirect:postMain";
+		return "redirect:main";
 	}
 
 	// 게시글 자세히보기 화면
