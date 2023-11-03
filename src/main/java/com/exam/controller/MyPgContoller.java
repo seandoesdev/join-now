@@ -77,8 +77,8 @@ public class MyPgContoller {
 
 	// 마이페이지 수정 페이지 들어가기
 	@GetMapping("/insertui")
-	public String mypageInsert(Model m, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String mypageInsert(Model m, HttpSession session) {
+
 		// 세션에서 id값 받아오기
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		int id = userInfoDTO.getId();
