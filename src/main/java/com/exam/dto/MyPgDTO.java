@@ -1,24 +1,16 @@
 package com.exam.dto;
-
 import org.apache.ibatis.type.Alias;
-
-
-
 @Alias("MyPgDTO")
 public class MyPgDTO {
-	
-	int id;
-	String email;
-	String nickname;
-	String phone;
-	String pofoLink;
-	String skills;
-	String tools;
-	String intro;
-	public MyPgDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    int id;
+    String email;
+    String nickname;
+    String phone;
+    String pofolLink;
+    String skills;
+    String tools;
+    String intro;
+    public MyPgDTO() {}
 	public int getId() {
 		return id;
 	}
@@ -43,11 +35,11 @@ public class MyPgDTO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getPofoLink() {
-		return pofoLink;
+	public String getPofolLink() {
+		return pofolLink;
 	}
-	public void setPofoLink(String pofoLink) {
-		this.pofoLink = pofoLink;
+	public void setPofolLink(String pofolLink) {
+		this.pofolLink = pofolLink;
 	}
 	public String getSkills() {
 		return skills;
@@ -67,27 +59,21 @@ public class MyPgDTO {
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
-	public MyPgDTO(int id, String email, String nickname, String phone, String pofoLink, String skills, String tools,
+	public MyPgDTO(int id, String email, String nickname, String phone, String pofolLink, String skills, String tools,
 			String intro) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.nickname = nickname;
 		this.phone = phone;
-		this.pofoLink = pofoLink;
+		this.pofolLink = pofolLink;
 		this.skills = skills;
 		this.tools = tools;
 		this.intro = intro;
 	}
 	@Override
 	public String toString() {
-		return "MyPgDTO [id=" + id + ", email=" + email + ", nickname=" + nickname + ", phone=" + phone + ", pofoLink="
-				+ pofoLink + ", skills=" + skills + ", tools=" + tools + ", intro=" + intro + "]";
+		return "MyPgDTO [id=" + id + ", email=" + email + ", nickname=" + nickname + ", phone=" + phone + ", pofolLink="
+				+ pofolLink + ", skills=" + skills + ", tools=" + tools + ", intro=" + intro + "]";
 	}
-
-
-	
-	
-	
-	
 }
