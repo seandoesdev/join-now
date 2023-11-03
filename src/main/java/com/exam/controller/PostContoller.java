@@ -106,9 +106,8 @@ public class PostContoller {
 		// post & position 삽입
 		// split한 데이터 insert
 		dto.setUserid(userInfoDTO.getId());
-		System.out.println(dto);
+		dto.setNickname(userInfoDTO.getNickname());
 		int n = positionService.positionAdd(dto, list);
-		System.out.println(n); // postNo
 		
 		// 게시물 작성시 팀 정보 테이블 생성
 		TeamDTO teamDTO = new TeamDTO();
@@ -147,6 +146,7 @@ public class PostContoller {
 		m.addAttribute("positionList", positionList);
 		request.setAttribute("LoggedInId", LoggedInId);
 		request.setAttribute("author", author);
+		System.out.println("retrieve:"+postDTO);
 		return "retrieve";
 	}
 
@@ -280,6 +280,7 @@ public class PostContoller {
 		// 댓글정보 생성
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		dto.setWriter(userInfoDTO.getId()); 	// 인덱스값인 id를 가져온다.
+		dto.setNickname(userInfoDTO.getNickname());
 		int n = commentService.commentAdd(dto);
 		return "ok";
 	}
