@@ -13,20 +13,6 @@ public class MyPgDTO {
     String intro;
     public MyPgDTO() {}
 
-
-    public MyPgDTO(int id, String email, String nickname, String phone, String pofolLink, String skills,
-            String tools, String intro) {
-        this.id = id;
-        this.email = email;
-        this.nickname = nickname;
-        this.phone = phone;
-        this.pofolLink = pofolLink;
-        this.skills = skills;
-        this.tools = tools;
-        this.intro = intro;
-    }
-
- 
 	public int getId() {
 		return id;
 	}
