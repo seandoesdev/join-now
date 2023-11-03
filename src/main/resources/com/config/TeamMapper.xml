@@ -42,6 +42,13 @@
 		delete from teammember
 		where userId=#{userId}
 	</delete>
+	
+	<!-- 팀 정보 수정  -->
+	<update id="updateTeamInfoById" parameterType="teamDTO">
+		update team
+		set	teamSubject = #{teamSubject}, teamIntro = #{teamIntro}, teamPlan = #{teamPlan}, period = #{period}
+		where teamId = #{teamId}
+	</update>
 </mapper>
 
 

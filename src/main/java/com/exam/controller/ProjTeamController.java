@@ -1,5 +1,6 @@
 package com.exam.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -23,10 +24,12 @@ import com.exam.dto.MeetingDTO;
 import com.exam.dto.MeetingPageDTO;
 import com.exam.dto.ScheduleDTO;
 import com.exam.dto.TeamDTO;
+import com.exam.dto.TeamMemberDTO;
 import com.exam.dto.UserInfoDTO;
 import com.exam.navercloud.openapi.service.ObjectStorageService;
 import com.exam.service.ProjTeamServiceImpl;
 import com.exam.service.TeamService;
+import com.exam.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,10 +47,10 @@ public class ProjTeamController {
   private ProjTeamServiceImpl projTeamService;
 
   @Autowired
-  private ObjectStorageService storageService;
-
-  @Autowired
   private TeamService teamService;
+  
+  @Autowired
+  private UserService userService;
 
   // 팀정보
   @GetMapping("/{teamId}")
@@ -57,10 +60,35 @@ public class ProjTeamController {
 
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     TeamDTO teamDTO = teamService.selectByTeamId(teamId);
+    List<TeamMemberDTO> teamMemberDTO = teamService.selectMemberListByTeamId(teamId);
 
     model.addAttribute("teamDTO", teamDTO);
+    model.addAttribute("memberList", teamMemberDTO);
 
     return "info";
+  }
+  
+  // 팀 소개 수정 페이지
+  @GetMapping("/update/{teamId}")
+  public String infoRetrieve(@PathVariable int teamId, Model model) {
+    log.info("info retrieve works");
+    TeamDTO teamDTO = teamService.selectByTeamId(teamId);
+    
+    model.addAttribute("teamDTO", teamDTO);
+    
+    
+    return "introRetrieve";
+  }
+  
+  // 팀 소개 수정 작업
+  @GetMapping("/update/retrieve.do/{teamId}")
+  public String infoRetrieveDo(@PathVariable int teamId, TeamDTO teamDTO) {
+    log.info("info retrieve do works");
+    
+    teamDTO.setTeamId(teamId);
+    teamService.updateTeamInfoById(teamDTO);
+    
+    return "introRetrieve";
   }
 
 
@@ -254,6 +282,44 @@ public class ProjTeamController {
 
     return "meetingRetrieve";
   }
+  
+  
+  
+  /**
+   * 팀 신청관리
+   * @return
+   */
+  
+  @GetMapping("/teamManage/{teamId}")
+  public String teamManage(@PathVariable int teamId, Model model, HttpSession session) {
+      UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+      List<TeamMemberDTO> memberList = teamService.selectMemberListByTeamId(teamId);
+      
+      List<UserInfoDTO> userList = new ArrayList<UserInfoDTO>();
+      for(TeamMemberDTO dto : memberList) {
+          userList.add(userService.selectAllById(dto.getUserId()));
+      }
+      
+      TeamDTO teamDTO = teamService.selectByTeamId(teamId); 
+      boolean leader = false;
+      if(userInfoDTO.getId() == teamDTO.getUserId()) {
+          leader=true;
+      }
+      
+      System.out.println(leader);
+      model.addAttribute("memberList", userList);
+      model.addAttribute("leader", leader);
+      model.addAttribute("teamId", teamId);
+          
+      return "TeamManagementPage";
+  }
+  
+  @PostMapping("/memberDelete/{teamId}/{userId}")
+  public String teamMemberDelete(@PathVariable int teamId, @PathVariable int userId) {
+      teamService.teamMemberDel(userId);
+      System.out.println("memberDel"+teamId + userId);
+      return "redirect:/team/teamManage/"+teamId;
+  }
 
 
 
@@ -263,6 +329,7 @@ public class ProjTeamController {
    * @return
    */
 
+  //320 2081
 
   // 로그인 확인
   private String loginValidation(HttpSession session) {

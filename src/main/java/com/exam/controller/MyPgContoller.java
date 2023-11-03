@@ -1,5 +1,7 @@
 package com.exam.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,10 +17,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.exam.dto.MyPgDTO;
+
 import com.exam.dto.NotificationDTO;
+
+import com.exam.dto.UploadDTO;
+
 import com.exam.dto.UserInfoDTO;
+import com.exam.navercloud.openapi.service.ObjectStorageService;
 import com.exam.service.MyPgServiceImpl;
 import com.exam.service.NotificationService;
 import com.exam.service.UserService;
@@ -35,6 +43,10 @@ public class MyPgContoller {
 	
 	@Autowired
 	NotificationService notificationService;
+	
+	@Autowired
+	ObjectStorageService storageService;
+
 
 	// 로그인 후 mypage 요청하면 이메일만 출력
 	@GetMapping("/mypage")
@@ -69,9 +81,12 @@ public class MyPgContoller {
 		HttpSession session = request.getSession();
 		// 세션에서 id값 받아오기
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
-		MyPgDTO mypgDTO = myService.mypageInfo(userInfoDTO.getId());
-		m.addAttribute("mypgDTO", mypgDTO);
-		System.out.println(mypgDTO);
+		int id = userInfoDTO.getId();
+		UserInfoDTO info = userService.selectAllById(id);
+		m.addAttribute("userInfoDTO", info);
+		
+		
+		System.out.println(userInfoDTO);
 		return "myPageAdd";
 	}
 
@@ -85,8 +100,73 @@ public class MyPgContoller {
 		// dto에 사용자 id 설정
 		dto.setId(userInfoDTO.getId());
 		int n2 = myService.mypageUpdate(dto); // insert -> Update로 변경
+		
+		
 
 		return "redirect:mypage";
 	}
+	
+	@PostMapping("/upload")
+	public String upload(UploadDTO dto, Model m, HttpSession session) {
+		
+		//세션에서 id값 받아오기
+		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		int id = userInfoDTO.getId();
+		//현재 로그인된 id에 해당하는 정보 받아와서 출력
+		UserInfoDTO info = userService.selectAllById(id);
+		m.addAttribute("UserInfoDTO", info);		
+		
+		String theText = dto.getTheText();
+		MultipartFile theFile = dto.getTheFile();
+		
+		//파일정보
+		long size = theFile.getSize();
+		String name = theFile.getName();
+		String originalFilename = theFile.getOriginalFilename();
+		String contentType = theFile.getContentType();
+		
+		
+		System.out.println(theText);
+		System.out.println(size);
+		System.out.println(name);
+		System.out.println(originalFilename);
+		System.out.println(contentType);
+		
+		String username = userInfoDTO.getUsername()+".jpg";
+		
+		File f = new File("c:\\upload", username) ;
+		
+		try {
+			theFile.transferTo(f);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+
+		
+		// 클라우드에 저장
+		storageService.upload(username, "c:\\upload\\"+username);
+		
+		// 파일 삭제
+		String filePath = "c:\\upload\\"+username;
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            boolean deleted = file.delete();
+            if (deleted) {
+                System.out.println("파일이 삭제되었습니다.");
+            } else {
+                System.out.println("파일 삭제에 실패했습니다.");
+            }
+        } else {
+            System.out.println("파일이 존재하지 않습니다.");
+        }
+		
+		return "mypage";
+	}
+	
+
 
 }
