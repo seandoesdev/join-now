@@ -70,8 +70,8 @@
 			            <div class="list-item d-flex justify-content-center">
 			            	<form action="acceptYN" method="get">
 				            	<a th:href="'retrieve?postNo='+${acceptPrintDTO.postDTO.postNo}"><p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.postDTO.title}">게시물 정보</p></a>
-				                <a th:href="'applyRetrieve?applyNo='+${acceptPrintDTO.acceptDTO.applyNo}"><p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.applyUserInfoDTO.id}">신청자</p></a>
-				                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.acceptUserInfoDTO.id}">작성자</p>
+				                <a th:href="'applyRetrieve?applyNo='+${acceptPrintDTO.acceptDTO.applyNo}"><p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.applyUserInfoDTO.nickname}">신청자</p></a>
+				                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.acceptUserInfoDTO.nickname}">작성자</p>
 				                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.acceptDTO.accept}">신청 여부</p>
 				                <input type="hidden" th:value="${acceptPrintDTO.acceptDTO.applyNo}" name="applyNo">
 				                <input type="hidden" th:value="${acceptPrintDTO.acceptDTO.applicationNo}" name="applicationNo">
