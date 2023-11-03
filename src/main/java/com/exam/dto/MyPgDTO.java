@@ -7,7 +7,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("MyPgDTO")
 public class MyPgDTO {
     
-    String userid;
+    int id;
     String email;
     String nickname;
     String phone;
@@ -18,9 +18,9 @@ public class MyPgDTO {
     
     public MyPgDTO() {}
 
-    public MyPgDTO(String userid, String email, String nickname, String phone, String pofolLink, String skills,
+    public MyPgDTO(int id, String email, String nickname, String phone, String pofolLink, String skills,
             String tools, String intro) {
-        this.userid = userid;
+        this.id = id;
         this.email = email;
         this.nickname = nickname;
         this.phone = phone;
@@ -30,12 +30,12 @@ public class MyPgDTO {
         this.intro = intro;
     }
 
-    public String getUserid() {
-        return userid;
+    public int getUserid() {
+        return id;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -96,7 +96,7 @@ public class MyPgDTO {
 
     @Override
     public String toString() {
-        return "MyPgDTO [userid=" + userid + ", email=" + email + ", nickname=" + nickname + ", phone=" + phone
+        return "MyPgDTO [id=" + id + ", email=" + email + ", nickname=" + nickname + ", phone=" + phone
                 + ", pofolLink=" + pofolLink + ", skills=" + skills + ", tools=" + tools + ", intro=" + intro + "]";
     }
     
