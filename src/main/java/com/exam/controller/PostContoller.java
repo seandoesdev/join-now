@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.exam.dto.AcceptDTO;
 import com.exam.dto.ApplyDTO;
 import com.exam.dto.CommentDTO;
+import com.exam.dto.NotificationDTO;
 import com.exam.dto.PositionDTO;
 import com.exam.dto.PostDTO;
 import com.exam.dto.TeamDTO;
@@ -31,6 +32,7 @@ import com.exam.dto.UserInfoDTO;
 import com.exam.service.AcceptService;
 import com.exam.service.ApplyService;
 import com.exam.service.CommentService;
+import com.exam.service.NotificationService;
 import com.exam.service.PositionService;
 import com.exam.service.PostServiceImpl;
 import com.exam.service.TeamService;
@@ -55,7 +57,10 @@ public class PostContoller {
 	
 	@Autowired
 	TeamService teamService;
-
+	
+	@Autowired
+	NotificationService notificationService;
+	
 	@GetMapping("/postMain")
 	public String main(Model m) {
 		List<PostDTO> list = service.postList();
@@ -213,19 +218,31 @@ public class PostContoller {
 		// apply 테이블 정보 저장
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		dto.setUserid(userInfoDTO.getId());
-		int n = applyService.applyAdd(dto); 
-		System.out.println("*************"+dto.getApplyNo());
-		
-		//accept 테이블 정보 저장
+		int n = applyService.applyAdd(dto);
+		System.out.println("*************" + dto.getApplyNo());
+
+		// accept 테이블 정보 저장
 		AcceptDTO acceptDTO = new AcceptDTO();
-		acceptDTO.setAcceptUserId(postDTO.getUserid()); //작성자
-		acceptDTO.setApplyUserId(dto.getUserid()); //신청자
-		acceptDTO.setAccept(false); //수락 여부
-		acceptDTO.setPostNo(postDTO.getPostNo()); //게시판 정보
+		acceptDTO.setAcceptUserId(postDTO.getUserid()); // 작성자
+		acceptDTO.setApplyUserId(dto.getUserid()); // 신청자
+		acceptDTO.setAccept(false); // 수락 여부
+		acceptDTO.setPostNo(postDTO.getPostNo()); // 게시판 정보
 		acceptDTO.setApplyNo(dto.getApplyNo()); // 신청서 정보
 		System.out.println(acceptDTO);
 		int n2 = acceptService.acceptAdd(acceptDTO);
+
+
+		// 알림 전송
+		NotificationDTO notificationDTO = new NotificationDTO();
+		notificationDTO.setSendId(dto.getUserid()); // 신청자
+		notificationDTO.setReceiveId(postDTO.getUserid()); // 작성자
+		notificationDTO.setContent("지원 신청 하였습니다.");
+		notificationDTO.setPostId(postDTO.getPostNo()); // 공고 정보
+		
+		notificationService.notificationAdd(notificationDTO);
+
 		return "redirect:main";
+
 	}
 
 	// position data split method
