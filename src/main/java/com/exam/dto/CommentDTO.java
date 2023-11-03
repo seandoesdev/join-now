@@ -8,15 +8,17 @@ public class CommentDTO {
 		int commentNo;
 		int postNo;
 		String content;
-		int writer;
 		boolean delete_yn;
 		String create_date;
 		String modified_date;
+		int writer;
+		String nickname;
 		
 		public CommentDTO() {}
-		
-		public CommentDTO(int commentNo, int postNo, String content, int writer, boolean delete_yn,
-				String create_date, String modified_date) {
+
+
+		public CommentDTO(int commentNo, int postNo, String content, int writer, boolean delete_yn, String create_date,
+				String modified_date) {
 			this.commentNo = commentNo;
 			this.postNo = postNo;
 			this.content = content;
@@ -25,6 +27,18 @@ public class CommentDTO {
 			this.create_date = create_date;
 			this.modified_date = modified_date;
 		}
+
+
+
+		public String getNickname() {
+			return nickname;
+		}
+
+
+		public void setNickname(String nickname) {
+			this.nickname = nickname;
+		}
+
 
 		public int getCommentNo() {
 			return commentNo;

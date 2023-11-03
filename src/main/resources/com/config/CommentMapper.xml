@@ -5,8 +5,8 @@
 <mapper namespace="CommentMapper">
 
 	<insert id="commentAdd" parameterType="CommentDTO">
-		insert into comment (postNo,content, writer)
-		values (#{postNo},#{content},#{writer})
+		insert into comment (postNo,content, writer, nickname)
+		values (#{postNo},#{content},#{writer},#{nickname})
 	</insert>
 
 	<select id="commentListbyNo" parameterType="int" resultType="CommentDTO">

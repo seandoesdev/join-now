@@ -161,6 +161,39 @@ $(document).ready(function() {
             border-radius: 4px;
             box-sizing: border-box;
         }
+        
+        /* Button Styles */
+        .btn-custom {
+            display: inline-block;
+            font-weight: 400;
+            color: #fff;
+            text-align: center;
+            vertical-align: middle;
+            user-select: none;
+            background-color: #22577A;
+            border: 1px solid #22577A;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+                box-shadow 0.15s ease-in-out;
+        }
+
+        .btn-custom:hover {
+            background-color: #FF9F29;
+            border-color: #FF9F29;
+        }
+
+        .btn-custom-success {
+            background-color: #2CA40E;
+            border-color: #2CA40E;
+        }
+
+        .btn-custom-success:hover {
+            background-color: #80ED99;
+            border-color: #80ED99;
+        }
 </style>
 </head>
 
@@ -236,9 +269,9 @@ $(document).ready(function() {
 </div>
 <div class="addSelect" align="right">
 
-				<button type="button" class="btn rounded-pill me-2 btn-success"
+				<button type="button" class="btn-custom btn-custom-success"
 					id="add-btn" >모집인원 추가</button>
-				<button type="button" class="btn rounded-pill"
+				<button type="button" class="btn-custom"
 					id="del-btn" >삭제</button>	
 					
 			</div>
@@ -279,9 +312,9 @@ $(document).ready(function() {
 			</div>
 			<br>
 			<div class="form-group" align="right">
-				<input type="reset" class="btn rounded-pill me-2" value="reset">
+				<input type="reset" class="btn-custom" value="reset">
 				<input type="submit" value="공고 등록"
-					class="btn rounded-pill me-2 btn-success" onclick="go_list()">
+					class="btn-custom btn-custom-success" onclick="go_list()">
 			</div>
 		</form>
 	</div>

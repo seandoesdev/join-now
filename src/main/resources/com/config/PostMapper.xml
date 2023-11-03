@@ -5,7 +5,7 @@
 <mapper namespace="PostMapper">
 
 	<select id="postList" resultType="PostDTO">
-		select postNo,title,userid,postDate,viewCount
+		select postNo,title,userid,postDate,viewCount,nickname
 		from post
 	</select>
 
@@ -19,7 +19,7 @@
 
 	<select id="postListbyNo" resultType="PostDTO">
 		select
-		postNo,title,studyType,onoff,region,content,startDate,deadline,contact,viewCount,userid
+		postNo,title,studyType,onoff,region,content,startDate,deadline,contact,viewCount,userid,nickname
 		from post
 		where postNo=#{postNo}
 	</select>
