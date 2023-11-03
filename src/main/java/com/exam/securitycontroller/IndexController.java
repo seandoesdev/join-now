@@ -46,7 +46,12 @@ public class IndexController {
         
         session.setAttribute("loginInfo", dto);
 		
-		return "redirect:main";
+        if(dto.getNickname()==null) {
+        	return "redirect:insertui";
+        }else {
+        	return "redirect:main";
+        }
+		
 	}
 
 	@GetMapping("/user")
@@ -87,14 +92,19 @@ public class IndexController {
 	}
 
 	@PostMapping("/joinProc")
-	public String joinProc(User user) {
+	public String joinProc(User user, HttpSession session) {
 		System.out.println("회원가입 진행 : " + user);
 		String rawPassword = user.getPassword();
 		String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 		user.setPassword(encPassword);
 		user.setRole("ROLE_USER");
 		userRepository.save(user);
-		return "redirect:/";
+		
+		// 회원가입과 동시에 세션에 데이터 저장
+		UserInfoDTO dto = service.selectAll(user.getUsername());
+		session.setAttribute("loginInfo", dto);
+		
+		return "redirect:insertui";
 	}
 	
 	// 아이디 중복 확인
