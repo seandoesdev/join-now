@@ -211,16 +211,32 @@
 			});//end ajax
 			
 		});//end comment-btn
-
+		
+	   $("#selboxDirect").hide();
+	   $("#skillsel").change(function() {
+	     //직접입력을 누를 때 나타남
+	   		if($("#skillsel").val() == "direct") {
+	   			$("#selboxDirect").show();
+	   			$("#skillsel").removeAttr("name");
+	   		}  else {
+	   			$("#selboxDirect").hide();
+	   		}
+	   	}) 
 
 	});//end ready
 </script>
 
 <style>
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'SUITE-Regular';
+            background-color: #FFFFFF;
             margin: 0;
             padding: 0;
         }
@@ -231,11 +247,7 @@
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
-        h1 {
-            font-size: 24px;
-        }
-
+        
         form {
             margin: 0;
             display: inline;
@@ -245,7 +257,6 @@
 
         /* Comment Styles */
         .comment {
-        	max-width: 1200px;
             border: 1px solid #ddd;
             border-radius: 5px;
             padding: 10px;
@@ -288,14 +299,15 @@
             text-align: center;
             vertical-align: middle;
             user-select: none;
-            background-color: #22577A;
-            border: 1px solid #22577A;
-            padding: 0.375rem 0.75rem;
-            font-size: 1rem;
+            background-color: #0F6292;
+            border: 1px solid #0F6292;
+            padding: 0.5rem 1rem; /* Adjust padding to increase button size */
+        	font-size: 1.2rem; /* Increase font size for larger text */
             line-height: 1.5;
             border-radius: 0.25rem;
             transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
                 box-shadow 0.15s ease-in-out;
+            border-radius: 5px;
         }
 
         .btn-custom:hover {
@@ -304,21 +316,79 @@
         }
 
         .btn-custom-success {
-            background-color: #2CA40E;
-            border-color: #2CA40E;
+            background-color: #0F6292;
+            border-color: #0F6292;
+            border-radius: 5px;
         }
 
         .btn-custom-success:hover {
-            background-color: #80ED99;
-            border-color: #80ED99;
+            background-color: #2CA40E;
+            border-color: #2CA40E;
         }
+        
+       a.box-link {
+  			display: inline-block;
+  			padding: 8px;
+  			background-color: #0F6292;
+			border-radius: 3px;
+			text-decoration: none;
+			color: #F5F5F5;
+		}
+		
+		a.box-link:hover{
+    	 background-color: #2CA40E;
+    	 color: #F5F5F5;
+		}
+		
+		.form-group-custom{
+		margin: 0 auto;
+		width:900px;
+		}
+		
+		.btn{
+    	display: flex;
+    	justify-content: flex-start;
+		}
+		
+		#list-btn{
+		margin-left: 110px;
+		}
+		
         
     </style>
 
 </head>
 <body>
+<header class="bg-white d-flex justify-content-between align-items-center p-2">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1><a th:href="@{main}" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
+            <nav>
+                <ul class="list-inline m-0"  align="right">
+                    <th:block th:switch="${session.loginInfo}">
+                    	<th:block th:case="null">
+	                    	<li class="list-inline-item">
+	                        	<a th:href="@{join}" class="box-link" style="font-size: 0.67em;">Sign Up</a>
+		                    </li>
+		                    <li class="list-inline-item">
+		                        <a th:href="@{login}" class="box-link" style="font-size: 0.67em;">Log In</a>                        
+		                    </li>
+                    	</th:block>
+                    	<th:block th:case="*">
+	                    	<li class="list-inline-item">
+	                        	<a th:href="@{mypage}" class="box-link" style="font-size: 0.67em;">MyPage</a>
+		                    </li>
+		                    <li class="list-inline-item">
+		                        <a th:href="@{logout}" class="box-link" style="font-size: 0.67em;">Log Out</a>                        
+		                    </li>
+                    	</th:block>
+	                        		
+					</th:block>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
 	<div class="container">
-	<h1><a th:href="@{main}" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
 		<div align="right">
 			<h6>
 				작성자:&nbsp;<span th:text="${postListbyNum.nickname}"></span>
@@ -334,104 +404,85 @@
 			<input id="LoggedInId" hidden="hidden" th:value="${LoggedInId}">
 		</div>
 		<div class="form-group">
-			<h2 class="text-center">프로젝트 모집요강</h2>
+			<h1 class="text-center">프로젝트 모집요강</h1>
 		</div>
 		<hr>
 
-		<div class="form-group">
+		<div class="form-group-custom">
 			<h4>
 				<label for="title">프로젝트명</label>
 			</h4>
 			<div>
-				<input type="text" class="form-control" name="title"
-					th:value="${postListbyNum.title}" readonly="readonly">
+			<span class="form-control" th:text="${postListbyNum.title}" ></span>
 			</div>
 		</div>
 		<br>
-		<div class="form-group">
+		<div class="form-group-custom">
 			<h4>
 				<label for="studyType">유형</label>
 			</h4>
-
-			<input type="text" class="form-control" name="studyType"
-				th:value="${postListbyNum.studyType}" readonly="readonly">
+			<span class="form-control" th:text="${postListbyNum.studyType}" ></span>
 		</div>
 		<br>
-		<div class="form-group">
+		<div class="form-group-custom">
 			<h4>
 				<label>지역</label>
 			</h4>
 
 			<div>
-				<input type="text" class="form-control" name="onoff"
-					th:value="${postListbyNum.onoff}" readonly="readonly"><br>
-				<input type="text" class="form-control" name="region"
-					th:value="${postListbyNum.region}" readonly="readonly">
-
+				<span class="form-control" th:text="${postListbyNum.onoff}" ></span><br>
+				<span class="form-control" th:text="${postListbyNum.region}" ></span>
 			</div>
 		</div>
 		<br>
-		<div class="form-group">
+		<div class="form-group-custom">
 			<h4>
 				<label for="memberRecruit">모집인원</label>
 			</h4>
 			<div>
 				<table>
 					<tr th:each="dto : ${positionList}">
-						<span type="text" class="form-control" th:text="${dto.category}"></span>
-						<span type="text" class="form-control"
-							th:text="${dto.recruitType}"></span>
-						<span type="text" class="form-control"
-							th:text="${dto.memberSize != null ? dto.memberSize + '명' : 'N/A'}"></span>
-						<br>
-					</tr>
+						<span type="text" class="form-control" th:text="${dto.category}"></span><br>
+						<span type="text" class="form-control" th:text="${dto.recruitType}"></span><br>
+						<span type="text" class="form-control" th:text="${dto.memberSize != null ? dto.memberSize + '명' : 'N/A'}"></span>
+					<br></tr>
 				</table>
 			</div>
 		</div>
 		<br>
-		<div class="form-group">
+		<div class="form-group-custom">
 			<h4>
 				<label for="content">프로젝트 설명</label>
 			</h4>
 
 			<div class="form-group">
-				<input type="text" class="form-control" name="content"
-					th:value="${postListbyNum.content}" readonly="readonly">
+			<textarea class="form-control" th:text="${postListbyNum.content}" readonly></textarea>
 			</div>
 		</div>
 		<br>
-		<div class="form-group">
+		<div class="form-group-custom">
 			<h4>
 				<label for="html5-date-input">프로젝트 시작일</label>
 			</h4>
-			<input type="date" class="form-control" name="startDate"
-				th:value="${postListbyNum.startDate}" readonly="readonly">
+			<span class="form-control" th:text="${postListbyNum.startDate}" ></span>
 		</div>
 		<br>
-		<div class="form-group">
+		<div class="form-group-custom">
 			<h4>
-				<label for="html5-date-input" class="col-sm-3 control-label">공고
-					마감일</label>
+				<label for="html5-date-input">공고 마감일</label>
 			</h4>
-			<div class="form-group">
-				<br> <input type="date" class="form-control" name="deadline"
-					th:value="${postListbyNum.deadline}" readonly="readonly">
-			</div>
+			<span class="form-control" th:text="${postListbyNum.deadline}" ></span>
 		</div>
 		<br>
-		<div class="form-group">
+		<div class="form-group-custom">
 			<h4>
 				<label for="html5-tel-input">연락처</label>
 			</h4>
-
-			<div class="form-group">
-				<input type="text" class="form-control" name="contact"
-					th:value="${postListbyNum.contact}" readonly="readonly">
-			</div>
+				<span class="form-control" th:text="${postListbyNum.contact}" ></span>
 		</div>
+		<br>
 		<div class="form-group">
-			<input type="submit" value="목록보기" class="btn-custom"
-				onclick="go_list()">
+			<input id="list-btn" type="submit" value="목록보기" class="btn-custom" onclick="go_list()">
 
 			<form action="updateUI" method="get">
 				&nbsp;<input id="modify-btn" type="submit" value="수정하기" class="btn-custom btn-custom-success">
@@ -464,11 +515,7 @@
 									<span aria-hidden="true">&times;</span>
 								</button>
 								<form action="apply" method="post">
-									<h4 class="modal-title" id="exampleModalScrollableTitle">지원
-										양식</h4>
-									<h6 align="right">
-										글번호:&nbsp;<span th:text="${postListbyNum.postNo}"></span>
-									</h6>
+								<span style="display: none" th:text="${postListbyNum.postNo}"></span>
 							</div>
 							<input type="hidden" th:value="${postListbyNum.postNo}"
 								name="postNo">
@@ -492,12 +539,14 @@
 									</h4>
 									<br>
 									<div>
-										<select name="skills" data-depth="0" class="form-control"
+										<select id="skillsel" name="skills" data-depth="0" class="form-control"
 											onchange="selectCategory(this);">
 											<option value="Java">Java</option>
 											<option value="C++">C++</option>
 											<option value="Kotlin">Kotlin</option>
+											<option value="direct">직접 입력</option>
 										</select>
+										<br><input class="form-control" type="text" id="selboxDirect" name="skills"/>
 									</div>
 									<br>
 									<div>
@@ -540,9 +589,9 @@
 		</div>
 			<!-- 지원하기 끝 -->
 			<!-- 댓글기능 시작 -->
-    <div class="comment">
+    <div class="container comment">
     <h2>Comments</h2>
-    <h4>Leave a comment</h4>
+    <h4>Leave a comment!</h4>
         <p id="commentResult"></p>
         <div class="comment-form">
             <textarea placeholder="Add your comment..." name="content" id="commentContent"></textarea>
@@ -550,5 +599,12 @@
         </div>
         </div>
 			<!-- 댓글기능 끝 -->
+			
+<footer style="background-color: #f2f2f2; bottom: 0; width: 100%; left: 0;">
+        <div class="copyright text-center py-3">
+            <p class="m-0" style="font-size: 14px;">JoiNow</p>
+            <p class="m-0" style="font-size: 14px;">joinnow.co.kr</p>
+        </div>
+</footer>
 </body>
 </html>
