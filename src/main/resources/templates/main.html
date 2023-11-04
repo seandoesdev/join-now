@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Joinow</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
     .card {
@@ -16,40 +16,80 @@
     a:hover {
     	text-decoration: none; /* 링크에 마우스를 올렸을 때 밑줄 효과 제거 */    
 	}
+	
+	.header-nav {
+	    display: grid;
+	    grid-template-columns: auto auto;
+	    justify-content: space-between;
+	    height: 60px;
+	    border: 0;
+	    box-shadow: 0.5px 0.5px 0px 0.5px #8080809a
+	}
+
+	.profile {
+		margin: 0 -20px 0 0;
+	}
+	
+	.profile-dropdown ul {
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		gap: 30px;
+		margin: 20px 0 0 5px;
+		list-style-type: none;
+	}
+	
+	.profile-dropdown ul a {
+		color: black;
+		font-weight: 700;
+	}
+	
+	.logo-container {
+		margin: 10px 0 0 20%;
+	}
    
 </style>
 </head>
 
 <body>
-	
-    <header class="bg-white d-flex justify-content-between align-items-center p-2">
-        <div class="container d-flex justify-content-between align-items-center">
-            <h1><a th:href="@{main}" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
-            <nav>
-                <ul class="list-inline m-0">
-                    <th:block th:switch="${session.loginInfo}">
+
+	<header>
+		<nav class="header-nav">
+			<!-- 로고 부분 -->
+			<div class="logo-container">
+				<a th:href="@{/main}">
+					<img src="https://kr.object.ncloudstorage.com/team1-bucket/logo.png" alt="로고">
+				</a>
+			</div>
+
+			<!-- 프로필 드롭다운 부분 -->
+			<div class="profile">
+				<div class="profile-dropdown">
+					<ul>
+						 <th:block th:switch="${session.loginInfo}">
                     	<th:block th:case="null">
-	                    	<li class="list-inline-item">
-	                        	<a th:href="@{join}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
+	                    	<li>
+	                        	<a th:href="@{join}">Sign Up</a>
 		                    </li>
-		                    <li class="list-inline-item">
-		                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>                        
+		                    <li>
+		                        <a th:href="@{login}">Log In</a>                        
 		                    </li>
                     	</th:block>
                     	<th:block th:case="*">
-	                    	<li class="list-inline-item">
-	                        	<a th:href="@{mypage}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">MyPage</a>
+	                    	<li>
+	                        	<a th:href="@{mypage}">MyPage</a>
 		                    </li>
-		                    <li class="list-inline-item">
-		                        <a th:href="@{logout}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log Out</a>                        
+		                    <li>
+		                        <a th:href="@{logout}">Log Out</a>                        
 		                    </li>
                     	</th:block>
 	                        		
 					</th:block>
-                </ul>
-            </nav>
-        </div>
-    </header>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	
 	<!-- 배너 -->
     <section class="banner text-center py-5 mb-5" style="background-color: #2CA40E; color: #ffffff;">
     	    	
@@ -131,7 +171,7 @@
         </div>
 	</footer>
 	
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
