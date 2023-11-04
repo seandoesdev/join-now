@@ -92,6 +92,10 @@ public class ProjTeamDAO {
     } else {
       pageDTO.setPageNum(totalCount() / pageDTO.getPerPage() + 1);
     }
+    
+    if(totalCount()==0) {
+		pageDTO.setPageNum(1);
+	}
 
     return pageDTO;
   }
