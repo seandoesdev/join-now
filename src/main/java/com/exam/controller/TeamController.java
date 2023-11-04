@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.exam.dto.TeamDTO;
+import com.exam.dto.TeamListPrintDTO;
 import com.exam.dto.TeamMemberDTO;
 import com.exam.dto.UserInfoDTO;
 import com.exam.service.TeamService;
@@ -28,11 +29,16 @@ public class TeamController {
 	public String teamList(Model m, HttpSession session) {
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		int userId = userInfoDTO.getId();
-		List<TeamDTO> teamList = new ArrayList<TeamDTO>();
+		List<TeamListPrintDTO> teamList = new ArrayList<TeamListPrintDTO>();
 		List<Integer> teamIdList = service.selectTeamIdByUserId(userId);
 		
 		for(int i : teamIdList) {
-			teamList.add(service.selectByTeamId(i));
+			TeamDTO Tdto = service.selectByTeamId(i); // 팀 dto
+			TeamListPrintDTO dto = new TeamListPrintDTO();
+			dto.setTeamDTO(service.selectByTeamId(i)); // 팀 dto
+			dto.setUserInfoDTO(userService.selectAllById(Tdto.getUserId()));
+			
+			teamList.add(dto);
 		}
 				
 		m.addAttribute("teamList", teamList);

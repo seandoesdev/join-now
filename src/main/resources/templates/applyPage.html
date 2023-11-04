@@ -17,6 +17,18 @@
     	text-decoration: none; /* 링크에 마우스를 올렸을 때 밑줄 효과 제거 */    
 	}
 	   
+	   
+	@font-face {
+	    font-family: 'SUITE-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+	    font-weight: 400;
+	    font-style: normal;
+	}
+	
+	body {
+            font-family: 'SUITE-Regu	lar';
+    }
+	   
 </style>
 </head>
 
@@ -55,32 +67,41 @@
     <section class="banner text-center py-5 mb-5" style="background-color: #2CA40E; color: #ffffff;">
     	    	
         <h2 style="font-size: 37px;">JoiNow</h2>
-        <h3 style="font-size: 18px;">내 프로젝트신청 현황</h3>
+        <h3 style="font-size: 18px;">나의 신청 현황</h3>
         
     </section>
     <!-- 배너 end -->
-	
+		
 	<!-- 리스트 -->
 	<section class="features container">
-		
-		<div class="row justify-content-center">    
-		    <th:block th:each="acceptPrintDTO : ${acceptPrintList}">
-		        <div class="col-md-12 mb-0.5">
-		        
-			         <div class="list-item d-flex justify-content-center">
-			            	<a th:href="'retrieve?postNo='+${acceptPrintDTO.postDTO.postNo}"><p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.postDTO.title}">게시물 정보</p></a>
-			                <a th:href="'applyRetrieve?applyNo='+${acceptPrintDTO.acceptDTO.applyNo}"><p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.applyUserInfoDTO.nickname}">신청자</p></a>
-			                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.acceptUserInfoDTO.nickname}">작성자</p>
-			                <p class="list-text d-inline-block mx-2" th:text="${acceptPrintDTO.acceptDTO.accept}">신청 여부</p>                            
-			            </div>    
-			            
-		        </div>
-		     </th:block>
-		</div>
-
+	    <div class="table-responsive">
+	        <table class="table">
+	            <thead>
+	                <tr>
+	                    <th>공고 정보</th>
+	                    <th>신청자</th>
+	                    <th>작성자</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <th:block th:each="acceptPrintDTO : ${acceptPrintList}">
+	                    <tr>
+	                        <td>
+	                            <a th:href="'retrieve?postNo='+${acceptPrintDTO.postDTO.postNo}" th:text="${acceptPrintDTO.postDTO.title}"></a>
+	                        </td>
+	                        <td>
+	                            <a th:href="'applyRetrieve?applyNo='+${acceptPrintDTO.acceptDTO.applyNo}" th:text="${acceptPrintDTO.applyUserInfoDTO.nickname}"></a>
+	                        </td>
+	                        <td th:text="${acceptPrintDTO.acceptUserInfoDTO.nickname}"></td>	                        
+	                    </tr>
+	                </th:block>
+	            </tbody>
+	        </table>
+	    </div>
 	</section>
-	<!-- 리스트 end -->
 
+	<!-- 리스트 end -->
+	
 	
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
