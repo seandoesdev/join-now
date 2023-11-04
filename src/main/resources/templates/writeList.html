@@ -17,6 +17,38 @@
     	text-decoration: none; /* 링크에 마우스를 올렸을 때 밑줄 효과 제거 */    
 	}
 	
+
+	.header-nav {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    height: 60px;
+    border: 0;
+    box-shadow: 0.5px 0.5px 0px 0.5px #8080809a
+}
+
+.profile {
+	margin: 0 -20px 0 0;
+}
+
+.profile-dropdown ul {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	gap: 30px;
+	margin: 20px 0 0 5px;
+	list-style-type: none;
+}
+
+.profile-dropdown ul a {
+	color: black;
+	font-weight: 700;
+}
+
+.logo-container {
+	margin: 10px 0 0 20%;
+}
+   
+
 	@font-face {
 	    font-family: 'SUITE-Regular';
 	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
@@ -27,40 +59,37 @@
 	body {
             font-family: 'SUITE-Regu	lar';
     }
+
 	   
 </style>
 </head>
 
 <body>
 	
-    <header class="bg-white d-flex justify-content-between align-items-center p-2">
-        <div class="container d-flex justify-content-between align-items-center">
-            <h1><a th:href="@{main}" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
-            <nav>
-                <ul class="list-inline m-0">
-                    <th:block th:switch="${session.loginInfo}">
-                    	<th:block th:case="null">
-	                    	<li class="list-inline-item">
-	                        	<a th:href="@{join}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
-		                    </li>
-		                    <li class="list-inline-item">
-		                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>                        
-		                    </li>
-                    	</th:block>
-                    	<th:block th:case="*">
-	                    	<li class="list-inline-item">
-	                        	<a th:href="@{mypage}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">MyPage</a>
-		                    </li>
-		                    <li class="list-inline-item">
-		                        <a th:href="@{logout}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log Out</a>                        
-		                    </li>
-                    	</th:block>
-	                        		
-					</th:block>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <header>
+		<nav class="header-nav">
+			<!-- 로고 부분 -->
+			<div class="logo-container">
+				<a th:href="@{/main}">
+					<img src="https://kr.object.ncloudstorage.com/team1-bucket/logo.png" alt="로고">
+				</a>
+			</div>
+
+			<!-- 프로필 드롭다운 부분 -->
+			<div class="profile">
+				<div class="profile-dropdown">
+					<ul>
+						<li>
+							<a th:href="@{/mypage}">My Page</a>
+						</li>
+						<li>
+							<a th:href="@{/logout}">Log Out</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
 		
 	<!-- 배너 -->
     <section class="banner text-center py-5 mb-5" style="background-color: #2CA40E; color: #ffffff;">
