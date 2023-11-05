@@ -55,15 +55,16 @@ public class ProjTeamController {
   // 팀정보
   @GetMapping("/{teamId}")
   public String info(@PathVariable int teamId, HttpSession session, Model model) {
-    // loginValidation(session);
+
     log.info("info works");
 
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     TeamDTO teamDTO = teamService.selectByTeamId(teamId);
     List<TeamMemberDTO> teamMemberDTO = teamService.selectMemberListByTeamId(teamId);
-
+    
     model.addAttribute("teamDTO", teamDTO);
     model.addAttribute("memberList", teamMemberDTO);
+
 
     return "info";
   }
@@ -165,9 +166,9 @@ public class ProjTeamController {
   // 회의록
   @GetMapping("/meeting/{teamId}/{curPage}")
   public String meeting(@PathVariable int teamId,
-      @PathVariable(value = "curPage", required = false) int curPage, Model model,
-      HttpSession session) {
-    // loginValidation(session);
+                        @PathVariable(value = "curPage", required = false) int curPage, 
+                        Model model,
+                        HttpSession session) {
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 
     System.out.println("meeting test");
@@ -186,7 +187,6 @@ public class ProjTeamController {
   // 회의록 작성 페이지
   @GetMapping("/meeting/write/{teamId}")
   public String meetingWrite(@PathVariable int teamId, HttpSession session, Model model) {
-    // loginValidation(session);
     model.addAttribute("teamId", teamId);
     return "meetingWrite";
   }
@@ -201,7 +201,6 @@ public class ProjTeamController {
   @GetMapping("/meeting/write.do/{teamId}")
   public String addMeeeting(@PathVariable int teamId, @ModelAttribute MeetingDTO meetingDTO,
       HttpSession session) {
-    // loginValidation(session);
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     meetingDTO.setTeamId(teamId);
     meetingDTO.setWriter(userInfoDTO.getNickname());
@@ -321,22 +320,5 @@ public class ProjTeamController {
       return "redirect:/team/teamManage/"+teamId;
   }
 
-
-
-  /**
-   * 
-   * @param model
-   * @return
-   */
-
-  //320 2081
-
-  // 로그인 확인
-  private String loginValidation(HttpSession session) {
-    if (session.getAttribute("loginInfo") == null) {
-      return "redirect:/main";
-    }
-    return "";
-  }
 
 }
