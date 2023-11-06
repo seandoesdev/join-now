@@ -68,6 +68,7 @@ $(document).ready(function() {
                 success: function(eventData) {
                     // 서버에서 받은 이벤트 데이터를 FullCalendar에 전달
                     successCallback(eventData);
+                    
                 },
                 error: function(error) {
                     // 에러 발생 시 처리
@@ -126,6 +127,7 @@ $(document).ready(function() {
 		            contentType: 'application/json; charset=utf-8',
 		            success: function(response) {
 		                console.log('데이터 전송 성공. 서버 응답: ');
+		                location.href="../schedule/" + [[${teamId}]];
 		            	
 		            },
 		            error: function(xhr, status, error) {
@@ -170,7 +172,7 @@ $(document).ready(function() {
 				contentType: 'application/json; charset=utf-8',
 				success: function(response) {	                
 	                $("#editDeleteModal").modal("hide");
-	                location.reload();
+	                location.href="../schedule/" + [[${teamId}]];
 	            },
 	            error: function(xhr, status, error) {
 	                console.error('데이터 전송 실패. 에러: ' + error);
@@ -193,7 +195,7 @@ $(document).ready(function() {
 				contentType: 'application/json; charset=utf-8',
 				success: function(response) {
 	                $("#editDeleteModal").modal("hide");
-	                location.reload();
+	                location.href="../schedule/" + [[${teamId}]];
 	            	
 	            },
 	            error: function(xhr, status, error) {
