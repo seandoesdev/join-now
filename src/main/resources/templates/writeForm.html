@@ -240,6 +240,16 @@ $(document).ready(function() {
 	.logo-container {
 		margin: 10px 0 0 20%;
 	}
+	
+	a.navv {
+	  color: #000; /* default color */
+	  text-decoration: none;
+	  transition: color 0.3s; /* smooth transition */
+	}
+
+	a.navv:hover {
+	  color: #2CA40E; /* color change on hover */
+	}
 </style>
 </head>
 
@@ -261,18 +271,18 @@ $(document).ready(function() {
 						 <th:block th:switch="${session.loginInfo}">
                     	<th:block th:case="null">
 	                    	<li>
-	                        	<a th:href="@{join}">Sign Up</a>
+	                        	<a class="navv" th:href="@{join}">Sign Up</a>
 		                    </li>
 		                    <li>
-		                        <a th:href="@{login}">Log In</a>                        
+		                        <a class="navv" th:href="@{login}">Log In</a>                        
 		                    </li>
                     	</th:block>
                     	<th:block th:case="*">
 	                    	<li>
-	                        	<a th:href="@{mypage}">MyPage</a>
+	                        	<a class="navv" th:href="@{mypage}">MyPage</a>
 		                    </li>
 		                    <li>
-		                        <a th:href="@{logout}">Log Out</a>                        
+		                        <a class="navv" th:href="@{logout}">Log Out</a>                        
 		                    </li>
                     	</th:block>
 	                        		
