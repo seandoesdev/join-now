@@ -199,63 +199,96 @@ $(document).ready(function() {
             border-color: #2CA40E;
         }
         
-       a.box-link {
-  			display: inline-block;
-  			padding: 8px;
-  			background-color: #0F6292;
-			border-radius: 3px;
-			text-decoration: none;
-			color: #F5F5F5;
-		}
-		
-		a.box-link:hover{
-    	 background-color: #2CA40E;
-    	 color: #F5F5F5;
-		}
-		
-		.form-group-custom{
-		margin: 0 auto;
-		width:900px;
-		}
-		
-		.btn{
-    	display: flex;
-    	justify-content: flex-start;
-		}
+       a{
+	    color: inherit; /* 기본 링크 색상 유지 */
+	}
+    
+    a:hover {
+    	text-decoration: none; /* 링크에 마우스를 올렸을 때 밑줄 효과 제거 */    
+	}
+	
+
+	.header-nav {
+	    display: grid;
+	    grid-template-columns: auto auto;
+	    justify-content: space-between;
+	    height: 60px;
+	    border: 0;
+	}
+
+	.profile {
+		margin: 0 -20px 0 0;
+	}
+	
+	.profile-dropdown ul {
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		gap: 30px;
+		margin: 20px 0 0 5px;
+		list-style-type: none;
+	}
+	
+	.profile-dropdown ul a {
+		color: black;
+		font-weight: 700;
+	}
+	
+	.logo-container {
+		margin: 10px 0 0 20%;
+	}
+	
+	a.navv {
+	  color: #000; /* default color */
+	  text-decoration: none;
+	  transition: color 0.3s; /* smooth transition */
+	}
+
+	a.navv:hover {
+	  color: #2CA40E; /* color change on hover */
+	}
 		
 </style>
 </head>
 
 <body>
 
-<header class="bg-white d-flex justify-content-between align-items-center p-2">
-        <div class="container d-flex justify-content-between align-items-center">
-            <h1><a th:href="@{main}" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
-            <nav>
-                <ul class="list-inline m-0"  align="right">
-                    <th:block th:switch="${session.loginInfo}">
+<header>
+		<nav class="header-nav">
+			<!-- 로고 부분 -->
+			<div class="logo-container">
+				<a th:href="@{/main}">
+					<img src="https://kr.object.ncloudstorage.com/team1-bucket/logo.png" alt="로고">
+				</a>
+			</div>
+
+			<!-- 프로필 드롭다운 부분 -->
+			<div class="profile">
+				<div class="profile-dropdown">
+					<ul>
+						 <th:block th:switch="${session.loginInfo}">
                     	<th:block th:case="null">
-	                    	<li class="list-inline-item">
-	                        	<a th:href="@{join}" class="box-link" style="font-size: 0.67em;">Sign Up</a>
+	                    	<li>
+	                        	<a class="navv" th:href="@{join}">Sign Up</a>
 		                    </li>
-		                    <li class="list-inline-item">
-		                        <a th:href="@{login}" class="box-link" style="font-size: 0.67em;">Log In</a>                        
+		                    <li>
+		                        <a class="navv" th:href="@{login}">Log In</a>                        
 		                    </li>
                     	</th:block>
                     	<th:block th:case="*">
-	                    	<li class="list-inline-item">
-	                        	<a th:href="@{mypage}" class="box-link" style="font-size: 0.67em;">MyPage</a>
+	                    	<li>
+	                        	<a class="navv" th:href="@{mypage}">MyPage</a>
 		                    </li>
-		                    <li class="list-inline-item">
-		                        <a th:href="@{logout}" class="box-link" style="font-size: 0.67em;">Log Out</a>                        
+		                    <li>
+		                        <a class="navv" th:href="@{logout}">Log Out</a>                        
 		                    </li>
                     	</th:block>
 	                        		
 					</th:block>
-                </ul>
-            </nav>
-        </div>
-    </header>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
     
 	<div class="container">
 		<form class="form" action="update" method="post">
