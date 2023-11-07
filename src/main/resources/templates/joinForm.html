@@ -25,7 +25,7 @@ form {
 	margin: 40px auto; /* Increased margin to center the form */
 	max-width: 600px; /* Increased max-width for a larger form */
 	border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 0px rgba(0, 0, 0, 0);
 }
 
 input[type="text"], input[type="password"], input[type="email"] {
@@ -67,12 +67,33 @@ section.text-center {
     align-items: center;
 }
 
+.header-nav {
+	    display: grid;
+	    grid-template-columns: auto auto;
+	    justify-content: space-between;
+	    height: 60px;
+	    border: 0;
+	    box-shadow: 0.5px 0.5px 0px 0.5px #8080809a
+	}
+	
+	.logo-container {
+		margin: 10px 0 0 20%;
+	}
 </style>
 </head>
 <body>
-	<h1>JoinNow</h1>
-	<h2 style="text-align: center; color: #2CA40E; font-size: 24px; margin: 20px;">회원가입</h2>
+	<header>
+		<nav class="header-nav">
+			<!-- 로고 부분 -->
+			<div class="logo-container">
+				<a th:href="@{/main}">
+					<img src="https://kr.object.ncloudstorage.com/team1-bucket/logo.png" alt="로고">
+				</a>
+			</div>
+		</nav>
+	</header>
 	<form action="/app/joinProc" method="post">
+	<h2 style="text-align: center; color: #000000; font-size: 24px; margin-bottom: 20px; margin-top: 0px;">Sign Up</h2>
 		<div style="display: flex; align-items: center;">
 			*아이디: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="username" placeholder="Username" id="username" style="width: 30%;" />
 			&nbsp;<button id="idDupulicatedcheck" style="width: 20%;">중복확인</button><span id="result">
@@ -80,7 +101,9 @@ section.text-center {
 		*비밀번호: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="password" placeholder="Password" id="password" /><br />
 		*비밀번호확인: <input type="password" name="password2" id="password2" placeholder="Confirm password"><span id="idcheck"></span><br /> 
 		*이메일: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" name="email" placeholder="Email" /><br />
-        <button style="display: block; margin: 0 auto; width: 40%;">회원가입</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button style="width: 30%; padding: 10px 2px; background-color: #585858; color: white; border: none; border-radius: 5px; font-size: 1em;">Sign Up</button>
 	</form>
 	
 	<hr style="width: 450px; margin: 0 auto;">
