@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>나의 신청</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
     .card {
@@ -16,6 +16,18 @@
     a:hover {
     	text-decoration: none; /* 링크에 마우스를 올렸을 때 밑줄 효과 제거 */    
 	}
+
+    a:hover, a:focus { animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; } 
+        @keyframes rainbowLink {     
+        0% { color: #ff2a2a; }
+        15% { color: #ff7a2a; }
+        30% { color: #ffc52a; }
+        45% { color: #43ff2a; }
+        60% { color: #2a89ff; }
+        75% { color: #202082; }
+        90% { color: #6b2aff; } 
+        100% { color: #e82aff; }
+    }
 	   
 	   
 	@font-face {
@@ -26,55 +38,127 @@
 	}
 	
 	body {
-            font-family: 'SUITE-Regu	lar';
+            font-family: 'SUITE-Regular';
     }
+
+    .header-nav {
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: space-between;
+        height: 60px;
+        border: 0;
+        box-shadow: 0.5px 0.5px 0px 0.5px #8080809a
+    }
+
+    .profile {
+        margin: 0 -20px 0 0;
+    }
+
+    .profile-dropdown ul {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        gap: 2rem;
+        margin: 20px 0 0 5px;
+        list-style-type: none;
+    }
+
+    .profile-dropdown ul a {
+        color: black;
+        font-weight: 800;
+        text-decoration: none;
+    }
+
+    .logo-container {
+        margin: 10px 0 0 20%;
+    }
+
+    .menu-container {
+	display: grid;
+	grid-template-columns: auto auto;
+	justify-content: center;
+	margin: 5% 0 0 0;
+    font-family: 'SUITE-Regular';
+    font-size: 1.2rem;
+}
+
+.menu-container ul {
+	display: grid;
+	grid-template-columns: auto auto auto auto auto auto;
+	gap: 2rem;
+	font-size: 1rem; 
+	margin: 0 0 0 2.8rem;
+	list-style-type: none;
+}
+
+.menu-container ul a {
+	text-decoration: none;
+	color: black;
+	font-weight: 800;
+	font-size: 1.5rem;
+}
+
+
+.notification-bell {
+	width: 2.5rem;
+	height: 2.5rem;
+}
+
+.container-features {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.table-response {
+    margin-top: 3rem;  
+}
+
+.table td, .table th {
+    text-align: center;
+    border: 1px;
+}
+
+.table th{
+    border-top: 0;
+    font-size: 1.5rem;
+}
 	   
 </style>
 </head>
 
 <body>
 	
-    <header class="bg-white d-flex justify-content-between align-items-center p-2">
-        <div class="container d-flex justify-content-between align-items-center">
-            <h1><a th:href="@{main}" style="color: #2CA40E; font-size: 24px;">JoiNow</a></h1>
-            <nav>
-                <ul class="list-inline m-0">
-                    <th:block th:switch="${session.loginInfo}">
-                    	<th:block th:case="null">
-	                    	<li class="list-inline-item">
-	                        	<a th:href="@{join}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Sign Up</a>
-		                    </li>
-		                    <li class="list-inline-item">
-		                        <a th:href="@{login}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log In</a>                        
-		                    </li>
-                    	</th:block>
-                    	<th:block th:case="*">
-	                    	<li class="list-inline-item">
-	                        	<a th:href="@{mypage}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">MyPage</a>
-		                    </li>
-		                    <li class="list-inline-item">
-		                        <a th:href="@{logout}" class="btn btn-outline-dark btn-sm" style="font-size: 0.67em;">Log Out</a>                        
-		                    </li>
-                    	</th:block>
-	                        		
-					</th:block>
-                </ul>
-            </nav>
-        </div>
+    <header>
+        <nav class="header-nav">
+            <!-- 로고 부분 -->
+            <div class="logo-container">
+                <a th:href="@{/main}">
+                    <img src="https://kr.object.ncloudstorage.com/team1-bucket/logo.png" alt="로고">
+                </a>
+            </div>
+
+            <!-- 프로필 드롭다운 부분 -->
+            <div class="profile">
+                <div class="profile-dropdown">
+                    <ul>
+                        <li>
+                            <a th:href="@{/main}">Main</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/logout}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
 		
-	<!-- 배너 -->
-    <section class="banner text-center py-5 mb-5" style="background-color: #2CA40E; color: #ffffff;">
-    	    	
-        <h2 style="font-size: 37px;">JoiNow</h2>
-        <h3 style="font-size: 18px;">나의 신청 현황</h3>
-        
-    </section>
-    <!-- 배너 end -->
 		
 	<!-- 리스트 -->
-	<section class="features container">
-	    <div class="table-responsive">
+	<section class="container-features">
+        <div style="text-align: center; margin: 4rem 0 0.5rem 0">
+            <h2 style="display: inline-block; font-family: 'SUITE-Regular'; font-weight: 800;">나의 신청</h2>
+        </div>
+	    <div class="table-response">
 	        <table class="table">
 	            <thead>
 	                <tr>

@@ -1,84 +1,278 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>JoiNow</title>
     <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css}" rel="stylesheet">
     <style>
-        body {
-            background-color: #2CA40E; /* 배경 */
+
+        @font-face {
+            font-family: 'SUITE-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
         }
+
+        a:hover, a:focus { animation-duration: 3s; animation-name: rainbowLink; animation-iteration-count: infinite; } 
+            @keyframes rainbowLink {     
+            0% { color: #ff2a2a; }
+            15% { color: #ff7a2a; }
+            30% { color: #ffc52a; }
+            45% { color: #43ff2a; }
+            60% { color: #2a89ff; }
+            75% { color: #202082; }
+            90% { color: #6b2aff; } 
+            100% { color: #e82aff; }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'SUITE-Regular';
+        }
+
         .navbar {
-            background-color: #2CA40E; /* 네비게이션 바 배경 */
-            color: white; /* 네비게이션 바 글자색 */
+            background-color: #2CA40E;
+            /* 네비게이션 바 배경 */
+            color: white;
+            /* 네비게이션 바 글자색 */
             padding: 15px;
         }
+
         .container {
-            background-color: white; /* 마이페이지 양식 배경 */
-            color: #6c706c; /* 마이페이지 양식 글자색 */
+            background-color: white;
+            /* 마이페이지 양식 배경 */
+            color: #6c706c;
+            /* 마이페이지 양식 글자색 */
             padding: 20px;
             border-radius: 10px;
         }
-       
+
+        .main-container {
+            background-color: white;
+            /* 마이페이지 양식 배경 */
+            color: #6c706c;
+            /* 마이페이지 양식 글자색 */
+            margin: 0 2rem 0 2rem;
+            padding: 0 10rem 0 9rem;
+            position: relative;
+            width: 80%;
+            left: 10%;
+
+        }
+
+        .header-nav {
+            display: grid;
+            grid-template-columns: auto auto;
+            justify-content: space-between;
+            height: 60px;
+            border: 0;
+            box-shadow: 0.5px 0.5px 0px 0.5px #8080809a
+        }
+
+        .profile {
+            margin: 0 -20px 0 0;
+        }
+
+        .profile-dropdown ul {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            gap: 2rem;
+            margin: 20px 0 0 5px;
+            list-style-type: none;
+        }
+
+        .profile-dropdown ul a {
+            color: black;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .logo-container {
+            margin: 10px 0 0 20%;
+        }
+
+        .menu-container {
+            display: grid;
+            grid-template-columns: auto auto;
+            justify-content: center;
+            margin: 5% 0 0 0;
+            font-family: 'SUITE-Regular';
+            font-size: 1.2rem;
+        }
+
+        .menu-container ul {
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto;
+            gap: 2rem;
+            font-size: 1rem;
+            margin: 0 0 0 2.8rem;
+            list-style-type: none;
+        }
+
+        .menu-container ul a {
+            text-decoration: none;
+            color: black;
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+
+        .notification-bell {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        .filebox .upload-name {
+            display: inline-block;
+            height: 31px;
+            vertical-align: middle;
+            border: 1px solid #dddddd;
+            width: 30%;
+            color: #999999;
+        }
+
+        .filebox input[type="submit"] {
+            position: absolute;
+            width: 3rem;
+            height: 2rem;
+            padding: 0;
+            margin-left: 1rem;
+            /* overflow: hidden; */
+            border: 1 solid;
+            border-radius: 5px;
+            border-color: #dddddd;
+        }
+
+        h4 {
+            font-weight: 700;
+        }
+
+        .form-label {
+            font-size: 1.2rem;
+        }
+
+        
     </style>
 </head>
+
 <body>
-    <nav class="navbar navbar-dark">
-        <div class="container">
-            <span class="navbar-brand mb-0 h1" style="color: green";>JoiNow</span>
+    <header>
+        <nav class="header-nav">
+            <!-- 로고 부분 -->
+            <div class="logo-container">
+                <a th:href="@{/main}">
+                    <img src="https://kr.object.ncloudstorage.com/team1-bucket/logo.png" alt="로고">
+                </a>
+            </div>
+
+            <!-- 프로필 드롭다운 부분 -->
+            <div class="profile">
+                <div class="profile-dropdown">
+                    <ul>
+                        <li>
+                            <a th:href="@{/main}">Main</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/logout}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="menu-container">
+        <div>
+            <h2 style="display: inline-block; font-family: 'SUITE-Regular'; font-weight: 800;">마이페이지</h2>
         </div>
-    </nav>
-    <div class="container mt-5">
-        <div class><h2>마이페이지</h2>
-        <h5>회원 정보 수정</h5>
+        <ul class="menu-list">
+            <th:block th:switch="${notificationNum}">
+                <li>
+                    <a th:href="@{notification}" th:case="0" class="" style="font-size: 18px;">
+                        <img alt="" src="https://kr.object.ncloudstorage.com/team1-bucket/notification-bell-1.png"
+                            class="notification-bell">
+                    </a>
+                    <a th:href="@{notification}" th:case="*" class="" style="font-size: 18px;">
+                        <img alt="" src="https://kr.object.ncloudstorage.com/team1-bucket/notification-bell-2.png"
+                            class="notification-bell">
+                        <span class="nav-counter" th:text="${notificationNum}">15</span>
+                    </a>
+                </li>
+            </th:block>
+            <li>
+                <a th:href="@{writeList}" class="">나의 모집</a>
+
+            </li>
+            <li>
+                <a th:href="@{acceptPage}" class="">지원자</a>
+            </li>
+            <li>
+                <a th:href="@{applyPage}" class="">나의 신청</a>
+            </li>
+            <li>
+                <a th:href="@{teamList}" class="">팀</a>
+            </li>
+        </ul>
         <hr>
-        <form action="upload" method="post" enctype="multipart/form-data">
-			comment:<input type="text" name="theText" readonly th:value="${userInfoDTO.username}" style="background-color: #D8D8D8;"><br>
-			*(.jpg 파일만 업로드 가능합니다.)</br>
-			<input type="file" name="theFile"><br>
-			<input type="submit" value="업로드">
-		</form>
+        <hr>
+    </section>
+    <br>
+    <main class="main-container">
+        <form action="upload" method="post" class="filebox" enctype="multipart/form-data">
+            comment:<input type="text" name="theText" readonly th:value="${userInfoDTO.username}"
+                style="background-color: #D8D8D8; border: 1px hidden; border-radius: 5px;"><br>
+            <p style="margin-bottom: 0;">※ .jpg 파일만 업로드 가능합니다.</p></br>
+            <input type="file" name="theFile" class="upload-name" >
+            <input type="submit" value="업로드">
+        </form>
         <button class="btn btn-danger" id="deleteProfileBtn" style="display: none;">삭제</button>
         <hr>
-      <form class="form" action="myinsert" method="post">
-        <h5>기본 정보</h5>
-        <div class="mb-3">
-            <label for="nickname" class="form-label">닉네임</label>
-            <input type="text" th:value="${userInfoDTO.nickname}" class="form-control" name="nickname" id="nickname">
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">이메일</label>
-            <input id="email" type="text" class="form-control" name="email" readonly th:value="${userInfoDTO.email}">
-        </div>
-        <div class="mb-3">
-            <label for="pofol" class="form-label">포트폴리오 링크</label>
-            <input id="pflink" type="text" class="form-control" name="pofolLink" th:value="${userInfoDTO.pofoLink}">
-        </div>
-        <div class="mb-3">
-            <label for="phone" class="form-label">연락처</label>
-            <input id="phone" th:value="${userInfoDTO.phone}" type="text" class="form-control" name="phone">
-        </div>
-        <hr>
-        <h5>기술 스택</h5>
-        <div class="mb-3">
-            <label for="skills" class="form-label">직무</label>
-            <input id="skills" th:value="${userInfoDTO.skills}" type="text" class="form-control" name="skills" placeholder="ex) 프론트엔드 UIUX">
-        </div>
-        <div class="mb-3">
-            <label for="tools" class="form-label">사용 툴</label>
-            <input id="tools" th:value="${userInfoDTO.tools}" type="text" class="form-control" name="tools" placeholder="ex) node.js">
-        </div>
-        <hr>
-        <div class="mb-3">
-            <label for="tools" class="form-label">한줄 소개</label>
-            <input id="intro" type="text" class="form-control" name="intro" th:value="${userInfoDTO.intro}">
-        </div>
-        
-        <button type="submit" class="btn btn-success" style="float: center;">확인</button>
-    </form>
-</div>
-<!-- Bootstrap JS 및 Popper.js 스크립트 연동 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@2.10.2/dist/umd/popper.min.js"></script>
+        <form class="form" action="myinsert" method="post">
+            <h4>기본 정보</h4>
+            <div class="mb-3">
+                <label for="nickname" class="form-label">닉네임</label>
+                <input type="text" th:value="${userInfoDTO.nickname}" class="form-control" name="nickname"
+                    id="nickname">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">이메일</label>
+                <input id="email" type="text" class="form-control" name="email" readonly
+                    th:value="${userInfoDTO.email}">
+            </div>
+            <div class="mb-3">
+                <label for="pofol" class="form-label">포트폴리오 링크</label>
+                <input id="pflink" type="text" class="form-control" name="pofolLink" th:value="${userInfoDTO.pofoLink}">
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">연락처</label>
+                <input id="phone" th:value="${userInfoDTO.phone}" type="text" class="form-control" name="phone">
+            </div>
+            <hr>
+            <h4>기술 스택</h4>
+            <div class="mb-3">
+                <label for="skills" class="form-label">직무</label>
+                <input id="skills" th:value="${userInfoDTO.skills}" type="text" class="form-control" name="skills"
+                    placeholder="ex&#41; 프론트엔드 UIUX">
+            </div>
+            <div class="mb-3">
+                <label for="tools" class="form-label">사용 툴</label>
+                <input id="tools" th:value="${userInfoDTO.tools}" type="text" class="form-control" name="tools"
+                    placeholder="ex&#41; node.js">
+            </div>
+            <hr>
+            <div class="mb-3">
+                <label for="tools" class="form-label">한줄 소개</label>
+                <input id="intro" type="text" class="form-control" name="intro" th:value="${userInfoDTO.intro}">
+            </div>
+
+            <button type="submit" class="btn btn-success" style="float: center;">확인</button>
+        </form>
+    </main>
+    <!-- Bootstrap JS 및 Popper.js 스크립트 연동 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@2.10.2/dist/umd/popper.min.js"></script>
 </body>
+
 </html>
