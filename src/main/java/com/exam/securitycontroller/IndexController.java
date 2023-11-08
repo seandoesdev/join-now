@@ -47,10 +47,11 @@ public class IndexController {
         session.setAttribute("loginInfo", dto);
 		
         if(dto.getNickname()==null) {
-        	return "redirect:insertui";
-        }else {
-        	return "redirect:main";
+        	service.updateNickname(dto);
         }
+        
+        return "redirect:main";
+        
 		
 	}
 
@@ -102,9 +103,11 @@ public class IndexController {
 		
 		// 회원가입과 동시에 세션에 데이터 저장
 		UserInfoDTO dto = service.selectAll(user.getUsername());
-		session.setAttribute("loginInfo", dto);
 		
-		return "redirect:insertui";
+		service.updateNickname(dto);
+		
+		
+		return "redirect:login";
 	}
 	
 	// 아이디 중복 확인

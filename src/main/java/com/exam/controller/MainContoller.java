@@ -1,5 +1,6 @@
 package com.exam.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,10 +44,53 @@ public class MainContoller {
 	@GetMapping("/main")
 	public String main(@RequestParam(value = "curPage", required = false, defaultValue = "1")int curPage,
 						Model m) {
-				
-		m.addAttribute("pageDTO", service.selectList(curPage));
 		
+		PageDTO pageDTO = service.selectList(curPage);
+		
+		pageDTO.setList(mergeSort(pageDTO.getList()));
+		
+		m.addAttribute("pageDTO", pageDTO);
+			
+				
 		return "main";
 	}
+	
+	// 병합 정렬 알고리즘 (조회수로 정렬)
+    public static List<PostDTO> mergeSort(List<PostDTO> list) {
+        if (list.size() <= 1) return list; // 리스트가 비어있거나 이미 정렬되어 있으면 종료
+
+        int mid = list.size() / 2;
+        List<PostDTO> left = new ArrayList<>(list.subList(0, mid));
+        List<PostDTO> right = new ArrayList<>(list.subList(mid, list.size()));
+
+        left = mergeSort(left); // 왼쪽 부분을 재귀적으로 정렬
+        right = mergeSort(right); // 오른쪽 부분을 재귀적으로 정렬
+
+        return merge(left, right); // 정렬된 부분을 병합
+    }
+
+    public static List<PostDTO> merge(List<PostDTO> left, List<PostDTO> right) {
+        List<PostDTO> merged = new ArrayList<>();
+        int i = 0, j = 0;
+
+        while (i < left.size() && j < right.size()) {
+        	// 값을 비교 하는 부분
+            if (left.get(i).getViewCount() >= right.get(j).getViewCount()) { // 값 비교
+                merged.add(left.get(i++));
+            } else {
+                merged.add(right.get(j++));
+            }
+        }
+
+        while (i < left.size()) {
+            merged.add(left.get(i++));
+        }
+
+        while (j < right.size()) {
+            merged.add(right.get(j++));
+        }
+
+        return merged;
+    }
 	
 }
