@@ -74,6 +74,7 @@ public class AcceptController {
 			printdto.setAcceptUserInfoDTO(userService.selectAllById(acceptdto.getAcceptUserId()));
 			printdto.setApplyUserInfoDTO(userService.selectAllById(acceptdto.getApplyUserId()));
 			printdto.setPostDTO(postService.postListbyNo(acceptdto.getPostNo()));
+			printdto.setApplyDTO(applyService.selectOne(acceptdto.getApplyNo()));
 						
 			acceptPrintList.add(printdto);
 		}
@@ -111,6 +112,7 @@ public class AcceptController {
 			printdto.setAcceptUserInfoDTO(userService.selectAllById(acceptdto.getAcceptUserId()));
 			printdto.setApplyUserInfoDTO(userService.selectAllById(acceptdto.getApplyUserId()));
 			printdto.setPostDTO(postService.postListbyNo(acceptdto.getPostNo()));
+			printdto.setApplyDTO(applyService.selectOne(acceptdto.getApplyNo()));
 						
 			acceptPrintList.add(printdto);
 		}
