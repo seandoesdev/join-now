@@ -212,17 +212,55 @@
 			
 		});//end comment-btn
 		
-	   $("#selboxDirect").hide();
-	   $("#skillsel").change(function() {
-	     //직접입력을 누를 때 나타남
-	   		if($("#skillsel").val() == "direct") {
-	   			$("#selboxDirect").show();
-	   			$("#skillsel").removeAttr("name");
-	   		}  else {
-	   			$("#selboxDirect").hide();
-	   		}
-	   	}) 
+		
+		$("#selappboxDirect").hide();
+		   $("#applysel").change(function() {
+		     //직접입력을 누를 때 나타남
+		   		if($("#applysel").val() == "direct") {
+		   			$("#selappboxDirect").show();
+		   			$("#applysel").removeAttr("name");
+		   			$("#selappboxDirect").attr("name","applyType");
+		   		}  else {
+		   			$("#selappboxDirect").hide();
+		   		}
+		   	});//end
+		
+	   	
+		   	$(document).on('change', '#skillsel', function() {
+		   	    var selectedValue = $(this).val();
+		   	    var inputField = $(this).siblings('#selboxDirect');
 
+		   	    if (selectedValue === 'direct') {
+		   	        inputField.show();
+		   	     	$(this).removeAttr('name');
+		   	    } else {
+		   	        inputField.hide();
+		   	        $("#selboxDirect").removeAttr('name');
+		   	        $(this).attr('name', 'skills');
+		   	    }
+		   	});
+		   	
+		   	// Add Skill button functionality
+		   	$("#addSkill-btn").on("click", function() {
+		   	    var newSkillBox = `
+		   	        <div class="skill-box">
+		   	            <select id='skillsel' name='skills' data-depth='0' class='form-control'>
+		   	                <option value='Java'>Java</option>
+		   	                <option value='C++'>C++</option>
+		   	                <option value='Kotlin'>Kotlin</option>
+		   	                <option value='direct'>직접입력</option>
+		   	            </select>
+		   	            <input class='form-control' type='text' id='selboxDirect' name='skills' style='display: none;'/>
+		   	        <br></div>
+		   	    `;
+		   	    $(".addSelect").append(newSkillBox);
+		   	});
+		   	
+		   	$("#delSkill-btn").on("click", function() {
+		   	    $(".skill-box:last").remove(); // Assuming that the skill boxes have a class 'skill-box'
+		   	});
+	   	
+	   	
 	});//end ready
 </script>
 
@@ -470,8 +508,8 @@
 			<div>
 				<table>
 					<tr th:each="dto : ${positionList}">
-						<span type="text" class="form-control" th:text="${dto.category}"></span><br>
-						<span type="text" class="form-control" th:text="${dto.recruitType}"></span><br>
+						<span type="text" class="form-control" th:text="${dto.category}"></span>
+						<span type="text" class="form-control" th:text="${dto.recruitType}"></span>
 						<span type="text" class="form-control" th:text="${dto.memberSize != null ? dto.memberSize + '명' : 'N/A'}"></span>
 					<br></tr>
 				</table>
@@ -538,10 +576,6 @@
 					<div class="modal-dialog modal-dialog-scrollable" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
 								<form action="apply" method="post">
 								<span style="display: none" th:text="${postListbyNum.postNo}"></span>
 							</div>
@@ -555,27 +589,34 @@
 									</h4>
 									<br>
 									<div>
-										<select name="applyType" class="form-control">
+										<select id="applysel" name="applyType" class="form-control">
 											<option value="프론트엔드">프론트엔드</option>
 											<option value="백엔드">백엔드</option>
 											<option value="풀스택">풀스택</option>
+											<option value="direct">직접 입력</option>
 										</select>
+										<input class="form-control" type="text" id="selappboxDirect"/>
 									</div>
 									<br>
 									<h4>
 										<label for="skills">보유기술</label>
 									</h4>
 									<br>
-									<div>
-										<select id="skillsel" name="skills" data-depth="0" class="form-control"
-											onchange="selectCategory(this);">
+									<div class="addSelect">
+										<select id="skillsel" name="skills" data-depth="0" class="form-control">
 											<option value="Java">Java</option>
 											<option value="C++">C++</option>
 											<option value="Kotlin">Kotlin</option>
 											<option value="direct">직접 입력</option>
 										</select>
-										<br><input class="form-control" type="text" id="selboxDirect" name="skills"/>
+										<input class="form-control" style="display: none;" type="text" id="selboxDirect" name="skills"/><br>
 									</div>
+									
+									<div align="right">
+                <button type="button" class="btn-custom btn-custom-success" id="addSkill-btn">추가</button>
+                <button type="button" class="btn-custom" id="delSkill-btn">삭제</button>
+            </div>
+									
 									<br>
 									<div>
 										<h4>
@@ -603,7 +644,7 @@
 																					
 							<div class="modal-footer">
 
-								<button type="button" class="btn-custom btn-custom-success"
+								<button type="button" class="btn-custom"
 									data-dismiss="modal">Close</button>
 								<input id="apply-btn" type="submit" value="제출" 
 									class="btn-custom btn-custom-success">
