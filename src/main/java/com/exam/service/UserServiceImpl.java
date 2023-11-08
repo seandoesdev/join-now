@@ -30,4 +30,8 @@ public class UserServiceImpl implements UserService {
 		return dao.selectAllById(id);
 	}
 
+	@Override
+	public int updateNickname(UserInfoDTO dto) {
+		return dao.updateNickname(dto);
+	}
 }

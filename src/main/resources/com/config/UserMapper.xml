@@ -26,6 +26,12 @@
  	  where id = #{id}
  	</select>
  	
+ 	<update id="updateNickname" parameterType="UserInfoDTO">
+ 		update User
+ 		set nickname=#{username}
+ 		where id=#{id}
+ 	</update>
+ 	
 </mapper>
 
 
