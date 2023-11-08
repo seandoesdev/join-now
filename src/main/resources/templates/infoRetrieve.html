@@ -243,17 +243,16 @@
                 <!-- Content wrapper -->
                 <div class="container-xxl flex-grow-1 container-p-y">
                     <h4 class="py-3 mb-4"><span class="text-muted fw-light" th:text="${teamDTO.teamName}"></span>팀</h4>
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card mb-4">
-                                <h5 class="card-header"><i class="bx bx-user me-1"></i> <strong>팀 정보</strong></h5>
+                                <h5 class="card-header"><i class="bx bx-user me-1"></i> 팀 정보</h5>
                                 <!-- 팀 정보 -->
                                 <div class="card-body">
                                     <div class="d-flex align-items-start align-items-sm-center gap-4">
                                         <th:switch="${teamDTO.teamLogo}">
                                             <th:case="">
-                                                <img th:src="@{https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg}"
+                                                <img th:src="@{/resources/static/assets/img/avatars/1.png}"
                                                     alt="user-avatar" class="d-block rounded" height="100" width="100"
                                                     id="uploadedAvatar" style="margin-bottom: 20px;" />
                                                 </th:case>
@@ -263,117 +262,164 @@
                                                         id="uploadedAvatar" style="margin-bottom: 20px;" />
                                                 </th:case>
                                                 </th:switch>
+
+                                                <div class="button-wrapper">
+                                                    <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                        <span class="d-none d-sm-block">사진 업로드</span>
+                                                        <i class="bx bx-upload d-block d-sm-none"></i>
+                                                        <input type="file" id="upload" class="account-file-input" hidden
+                                                            accept="image/png, image/jpeg" />
+                                                    </label>
+                                                    <p class="text-muted mb-0">※ JPG 파일 / 최대 용량 500K 가능합니다.</p>
+                                                </div>
                                     </div>
                                 </div>
                                 <hr class="my-0" />
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="mb-3">
-                                            <label for="subject" class="form-label" style="font-size: 20px;">주제</label>
-                                            <p class="form-control" type="text" id="subject" name="subject"
-                                                th:text="${teamDTO.teamSubject}"></p>
+                                            <label for="teamName" class="form-label" style="font-size: 20px;">팀명</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="teamName"
+                                                    th:value="${teamDTO.teamName}" id="teamName" />
+                                            </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="introdution" class="form-label"
-                                                style="font-size: 20px;">소개</label>
-                                            <p class="form-control" id="introdution" th:text="${teamDTO.teamIntro}">
-                                            </p>
+                                            <label for="subject" class="form-label" style="font-size: 20px;">주제</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="subject"
+                                                    th:value="${teamDTO.teamSubject}" id="subject" />
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="intro" class="form-label" style="font-size: 20px;">소개</label>
+                                            <textarea class="form-control" id="intro" rows="3"
+                                                th:text="${teamDTO.teamIntro}"></textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label for="plan" class="form-label" style="font-size: 20px;">계획</label>
-                                            <p type="text" class="form-control" id="plan" name="plan"
-                                                th:text="${teamDTO.teamPlan}"></p>
+                                            <textarea class="form-control" id="plan" rows="3"
+                                                th:text="${teamDTO.teamPlan}"></textarea>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="period" class="form-label" style="font-size: 20px;">일정</label>
-                                            <p type="text" class="form-control" id="period" name="period"
-                                                th:text="${teamDTO.period}"></p>
+                                            <label for="period" class="col-md-2 col-form-label"
+                                                style="font-size: 20px;">일정</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="date" value="2023-11-01"
+                                                    id="period-1" />
+                                                <input class="form-control" type="date" value="2023-11-02"
+                                                    id="period-2" />
+                                            </div>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="member" class="form-label" style="font-size: 20px;">팀원</label>
-                                            <p type="text" class="form-control" id="member" name="member"></p>
+                                        <div class="mt-2">
+                                            <button type="submit" class="btn btn-primary me-2"
+                                                onclick="submit()">수정하기</button>
                                         </div>
                                     </div>
-                                    <div class="mt-2">
-                                        <a th:href="@{'/team/update/' + ${teamDTO.teamId}}" class="btn btn-primary me-2">수정</a>
-                                    </div>
+                                    <!-- /Account -->
                                 </div>
-                                <!-- /Account -->
                             </div>
-                            <!-- / Content -->
-
-
-                            <!-- Footer -->
-                            <footer class="content-footer footer bg-footer-theme">
-                                <div
-                                    class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                                    <div class="mb-2 mb-md-0">
-                                        ©
-                                        <script>
-                                            document.write(new Date().getFullYear());
-                                        </script>
-                                        , made with ❤️ by
-                                        <a href="https://themeselection.com" target="_blank"
-                                            class="footer-link fw-medium">ThemeSelection</a>
-                                    </div>
-                                    <div class="d-none d-lg-inline-block">
-                                        <a href="https://themeselection.com/license/" class="footer-link me-4"
-                                            target="_blank">License</a>
-                                        <a href="https://themeselection.com/" target="_blank"
-                                            class="footer-link me-4">More
-                                            Themes</a>
-
-                                        <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                                            target="_blank" class="footer-link me-4">Documentation</a>
-
-                                        <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                                            target="_blank" class="footer-link">Support</a>
-                                    </div>
-                                </div>
-                            </footer>
-                            <!-- / Footer -->
-
-                            <div class="content-backdrop fade"></div>
                         </div>
-                        <!-- Content wrapper -->
                     </div>
-                    <!-- / Layout page -->
+                    <!-- / Content -->
+
+
+                    <!-- Footer -->
+                    <footer class="content-footer footer bg-footer-theme">
+                        <div
+                            class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                            <div class="mb-2 mb-md-0">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script>
+                                , made with ❤️ by
+                                <a href="https://themeselection.com" target="_blank"
+                                    class="footer-link fw-medium">ThemeSelection</a>
+                            </div>
+                            <div class="d-none d-lg-inline-block">
+                                <a href="https://themeselection.com/license/" class="footer-link me-4"
+                                    target="_blank">License</a>
+                                <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More
+                                    Themes</a>
+
+                                <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
+                                    target="_blank" class="footer-link me-4">Documentation</a>
+
+                                <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+                                    target="_blank" class="footer-link">Support</a>
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- / Footer -->
+
+                    <div class="content-backdrop fade"></div>
                 </div>
-
-                <!-- Overlay -->
-                <div class="layout-overlay layout-menu-toggle"></div>
+                <!-- Content wrapper -->
             </div>
-            <!-- / Layout wrapper -->
-
-
-            <!-- Core JS -->
-            <!-- build:js assets/vendor/js/core.js -->
-
-            <script type="text/javascript" th:src="@{/resources/static/assets/vendor/libs/jquery/jquery.js}"></script>
-            <script type="text/javascript" th:src="@{/resources/static/assets/vendor/libs/popper/popper.js}"></script>
-            <script type="text/javascript" th:src="@{/resources/static/assets/vendor/js/bootstrap.js}"></script>
-            <script type="text/javascript"
-                th:src="@{/resources/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
-            <script type="text/javascript" th:src="@{/resources/static/assets/vendor/js/menu.js}"></script>
-
-            <!-- endbuild -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script type="text/javascript" th:src="@{/resources/static/js/teamTable.js}"></script>
-
-            <!-- Vendors JS -->
-            <script type="text/javascript"
-                th:src="@{/resources/static/assets/vendor/libs/apex-charts/apexcharts.js}"></script>
-
-            <!-- Main JS -->
-            <script type="text/javascript" th:src="@{/resources/static/assets/js/main.js}"></script>
-
-            <!-- Page JS -->
-            <script type="text/javascript" th:src="@{/resources/static/assets/js/dashboards-analytics.js}"></script>
-
-            <!-- Place this tag in your head or just before your close body tag. -->
-            <script type="text/javascript" async defer src="https://buttons.github.io/buttons.js"></script>
+            <!-- / Layout page -->
         </div>
+
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+    <!-- / Layout wrapper -->
+
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+
+    <script type="text/javascript" th:src="@{/resources/static/assets/vendor/libs/jquery/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/static/assets/vendor/libs/popper/popper.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/static/assets/vendor/js/bootstrap.js}"></script>
+    <script type="text/javascript"
+        th:src="@{/resources/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/static/assets/vendor/js/menu.js}"></script>
+
+    <!-- endbuild -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/resources/static/js/teamTable.js}"></script>
+
+    <!-- Vendors JS -->
+    <script type="text/javascript" th:src="@{/resources/static/assets/vendor/libs/apex-charts/apexcharts.js}"></script>
+
+    <!-- Main JS -->
+    <script type="text/javascript" th:src="@{/resources/static/assets/js/main.js}"></script>
+
+    <!-- Page JS -->
+    <script type="text/javascript" th:src="@{/resources/static/assets/js/dashboards-analytics.js}"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script type="text/javascript" async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+
+        const submit = () => {
+            const postData = {
+                teamName: $("#teaName").val(),
+                teamSubject: $("#subject").val(),
+                teamIntro: $("#intro").val(),
+                teamPlan: $("#plan").val(),
+                period: $("#period-1").val() + " ~ " + $("#period-2").val(),
+            };
+            $.ajax({
+                type: "get",
+                url: "/app/team/update/retrieve.do/" + [[${ teamDTO.teamId }]],
+                data: postData,
+                success: function (response) {
+                    // 서버 응답 처리
+                    console.log("성공");
+                    location.href = "/app/team/" + [[${ teamDTO.teamId }]];
+                },
+                error: function (error) {
+                    console.error("오류 발생:", error);
+                    alert("오류가 발생했습니다. 다시 시도하세요.");
+                }
+            });
+        };
+
+
+    </script>
 </body>
 
 </html>
