@@ -627,8 +627,6 @@
                                 <div class="mb-3">
                                   <label class="form-label" for="basic-icon-default-fullname">프로젝트</label>
                                   <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-fullname2" class="input-group-text"
-                                      ><i class="bx bx-user"></i></span>
                                     <span
                                       type="text"
                                       class="form-control"
@@ -638,9 +636,6 @@
                                 <div class="mb-3">
                                   <label class="form-label" for="basic-icon-default-company">유형</label>
                                   <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-company2" class="input-group-text"
-                                      ><i class="bx bx-buildings"></i
-                                    ></span>
                                     <span
                                       type="text"
                                       class="form-control"
@@ -657,6 +652,26 @@
                                         </div>
                                     </div>
                                   </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-icon-default-company">모집인원</label>
+                                    <th:block th:each="dto : ${positionList}">
+                                    <div class="input-group">
+                                                <span
+                                                type="text"
+                                                class="form-control"
+                                                th:text="${dto.category}"></span>
+                                                <span
+                                                type="text"
+                                                class="form-control"
+                                                th:text="${dto.recruitType}"></span>
+                                                <span
+                                                type="text"
+                                                class="form-control"
+                                                th:text="${dto.memberSize != null ? dto.memberSize + '명' : 'N/A'}"></span>
+                                                
+                                            </div>
+                                        </th:block>
+                                </div>
                                 <div class="mb-3">
                                   <label class="form-label" for="basic-icon-default-email">Email</label>
                                   <div class="input-group input-group-merge">
