@@ -235,8 +235,7 @@ public class ProjTeamController {
 
   // 회의록 삭제
   @GetMapping("/meeting/delete/{teamId}/{meetingNo}")
-  public String meetingDelete(@PathVariable int teamId, @PathVariable int meetingNo,
-      HttpSession session) {
+  public String meetingDelete(@PathVariable int teamId, @PathVariable int meetingNo) {
 
     HashMap<String, Integer> map = new HashMap<>();
     map.put("teamId", teamId);
@@ -244,7 +243,7 @@ public class ProjTeamController {
 
     projTeamService.deleteOneById(map);
 
-    return "meeting";
+    return "redirect:meeting/" + teamId +"/1";
   }
 
   // 회의록 수정페이지
