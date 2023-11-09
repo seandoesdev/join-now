@@ -228,6 +228,9 @@
 
                           <br><p class="text-muted mb-0">.jpg 파일만 업로드 가능합니다!</p>
                         </div>
+			프로필 사진 선택 *(.jpg 파일만 업로드 가능합니다.)<br><input type="file" name="theFile"><br>
+			<input type="submit" value="업로드">
+		</form>
                       </div>
                     
                     <hr class="my-0" />
@@ -262,12 +265,7 @@
                           <!-- 포트폴리오 링크 -->
                           <div class="mb-3 col-md-6">
                             <label for="pofol" class="form-label"><b>포트폴리오 링크</b></label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="pflink"
-                              name="pflink"
-                              th:value="${userInfoDTO.pofoLink}" />
+                            <input id="pflink" type="text" class="form-control" name="pofolLink" th:value="${userInfoDTO.pofoLink}">
                           </div>
                           
                           <!-- 연락처 -->
