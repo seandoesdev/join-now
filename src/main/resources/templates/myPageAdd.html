@@ -159,8 +159,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <span class="fw-medium d-block">John Doe</span>
-                                                        <small class="text-muted">Admin</small>
+                                                        <span class="fw-medium d-block">Me</span>
+                                                        <small class="text-muted">Online</small>
                                                     </div>
                                                 </div>
                                             </a>
@@ -208,26 +208,25 @@
 		 ✨ 유저 아이디 ✨<br>👉 <input type="text" name="theText" th:value="${userInfoDTO.username}" readonly>
 		<br><hr>
 			
-		<input type="file" name="theFile"><br>
-			<input type="submit" value="업로드">
+		📸 <input type="file" name="theFile"><br>
+                        ✅ <input type="submit" value="업로드">
+			
 		</form>
                         <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">프로필 사진 선택</span>
+                          <!-- <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                            <span class="d-none d-sm-block">프로필 사진 선택</span> 
                             <i class="bx bx-upload d-block d-sm-none"></i>
                             <input
                               type="file"
-                              name="theFile"
-                              class="account-file-input"
-                              hidden
-                              accept="image/png, image/jpeg" />
+                              name="theFile"                                                                                                           
+                               />
                           </label>
                           <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                             <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                          </button>
+                            <span class="d-none d-sm-block">업로드</span>
+                          </button> -->
 
-                          <p class="text-muted mb-0">.jpg 파일만 업로드 가능합니다.</p>
+                          <br><p class="text-muted mb-0">.jpg 파일만 업로드 가능합니다!</p>
                         </div>
                       </div>
                     
@@ -343,34 +342,7 @@
             <!-- / Content -->
 
 
-                        <!-- Footer -->
-                        <footer class="content-footer footer bg-footer-theme">
-                            <div
-                                class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                                <div class="mb-2 mb-md-0">
-                                    ©
-                                    <script>
-                                        document.write(new Date().getFullYear());
-                                    </script>
-                                    , made with ❤️ by
-                                    <a href="https://themeselection.com" target="_blank"
-                                        class="footer-link fw-medium">ThemeSelection</a>
-                                </div>
-                                <div class="d-none d-lg-inline-block">
-                                    <a href="https://themeselection.com/license/" class="footer-link me-4"
-                                        target="_blank">License</a>
-                                    <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More
-                                        Themes</a>
-
-                                    <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                                        target="_blank" class="footer-link me-4">Documentation</a>
-
-                                    <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                                        target="_blank" class="footer-link">Support</a>
-                                </div>
-                            </div>
-                        </footer>
-                        <!-- / Footer -->
+                      
 
                         <div class="content-backdrop fade"></div>
                     </div>
