@@ -37,218 +37,11 @@
 
     <!-- Page CSS -->
 
-    <!-- Jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-    <!-- FullCalendar -->
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
-
     <!-- Helpers -->
     <script type="text/javascript" th:src="@{/resources/static/assets/vendor/js/helpers.js}"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script type="text/javascript" th:src="@{/resources/static/assets/js/config.js}"></script>
-    <script th:inline="javascript">
-        var calendar = null;
-        var event = {
-            title: "",
-            start: "",
-            end: "",
-            backgroundColor: ""
-        };
-
-
-        $(document).ready(function () {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                headerToolbar: {
-                    start: 'dayGridMonth,dayGridWeek,dayGridDay today',
-                    center: 'title',
-                    end: 'prev,next',
-                },
-                footerToolbar: {
-                    start: '',
-                    center: '',
-                    end: ''
-                },
-                firstDay: 1,
-                titleFormat: function (date) {
-                    year = date.date.year;
-                    month = date.date.month + 1;
-
-                    return year + "년 " + month + "월";
-                },
-
-                navLinks: true, // can click day/week names to navigate views
-                editable: true,
-                dayMaxEvents: true, // allow "more" link when too many events
-                selectable: true, // 마우스로 선택한 날짜 클릭 시 색상 변환
-                locale: 'ko', // 한국어 적용
-                height: 30,
-                contentHeight: 'auto', // 일정개수에 맞게 달력 크기 조절
-                // eventAdd : function() {// 이벤트가 추가되면 발생하는 이벤트
-                // console.log()
-                // },
-
-                events: function (info, successCallback, failureCallback) {
-
-                    $.ajax({
-                        url: './select/' + [[${ teamId }]], // 데이터를 제공하는 서버 엔드포인트로 수정
-                        type: 'GET', // GET 또는 POST로 요청을 보냄
-                        dataType: 'json',
-                        success: function (eventData) {
-                            // 서버에서 받은 이벤트 데이터를 FullCalendar에 전달
-                            successCallback(eventData);
-
-                        },
-                        error: function (error) {
-                            // 에러 발생 시 처리
-                            console.error('이벤트 데이터를 가져오는 중 에러 발생:', error);
-                        }
-                    });
-                },
-
-                eventClick: function (info) {
-                    editAndDelete(info);
-                },
-
-                select: function (info) {
-                    addEvent(info);
-                    // eventChange: function (obj) { // 이벤트가 수정되면 발생하는 이벤트
-                    // allEvent = calendar.getEvents();
-                    // console.log(allEvent);
-                    // },
-                    // eventRemove: function (obj) { // 이벤트가 삭제되면 발생하는 이벤트
-                    // console.log(obj);
-                    // },
-
-                },
-
-            });
-
-            calendar.render();
-
-            function addEvent(info) {
-                console.log([[${ scheduleId }]]);
-
-                $("#backDropModal").modal("show"); // modal 나타내기
-
-                $("#event_start_date").val(info.startStr);
-                $("#event_end_date").val(info.endStr);
-
-                $("#addEvent").off('click').on("click", function () {
-                    event.title = $("#eventContent").val().trim();
-                    event.start = $("#event_start_date").val();
-                    event.end = $("#event_end_date").val();
-                    event.backgroundColor = $("#event_color").val();
-
-                    // 일정 검증
-                    if (event.title == null || event.title == "") {
-                        alert("내용을 입력하세요.");
-                    } else if (new Date(event.end) - new Date(event.start) < 0) {
-                        alert("종료일이 시작일보다 먼저입니다.");
-                    } else if (event.backgroundColor == null || event.backgroundColor == "") {
-                        alert("색상을 선택해주세요.");
-                    } else {
-
-                        $.ajax({
-                            type: 'POST',
-                            url: './add/event/' + [[${ teamId }]],
-                            data: JSON.stringify(event),
-                            contentType: 'application/json; charset=utf-8',
-                            success: function (response) {
-                                console.log('데이터 전송 성공. 서버 응답: ');
-                                location.href = "../schedule/" + [[${ teamId }]];
-
-                            },
-                            error: function (xhr, status, error) {
-                                console.error('데이터 전송 실패. 에러: ' + error);
-                            }
-                        });
-
-                        $("#backDropModal").modal("hide");
-                        calendar.addEvent(event);
-                        $("#eventContent").val("");
-                        location.reload();
-
-                    }
-
-                });
-            }
-
-
-            function editAndDelete(info) {
-                $('#editDeleteModal').modal('show');
-
-                // 수정 모달창 열릴 때 누른 이벤트 값 보이도록 설정
-
-                $("#mEventContent").val(info.event.title);
-                $("#mEvent_start_date").val(info.event.startStr);
-                $("#mEvent_end_date").val(info.event.endStr);
-                $("#mEvent_color").val(info.event.backgroundColor);
-
-                $("#editEventButton").off('click').on("click", function () {
-                    const modifiedEvent = {
-                        id: info.event.id,
-                        title: $("#mEventContent").val().trim(),
-                        start: $("#mEvent_start_date").val(),
-                        end: $("#mEvent_end_date").val(),
-                        backgroundColor: $("#mEvent_color").val()
-                    };
-                    console.log(modifiedEvent);
-                    $.ajax({
-                        type: 'POST',
-                        url: './update/event/' + [[${ teamId }]],
-                        data: JSON.stringify(modifiedEvent),
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (response) {
-                            $("#editDeleteModal").modal("hide");
-                            location.href = "../schedule/" + [[${ teamId }]];
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('데이터 전송 실패. 에러: ' + error);
-                        }
-                    });
-                });
-
-                $("#deleteEventButton").off('click').on("click", function () {
-                    const deleteEvent = {
-                        id: info.event.id,
-                        title: $("#mEventContent").val().trim(),
-                        start: $("#mEvent_start_date").val(),
-                        end: $("#mEvent_end_date").val(),
-                        backgroundColor: $("#mEvent_color").val()
-                    };
-                    $.ajax({
-                        type: 'POST',
-                        url: './delete/event/' + [[${ teamId }]],
-                        data: JSON.stringify(deleteEvent),
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (response) {
-                            $("#editDeleteModal").modal("hide");
-                            location.href = "../schedule/" + [[${ teamId }]];
-
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('데이터 전송 실패. 에러: ' + error);
-                        }
-                    });
-                });
-
-            }
-
-        });
-
-        const backDropModalCancel = () =>{
-            $("#backDropModal").modal("hide");
-        };
-
-        const editDeleteModalCancel = () => {
-            $("#editDeleteModal").modal("hide");
-        };
-
-    </script>
 </head>
 
 <body>
@@ -361,22 +154,22 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a th:href="@{/team/{teamId}(teamId=${teamId})}" class="menu-link">
+                                <a th:href="@{/team/{teamId}(teamId=${teamDTO.teamId})}" class="menu-link">
                                     <div data-i18n="Information">Information</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a th:href="@{/team/schedule/{teamId}(teamId=${teamId})}" class="menu-link">
+                                <a th:href="@{/team/schedule/{teamId}(teamId=${teamDTO.teamId})}" class="menu-link">
                                     <div data-i18n="Schedule">Schedule</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a th:href="@{/team/meeting/{teamId}/1(teamId=${teamId})}" class="menu-link">
+                                <a th:href="@{/team/meeting/{teamId}/1(teamId=${teamDTO.teamId})}" class="menu-link">
                                     <div data-i18n="Meeting Note">Meeting Note</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a th:href="@{/team/teamManage/{teamId}(teamId=${teamId})}" class="menu-link">
+                                <a th:href="@{/team/teamManage/{teamId}(teamId=${teamDTO.teamId})}" class="menu-link">
                                     <div data-i18n="teamManage">Team Manangement</div>
                                 </a>
                             </li>
@@ -448,139 +241,127 @@
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
-                <!-- 캘린더 표시 -->
-                <div id="calender-container">
-                    <div id='calendar'></div>
-                </div>
-                <!-- 일정 추가 모달창 -->
-                <div class="modal fade" id="backDropModal" data-backdrop="static" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="backDropModalTitle">일정 추가</h5>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col mb-3">
-                                        <label for="eventContent" class="form-label">일정 <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" id="eventContent" class="form-control"
-                                            placeholder="일정을 입력해주세요." required>
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <h4 class="py-3 mb-4"><span class="text-muted fw-light" th:text="${teamDTO.teamName}"></span>팀</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <h5 class="card-header"><i class="bx bx-user me-1"></i> 팀 정보</h5>
+                                <!-- 팀 정보 -->
+                                <div class="card-body">
+                                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                        <th:switch="${teamDTO.teamLogo}">
+                                            <th:case="">
+                                                <img th:src="@{/resources/static/assets/img/avatars/1.png}"
+                                                    alt="user-avatar" class="d-block rounded" height="100" width="100"
+                                                    id="uploadedAvatar" style="margin-bottom: 20px;" />
+                                                </th:case>
+                                                <th:case th:unless="${teamDTO.teamLogo != ''}">
+                                                    <img th:src="${teamDTO.teamLogo}" alt="user-avatar"
+                                                        class="d-block rounded" height="100" width="100"
+                                                        id="uploadedAvatar" style="margin-bottom: 20px;" />
+                                                </th:case>
+                                                </th:switch>
+
+                                                <div class="button-wrapper">
+                                                    <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                        <span class="d-none d-sm-block">사진 업로드</span>
+                                                        <i class="bx bx-upload d-block d-sm-none"></i>
+                                                        <input type="file" id="upload" class="account-file-input" hidden
+                                                            accept="image/png, image/jpeg" />
+                                                    </label>
+                                                    <p class="text-muted mb-0">※ JPG 파일 / 최대 용량 500K 가능합니다.</p>
+                                                </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col mb-0">
-                                        <label for="event_start_date" class="form-label">시작일 <span
-                                                class="text-danger">*</span></label>
-                                        <input type="date" id="event_start_date" class="form-control" required>
+                                <hr class="my-0" />
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="mb-3">
+                                            <label for="teamName" class="form-label" style="font-size: 20px;">팀명</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="teamName"
+                                                    th:value="${teamDTO.teamName}" id="teamName" />
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="subject" class="form-label" style="font-size: 20px;">주제</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="subject"
+                                                    th:value="${teamDTO.teamSubject}" id="subject" />
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="intro" class="form-label" style="font-size: 20px;">소개</label>
+                                            <textarea class="form-control" id="intro" rows="3"
+                                                th:text="${teamDTO.teamIntro}"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="plan" class="form-label" style="font-size: 20px;">계획</label>
+                                            <textarea class="form-control" id="plan" rows="3"
+                                                th:text="${teamDTO.teamPlan}"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="period" class="col-md-2 col-form-label"
+                                                style="font-size: 20px;">일정</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="date" value="2023-11-01"
+                                                    id="period-1" />
+                                                <input class="form-control" type="date" value="2023-11-02"
+                                                    id="period-2" />
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <button type="submit" class="btn btn-primary me-2"
+                                                onclick="submit()">수정하기</button>
+                                        </div>
                                     </div>
-                                    <div class="col mb-0">
-                                        <label for="event_end_date" class="form-label">마감일 - <small
-                                                class="text-muted">선택사항</small></label>
-                                        <input type="date" id="event_end_date" class="form-control">
-                                    </div>
+                                    <!-- /Account -->
                                 </div>
-                                <div class="row">
-                                    <div class="col mb-3">
-                                        <label for="event_color" class="form-label">색상</label>
-                                        <input type="color" id="event_color" class="form-control" value="#3788d8"
-                                            required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="backDropModalCancel()">취소</button>
-                                <button type="button" class="btn btn-primary" id="addEvent">추가</button>
                             </div>
                         </div>
                     </div>
+                    <!-- / Content -->
+
+
+                    <!-- Footer -->
+                    <footer class="content-footer footer bg-footer-theme">
+                        <div
+                            class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                            <div class="mb-2 mb-md-0">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script>
+                                , made with ❤️ by
+                                <a href="https://themeselection.com" target="_blank"
+                                    class="footer-link fw-medium">ThemeSelection</a>
+                            </div>
+                            <div class="d-none d-lg-inline-block">
+                                <a href="https://themeselection.com/license/" class="footer-link me-4"
+                                    target="_blank">License</a>
+                                <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More
+                                    Themes</a>
+
+                                <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
+                                    target="_blank" class="footer-link me-4">Documentation</a>
+
+                                <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+                                    target="_blank" class="footer-link">Support</a>
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- / Footer -->
+
+                    <div class="content-backdrop fade"></div>
                 </div>
-
-                <!-- 수정 및 삭제 버튼이 있는 모달 -->
-                <div class="modal fade" id="editDeleteModal" tabindex="-1" role="dialog"
-                    aria-labelledby="editDeleteModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editDeleteModalLabel">이벤트 수정 및 삭제</h5>
-                            </div>
-                            <div class="modal-body">
-
-                                <div class="row">
-                                    <div class="col mb-3">
-                                        <label for="eventContent" class="form-label">일정 <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" id="mEventContent" class="form-control"
-                                            placeholder="일정을 입력해주세요." required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col mb-0">
-                                        <label for="event_start_date" class="form-label">시작일 <span
-                                                class="text-danger">*</span></label>
-                                        <input type="date" id="mEvent_start_date" class="form-control" required>
-                                    </div>
-                                    <div class="col mb-0">
-                                        <label for="event_end_date" class="form-label">마감일 - <small
-                                                class="text-muted">선택사항</small></label>
-                                        <input type="date" id="mEvent_end_date" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col mb-3">
-                                        <label for="event_color" class="form-label">색상</label>
-                                        <input type="color" id="mEvent_color" class="form-control" value="#3788d8"
-                                            required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="editEventButton">수정</button>
-                                <button type="button" class="btn btn-danger" id="deleteEventButton">삭제</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="editDeleteModalCancel()">닫기</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
-                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                        <div class="mb-2 mb-md-0">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            , made with ❤️ by
-                            <a href="https://themeselection.com" target="_blank"
-                                class="footer-link fw-medium">ThemeSelection</a>
-                        </div>
-                        <div class="d-none d-lg-inline-block">
-                            <a href="https://themeselection.com/license/" class="footer-link me-4"
-                                target="_blank">License</a>
-                            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More
-                                Themes</a>
-
-                            <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                                target="_blank" class="footer-link me-4">Documentation</a>
-
-                            <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                                target="_blank" class="footer-link">Support</a>
-                        </div>
-                    </div>
-                </footer>
-                <!-- / Footer -->
-
-                <div class="content-backdrop fade"></div>
+                <!-- Content wrapper -->
             </div>
-            <!-- Content wrapper -->
+            <!-- / Layout page -->
         </div>
-        <!-- / Layout page -->
-    </div>
 
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
 
@@ -597,6 +378,7 @@
 
     <!-- endbuild -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/resources/static/js/teamTable.js}"></script>
 
     <!-- Vendors JS -->
     <script type="text/javascript" th:src="@{/resources/static/assets/vendor/libs/apex-charts/apexcharts.js}"></script>
@@ -609,8 +391,35 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script type="text/javascript" async defer src="https://buttons.github.io/buttons.js"></script>
-    </div>
-    </div>
+
+    <script>
+
+        const submit = () => {
+            const postData = {
+                teamName: $("#teaName").val(),
+                teamSubject: $("#subject").val(),
+                teamIntro: $("#intro").val(),
+                teamPlan: $("#plan").val(),
+                period: $("#period-1").val() + " ~ " + $("#period-2").val(),
+            };
+            $.ajax({
+                type: "get",
+                url: "/app/team/update/retrieve.do/" + [[${ teamDTO.teamId }]],
+                data: postData,
+                success: function (response) {
+                    // 서버 응답 처리
+                    console.log("성공");
+                    location.href = "/app/team/" + [[${ teamDTO.teamId }]];
+                },
+                error: function (error) {
+                    console.error("오류 발생:", error);
+                    alert("오류가 발생했습니다. 다시 시도하세요.");
+                }
+            });
+        };
+
+
+    </script>
 </body>
 
 </html>
