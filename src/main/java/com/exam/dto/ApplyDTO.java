@@ -12,11 +12,12 @@ public class ApplyDTO {
 	String content;
 	int applyNo;
 	int postNo;
+	String date;
 	
 	public ApplyDTO() {}
 
 	public ApplyDTO(int userid, String applyType, String skills, String contact, String content, int applyNo,
-			int postNo) {
+			int postNo, String date) {
 		this.userid = userid;
 		this.applyType = applyType;
 		this.skills = skills;
@@ -24,6 +25,7 @@ public class ApplyDTO {
 		this.content = content;
 		this.applyNo = applyNo;
 		this.postNo = postNo;
+		this.date = date;
 	}
 
 	public int getUserid() {
@@ -82,10 +84,18 @@ public class ApplyDTO {
 		this.postNo = postNo;
 	}
 
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 	@Override
 	public String toString() {
 		return "ApplyDTO [userid=" + userid + ", applyType=" + applyType + ", skills=" + skills + ", contact=" + contact
-				+ ", content=" + content + ", applyNo=" + applyNo + ", postNo=" + postNo + "]";
+				+ ", content=" + content + ", applyNo=" + applyNo + ", postNo=" + postNo + ", date=" + date + "]";
 	}
 		
 	

@@ -10,15 +10,17 @@ public class AcceptPrintDTO {
 	UserInfoDTO acceptUserInfoDTO; // 작성자
 	PostDTO postDTO; // 게시판 정보
 	AcceptDTO acceptDTO; // 신청 정보
+	ApplyDTO applyDTO; // 신청서 정보
 	
 	public AcceptPrintDTO() {}
 
 	public AcceptPrintDTO(UserInfoDTO applyUserInfoDTO, UserInfoDTO acceptUserInfoDTO, PostDTO postDTO,
-			AcceptDTO acceptDTO) {
+			AcceptDTO acceptDTO, ApplyDTO applyDTO) {
 		this.applyUserInfoDTO = applyUserInfoDTO;
 		this.acceptUserInfoDTO = acceptUserInfoDTO;
 		this.postDTO = postDTO;
 		this.acceptDTO = acceptDTO;
+		this.applyDTO = applyDTO;
 	}
 
 	public UserInfoDTO getApplyUserInfoDTO() {
@@ -53,11 +55,21 @@ public class AcceptPrintDTO {
 		this.acceptDTO = acceptDTO;
 	}
 
+	public ApplyDTO getApplyDTO() {
+		return applyDTO;
+	}
+
+	public void setApplyDTO(ApplyDTO applyDTO) {
+		this.applyDTO = applyDTO;
+	}
+
 	@Override
 	public String toString() {
 		return "AcceptPrintDTO [applyUserInfoDTO=" + applyUserInfoDTO + ", acceptUserInfoDTO=" + acceptUserInfoDTO
-				+ ", postDTO=" + postDTO + ", acceptDTO=" + acceptDTO + "]";
+				+ ", postDTO=" + postDTO + ", acceptDTO=" + acceptDTO + ", applyDTO=" + applyDTO + "]";
 	}
+
+	
 
 	
 
