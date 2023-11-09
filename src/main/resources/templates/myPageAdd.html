@@ -208,27 +208,9 @@
 		 ✨ 유저 아이디 ✨<br>👉 <input type="text" name="theText" th:value="${userInfoDTO.username}" readonly>
 		<br><hr>
 			
-		<input type="file" name="theFile"><br>
+			프로필 사진 선택 *(.jpg 파일만 업로드 가능합니다.)<br><input type="file" name="theFile"><br>
 			<input type="submit" value="업로드">
 		</form>
-                        <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">프로필 사진 선택</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input
-                              type="file"
-                              name="theFile"
-                              class="account-file-input"
-                              hidden
-                              accept="image/png, image/jpeg" />
-                          </label>
-                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                          </button>
-
-                          <p class="text-muted mb-0">.jpg 파일만 업로드 가능합니다.</p>
-                        </div>
                       </div>
                     
                     <hr class="my-0" />
@@ -263,12 +245,7 @@
                           <!-- 포트폴리오 링크 -->
                           <div class="mb-3 col-md-6">
                             <label for="pofol" class="form-label"><b>포트폴리오 링크</b></label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="pflink"
-                              name="pflink"
-                              th:value="${userInfoDTO.pofoLink}" />
+                            <input id="pflink" type="text" class="form-control" name="pofolLink" th:value="${userInfoDTO.pofoLink}">
                           </div>
                           
                           <!-- 연락처 -->
