@@ -7,7 +7,6 @@ public class ApplyDTO {
 	
 	int userid;
 	String applyType;
-	String skills;
 	String contact;
 	String content;
 	int applyNo;
@@ -16,11 +15,10 @@ public class ApplyDTO {
 	
 	public ApplyDTO() {}
 
-	public ApplyDTO(int userid, String applyType, String skills, String contact, String content, int applyNo,
-			int postNo, String date) {
+	public ApplyDTO(int userid, String applyType, String contact, String content, int applyNo, int postNo,
+			String date) {
 		this.userid = userid;
 		this.applyType = applyType;
-		this.skills = skills;
 		this.contact = contact;
 		this.content = content;
 		this.applyNo = applyNo;
@@ -42,14 +40,6 @@ public class ApplyDTO {
 
 	public void setApplyType(String applyType) {
 		this.applyType = applyType;
-	}
-
-	public String getSkills() {
-		return skills;
-	}
-
-	public void setSkills(String skills) {
-		this.skills = skills;
 	}
 
 	public String getContact() {
@@ -94,9 +84,11 @@ public class ApplyDTO {
 
 	@Override
 	public String toString() {
-		return "ApplyDTO [userid=" + userid + ", applyType=" + applyType + ", skills=" + skills + ", contact=" + contact
+		return "ApplyDTO [userid=" + userid + ", applyType=" + applyType + ", contact=" + contact
 				+ ", content=" + content + ", applyNo=" + applyNo + ", postNo=" + postNo + ", date=" + date + "]";
 	}
+	
+	
 		
 	
 }
