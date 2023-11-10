@@ -31,5 +31,9 @@ public class UserDAO {
 	public UserInfoDTO selectAllById(int id) {
 		return session.selectOne("UserMapper.selectAllById", id);		
 	}
+	
+	public int updateNickname(UserInfoDTO dto) {
+		return session.update("UserMapper.updateNickname", dto);
+	}
 
 }

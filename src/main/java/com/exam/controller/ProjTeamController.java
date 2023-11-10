@@ -78,7 +78,7 @@ public class ProjTeamController {
     model.addAttribute("teamDTO", teamDTO);
     
     
-    return "introRetrieve";
+    return "infoRetrieve";
   }
   
   // 팀 소개 수정 작업

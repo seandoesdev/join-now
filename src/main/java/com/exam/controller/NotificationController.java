@@ -53,10 +53,10 @@ public class NotificationController {
 	@PostMapping("/notificationCheck")
 	public String notificationCheck(int notificationId) {
 		System.out.println(notificationId);
-		notificationService.updateIsRead(notificationId);
+		int n = notificationService.updateIsRead(notificationId);
 		return "redirect:notification";
 	}
-	
+
 	@PostMapping("/notificationDeleteAll")
 	public String notificationDeleteAll(HttpSession session) {
 		// 로그인 정보 -> 수신자
