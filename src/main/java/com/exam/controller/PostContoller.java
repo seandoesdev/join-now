@@ -123,8 +123,9 @@ public class PostContoller {
 		TeamDTO teamDTO = new TeamDTO();
 		teamDTO.setPostNo(n);
 		teamDTO.setUserId(userInfoDTO.getId());
+		teamDTO.setTeamName(dto.getTitle()); // 초기 팀이름 -> 프로젝트 이름
 		int n2 = teamService.teamAdd(teamDTO);
-		
+				
 				
 		TeamMemberDTO teamMemberDTO = new TeamMemberDTO();
 		teamMemberDTO.setTeamId(teamDTO.getTeamId());
@@ -230,6 +231,7 @@ public class PostContoller {
 		dto.setUserid(userInfoDTO.getId());
 		int n = skillService.skillAdd(dto, list);
 		dto.setPostNo(postNo);
+		dto.setApplyNo(n);
 //		int n = applyService.applyAdd(dto);
 //		System.out.println("*************" + dto.getApplyNo());
 
