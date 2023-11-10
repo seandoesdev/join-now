@@ -5,8 +5,8 @@
 <mapper namespace="TeamMapper">
 
 	<insert id="teamAdd" parameterType="TeamDTO" useGeneratedKeys="true" keyProperty="teamId">
-		insert into team(postNo, userId)
-		values(#{postNo}, #{userId})
+		insert into team(postNo, userId, teamName)
+		values(#{postNo}, #{userId}, #{teamName})
 	</insert>
 	
 	<insert id="teamMemberAdd" parameterType="TeamMemberDTO">
