@@ -23,8 +23,8 @@ public class SkillDAO {
 	@Transactional
 	public int skillAdd(ApplyDTO dto, List<SkillDTO> list){
 		//번호 자동 생성
-	    String applySql = "INSERT INTO apply (applyType, content, userid, contact, postNo) VALUES (?, ?, ?, ?, ?)";
-	    jdbcTemplate.update(applySql,dto.getApplyType(),dto.getContent(),dto.getUserid(),dto.getContact(),dto.getPostNo());
+	    String applySql = "INSERT INTO apply (postNo, userid, applyType, contact, content) VALUES (?, ?, ?, ?, ?)";
+	    jdbcTemplate.update(applySql,dto.getPostNo(),dto.getUserid(),dto.getApplyType(),dto.getContact(),dto.getContent());
 
 	    //applyNo 값 삽입
 	    String applyNoSql = "SELECT LAST_INSERT_ID()";

@@ -133,10 +133,10 @@ console.log(document.querySelectorAll(".sk"))
 	});//end delete alert
 
 		//apply alert
-		 $(document).on("click", "button[id='apply-btn']", function () {
+		// $(document).on("click", "button[id='apply-btn']", function () {
 		//$("#apply-btn").on("click", function() {
-			alert("지원이 완료되었습니다.");
-		});
+		//	alert("지원이 완료되었습니다.");
+		//});
 		
 		
 		//postNo에 입력된 모든 댓글 로드
@@ -153,8 +153,8 @@ console.log(document.querySelectorAll(".sk"))
 		                tag += '<div class="comment">';
 		                tag += '<span class="user" style="display: none">' + dto.writer + '</span>';
 		                tag += '<span class="nickname">작성자: ' + dto.nickname + '</span>';
-		                tag += '&nbsp;&nbsp;<button type="button" class="btn-custom btn-custom-success commentUpdateUI-btn">수정</button>';
-		                tag += '&nbsp;<button type="button" class="btn-custom commentDelete-btn">삭제</button>';
+		                tag += '&nbsp;&nbsp;<button type="button" class="btn btn-primary commentUpdateUI-btn">수정</button>';
+		                tag += '&nbsp;<button type="button" class="btn btn-secondary commentDelete-btn">삭제</button>';
 		                tag += '<p class="timestamp">' + dto.modified_date + '</p>';
 		                tag += '<p class="content commentNo" style="display: none;">' + dto.commentNo + '</p>';
 		                tag += '<span class="content">' + dto.content + '</span>';
@@ -252,10 +252,10 @@ console.log(document.querySelectorAll(".sk"))
 	                var tag = '<div class="comment">' +
 	                    '<span class="user" style="display: none">' + data.writer + '</span>' +
 	                    '<span class="nickname">작성자: ' + data.nickname + '</span>' +
-	                    '<button type="button" class="btn-custom btn-custom-success commentUpdate-btn">수정완료</button>' +
+	                    '<button type="button" class="btn btn-primary commentUpdate-btn">수정완료</button>' +
 	                    '<p class="timestamp">' + data.create_date + '</p>' +
 	                    '<p style="display: none" class="content commentNo">' + data.commentNo + '</p>' +
-	                    '<textarea placeholder="' + data.content + '" name="content" id="commentContent"></textarea>' +
+	                    '<textarea placeholder="' + data.content + '" name="content" id="commentContent" class="form-control"></textarea>' +
 	                    '</div>';
 	                    
 	                var newElement = $(tag); // String -> jQuery object
@@ -323,8 +323,8 @@ console.log(document.querySelectorAll(".sk"))
           	}); 
 
           	// Add Skills Button Functionality
-       //   	$(".addSkill-btn").on("click", function() {
-    	   $(document).on("click", "button[id='addSkill-btn']", function () {
+       $(".addSkill-btn").on("click", function() {
+    	   //$(document).on("click", "button[id='addSkill-btn']", function () {
           	    var newSkillBox = `
           	        <div class='form-div addSkillSel'>
           	            <select name='skill' class='form-control skillsel'>
@@ -333,7 +333,7 @@ console.log(document.querySelectorAll(".sk"))
           	                <option value='Kotlin'>Kotlin</option>
           	                <option value='direct'>직접입력</option>
           	            </select>
-          	            <input style='display: none;' class='form-control selboxDirect' type='text' />
+          	            <input placeholder='보유기술을 입력해주세요.' style='display: none;' class='form-control selboxDirect' type='text' />
           	        <br></div>
           	    `;
           	    $(".skill-box").append(newSkillBox);
@@ -631,206 +631,101 @@ console.log(document.querySelectorAll(".sk"))
 								</form>
 							</div>
 
-							<!-- 새로운 테마 적용 modal -->
-							<!-- Button trigger modal -->
-							<button id="apply-ui-btn" type="button" class="btn btn-primary"
-								data-bs-toggle="modal" data-bs-target="#basicModal">
-								지원하기</button>
+<!-- 새로운 UI적용 모달 -->
+<!-- Button trigger modal -->
+<button id="apply-ui-btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModa">
+  지원하기
+</button>
 
-							<!-- Modal -->
-							<form action="apply" method="post">
-								<div class="modal fade" id="basicModal" tabindex="-1"
-									aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<input style="display: none"
-													th:value="${postListbyNum.postNo}" name="postNo" />
-											</div>
-											<input type="hidden" th:value="${postListbyNum.postNo}"
-												name="postNo">
-											<div class="modal-body">
-												<div class="row">
-													<div class="col mb-3">
-														<label for="for="applyType">지원분야</label>
-														<div>
-															<select id="applysel" name="applyType"
-																class="form-control">
-																<option value="프론트엔드">프론트엔드</option>
-																<option value="백엔드">백엔드</option>
-																<option value="풀스택">풀스택</option>
-																<option value="direct">직접 입력</option>
-															</select> <input class="form-control" type="text"
-																id="selappboxDirect" />
-														</div>
-													</div>
-													<div class="col mb-3">
-														<label for="skills">보유기술</label>
-														<div class="form-div skill-box">
-															<select name="skill" class="form-control skillsel">
-																<option value="Java">Java</option>
-																<option value="C++">C++</option>
-																<option value="Kotlin">Kotlin</option>
-																<option value="direct">직접 입력</option>
-															</select> <input style='display: none;'
-																class='form-control selboxDirect' type='text' /><br>
-														</div>
-													</div>
-													<div align="right">
-														<button type="button"
-															class="btn-custom btn-custom-success addSkill-btn"
-															id="addSkill-btn">추가</button>
-														<button type="button" class="btn-custom" id="delSkill-btn">삭제</button>
-													</div>
-													<div class="col mb-3">
-														<label for="html5-tel-input">연락처</label>
-														<div>
-															<input class="form-control" type="text" name="contact"
-																id="html5-tel-input" />
-														</div>
-													</div>
+<!-- Modal -->
+<form action="apply" method="post">
+<div class="modal fade" id="myModa" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <input style="display: none" th:value="${postListbyNum.postNo}" name="postNo" />
+        <h5 class="modal-title" id="exampleModalLabel1">지원 양식</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <input type="hidden" th:value="${postListbyNum.postNo}" name="postNo">
+      <div class="modal-body">
+        
+        <div class="row">
+          <div class="col mb-3">
+            <label for="applyType" class="form-label">지원분야</label>
+            <select id="applysel" name="applyType" class="form-control">
+				<option value="프론트엔드">프론트엔드</option>
+				<option value="백엔드">백엔드</option>
+				<option value="풀스택">풀스택</option>
+				<option value="direct">직접 입력</option>
+			</select>
+            <input type="text" id="selappboxDirect" class="form-control" placeholder="지원분야를 입력해주세요.">
+          </div>
+        </div>
 
-													<div class="col mb-3">
-														<label for="html5-tel-input">지원자 소개</label>
-														<div>
-															<input class="form-control" type="text" name="content"
-																id="html5-tel-input2" />
-														</div>
-													</div>
+		<div class="row">
+        <div class="col mb-3">
+            <label for="skills" class="form-label">보유기술</label>
+            <div class="form-div skill-box">
+            <select name="skill" class="form-control skillsel">
+				<option value="Java">Java</option>
+				<option value="C++">C++</option>
+				<option value="Kotlin">Kotlin</option>
+				<option value="direct">직접 입력</option>
+			</select>
+            <input style='display: none;' type="text" id="selappboxDirect" class="form-control selboxDirect" placeholder="보유기술을 입력해주세요."><br>
+          </div></div>
+        </div>
+        
+        <div class="row" align="right">
+        <div class="col mb-3">
+			<button type="button" class="btn btn-primary addSkill-btn" id="addSkill-btn">추가</button>
+			<button type="button" class="btn btn-primary" id="delSkill-btn">삭제</button>
+		</div></div>
+        
+        <div class="row">
+          <div class="col mb-3">
+            <label for="contactAddr" class="form-label">연락처</label>
+            <input class="form-control" type="text" name="contact" placeholder="연락처를 입력해주세요."/>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col mb-3">
+            <label for="content" class="form-label">지원자 소개</label>
+            <input class="form-control" type="text" name="content" placeholder="자유롭게 자신을 소개해주세요."/>
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+        <input id="apply-btn" type="submit" value="제출" class="btn btn-primary" onclick='alert("지원이 완료되었습니다.")' />
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+<!--/ 새로운 UI적용 모달 -->
 
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-label-secondary"
-														data-dismiss="modal">Close</button>
-													<input id="apply-btn" type="submit" value="제출"
-														class="btn btn-primary">
-												</div>
-											</div>
-										</div>
-									</div>
-							</form>
-							<!--/ 새로운 테마 적용 modal -->
-
-
-						<!-- 여기서부터 지원하기 modal 구현 -->
-							<!-- Button trigger modal -->
-							<button type="button" class="btn-custom btn-custom-success"
-								data-toggle="modal" data-target="#myModal" id="apply-ui-btn">지원하기</button>
-
-
-							<!-- Modal -->
-							<form action="apply" method="post">
-								<div class="container">
-									<div class="modal fade" id="myModal" tabindex="-1"
-										role="dialog" aria-labelledby="exampleModalScrollableTitle"
-										aria-hidden="true">
-										<div class="modal-dialog modal-dialog-scrollable"
-											role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-
-													<input style="display: none"
-														th:value="${postListbyNum.postNo}" name="postNo" />
-												</div>
-												<input type="hidden" th:value="${postListbyNum.postNo}"
-													name="postNo">
-												<div class="modal-body">
-													<div class="form-group">
-
-														<h4>
-															<label for="applyType">지원분야</label>
-														</h4>
-														<br>
-														<div>
-															<select id="applysel" name="applyType"
-																class="form-control">
-																<option value="프론트엔드">프론트엔드</option>
-																<option value="백엔드">백엔드</option>
-																<option value="풀스택">풀스택</option>
-																<option value="direct">직접 입력</option>
-															</select> <input class="form-control" type="text"
-																id="selappboxDirect" />
-														</div>
-														<br>
-														<h4>
-															<label for="skills">보유기술</label>
-														</h4>
-														<br>
-														<div class="form-div skill-box">
-															<select name="skill" class="form-control skillsel">
-																<option value="Java">Java</option>
-																<option value="C++">C++</option>
-																<option value="Kotlin">Kotlin</option>
-																<option value="direct">직접 입력</option>
-															</select> <input style='display: none;'
-																class='form-control selboxDirect' type='text' /><br>
-														</div>
-
-														<div align="right">
-															<button type="button"
-																class="btn-custom btn-custom-success addSkill-btn"
-																id="addSkill-btn">추가</button>
-															<button type="button" class="btn-custom"
-																id="delSkill-btn">삭제</button>
-														</div>
-														<br>
-														<div>
-															<h4>
-																<label for="html5-tel-input">연락처</label>
-															</h4>
-															<br>
-															<div>
-																<input class="form-control" type="text" name="contact"
-																	id="html5-tel-input" />
-															</div>
-														</div>
-														<br>
-														<div>
-															<h4>
-																<label for="html5-tel-input">지원자 소개</label>
-															</h4>
-															<br>
-															<div>
-																<input class="form-control" type="text" name="content"
-																	id="html5-tel-input2" />
-															</div>
-														</div>
-													</div>
-												</div>
-
-												<div class="modal-footer">
-
-													<button type="button" class="btn-custom"
-														data-dismiss="modal">Close</button>
-													<input id="apply-btn" type="submit" value="제출"
-														class="btn-custom btn-custom-success">
-												</div>
-											</div>
-										</div>
-									</div>
-
-								</div>
-						</div>
-					</form>
+					<!-- 여기서부터 지원하기 modal 구현 -->
 					<!-- 지원하기 끝 --> 
 					<!-- 댓글기능 시작 -->
 					<div class="container comment">
-						<h2>Comments</h2>
-						<h4>Leave a comment!</h4>
-						<p id="commentResult"></p>
-						<div class="comment-form">
-							<textarea placeholder="Add your comment..." name="content"
-								id="commentContent"></textarea>
-							<button type="submit" class="btn-custom btn-custom-success"
-								id="comment-btn" align="right">댓글저장</button>
+						<h4 class="mb-4">댓글 작성</h4>
+						<h5 class="mb-4">Leave a comment!</h5>
+						<p class="form-control" id="commentResult"></p>
+						<div class="mb-3">
+							<textarea class="form-control" placeholder="Add your comment..." name="content"
+								id="commentContent"></textarea><br>
+							<button type="submit" class="btn btn-primary" id="comment-btn">댓글저장</button>
 						</div>
 					</div>
 				</div>
-					</div>
 				<!-- 댓글기능 끝 -->
 
 				<!-- Footer -->
-				<footer class="content-footer footer bg-footer-theme">
+				<footer class="mb-3 content-footer footer bg-footer-theme">
 					<div
 						class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
 						<div class="mb-2 mb-md-0">

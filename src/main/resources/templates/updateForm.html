@@ -149,17 +149,17 @@ $(document).ready(function() {
 	$("#add-btn").on("click",function(){
 
 		var newSelectCategory = `<div class='form-group memberRecruit'>
-		<select id='category' class='form-control' name='category' >
+		<select id='category' class='form-select' name='category' >
 			<option value=''>옵션을 선택해주세요.</option>
 			<option value='기획자'>기획자</option>
 			<option value='디자이너'>디자이너</option>
 			<option value='개발자'>개발자</option></select>
-		<select id='recruitType' name='recruitType' class='form-control'>
+		<select id='recruitType' name='recruitType' class='form-select'>
 			<option value=''>옵션을 선택해주세요.</option></select>
-	    <div id='mSize' align='right'>
-			<input type='text' name='memberSize' value='1' class='memberSize'>
-			<button type='button' class='down-btn btn-custom btn-custom-success'>down</button>&nbsp
-			<button type='button' class='up-btn btn-custom'>up</button></div>`
+	    <div class="input-group mb-3" id='mSize' align='right'>
+			<input type='text' name='memberSize' value='1' class='form-control memberSize'>
+			<button type='button' class='down-btn btn btn-outline-primary'>down</button>&nbsp
+			<button type='button' class='up-btn btn btn-outline-primary'>up</button></div>`
 	    $(".recruitType").append(newSelectCategory);
 		$("#del-btn").show();
 	});//end addSelect
@@ -379,55 +379,48 @@ $(document).ready(function() {
 			</div>
 </div>
 
-			<div class="form-group">
-					<h4>
+			<div class="mb-3">
 						<label for="title" >프로젝트명</label>
-					</h4>
 					<div>
 						<input type="text" class="form-control" name="title"
 							th:value="${postListbyNum.title}">
 					</div>
-					<br>
-				<div class="form-group">
-					<h4><label for="studyType">유형</label></h4>
-						<input type="radio" name="studyType" value="project" th:checked="${postListbyNum.studyType}=='project'"> 프로젝트 <br>
-						<input type="radio" name="studyType" value="study" th:checked="${postListbyNum.studyType}=='study'"> 스터디
-						
 				</div>
+				<br>
+				<div class="mb-3">
+					<label class="list-group-item" for="studyType">유형 </label>
+						<input class="form-check-input me-1" type="radio" name="studyType" value="project" th:checked="${postListbyNum.studyType}=='project'"> 프로젝트 <br>
+						<input class="form-check-input me-1" type="radio" name="studyType" value="study" th:checked="${postListbyNum.studyType}=='study'"> 스터디
+						
 				</div>
 					<br>
 
-				<div class="form-group">
-					<h4>
-						<label>지역</label>
-					</h4>
-					<div>
-						<select th:value="${postListbyNum.onoff}" name="onoff" class="form-control">
+				<div class="mb-3">
+					<label for="selectRegion">지역</label>
+						<select th:value="${postListbyNum.onoff}" name="onoff" class="form-select">
 							<option th:selected="${postListbyNum.onoff}=='무관'" value="무관">무관</option>
 							<option th:selected="${postListbyNum.onoff}=='온라인'" value="온라인">온라인</option>
 							<option th:selected="${postListbyNum.onoff}=='오프라인'" value="오프라인">오프라인</option>
 							<option th:selected="${postListbyNum.onoff}=='온라인 /오프라인 모두 가능'" value="온라인 /오프라인 모두 가능">온라인/오프라인 모두 가능</option>
 						</select>
-						<select th:value="${postListbyNum.region}" name="region" class="form-control">
+						<select th:value="${postListbyNum.region}" name="region" class="form-select">
 							<option th:selected="${postListbyNum.region}=='무관'" value="">무관</option>
 							<option th:selected="${postListbyNum.region}=='서울특별시'" value="서울특별시">서울특별시</option>
 							<option th:selected="${postListbyNum.region}=='경기도'" value="경기도">경기도</option>
 							<option th:selected="${postListbyNum.region}=='강원도'" value="강원도">강원도</option>
 						</select>
-					</div>
 				</div>
-    <h4>
-        <label for="memberRecruit">모집인원</label>
-    </h4>
+				<br>
+				<label for="recruitType">모집인원</label>
 				<div class="form-group recruitType">
     <div th:each="dto, idx : ${positionList}" class="memberRecruit">
 				<span th:text="${dto.positionNo}" class="positionNo" style="display: none"></span>
-				<select th:value="${dto.category}" class="form-control" id="category"  name="category">
+				<select th:value="${dto.category}" class="form-select" id="category"  name="category">
 					<option th:selected="${dto.category}=='기획자'" value="기획자">기획자</option>
 					<option th:selected="${dto.category}=='디자이너'" value="디자이너">디자이너</option>
 					<option th:selected="${dto.category}=='개발자'" value="개발자">개발자</option>
 				</select> 
-				<select th:value="${dto.recruitType}" class="form-control" id="recruitType"  name="recruitType">
+				<select th:value="${dto.recruitType}" class="form-select" id="recruitType"  name="recruitType">
 					<option th:selected="${dto.recruitType}=='게임 기획'" value="게임 기획">게임 기획</option>
 					<option th:selected="${dto.recruitType}=='서비스 기획'" value="서비스 기획">서비스 기획</option>
 					<option th:selected="${dto.recruitType}=='UX/UI 기획'" value="UX/UI 기획">UX/UI 기획</option>
@@ -440,72 +433,91 @@ $(document).ready(function() {
 				</select> 
             <!-- 버튼 -->
 				<div>
-                        <div id="mSize" align="right"> 
-						<input type="text" name="memberSize" value="1" class="memberSize">
-						<button type="button" class="down-btn btn-custom btn-custom-success">down</button>
-						<button type="button" class="up-btn btn-custom">up</button>
+                        <div class="input-group mb-3" id="mSize" align="right"> 
+						<input type="text" name="memberSize" value="1" class="form-control memberSize">
+						<button type="button" class="down-btn btn btn-outline-primary">down</button>
+						<button type="button" class="up-btn btn btn-outline-primary">up</button>
 						</div>
-			</div>
-            <br>
+			</div></div>
         </div>
-	</div>
         <div class="addSelect" align="right">
        <br> 
-                <button type="button" class="btn-custom btn-custom-success" id="add-btn">모집 포지션 추가</button>
-                <button type="button" class="btn-custom del-btn" id="del-btn">삭제</button>
-            </div>
-<br>
-				<div class="form-group">
-					<h4>
-						<label for="content">프로젝트 설명</label>
-					</h4>
-					<br>
-					<div class="form-group">
+                <button type="button" class="btn btn-primary" id="add-btn">모집인원 추가</button>
+                <button type="button" class="btn btn-secondary" id="del-btn">삭제</button>
+</div>							
+				<div class="mb-3">
+									<label for="content">프로젝트 설명</label>
 						<textarea class="form-control" rows="3" name="content"
 							th:value="${postListbyNum.content}" th:text="${postListbyNum.content}">
 							</textarea>
-					</div>
 				</div>
 
-				<div class="form-group">
-					<h4>
-						<label for="html5-date-input" >프로젝트 시작일</label>
-					</h4>
+				<div class="mb-3">
+									<label for="html5-date-input">프로젝트 시작일</label>
 
 						<input class="form-control" type="date" name="startDate"
 							id="html5-date-input" th:value="${postListbyNum.startDate}" />
 </div>
-				<div class="form-group">
-					<h4>
-						<label for="html5-date-input" >공고 마감일</label>
-					</h4>
+				<div class="mb-3">
+									<label for="html5-date-input">공고 마감일</label>
 						<input class="form-control" type="date" name="deadline"
 							id="html5-date-input" th:value="${postListbyNum.deadline}" />
 				</div>
 <br>
-				<div class="form-group">
-					<h4>
-						<label for="html5-tel-input" >연락처</label>
-					</h4>
-					<br>
+				<div class="mb-3">
+									<label for="html5-tel-input">연락처</label>
+									<div class="input-group">
+									  <span class="input-group-text">Korea (+82)</span>
 						<input class="form-control" type="text" name="contact"
 							id="html5-tel-input" th:value="${postListbyNum.contact}" />
 				</div>
 <br>
-				<div class="form-group" align="right">
-						<button type="reset" class="btn-custom">reset</button>
-						<input type="submit" value="수정완료"
-							class="btn-custom btn-custom-success">
+				<div class="mb-3" align="right">
+						<button type="reset" class="btn btn-secondary">reset</button>
+						<input onclick="alert('수정이 완료되었습니다.')" type="submit" value="수정완료" class="btn btn-primary">
 				</div>
 			</div>
 		</form>
 </div>
 	
-	<footer style="background-color: #f2f2f2; bottom: 0; width: 100%; left: 0;">
-        <div class="copyright text-center py-3">
-            <p class="m-0" style="font-size: 14px;">JoiNow</p>
-            <p class="m-0" style="font-size: 14px;">joinnow.co.kr</p>
-        </div>
-	</footer>
+	<!-- Footer -->
+                        <footer class="content-footer footer bg-footer-theme">
+                            <div
+                                class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                                <div class="mb-2 mb-md-0">
+                                    ©
+                                    <script>
+                                        document.write(new Date().getFullYear());
+                                    </script>
+                                    , made with ❤️ by
+                                    <a href="https://themeselection.com" target="_blank"
+                                        class="footer-link fw-medium">ThemeSelection</a>
+                                </div>
+                                <div class="d-none d-lg-inline-block">
+                                    <a href="https://themeselection.com/license/" class="footer-link me-4"
+                                        target="_blank">License</a>
+                                    <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More
+                                        Themes</a>
+
+                                    <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
+                                        target="_blank" class="footer-link me-4">Documentation</a>
+
+                                    <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+                                        target="_blank" class="footer-link">Support</a>
+                                </div>
+                            </div>
+                        </footer>
+                        <!-- / Footer -->
+
+                        <div class="content-backdrop fade"></div>
+                    </div>
+                    <!-- Content wrapper -->
+                </div>
+                <!-- / Layout page -->
+            </div>
+
+            <!-- Overlay -->
+            <div class="layout-overlay layout-menu-toggle"></div>
+        <!-- / Layout wrapper -->
 </body>
 </html>
