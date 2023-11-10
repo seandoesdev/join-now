@@ -130,7 +130,6 @@
             calendar.render();
 
             function addEvent(info) {
-                console.log([[${ scheduleId }]]);
 
                 $("#backDropModal").modal("show"); // modal 나타내기
 
@@ -447,7 +446,7 @@
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
-                <h3 class="mt-3" style="text-align: center;">일정표</h3>
+                <h4 class="py-3 mb-4 mt-3"><span class="text-muted fw-light" th:text="${teamDTO.teamName}"> </span> 's 일정표</h4>
                 <!-- 캘린더 표시 -->
                 <div id="calender-container">
                     <div id='calendar'></div>

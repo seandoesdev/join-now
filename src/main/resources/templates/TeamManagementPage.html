@@ -192,7 +192,7 @@
                                 data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
                                     <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                        alt class="w-px-40 h-auto rounded-circle" />
+                                        alt class="w-px-40 h-90 rounded-circle" />
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -202,7 +202,7 @@
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
                                                     <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                                        alt class="w-px-40 h-auto rounded-circle" />
+                                                        alt class="w-px-40 h-90 rounded-circle" />
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
@@ -245,7 +245,7 @@
 
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <h4 class="py-3 mb-4"><span class="text-muted fw-light" th:text="${teamDTO.teamName}"> </span>
-                            's 희의록</h4>
+                            's 팀 & 팀원 관리</h4>
                         <!-- Basic Bootstrap Table -->
                         <div class="card" style="margin: 0 auto; width: 33rem;">
                             <div class="table-responsive text-nowrap">
@@ -258,15 +258,39 @@
                                     </thead>
                                     <tbody class="table-border-bottom-0" th:each="userInfoDTO : ${memberList}">
                                         <tr>
-                                            <form th:action="@{/team/memberDelete/{teamId}/{userId}(teamId=${teamId}, userId=${userInfoDTO.id})}" method="post">
-                                                <td><p style="width: 7rem;" th:text="${userInfoDTO.nickname}">아이디</p></td>
+                                            <form
+                                                th:action="@{/team/memberDelete/{teamId}/{userId}(teamId=${teamId}, userId=${userInfoDTO.id})}"
+                                                method="post">
+                                                <td>
+                                                    <p style="width: 7rem;" th:text="${userInfoDTO.nickname}">아이디</p>
+                                                </td>
                                                 <input type="hidden" th:value="${userInfoDTO.nickname}" name="userId">
                                                 <input type="hidden" th:value="${teamId}" name="teamId">
-                                                <td><input th:if="${leader}" type="submit" value="추방" class="btn btn-primary border btn-sm"></td>
+                                                <td><input th:if="${leader}" type="submit" value="추방"
+                                                        class="btn btn-primary border btn-sm"></td>
                                             </form>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+
+                        <div class="container-xxl flex-grow-1 container-p-y card mt-5" 
+                        style="width: 33rem;">
+                            <h5 class="card-header">팀 삭제</h5>
+                            <div class="card-body">
+                                <div class="mb-3 col-12 mb-0">
+                                    <div class="alert alert-warning">
+                                        <h6 class="alert-heading mb-1">"경고: 팀 삭제 작업은 되돌릴 수 없습니다. 정말로 이 팀을 삭제하시겠습니까?
+                                        </h6>
+                                        <p class="mb-0">[확인]을 선택하면 팀과 관련된 모든 데이터가 삭제되며, 이 작업은 취소할 수 없습니다.
+                                            [취소]를 선택하여 삭제를 취소할 수 있습니다. 그럼에도 계속하시겠습니까?"</p>
+                                    </div>
+                                </div>
+                                <form action="team/teamDelete" method="post" style="float: right;">
+                                    <input type="hidden" th:value="${teamId}"/>
+                                    <button type="submit" class="btn btn-danger deactivate-account">팀 삭제</button>
+                                </form>
                             </div>
                         </div>
                         <!--/ Basic Bootstrap Table -->
