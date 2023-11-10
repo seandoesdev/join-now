@@ -24,7 +24,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 				
 		System.out.println("MyHandlerInterceptor.preHandle");
 		
-		return true;
+		return false;
 	}
 
 	@Override
