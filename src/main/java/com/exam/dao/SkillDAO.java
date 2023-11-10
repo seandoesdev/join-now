@@ -40,7 +40,7 @@ public class SkillDAO {
 	    return applyNo;
 	}
 	
-	public List<ApplyDTO> skillList(int applyNo) {
+	public List<SkillDTO> skillList(int applyNo) {
 		return session.selectList("SkillMapper.skillList",applyNo);
 	}
 	

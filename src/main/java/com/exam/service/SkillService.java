@@ -8,5 +8,5 @@ import com.exam.dto.SkillDTO;
 public interface SkillService {
 
 	public int skillAdd(ApplyDTO dto, List<SkillDTO> list);
-	public List<ApplyDTO> skillList(int applyNo);
+	public List<SkillDTO> skillList(int applyNo);
 }

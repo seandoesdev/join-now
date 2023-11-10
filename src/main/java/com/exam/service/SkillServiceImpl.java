@@ -18,15 +18,15 @@ public class SkillServiceImpl implements SkillService {
 
 
 	@Override
-	public List<ApplyDTO> skillList(int applyNo) {
-		return dao.skillList(applyNo);
+	@Transactional
+	public int skillAdd(ApplyDTO dto, List<SkillDTO> list) {
+		return dao.skillAdd(dto, list);
 	}
 
 
 	@Override
-	@Transactional
-	public int skillAdd(ApplyDTO dto, List<SkillDTO> list) {
-		return dao.skillAdd(dto, list);
+	public List<SkillDTO> skillList(int applyNo) {
+		return dao.skillList(applyNo);
 	}
 
 

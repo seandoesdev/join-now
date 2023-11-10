@@ -15,8 +15,8 @@ public class ApplyDTO {
 	
 	public ApplyDTO() {}
 
-	public ApplyDTO(int userid, String applyType, String contact, String content, int applyNo,
-			int postNo, String date) {
+	public ApplyDTO(int userid, String applyType, String contact, String content, int applyNo, int postNo,
+			String date) {
 		this.userid = userid;
 		this.applyType = applyType;
 		this.contact = contact;
@@ -41,7 +41,6 @@ public class ApplyDTO {
 	public void setApplyType(String applyType) {
 		this.applyType = applyType;
 	}
-
 
 	public String getContact() {
 		return contact;
@@ -88,6 +87,8 @@ public class ApplyDTO {
 		return "ApplyDTO [userid=" + userid + ", applyType=" + applyType + ", contact=" + contact
 				+ ", content=" + content + ", applyNo=" + applyNo + ", postNo=" + postNo + ", date=" + date + "]";
 	}
+	
+	
 		
 	
 }
