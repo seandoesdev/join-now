@@ -19,6 +19,7 @@ import com.exam.dto.AcceptPrintDTO;
 import com.exam.dto.ApplyDTO;
 import com.exam.dto.NotificationDTO;
 import com.exam.dto.PostDTO;
+import com.exam.dto.SkillDTO;
 import com.exam.dto.TeamDTO;
 import com.exam.dto.TeamMemberDTO;
 import com.exam.dto.UserInfoDTO;
@@ -26,6 +27,7 @@ import com.exam.service.AcceptService;
 import com.exam.service.ApplyService;
 import com.exam.service.NotificationService;
 import com.exam.service.PostService;
+import com.exam.service.SkillService;
 import com.exam.service.TeamService;
 import com.exam.service.UserService;
 
@@ -49,6 +51,9 @@ public class AcceptController {
 	
 	@Autowired
 	NotificationService notificationService;
+	
+	@Autowired
+	SkillService skillService;
 	
 	@GetMapping("/applyPage")
 	public String applyPage(Model m, HttpSession session) {
@@ -129,8 +134,12 @@ public class AcceptController {
 	@GetMapping("/applyRetrieve")
 	public String applyRetrieve(Model m, int applyNo){
 		ApplyDTO dto = applyService.selectOne(applyNo);
+		List<SkillDTO> skillList = skillService.skillList(dto.getApplyNo());
+		
 		m.addAttribute("applyDTO", dto);		
 		m.addAttribute("UserInfoDTO", userService.selectAllById(dto.getUserid()));
+		m.addAttribute("skillList",skillList);
+		
 		return "applyRetrieve";
 	}
 	
