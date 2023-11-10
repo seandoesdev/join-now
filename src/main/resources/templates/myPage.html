@@ -187,7 +187,7 @@ body {
 							href="javascript:void(0);" data-bs-toggle="dropdown">
 								<div class="avatar avatar-online">
 									<img
-										src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
+										th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${UserInfoDTO.username} + '.jpg'}"
 										alt class="w-px-40 h-auto rounded-circle" />
 								</div>
 						</a>
@@ -197,7 +197,7 @@ body {
 											<div class="flex-shrink-0 me-3">
 												<div class="avatar avatar-online">
 													<img
-														src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
+														th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${UserInfoDTO.username} + '.jpg'}"
 														alt class="w-px-40 h-auto rounded-circle" />
 												</div>
 											</div>
