@@ -224,19 +224,21 @@
 						
 												<div class="mb-3 col-md-6">
 													<label for="skills" class="form-label"><b>보유 기술</b></label><br>
-													<p class="skills" th:text="${applyDTO.skills}" /p>
+													<th:block th:each="skillDTO : ${skillList}">
+														<span class="skills" th:text="${skillDTO.skill}" style="margin-right:2px;"/>
+													</th:block>
 												</div>
 												
 						
 												<div class="mb-3 col-md-6">
 													<label for="phone" class="form-label" ><b>연락처</b></label>
-													<p class="phone" th:text="${applyDTO.contact}" /p>
+													<p class="phone" th:text="${applyDTO.contact}" />
 												</div>
 																								
 												<!-- 한 줄 소개 -->
 												<div class="mb-3 col-md-6">
 													<label for="intro" class="form-label"><b>지원자 소개</b></label> 
-													<p class="intro" th:text="${applyDTO.content}" /p>
+													<p class="intro" th:text="${applyDTO.content}" />
 												</div>
 											</ul>					
 										</div>

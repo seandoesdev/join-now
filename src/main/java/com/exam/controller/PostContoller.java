@@ -26,6 +26,7 @@ import com.exam.dto.CommentDTO;
 import com.exam.dto.NotificationDTO;
 import com.exam.dto.PositionDTO;
 import com.exam.dto.PostDTO;
+import com.exam.dto.SkillDTO;
 import com.exam.dto.TeamDTO;
 import com.exam.dto.TeamMemberDTO;
 import com.exam.dto.UserInfoDTO;
@@ -35,6 +36,7 @@ import com.exam.service.CommentService;
 import com.exam.service.NotificationService;
 import com.exam.service.PositionService;
 import com.exam.service.PostServiceImpl;
+import com.exam.service.SkillService;
 import com.exam.service.TeamService;
 
 @Controller
@@ -60,6 +62,9 @@ public class PostContoller {
 	
 	@Autowired
 	NotificationService notificationService;
+	
+	@Autowired
+	SkillService skillService;
 	
 	@GetMapping("/postMain")
 	public String main(Model m) {
@@ -118,8 +123,9 @@ public class PostContoller {
 		TeamDTO teamDTO = new TeamDTO();
 		teamDTO.setPostNo(n);
 		teamDTO.setUserId(userInfoDTO.getId());
+		teamDTO.setTeamName(dto.getTitle()); // 초기 팀이름 -> 프로젝트 이름
 		int n2 = teamService.teamAdd(teamDTO);
-		
+				
 				
 		TeamMemberDTO teamMemberDTO = new TeamMemberDTO();
 		teamMemberDTO.setTeamId(teamDTO.getTeamId());
@@ -132,13 +138,13 @@ public class PostContoller {
 //		int postNo = dto.getPostNo();
 //		positionService.positionAdd(postNo, dto, dto2);
 //		ResponseEntity.ok("Data inserted successfully.");
-
 		return "redirect:main";
 	}
 
 	// 게시글 자세히보기 화면
 	@GetMapping("/retrieve")
 	public String postRetrieve(Model m, @RequestParam int postNo,HttpSession session, HttpServletRequest request) {
+		session = request.getSession();
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		int LoggedInId = userInfoDTO.getId(); //로그인한 아이디
 		List<PostDTO> list = service.postList();
@@ -151,7 +157,6 @@ public class PostContoller {
 		m.addAttribute("positionList", positionList);
 		request.setAttribute("LoggedInId", LoggedInId);
 		request.setAttribute("author", author);
-		System.out.println("retrieve:"+postDTO);
 		return "retrieve";
 	}
 
@@ -164,7 +169,6 @@ public class PostContoller {
 		m.addAttribute("postListbyNum", dto);
 		m.addAttribute("postList", list);
 		m.addAttribute("positionList", positionList);
-		System.out.println("updateUI:" + dto);
 		return "updateForm";
 
 	}
@@ -211,15 +215,25 @@ public class PostContoller {
 
 	// 지원하기 화면
 	@PostMapping("/apply")
-	public String postApply(ApplyDTO dto, HttpSession session, int postNo) {
+	public String postApply(ApplyDTO dto, SkillDTO dto2, HttpSession session, int postNo) {
 		PostDTO postDTO = service.postListbyNo(postNo);
-		System.out.println("apply:" + postDTO);
 
+		System.out.println("apply:"+dto);
 		// apply 테이블 정보 저장
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		dto.setUserid(userInfoDTO.getId());
-		int n = applyService.applyAdd(dto);
-		System.out.println("*************" + dto.getApplyNo());
+		
+		// List로 반환된 skill정보를 split함
+		// applyNo는 값 없음.
+		List<SkillDTO> list = skillSplit(dto2);
+		// post & position 삽입
+		// split한 데이터 insert
+		dto.setUserid(userInfoDTO.getId());
+		int n = skillService.skillAdd(dto, list);
+		dto.setPostNo(postNo);
+		dto.setApplyNo(n);
+//		int n = applyService.applyAdd(dto);
+//		System.out.println("*************" + dto.getApplyNo());
 
 		// accept 테이블 정보 저장
 		AcceptDTO acceptDTO = new AcceptDTO();
@@ -231,7 +245,6 @@ public class PostContoller {
 		System.out.println(acceptDTO);
 		int n2 = acceptService.acceptAdd(acceptDTO);
 
-
 		// 알림 전송
 		NotificationDTO notificationDTO = new NotificationDTO();
 		notificationDTO.setSendId(dto.getUserid()); // 신청자
@@ -240,9 +253,8 @@ public class PostContoller {
 		notificationDTO.setPostId(postDTO.getPostNo()); // 공고 정보
 		
 		notificationService.notificationAdd(notificationDTO);
-
 		return "redirect:main";
-
+		
 	}
 
 	// position data split method
@@ -265,6 +277,20 @@ public class PostContoller {
 
 		return list;
 	}
+	
+	public List<SkillDTO> skillSplit(SkillDTO dto) {
+	    List<SkillDTO> list = new ArrayList<>();
+	    int applyNo = dto.getApplyNo();
+	    
+	    String[] skillSplit = dto.getSkill().split(",");
+
+	    for (String skill : skillSplit) {
+	        SkillDTO skillDTO = new SkillDTO(applyNo, skill);
+	        list.add(skillDTO);
+	    }
+	    return list;
+	}
+
 
 	// 페이지별 댓글 출력
 	@GetMapping("/commentList")

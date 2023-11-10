@@ -9,6 +9,7 @@ public class PositionDTO {
 	String category;
 	String recruitType;
 	String memberSize;
+	int positionNo;
 	
 	public PositionDTO() {}
 
@@ -21,6 +22,15 @@ public class PositionDTO {
 		this.category = category;
 		this.recruitType = recruitType;
 		this.memberSize = memberSize;
+	}
+	
+
+	public int getPositionNo() {
+		return positionNo;
+	}
+
+	public void setPositionNo(int positionNo) {
+		this.positionNo = positionNo;
 	}
 
 	public int getPostNo() {
@@ -58,7 +68,7 @@ public class PositionDTO {
 	@Override
 	public String toString() {
 		return "PositionDTO [postNo=" + postNo + ", category=" + category + ", recruitType=" + recruitType
-				+ ", memberSize=" + memberSize + "]";
+				+ ", memberSize=" + memberSize + ", positionNo=" + positionNo + "]";
 	}
 	
 
