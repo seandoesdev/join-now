@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +35,7 @@ public class IndexController {
 	@GetMapping({ "", "/app" })
 	public String index(
 			Authentication authentication, @AuthenticationPrincipal PrincipalDetails userDetails,
-			HttpSession session){
+			HttpSession session, Model m){
 		
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         System.out.println("authentication:" + principalDetails.getUser());
@@ -45,6 +46,7 @@ public class IndexController {
         System.out.println(dto);
         
         session.setAttribute("loginInfo", dto);
+        m.addAttribute("UserInfo", dto);
 		
         if(dto.getNickname()==null) {
         	service.updateNickname(dto);
