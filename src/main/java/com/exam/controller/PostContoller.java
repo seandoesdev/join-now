@@ -123,7 +123,7 @@ public class PostContoller {
 		TeamDTO teamDTO = new TeamDTO();
 		teamDTO.setPostNo(n);
 		teamDTO.setUserId(userInfoDTO.getId());
-		teamDTO.setTeamName(userInfoDTO.getUsername()+"팀"); // 초기 팀이름 -> 작성자의 팀
+		teamDTO.setTeamName(dto.getTitle()); // 초기 팀이름 -> 프로젝트 이름
 		int n2 = teamService.teamAdd(teamDTO);
 				
 				
