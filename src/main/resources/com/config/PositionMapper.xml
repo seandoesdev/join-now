@@ -5,7 +5,7 @@
 <mapper namespace="PositionMapper">
 
 	<select id="positionList" resultType="PositionDTO" parameterType="int">
-		select postNo,category,recruitType,memberSize
+		select positionNo,postNo,category,recruitType,memberSize
 		from position
 		where postNo=#{postNo}
 	</select>
