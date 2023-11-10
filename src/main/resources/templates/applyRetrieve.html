@@ -225,7 +225,7 @@
 												<div class="mb-3 col-md-6">
 													<label for="skills" class="form-label"><b>보유 기술</b></label><br>
 													<th:block th:each="skillDTO : ${skillList}">
-														<p class="skills" th:text="${skillDTO.skill}" />
+														<span class="skills" th:text="${skillDTO.skill}" style="margin-right:2px;"/>
 													</th:block>
 												</div>
 												
