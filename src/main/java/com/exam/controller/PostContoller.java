@@ -230,6 +230,7 @@ public class PostContoller {
 		dto.setUserid(userInfoDTO.getId());
 		int n = skillService.skillAdd(dto, list);
 		dto.setPostNo(postNo);
+		dto.setApplyNo(n);
 //		int n = applyService.applyAdd(dto);
 //		System.out.println("*************" + dto.getApplyNo());
 
