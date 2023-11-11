@@ -55,6 +55,9 @@ public class ProjTeamController {
   
   @Autowired
   private UserService userService;
+  
+  @Autowired
+  ObjectStorageService storageService;
 
   // 팀정보
   @GetMapping("/{teamId}")
@@ -85,7 +88,7 @@ public class ProjTeamController {
     model.addAttribute("userInfo", userInfoDTO);
     
     
-    return "infoRetrieve";
+    return "introRetrieve";
   }
   
   // 팀 소개 수정 작업

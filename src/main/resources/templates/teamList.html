@@ -4,44 +4,71 @@
     data-theme="theme-default" data-template="vertical-menu-template-free">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta charset="UTF-8">
+<title>팀</title>
+<!-- UI 수정 -->
+	<!--     <title>Joinow</title> -->
 
-    <!--     <title>Joinow</title> -->
+	<meta name="description" content="" />
 
-    <meta name="description" content="" />
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="resources/static/assets/img/favicon/favicon.ico" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="resources/static/assets/img/favicon/favicon.ico" />
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+		rel="stylesheet" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet" />
+	<link rel="stylesheet" href="resources/static/assets/vendor/fonts/boxicons.css" />
 
-    <link rel="stylesheet" href="resources/static/assets/vendor/fonts/boxicons.css" />
+	<!-- Core CSS -->
+	<link rel="stylesheet" th:href="@{resources/static/assets/vendor/css/core.css}"
+		class="template-customizer-core-css" />
+	<link rel="stylesheet" th:href="@{resources/static/assets/vendor/css/theme-default.css}"
+		class="template-customizer-theme-css" />
+	<link rel="stylesheet" th:href="@{resources/static/assets/css/demo.css}" />
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" th:href="@{resources/static/assets/vendor/css/core.css}"
-        class="template-customizer-core-css" />
-    <link rel="stylesheet" th:href="@{resources/static/assets/vendor/css/theme-default.css}"
-        class="template-customizer-theme-css" />
-    <link rel="stylesheet" th:href="@{resources/static/assets/css/demo.css}" />
+	<!-- Vendors CSS -->
+	<link rel="stylesheet" href="resources/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+	<link rel="stylesheet" href="resources/static/assets/vendor/libs/apex-charts/apex-charts.css" />
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="resources/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="resources/static/assets/vendor/libs/apex-charts/apex-charts.css" />
+	<!-- Page CSS -->
 
-    <!-- Page CSS -->
+	<!-- Helpers -->
+	<script src="resources/static/assets/vendor/js/helpers.js"></script>
+	<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+	<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+	<script src="resources/static/assets/js/config.js"></script>
+	<!-- Core JS -->
+	<!-- build:js assets/vendor/js/core.js -->
 
-    <!-- Helpers -->
-    <script src="resources/static/assets/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="resources/static/assets/js/config.js"></script>
+	<script src="resources/static/assets/vendor/libs/jquery/jquery.js"></script>
+	<script src="resources/static/assets/vendor/libs/popper/popper.js"></script>
+	<script src="resources/static/assets/vendor/js/bootstrap.js"></script>
+	<script src="resources/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+	<script src="resources/static/assets/vendor/js/menu.js"></script>
+
+	<!-- endbuild -->
+
+	<!-- Vendors JS -->
+	<script src="resources/static/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+	<!-- Main JS -->
+	<script src="resources/static/assets/js/main.js"></script>
+
+	<!-- Page JS -->
+	<script src="resources/static/assets/js/dashboards-analytics.js"></script>
+
+	<!-- Place this tag in your head or just before your close body tag. -->
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+	<!--/ UI 수정 -->
+</head>
+
+<body>
+	
 </head>
 
 <body>
@@ -105,6 +132,7 @@
                         <i class="bx bx-chevron-left bx-sm align-middle"></i>
                     </a>
                 </div>
+<<<<<<< HEAD
 
                 <div class="menu-inner-shadow"></div>
 
@@ -192,8 +220,7 @@
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
-                		
-                		<div class="container-xxl flex-grow-1 container-p-y">
+	<div class="container-xxl flex-grow-1 container-p-y">
                 		<h3 class="py-3 mb-4">나의 모집</h3>
                 		<div class="col-md-12">
 								<ul class="nav nav-pills flex-column flex-md-row mb-3">
@@ -216,108 +243,74 @@
 										
 								</ul>
 						</div>
-                		
-                		<!-- table -->
-                		
-                		<div class="container-xxl card">
-							<div class="table-card-table" style="margin-top:4px;">
-							  <table class="table table-striped">
-							    <thead>
-							      <tr>
-				                    <th>팀 이름</th>
-				                    <th>팀장 이름</th>
-				                    <th>팀 주제</th>
-							      </tr>
-							    </thead>
-							    <tbody>
-							     <th:block th:each="teamPrintDTO : ${teamList}">
-							      <tr>
-							        <td> 
-										<a class="fw-medium" style="text-decoration: none; color: #697A8D;" th:href="'team/'+${teamPrintDTO.teamDTO.teamId}" th:text="${teamPrintDTO.teamDTO.teamName}">							        
-							        </td>
-							        <td>
-										<a class="fw-medium" style="text-decoration: none; color: #697A8D;" th:href="'team/'+${teamPrintDTO.teamDTO.teamId}" th:text="${teamPrintDTO.userInfoDTO.nickname}">
-									</td>
-							        <td>
-							        	<a class="fw-medium" style="text-decoration: none; color: #697A8D;" th:href="'team/'+${teamPrintDTO.teamDTO.teamId}" th:text="${teamPrintDTO.teamDTO.teamSubject}">
-							        </td>
-							        							        
-							      </tr>
-							     </th:block>
-							    </tbody>
-							  </table>
+	<!-- 리스트 -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+      <h3 class="py-3 mb-4">팀 관리</h3>
+      
+      
+	    <div class="container-xxl card">
+	    <div class="table-card-table" style="margin-top:4px;">
+		<table class="table table-striped">
+	            <thead>
+	                <tr>
+	                    <th style='font-weight: bold; font-size: 18px;'>팀 이름</th>
+	                    <th style='font-weight: bold; font-size: 18px;'>팀장 이름</th>
+	                    <th style='font-weight: bold; font-size: 18px;'>팀 주제</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <th:block th:each="teamPrintDTO : ${teamList}">
+	                
+	                    <tr>
+	                        <td >
+	                        	<a style="text-decoration: none; color: #697A8D;" th:href="'team/'+${teamPrintDTO.teamDTO.teamId}" th:text="${teamPrintDTO.teamDTO.teamName!= null ?teamPrintDTO.teamDTO.teamName:'팀명 미지정'}">
+	                        </td>
+	                        <td >
+	                        	<a style="text-decoration: none; color: #697A8D;" th:href="'team/'+${teamPrintDTO.teamDTO.teamId}" th:text="${teamPrintDTO.userInfoDTO.nickname}">
+	                        </td>
+	                        <td >
+	                        	<a style="text-decoration: none; color: #697A8D;" th:href="'team/'+${teamPrintDTO.teamDTO.teamId}" th:text="${teamPrintDTO.teamDTO.teamSubject!=null ?teamPrintDTO.teamDTO.teamSubject:'팀 주제 미지정'}">
+	                        </td>
+	                    </tr>
+					   
+	                </th:block>
+	
+	            </tbody>
+	        </table>
+	    </div>
+	    </div>
+	    </div>
+	<!-- 리스트 end -->
+	
+	
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Footer -->
+					<footer class="mb-3 content-footer footer bg-footer-theme">
+						<div
+							class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+							<div class="mb-2 mb-md-0">
+								©
+								<script>
+									document.write(new Date().getFullYear());
+								</script>
+								, made with ❤️ by <a href="https://themeselection.com" target="_blank"
+									class="footer-link fw-medium">ThemeSelection</a>
+							</div>
+							<div class="d-none d-lg-inline-block">
+								<a href="https://themeselection.com/license/" class="footer-link me-4"
+									target="_blank">License</a> <a href="https://themeselection.com/" target="_blank"
+									class="footer-link me-4">More Themes</a> <a
+									href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
+									target="_blank" class="footer-link me-4">Documentation</a> <a
+									href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+									target="_blank" class="footer-link">Support</a>
 							</div>
 						</div>
-                		<!-- /table -->
-						</div>
-	
-	
-						
+					</footer>
+					<!-- / Footer -->
 
-                        <!-- Footer -->
-                        <footer class="content-footer footer bg-footer-theme">
-                            <div
-                                class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                                <div class="mb-2 mb-md-0">
-                                    ©
-                                    <script>
-                                        document.write(new Date().getFullYear());
-                                    </script>
-                                    , made with ❤️ by
-                                    <a href="https://themeselection.com" target="_blank"
-                                        class="footer-link fw-medium">ThemeSelection</a>
-                                </div>
-                                <div class="d-none d-lg-inline-block">
-                                    <a href="https://themeselection.com/license/" class="footer-link me-4"
-                                        target="_blank">License</a>
-                                    <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More
-                                        Themes</a>
-
-                                    <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                                        target="_blank" class="footer-link me-4">Documentation</a>
-
-                                    <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                                        target="_blank" class="footer-link">Support</a>
-                                </div>
-                            </div>
-                        </footer>
-                        <!-- / Footer -->
-
-                        <div class="content-backdrop fade"></div>
-                    </div>
-                    <!-- Content wrapper -->
-                </div>
-                <!-- / Layout page -->
-            </div>
-
-            <!-- Overlay -->
-            <div class="layout-overlay layout-menu-toggle"></div>
-        </div>
-        <!-- / Layout wrapper -->
-
-
-        <!-- Core JS -->
-        <!-- build:js assets/vendor/js/core.js -->
-
-        <script src="resources/static/assets/vendor/libs/jquery/jquery.js"></script>
-        <script src="resources/static/assets/vendor/libs/popper/popper.js"></script>
-        <script src="resources/static/assets/vendor/js/bootstrap.js"></script>
-        <script src="resources/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-        <script src="resources/static/assets/vendor/js/menu.js"></script>
-
-        <!-- endbuild -->
-
-        <!-- Vendors JS -->
-        <script src="resources/static/assets/vendor/libs/apex-charts/apexcharts.js"></script>
-
-        <!-- Main JS -->
-        <script src="resources/static/assets/js/main.js"></script>
-
-        <!-- Page JS -->
-        <script src="resources/static/assets/js/dashboards-analytics.js"></script>
-
-        <!-- Place this tag in your head or just before your close body tag. -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 
 </html>

@@ -144,7 +144,7 @@
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                         data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
+                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfoDTO.username} + '.jpg'}"
                                                 alt class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
@@ -205,11 +205,11 @@
                     <div class="card-body">
                     <!-- 프로필 사진 -->                   
         <form action="upload" method="post" enctype="multipart/form-data">
-		 ✨ 유저 아이디 ✨<br>👉 <input type="text" name="theText" th:value="${userInfoDTO.username}" readonly>
 		<br><hr>
 			
-		📸 <input type="file" name="theFile"><br>
-                        ✅ <input type="submit" value="업로드">
+		프로필 사진 설정 <br/>
+		📸<input type="file" name="theFile"><br>
+                    ✅ <input type="submit" value="업로드">
 			
 		</form>
                         <div class="button-wrapper">
@@ -226,10 +226,7 @@
                             <span class="d-none d-sm-block">업로드</span>
                           </button> -->
 
-                          <br><p class="text-muted mb-0">.jpg 파일만 업로드 가능합니다!</p>
-                        </div>
-			프로필 사진 선택 *(.jpg 파일만 업로드 가능합니다.)<br><input type="file" name="theFile"><br>
-			<input type="submit" value="업로드">
+                       
 		</form>
                       </div>
                     

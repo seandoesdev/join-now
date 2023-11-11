@@ -119,6 +119,22 @@ public class MyPgContoller {
 		String theText = dto.getTheText();
 		MultipartFile theFile = dto.getTheFile();
 		
+		//////////파일 없으면 생성////////////
+		String folderPath = "C:\\upload";
+        File folder = new File(folderPath);
+        if (!folder.exists()) {
+            boolean created = folder.mkdirs();
+            if (created) {
+                System.out.println("폴더가 생성되었습니다.");
+            } else {
+                System.out.println("폴더 생성에 실패했습니다.");
+            }
+        } else {
+            System.out.println("이미 폴더가 존재합니다.");
+        }
+        //////////파일 없으면 생성/////////////
+		
+		
 		//파일정보
 		long size = theFile.getSize();
 		String name = theFile.getName();
