@@ -186,7 +186,8 @@ body {
 							href="javascript:void(0);" data-bs-toggle="dropdown">
 								<div class="avatar avatar-online">
 									<img
-										th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${UserInfoDTO.username} + '.jpg'}"
+										th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${UserInfoDTO.username} + '.jpg'}" 
+										onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/default.jpg';" 
 										alt class="w-px-40 h-auto rounded-circle" />
 								</div>
 						</a>
@@ -197,6 +198,7 @@ body {
 												<div class="avatar avatar-online">
 													<img
 														th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${UserInfoDTO.username} + '.jpg'}"
+														onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/default.jpg';" 
 														alt class="w-px-40 h-auto rounded-circle" />
 												</div>
 											</div>
@@ -263,6 +265,7 @@ body {
 										<center>
 											<img
 												th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${mypgDTO.username} + '.jpg'}"
+												onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/default.jpg';" 
 												class="img-thumbnail" style="width: 10%" /><br> 닉네임:
 											<p class="nickname" th:text="${mypgDTO.nickname}" /p>
 										</center>
