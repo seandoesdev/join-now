@@ -448,7 +448,7 @@
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                         data-bs-toggle="dropdown">
                                         <div class="avatar">
-                                            <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
+                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
                                                 alt class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
@@ -465,8 +465,8 @@
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                         data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                                alt class="w-px-40 h-auto rounded-circle" />
+                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+                                                alt class="w-px-40 h-90 rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -474,8 +474,8 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                                                alt class="w-px-40 h-auto rounded-circle" />
+                                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+                                                                alt class="w-px-40 h-90 rounded-circle" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -686,34 +686,3 @@
                                     </div>
                                 </div>
                             </form>
-                            <!--/ 새로운 UI적용 모달 -->
-
-                            <!-- 여기서부터 지원하기 modal 구현 -->
-                            <!-- 지원하기 끝 -->
-                            <!-- 댓글기능 시작 -->
-                            <div class="container comment mt-3">
-                                <h4 class="mb-4">댓글 작성</h4>
-                                <h5 class="mb-4">Leave a comment!</h5>
-                                <p class="form-control" id="commentResult"></p>
-                                <div class="mb-3">
-                                    <textarea class="form-control" placeholder="Add your comment..." name="content"
-                                        id="commentContent"></textarea><br>
-                                    <button type="submit" class="btn btn-primary" id="comment-btn">댓글저장</button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 댓글기능 끝 -->
-
-                        <div class="content-backdrop fade"></div>
-                    </div>
-                    <!-- Content wrapper -->
-                </div>
-                <!-- / Layout page -->
-            </div>
-
-            <!-- Overlay -->
-            <div class="layout-overlay layout-menu-toggle"></div>
-            <!-- / Layout wrapper -->
-</body>
-
-</html>

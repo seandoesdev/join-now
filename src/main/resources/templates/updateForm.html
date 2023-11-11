@@ -284,8 +284,8 @@ $(document).ready(function() {
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                         data-bs-toggle="dropdown">
                                         <div class="avatar">
-                                            <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                                alt class="w-px-40 h-auto rounded-circle" />
+                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+                                                alt class="w-px-40 h-90 rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -301,8 +301,8 @@ $(document).ready(function() {
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                         data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                                alt class="w-px-40 h-auto rounded-circle" />
+                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+                                                alt class="w-px-40 h-90 rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -310,8 +310,8 @@ $(document).ready(function() {
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                                                alt class="w-px-40 h-auto rounded-circle" />
+                                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+                                                                alt class="w-px-40 h-90 rounded-circle" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
