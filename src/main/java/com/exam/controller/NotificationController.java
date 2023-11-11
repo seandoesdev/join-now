@@ -31,6 +31,11 @@ public class NotificationController {
 	public String notification(Model m, HttpSession session) {
 		// 로그인 정보 -> 수신자
 		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
+		// 세션에서 id값 받아오기
+		int id = userInfoDTO.getId();
+		// 현재 로그인된 id에 해당하는 정보 받아와서 출력
+		UserInfoDTO info = userSerivce.selectAllById(id);
+		m.addAttribute("userInfoDTO", info);
 		
 		List<NotificationDTO> notificationList = notificationService.selectListById(userInfoDTO.getId());
 				

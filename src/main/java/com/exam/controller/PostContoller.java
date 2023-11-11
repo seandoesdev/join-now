@@ -38,12 +38,16 @@ import com.exam.service.PositionService;
 import com.exam.service.PostServiceImpl;
 import com.exam.service.SkillService;
 import com.exam.service.TeamService;
+import com.exam.service.UserService;
 
 @Controller
 public class PostContoller {
 
 	@Autowired
 	PostServiceImpl service;
+	
+	@Autowired
+	UserService userService;
 
 	@Autowired
 	ApplyService applyService;
@@ -351,7 +355,13 @@ public class PostContoller {
 	// 작성자가 작성한 게시물 리스트 출력
 	@GetMapping("/writeList")
 	public String writeList(Model m, HttpSession session) {
-		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+		// 로그인 정보 -> 수신자
+		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
+		// 세션에서 id값 받아오기
+		int id = userInfoDTO.getId();
+		// 현재 로그인된 id에 해당하는 정보 받아와서 출력
+		UserInfoDTO info = userService.selectAllById(id);
+		m.addAttribute("userInfoDTO", info);
 		int userId = userInfoDTO.getId();
 		
 		m.addAttribute("writeList", service.postListbyId(userId));

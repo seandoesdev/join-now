@@ -144,7 +144,7 @@
                                         data-bs-toggle="dropdown">
                                         <div class="avatar">
                                             <img src="https://kr.object.ncloudstorage.com/team1-bucket/default.jpg"
-                                                alt class="w-px-40 h-auto rounded-circle" />
+                                                alt class="w-px-40 h-90 rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -163,7 +163,7 @@
                                         data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
                                             <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
-                                                alt class="w-px-40 h-auto rounded-circle" />
+                                                alt class="w-px-40 h-90 rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -173,7 +173,7 @@
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
                                                             <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
-                                                                alt class="w-px-40 h-auto rounded-circle" />
+                                                                alt class="w-px-40 h-90 rounded-circle" />
                                                         </div>
                                                     </div>
                                                     
@@ -260,9 +260,7 @@
                                             alt="Card image cap" style="max-width: 100%;" />
                                         <div class="card-body">
                                             <h5 class="card-title" th:text="${postDTO.title}">Card title</h5>
-                                            <p class="card-text">
-                                                Some quick example text to build on the card title and make up the bulk
-                                                of the card's content.
+                                            <p class="card-text" th:text=${postDTO.content}>
                                             </p>
                                         </div>
                                     </div>
