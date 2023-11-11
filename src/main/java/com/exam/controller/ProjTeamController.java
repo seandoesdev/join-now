@@ -148,7 +148,7 @@ public String teamupload(@PathVariable int teamId, UploadDTO dto, Model m, HttpS
 
     
     // 클라우드에 저장
-//    storageService.upload(teamProfileName, "c:\\upload\\"+teamProfileName);
+    storageService.upload(teamProfileName, "c:\\upload\\"+teamProfileName);
     
     // 파일 삭제
     String filePath = "c:\\upload\\"+teamProfileName;
