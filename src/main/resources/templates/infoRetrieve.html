@@ -122,7 +122,6 @@
                                 </path>
                             </svg>
                             <div data-i18n="main">&nbsp Main</div>
-                            <div class="badge bg-danger rounded-pill ms-auto">5</div>
                         </a>
                     </li>
 
@@ -193,7 +192,7 @@
                                 data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
                                     <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                        alt class="w-px-40 h-auto rounded-circle" />
+                                        alt class="w-px-40 h-90 rounded-circle" />
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -203,13 +202,13 @@
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
                                                     <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                                        alt class="w-px-40 h-auto rounded-circle" />
+                                                        alt class="w-px-40 h-90 rounded-circle" />
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
                                                 <span class="fw-medium d-block"
-                                                    th:text=${session.loginInfo.nickname}>John Doe</span>
-                                                <small class="text-muted">Admin</small>
+                                                    th:text=${session.loginInfo.nickname}></span>
+                                                <small class="text-muted">Online</small>
                                             </div>
                                         </div>
                                     </a>
@@ -252,25 +251,27 @@
                                     <div class="d-flex align-items-start align-items-sm-center gap-4">
                                         <th:switch="${teamDTO.teamLogo}">
                                             <th:case="">
-                                                <img th:src="@{/resources/static/assets/img/avatars/1.png}"
+                                                <img th:src="@{https://kr.object.ncloudstorage.com/team1-bucket/default.jpg}"
                                                     alt="user-avatar" class="d-block rounded" height="100" width="100"
                                                     id="uploadedAvatar" style="margin-bottom: 20px;" />
                                                 </th:case>
-                                                <th:case th:unless="${teamDTO.teamLogo != ''}">
-                                                    <img th:src="${teamDTO.teamLogo}" alt="user-avatar"
-                                                        class="d-block rounded" height="100" width="100"
-                                                        id="uploadedAvatar" style="margin-bottom: 20px;" />
+                                                <th:case th:unless="${teamDTO.teamLogo == ''}">
+                                                    <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${teamDTO.teamId} + '.jpg'}"
+                                                         class="d-block rounded"
+                                                         height="100" width="100"
+                                                         style="margin-bottom: 20px;"/>
                                                 </th:case>
                                                 </th:switch>
-
-                                                <div class="button-wrapper">
-                                                    <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                                        <span class="d-none d-sm-block">사진 업로드</span>
-                                                        <i class="bx bx-upload d-block d-sm-none"></i>
-                                                        <input type="file" id="upload" class="account-file-input" hidden
-                                                            accept="image/png, image/jpeg" />
-                                                    </label>
-                                                    <p class="text-muted mb-0">※ JPG 파일 / 최대 용량 500K 가능합니다.</p>
+                                                <div class="input-group">
+                                                    <!-- File Upload Form -->
+                                                    <form th:action="@{'/team/teamupload/' + ${teamId}}" method="post"
+                                                        enctype="multipart/form-data">
+                                                        <div class="input-group">
+                                                            <button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon03">업로드</button>
+                                                            <input type="file" class="form-control" name="theFile" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
+                                                          </div>
+                                                    </form>
+                                                    
                                                 </div>
                                     </div>
                                 </div>
@@ -303,10 +304,14 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="period" class="col-md-2 col-form-label"
-                                                style="font-size: 20px;">일정</label>
+                                                style="font-size: 20px;">기간</label>
                                             <div class="col-md-10">
+                                                <label for="plan" class="form-label" style="font-size: 15px;">프로젝트
+                                                    시작</label>
                                                 <input class="form-control" type="date" value="2023-11-01"
                                                     id="period-1" />
+                                                <label for="plan" class="form-label mt-2" style="font-size: 15px;">프로젝트
+                                                    끝</label>
                                                 <input class="form-control" type="date" value="2023-11-02"
                                                     id="period-2" />
                                             </div>
@@ -324,34 +329,7 @@
                     <!-- / Content -->
 
 
-                    <!-- Footer -->
-                    <footer class="content-footer footer bg-footer-theme">
-                        <div
-                            class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                            <div class="mb-2 mb-md-0">
-                                ©
-                                <script>
-                                    document.write(new Date().getFullYear());
-                                </script>
-                                , made with ❤️ by
-                                <a href="https://themeselection.com" target="_blank"
-                                    class="footer-link fw-medium">ThemeSelection</a>
-                            </div>
-                            <div class="d-none d-lg-inline-block">
-                                <a href="https://themeselection.com/license/" class="footer-link me-4"
-                                    target="_blank">License</a>
-                                <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More
-                                    Themes</a>
-
-                                <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                                    target="_blank" class="footer-link me-4">Documentation</a>
-
-                                <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                                    target="_blank" class="footer-link">Support</a>
-                            </div>
-                        </div>
-                    </footer>
-                    <!-- / Footer -->
+                  
 
                     <div class="content-backdrop fade"></div>
                 </div>

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.amazonaws.auth.SdkClock.Instance;
 import com.exam.dto.MeetingDTO;
 import com.exam.dto.MeetingPageDTO;
@@ -79,11 +78,14 @@ public class ProjTeamController {
   
   // 팀 소개 수정 페이지
   @GetMapping("/update/{teamId}")
-  public String infoRetrieve(@PathVariable int teamId, Model model) {
+  public String infoRetrieve(@PathVariable int teamId, Model model, HttpSession session) {
     log.info("info retrieve works");
+    
+    UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     TeamDTO teamDTO = teamService.selectByTeamId(teamId);
     
     model.addAttribute("teamDTO", teamDTO);
+    model.addAttribute("userInfo", userInfoDTO);
     
     
     return "introRetrieve";
@@ -173,6 +175,72 @@ public class ProjTeamController {
     
     return "introRetrieve";
   }
+  
+///////팀 프로필 업로드 ////////////////////////////////////////
+  
+@PostMapping("/teamupload/{teamId}")
+public String teamupload(@PathVariable int teamId, UploadDTO dto, Model m, HttpSession session) {
+    
+    //세션에서 id값 받아오기
+    UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+    int id = userInfoDTO.getId();
+    //현재 로그인된 id에 해당하는 정보 받아와서 출력
+    UserInfoDTO info = userService.selectAllById(id);
+    m.addAttribute("UserInfoDTO", info);        
+    
+    //팀정보 가져오기
+    TeamDTO teamDTO = teamService.selectByTeamId(teamId);
+    m.addAttribute("teamDTO", teamDTO);
+    
+    String theText = dto.getTheText();
+    MultipartFile theFile = dto.getTheFile();
+    
+    //파일정보
+    long size = theFile.getSize();
+    String name = theFile.getName();
+    String originalFilename = theFile.getOriginalFilename();
+    String contentType = theFile.getContentType();
+    
+    
+    System.out.println(theText);
+    System.out.println(size);
+    System.out.println(name);
+    System.out.println(originalFilename);
+    System.out.println(contentType);
+    
+    String teamProfileName = Integer.toString(teamDTO.getTeamId())+".jpg";
+    File f = new File("c:\\upload", teamProfileName) ;
+    
+    try {
+        theFile.transferTo(f);
+    } catch (IllegalStateException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    
+
+    
+    // 클라우드에 저장
+//    storageService.upload(teamProfileName, "c:\\upload\\"+teamProfileName);
+    
+    // 파일 삭제
+    String filePath = "c:\\upload\\"+teamProfileName;
+  File file = new File(filePath);
+
+  if (file.exists()) {
+      boolean deleted = file.delete();
+      if (deleted) {
+          System.out.println("파일이 삭제되었습니다.");
+      } else {
+          System.out.println("파일 삭제에 실패했습니다.");
+      }
+  } else {
+      System.out.println("파일이 존재하지 않습니다.");
+  }
+    
+    return "redirect:/team/" + teamId;
+}
 
 
   /**
@@ -233,9 +301,7 @@ public class ProjTeamController {
   // 일정표 - 이벤트 삭제 기능
   @PostMapping("/schedule/delete/event/{teamId}")
   public String deleteEvent(@RequestBody ScheduleDTO scheduleDTO, @PathVariable int teamId) {
-    System.out.println("event delete test");
-    System.out.println("ddd" + scheduleDTO.toString());
-    
+
     int check_num = projTeamService.deleteEvent(scheduleDTO);
     
     if (check_num == 0) {
@@ -252,6 +318,7 @@ public class ProjTeamController {
                         Model model,
                         HttpSession session) {
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+    TeamDTO teamDTO = teamService.selectByTeamId(teamId);
 
     System.out.println("meeting test");
     HashMap<String, Integer> hashmap = new HashMap<>();
@@ -259,10 +326,13 @@ public class ProjTeamController {
     hashmap.put("teamId", teamId);
     // hashmap.put("userId", userInfoDTO.getId());
     hashmap.put("curPage", curPage);
+    
+    
 
     MeetingPageDTO pageDTO = projTeamService.getAllPost(hashmap);
     model.addAttribute("pageDTO", pageDTO);
     model.addAttribute("teamId", teamId);
+    model.addAttribute("teamDTO", teamDTO);
     return "meeting";
   }
 
@@ -390,6 +460,7 @@ public class ProjTeamController {
       model.addAttribute("memberList", userList);
       model.addAttribute("leader", leader);
       model.addAttribute("teamId", teamId);
+      model.addAttribute("teamDTO", teamDTO);
           
       return "TeamManagementPage";
   }
