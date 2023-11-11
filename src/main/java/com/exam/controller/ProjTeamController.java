@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.amazonaws.auth.SdkClock.Instance;
 import com.exam.dto.MeetingDTO;
 import com.exam.dto.MeetingPageDTO;
@@ -79,11 +78,14 @@ public class ProjTeamController {
   
   // 팀 소개 수정 페이지
   @GetMapping("/update/{teamId}")
-  public String infoRetrieve(@PathVariable int teamId, Model model) {
+  public String infoRetrieve(@PathVariable int teamId, Model model, HttpSession session) {
     log.info("info retrieve works");
+    
+    UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     TeamDTO teamDTO = teamService.selectByTeamId(teamId);
     
     model.addAttribute("teamDTO", teamDTO);
+    model.addAttribute("userInfo", userInfoDTO);
     
     
     return "introRetrieve";
@@ -175,6 +177,7 @@ public class ProjTeamController {
   }
 
 
+
   /**
    * 일정표 기능 구현
    */
@@ -233,9 +236,7 @@ public class ProjTeamController {
   // 일정표 - 이벤트 삭제 기능
   @PostMapping("/schedule/delete/event/{teamId}")
   public String deleteEvent(@RequestBody ScheduleDTO scheduleDTO, @PathVariable int teamId) {
-    System.out.println("event delete test");
-    System.out.println("ddd" + scheduleDTO.toString());
-    
+
     int check_num = projTeamService.deleteEvent(scheduleDTO);
     
     if (check_num == 0) {
@@ -252,6 +253,7 @@ public class ProjTeamController {
                         Model model,
                         HttpSession session) {
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+    TeamDTO teamDTO = teamService.selectByTeamId(teamId);
 
     System.out.println("meeting test");
     HashMap<String, Integer> hashmap = new HashMap<>();
@@ -259,10 +261,13 @@ public class ProjTeamController {
     hashmap.put("teamId", teamId);
     // hashmap.put("userId", userInfoDTO.getId());
     hashmap.put("curPage", curPage);
+    
+    
 
     MeetingPageDTO pageDTO = projTeamService.getAllPost(hashmap);
     model.addAttribute("pageDTO", pageDTO);
     model.addAttribute("teamId", teamId);
+    model.addAttribute("teamDTO", teamDTO);
     return "meeting";
   }
 
@@ -390,6 +395,7 @@ public class ProjTeamController {
       model.addAttribute("memberList", userList);
       model.addAttribute("leader", leader);
       model.addAttribute("teamId", teamId);
+      model.addAttribute("teamDTO", teamDTO);
           
       return "TeamManagementPage";
   }
