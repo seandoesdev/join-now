@@ -42,6 +42,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script type="text/javascript" th:src="@{/resources/static/assets/js/config.js}"></script>
+    
 </head>
 
 <body>
@@ -191,7 +192,7 @@
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                 data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img th:src="${session.loginInfo.pofoLink}" alt
+                                    <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfo.username} + '.jpg'}" alt
                                         class="w-px-40 h-90 rounded-circle" />
                                 </div>
                             </a>
@@ -201,7 +202,7 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img th:src="${session.loginInfo.pofoLink}" alt
+                                                    <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfo.username} + '.jpg'}" alt
                                                         class="w-px-40 h-90 rounded-circle" />
                                                 </div>
                                             </div>
@@ -278,10 +279,8 @@
                                                         <!-- Slide from Top Modal -->
                                                         <a class="dropdown-item" th:href="@{/team/meeting/retrieve/{teamId}/{meetingNo}(teamId=${meetingDTO.teamId}, meetingNo=${meetingDTO.meetingNo})}"><i
                                                                 class="bx bx-edit-alt me-1"></i>
-                                                            수정
+                                                            	수정/삭제
                                                         </a>
-                                                        <a class="dropdown-item" href="javascript:void(0);"><i
-                                                                class="bx bx-trash me-1"></i> 삭제</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -330,32 +329,7 @@
 
         <!-- Page JS -->
         <script type="text/javascript" th:src="@{/resources/static/assets/js/dashboards-analytics.js}"></script>
-
-
-
-        <script>
-            const retrieve = () => {
-                const postData = {
-                    title: $("#title").val(),
-                    content: $("#content").val()
-                };
-                $.ajax({
-                    type: "get",
-                    url: "/app/team/meeting/retrieve.do/" + [[${ teamId }]] +
-                        '/' + [[${ meetingDTO.meetingNo }]], // 서버 엔드포인트 URL로 대체
-                    data: postData,
-                    success: function (response) {
-                        // 서버 응답 처리
-                        console.log("성공");
-                        location.href = "/app/team/meeting/" + [[${ teamId }]] + "/" + '1';
-                    },
-                    error: function (error) {
-                        console.error("오류 발생:", error);
-                        alert("오류가 발생했습니다. 다시 시도하세요.");
-                    }
-                });
-            };
-        </script>
+        
     </div>
     </div>
 </body>

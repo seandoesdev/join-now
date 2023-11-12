@@ -56,4 +56,16 @@ public class TeamServiceImpl implements TeamService {
   public int updateTeamInfoById(TeamDTO teamDTO) {
     return dao.updateTeamInfoById(teamDTO);
   }
+
+  // 팀 삭제
+  @Override
+  public int deleteTeamByteamId(int teamId) {
+    return 0; //dao.deleteTeamByteamId(teamId);
+  }
+
+  // 모든 팀원 삭제
+  @Override
+  public int deleteTeamMemberByteamId(int teamId) {
+    return 0; //dao.deleteTeamByteamId(teamId);
+  }
 }

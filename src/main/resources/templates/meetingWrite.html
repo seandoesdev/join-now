@@ -22,8 +22,6 @@
         href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" href="resources/static/assets/vendor/fonts/boxicons.css" />
-
     <!-- Core CSS -->
     <link rel="stylesheet" th:href="@{/resources/static/assets/vendor/css/core.css}"
         class="template-customizer-core-css" />
@@ -191,7 +189,7 @@
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                 data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
+                                    <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfo.username} + '.jpg'}"
                                         alt class="w-px-40 h-90 rounded-circle" />
                                 </div>
                             </a>
@@ -201,7 +199,7 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
+                                                    <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfo.username} + '.jpg'}"
                                                         alt class="w-px-40 h-90 rounded-circle" />
                                                 </div>
                                             </div>
@@ -263,7 +261,7 @@
                                         <div class="mt-2">
                                             <a style="float: right;">
                                                 <button type="submit" class="btn btn-primary me-2"
-                                                    onclick="submit()">수정</button>
+                                                    onclick="submit()">작성</button>
                                             </a>
                                         </div>
                                     </div>
