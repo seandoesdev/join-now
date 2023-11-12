@@ -64,15 +64,24 @@ public class ProjTeamController {
   public String info(@PathVariable int teamId, HttpSession session, Model model) {
 
     log.info("info works");
-
+    
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     TeamDTO teamDTO = teamService.selectByTeamId(teamId);
     List<TeamMemberDTO> teamMemberDTO = teamService.selectMemberListByTeamId(teamId);
     
+    List<String> members = new ArrayList<>();
+    
+    for(TeamMemberDTO dto : teamMemberDTO) {
+      UserInfoDTO tmp = userService.selectAllById(dto.getUserId());
+      members.add(tmp.getUsername());
+    }
+    
+    System.out.println(members);
     model.addAttribute("teamDTO", teamDTO);
     model.addAttribute("memberList", teamMemberDTO);
-
-
+    model.addAttribute("members",members);
+    model.addAttribute("userInfo", userInfoDTO);
+    
     return "info";
   }
   
