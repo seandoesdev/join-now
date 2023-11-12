@@ -254,7 +254,7 @@
                                     <thead>
                                         <tr>
                                             <th><strong>팀원</strong></th>
-                                            <th><strong>수정/삭제</strong></th>
+                                            <th><strong>관리</strong></th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0" th:each="userInfoDTO : ${memberList}">
@@ -267,8 +267,10 @@
                                                 </td>
                                                 <input type="hidden" th:value="${userInfoDTO.nickname}" name="userId">
                                                 <input type="hidden" th:value="${teamId}" name="teamId">
-                                                <td><input th:if="${leader}" type="submit" value="추방"
-                                                        class="btn btn-primary border btn-sm"></td>
+                                                <td>
+                                                    <input th:if="${leader}" type="submit" value="추방"
+                                                        class="btn btn-primary border btn-sm">
+                                                </td>
                                             </form>
                                         </tr>
                                     </tbody>
@@ -278,31 +280,23 @@
 
                         <div class="container-xxl flex-grow-1 container-p-y card mt-5" style="width: 33rem;">
                             <div class="card mb-4">
-                              <h5 class="card-header">팀 삭제</h5>
+                              <h5 class="card-header"><strong>팀 삭제</strong></h5>
                               <div class="card-body">
                                 <p class="card-text">
-                                  Toggle the visibility of content across your project with a few classes and our JavaScript
-                                  plugins.
+                                  부득이하게 팀을 삭제해야 하는 경우 
+                                  아래의 버튼을 클릭하십시오.
+                                  간단한 확인 절차 후에 팀 삭제가 진행됩니다.
                                 </p>
                                 <p class="demo-inline-spacing">
                                   <a
-                                    class="btn btn-primary me-1"
+                                    class="btn btn-warning deactivate-account"
                                     data-bs-toggle="collapse"
                                     href="#collapseExample"
                                     role="button"
                                     aria-expanded="false"
                                     aria-controls="collapseExample">
-                                    Link with href
+                                    삭제하시겠습니까?
                                   </a>
-                                  <button
-                                    class="btn btn-primary me-1"
-                                    type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseExample"
-                                    aria-expanded="false"
-                                    aria-controls="collapseExample">
-                                    Button with data-bs-target
-                                  </button>
                                 </p>
                                 <div class="collapse" id="collapseExample">
                                     <div class="mb-3 col-12 mb-0">
@@ -312,7 +306,7 @@
                                             <p class="mb-0">[확인]을 선택하면 팀과 관련된 모든 데이터가 삭제되며, 이 작업은 취소할 수 없습니다.
                                                 [취소]를 선택하여 삭제를 취소할 수 있습니다. 그럼에도 계속하시겠습니까?"</p>
                                         </div>
-                                        <form action="/app/team/teamDelete" id="deleteForm" method="post" style="float: right;">
+                                        <form action="/app/team/teamDelete" id="deleteForm" method="post">
                                             <input type="hidden" name="teamId" th:value="${teamId}"/>
                                             <button type="button" class="btn btn-danger deactivate-account" onclick="confirmTeamDeletion()">팀 삭제</button>
                                         </form>
