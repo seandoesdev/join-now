@@ -271,7 +271,7 @@ public class PostContoller {
 		notificationDTO.setPostId(postDTO.getPostNo()); // 공고 정보
 		
 		notificationService.notificationAdd(notificationDTO);
-		return "redirect:main";
+		return "redirect:applyPage";
 		
 	}
 
