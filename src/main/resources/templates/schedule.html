@@ -240,7 +240,7 @@
 
         });
 
-        const backDropModalCancel = () =>{
+        const backDropModalCancel = () => {
             $("#backDropModal").modal("hide");
         };
 
@@ -329,7 +329,6 @@
                                 </path>
                             </svg>
                             <div data-i18n="main">&nbsp Main</div>
-                            <div class="badge bg-danger rounded-pill ms-auto">5</div>
                         </a>
                     </li>
 
@@ -400,7 +399,7 @@
                                 data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
                                     <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                        alt class="w-px-40 h-auto rounded-circle" />
+                                        alt class="w-px-40 h-90 rounded-circle" />
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -409,14 +408,14 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                                        alt class="w-px-40 h-auto rounded-circle" />
+                                                    <img th:src="${session.loginInfo.pofoLink}" alt
+                                                        class="w-px-40 h-90 rounded-circle" />
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
                                                 <span class="fw-medium d-block"
-                                                    th:text=${session.loginInfo.nickname}>John Doe</span>
-                                                <small class="text-muted">Admin</small>
+                                                    th:text=${session.loginInfo.nickname}></span>
+                                                <small class="text-muted">Online</small>
                                             </div>
                                         </div>
                                     </a>
@@ -448,10 +447,12 @@
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
+                <h3 class="mt-3" style="text-align: center;">일정표</h3>
                 <!-- 캘린더 표시 -->
                 <div id="calender-container">
                     <div id='calendar'></div>
                 </div>
+
                 <!-- 일정 추가 모달창 -->
                 <div class="modal fade" id="backDropModal" data-backdrop="static" tabindex="-1">
                     <div class="modal-dialog">
@@ -468,6 +469,7 @@
                                             placeholder="일정을 입력해주세요." required>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col mb-0">
                                         <label for="event_start_date" class="form-label">시작일 <span
@@ -489,7 +491,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="backDropModalCancel()">취소</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                    onclick="backDropModalCancel()">취소</button>
                                 <button type="button" class="btn btn-primary" id="addEvent">추가</button>
                             </div>
                         </div>
@@ -537,40 +540,12 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" id="editEventButton">수정</button>
                                 <button type="button" class="btn btn-danger" id="deleteEventButton">삭제</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="editDeleteModalCancel()">닫기</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                    onclick="editDeleteModalCancel()">닫기</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-                <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
-                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                        <div class="mb-2 mb-md-0">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            , made with ❤️ by
-                            <a href="https://themeselection.com" target="_blank"
-                                class="footer-link fw-medium">ThemeSelection</a>
-                        </div>
-                        <div class="d-none d-lg-inline-block">
-                            <a href="https://themeselection.com/license/" class="footer-link me-4"
-                                target="_blank">License</a>
-                            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More
-                                Themes</a>
-
-                            <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                                target="_blank" class="footer-link me-4">Documentation</a>
-
-                            <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                                target="_blank" class="footer-link">Support</a>
-                        </div>
-                    </div>
-                </footer>
-                <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>
             </div>

@@ -95,8 +95,13 @@ public class AcceptController {
 	
 	@GetMapping("/acceptPage")
 	public String acceptPage(Model m, HttpSession session) {
-		// 로그인 정보 확인
+		// 로그인 정보 -> 수신자
 		UserInfoDTO userInfoDTO = (UserInfoDTO)session.getAttribute("loginInfo");
+		// 세션에서 id값 받아오기
+		int id = userInfoDTO.getId();
+		// 현재 로그인된 id에 해당하는 정보 받아와서 출력
+		UserInfoDTO info = userService.selectAllById(id);
+		m.addAttribute("userInfoDTO", info);
 		// 로그인 유저 아이디와 작성자 id를 비교해서 리스트를 들고옴 -> 작성자가 받은 신청자 내역확인
 		List<AcceptDTO> acceptDTOList = acceptService.selectListAcceptUser(userInfoDTO.getId());
 		

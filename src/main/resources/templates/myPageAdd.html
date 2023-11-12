@@ -114,9 +114,7 @@
                         <a th:href="@{main}" class="menu-link ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(158, 154, 154);"><path d="m12.223 11.641-.223.22-.224-.22a2.224 2.224 0 0 0-3.125 0 2.13 2.13 0 0 0 0 3.07L12 18l3.349-3.289a2.13 2.13 0 0 0 0-3.07 2.225 2.225 0 0 0-3.126 0z"></path><path d="m21.707 11.293-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707zM18.001 20H6v-9.585l6-6 6 6V15l.001 5z"></path></svg>
                             <div data-i18n="Dashboards">&nbsp Main</div>
-                            <div class="badge bg-danger rounded-pill ms-auto">5</div>
                         </a>
-                        <br>
                     </li>
 
                     <li class="menu-item">
@@ -144,8 +142,8 @@
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                         data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                                alt class="w-px-40 h-auto rounded-circle" />
+                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfoDTO.username} + '.jpg'}"
+                                                alt class="w-px-40 h-90 rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -154,8 +152,8 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                                                alt class="w-px-40 h-auto rounded-circle" />
+                                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfoDTO.username} + '.jpg'}"
+                                                                alt class="w-px-40 h-90 rounded-circle" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -205,11 +203,11 @@
                     <div class="card-body">
                     <!-- 프로필 사진 -->                   
         <form action="upload" method="post" enctype="multipart/form-data">
-		 ✨ 유저 아이디 ✨<br>👉 <input type="text" name="theText" th:value="${userInfoDTO.username}" readonly>
 		<br><hr>
 			
-		📸 <input type="file" name="theFile"><br>
-                        ✅ <input type="submit" value="업로드">
+		프로필 사진 설정 <br/>
+		📸<input type="file" name="theFile"><br>
+                    ✅ <input type="submit" value="업로드">
 			
 		</form>
                         <div class="button-wrapper">
@@ -226,10 +224,7 @@
                             <span class="d-none d-sm-block">업로드</span>
                           </button> -->
 
-                          <br><p class="text-muted mb-0">.jpg 파일만 업로드 가능합니다!</p>
-                        </div>
-			프로필 사진 선택 *(.jpg 파일만 업로드 가능합니다.)<br><input type="file" name="theFile"><br>
-			<input type="submit" value="업로드">
+                       
 		</form>
                       </div>
                     
