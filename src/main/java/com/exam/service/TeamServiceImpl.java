@@ -60,12 +60,12 @@ public class TeamServiceImpl implements TeamService {
   // 팀 삭제
   @Override
   public int deleteTeamByteamId(int teamId) {
-    return 0; //dao.deleteTeamByteamId(teamId);
+    return dao.deleteTeamByteamId(teamId); //dao.deleteTeamByteamId(teamId);
   }
 
   // 모든 팀원 삭제
   @Override
   public int deleteTeamMemberByteamId(int teamId) {
-    return 0; //dao.deleteTeamByteamId(teamId);
+    return dao.deleteTeamMemberByteamId(teamId); //dao.deleteTeamByteamId(teamId);
   }
 }

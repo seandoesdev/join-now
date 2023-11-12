@@ -51,4 +51,14 @@ public class TeamDAO {
 	public int updateTeamInfoById(TeamDTO teamDTO) {
 	  return session.update("TeamMapper.updateTeamInfoById", teamDTO);
 	}
+	
+	// 팀 삭제
+	public int deleteTeamByteamId(int teamId) {
+	  return session.delete("TeamMapper.deleteTeamByteamId", teamId);
+	}
+	
+	// 팀 멤버 전체 삭제
+    public int deleteTeamMemberByteamId(int teamId) {
+      return session.delete("TeamMapper.deleteTeamMemberByteamId", teamId);      
+    }
 }
