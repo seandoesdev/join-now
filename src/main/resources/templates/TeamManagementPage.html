@@ -42,6 +42,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script type="text/javascript" th:src="@{/resources/static/assets/js/config.js}"></script>
+    
 </head>
 
 <body>
@@ -275,31 +276,51 @@
                             </div>
                         </div>
 
-                        <div class="container-xxl flex-grow-1 container-p-y card mt-5" 
-                        style="width: 33rem;">
-                            <h5 class="card-header">팀 삭제</h5>
-                            <div class="card-body">
-                                <div class="mb-3 col-12 mb-0">
-                                    <div class="alert alert-warning">
-                                        <h6 class="alert-heading mb-1">"경고: 팀 삭제 작업은 되돌릴 수 없습니다. 정말로 이 팀을 삭제하시겠습니까?
-                                        </h6>
-                                        <p class="mb-0">[확인]을 선택하면 팀과 관련된 모든 데이터가 삭제되며, 이 작업은 취소할 수 없습니다.
-                                            [취소]를 선택하여 삭제를 취소할 수 있습니다. 그럼에도 계속하시겠습니까?"</p>
+                        <div class="container-xxl flex-grow-1 container-p-y card mt-5" style="width: 33rem;">
+                            <div class="card mb-4">
+                              <h5 class="card-header">팀 삭제</h5>
+                              <div class="card-body">
+                                <p class="card-text">
+                                  Toggle the visibility of content across your project with a few classes and our JavaScript
+                                  plugins.
+                                </p>
+                                <p class="demo-inline-spacing">
+                                  <a
+                                    class="btn btn-primary me-1"
+                                    data-bs-toggle="collapse"
+                                    href="#collapseExample"
+                                    role="button"
+                                    aria-expanded="false"
+                                    aria-controls="collapseExample">
+                                    Link with href
+                                  </a>
+                                  <button
+                                    class="btn btn-primary me-1"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseExample"
+                                    aria-expanded="false"
+                                    aria-controls="collapseExample">
+                                    Button with data-bs-target
+                                  </button>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="mb-3 col-12 mb-0">
+                                        <div class="alert alert-warning">
+                                            <h6 class="alert-heading mb-1">"경고: 팀 삭제 작업은 되돌릴 수 없습니다. 정말로 이 팀을 삭제하시겠습니까?
+                                            </h6>
+                                            <p class="mb-0">[확인]을 선택하면 팀과 관련된 모든 데이터가 삭제되며, 이 작업은 취소할 수 없습니다.
+                                                [취소]를 선택하여 삭제를 취소할 수 있습니다. 그럼에도 계속하시겠습니까?"</p>
+                                        </div>
+                                        <form action="/app/team/teamDelete" id="deleteForm" method="post" style="float: right;">
+                                            <input type="hidden" name="teamId" th:value="${teamId}"/>
+                                            <button type="button" class="btn btn-danger deactivate-account" onclick="confirmTeamDeletion()">팀 삭제</button>
+                                        </form>
                                     </div>
                                 </div>
-                                <form action="team/teamDelete" method="post" style="float: right;">
-                                    <input type="hidden" th:value="${teamId}"/>
-                                    <button type="submit" class="btn btn-danger deactivate-account">팀 삭제</button>
-                                </form>
+                              </div>
                             </div>
-                        </div>
-                        <!--/ Basic Bootstrap Table -->
-                        <div class="content-backdrop fade"></div>
-                    </div>
-                    <!-- Content wrapper -->
-                </div>
-                <!-- / Layout page -->
-            </div>
+                          </div>
 
             <!-- Overlay -->
             <div class="layout-overlay layout-menu-toggle"></div>
@@ -345,7 +366,21 @@
     <script type="text/javascript" th:src="@{/resources/static/assets/js/dashboards-analytics.js}"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
-    <script type="text/javascript" async defer src="https://buttons.github.io/buttons.js"></script>
+    <script tye="text/javascript" async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+        function confirmTeamDeletion() {
+            var confirmation = prompt('팀을 삭제하려면 \"삭제\"를 적어주십시오.');
+
+            if (confirmation == '삭제') {
+                document.getElementById('deleteForm').submit();
+                alert("팀이 삭제되었습니다.");
+            } else {
+                alert("팀 삭제가 취소되었습니다.");
+            }
+        }
+       
+    </script>
     </div>
     </div>
 </body>

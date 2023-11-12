@@ -414,6 +414,21 @@ public class ProjTeamController {
       System.out.println("memberDel"+teamId + userId);
       return "redirect:/team/teamManage/"+teamId;
   }
+  
+  @PostMapping("/teamDelete")
+  @Transactional
+  public String teamDelete(@RequestParam int teamId) {
+    System.out.println(teamId);
+    try {
+      teamService.deleteTeamMemberByteamId(teamId);
+      teamService.deleteTeamMemberByteamId(teamId);
+      log.info("teamId team is deleted now");
+    }catch (Exception e) {
+      log.warn("It have deleted a team. Please check your system.");
+      e.printStackTrace();
+    }
+    return "redirect:/app/teamList";
+  }
 
 
 }
