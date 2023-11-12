@@ -1,5 +1,7 @@
 package com.exam.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,22 +21,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.exam.dto.AcceptDTO;
 import com.exam.dto.ApplyDTO;
 import com.exam.dto.CommentDTO;
 import com.exam.dto.NotificationDTO;
+import com.exam.dto.PageDTO;
 import com.exam.dto.PositionDTO;
 import com.exam.dto.PostDTO;
 import com.exam.dto.SkillDTO;
 import com.exam.dto.TeamDTO;
 import com.exam.dto.TeamMemberDTO;
+import com.exam.dto.UploadDTO;
 import com.exam.dto.UserInfoDTO;
+import com.exam.navercloud.openapi.service.ObjectStorageService;
 import com.exam.service.AcceptService;
 import com.exam.service.ApplyService;
 import com.exam.service.CommentService;
+import com.exam.service.MainServiceImpl;
 import com.exam.service.NotificationService;
 import com.exam.service.PositionService;
+import com.exam.service.PostService;
 import com.exam.service.PostServiceImpl;
 import com.exam.service.SkillService;
 import com.exam.service.TeamService;
@@ -69,6 +77,12 @@ public class PostContoller {
 	
 	@Autowired
 	SkillService skillService;
+	
+	@Autowired
+	MainServiceImpl mainService;
+	
+	@Autowired
+	ObjectStorageService storageService;
 	
 	@GetMapping("/postMain")
 	public String main(Model m) {
@@ -257,7 +271,7 @@ public class PostContoller {
 		notificationDTO.setPostId(postDTO.getPostNo()); // 공고 정보
 		
 		notificationService.notificationAdd(notificationDTO);
-		return "redirect:main";
+		return "redirect:applyPage";
 		
 	}
 
@@ -368,6 +382,6 @@ public class PostContoller {
 		
 		return "writeList";
 	}
-	
+
 
 }

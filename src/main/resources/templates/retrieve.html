@@ -448,7 +448,7 @@
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                         data-bs-toggle="dropdown">
                                         <div class="avatar">
-                                            <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
+                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
                                                 alt class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
@@ -465,8 +465,8 @@
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                         data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                                alt class="w-px-40 h-auto rounded-circle" />
+                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+                                                alt class="w-px-40 h-90 rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -474,8 +474,8 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="https://kr.object.ncloudstorage.com/team1-bucket/google_103244328264716333070.jpg"
-                                                                alt class="w-px-40 h-auto rounded-circle" />
+                                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+                                                                alt class="w-px-40 h-90 rounded-circle" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -563,16 +563,14 @@
                         </div>
                         <div class="mb-3">
                             <label for="content">프로젝트 설명</label>
-                            <textarea class="form-control" th:text="${postListbyNum.content}" readonly></textarea>
+                            <span class="form-control" th:text="${postListbyNum.content}" ></span>
                         </div>
                         <div class="mb-3">
                             <label for="html5-date-input">프로젝트 시작일</label> <span class="form-control"
                                 th:text="${postListbyNum.startDate}"></span>
                         </div>
                         <div class="mb-3">
-                            <h4>
-                                <label for="html5-date-input">공고 마감일</label>
-                            </h4>
+                            <label for="html5-date-input">공고 마감일</label>
                             <span class="form-control" th:text="${postListbyNum.deadline}"></span>
                         </div>
                         <div class="mb-3">
