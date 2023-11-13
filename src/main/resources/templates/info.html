@@ -252,6 +252,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-start align-items-sm-center gap-4">
                                         <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${teamId} + '.jpg'}" 
+                                        onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/default.jpg';"
                                                     	 alt="user-avatar" class="d-block rounded" height="100" width="100"
                                                         id="uploadedAvatar" style="margin-bottom: 20px;" />
                                     </div>
