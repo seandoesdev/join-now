@@ -1,5 +1,6 @@
 package com.exam.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -28,9 +29,23 @@ public class MainDAO {
 		PageDTO pageDTO = new PageDTO();
 		// pageDTO.setPerPage(11); => 한 페이지의 리스트 개수를 11개로 설정
 		// RowBounds(offset, limit) 한 페이지에 나오는 리스트 개수 만큼, List<PostDTO> list에 담는다. 
-		int offset = (curPage-1)*pageDTO.getPerPage();
-		int limit = pageDTO.getPerPage();
-		List<PostDTO> list =  session.selectList("MainMapper.selectList", null, new RowBounds(offset, limit));
+		int offset = (curPage-1)*pageDTO.getPerPage(); // 시작지점, 끝지점
+		int limit = pageDTO.getPerPage(); // 6
+		List<PostDTO> list2 =  session.selectList("MainMapper.selectList");
+		
+		list2=mergeSort(list2);
+						
+		List<PostDTO> list = new ArrayList<PostDTO>();
+		
+		for(int i=offset;i<(offset+limit);i++) {
+			
+			list.add(list2.get(i));
+			
+			if(i==list2.size()-1){
+				break;
+			}
+		}
+		
 		
 		pageDTO.setList(list);
 		pageDTO.setCurPage(curPage);
@@ -55,9 +70,23 @@ public class MainDAO {
 		PageDTO pageDTO = new PageDTO();
 		// pageDTO.setPerPage(11); => 한 페이지의 리스트 개수를 11개로 설정
 		// RowBounds(offset, limit) 한 페이지에 나오는 리스트 개수 만큼, List<PostDTO> list에 담는다. 
-		int offset = (curPage-1)*pageDTO.getPerPage();
-		int limit = pageDTO.getPerPage();
-		List<PostDTO> list =  session.selectList("MainMapper.searchTitle", keyword, new RowBounds(offset, limit));
+		int offset = (curPage-1)*pageDTO.getPerPage(); // 시작지점, 끝지점
+		int limit = pageDTO.getPerPage(); // 6
+		List<PostDTO> list2 =  session.selectList("MainMapper.searchTitle", keyword);
+		
+		list2=mergeSort(list2);
+						
+		List<PostDTO> list = new ArrayList<PostDTO>();
+		
+		for(int i=offset;i<(offset+limit);i++) {
+			
+			list.add(list2.get(i));
+			
+			if(i==list2.size()-1){
+				break;
+			}
+		}
+		
 		
 		pageDTO.setList(list);
 		pageDTO.setCurPage(curPage);
@@ -77,4 +106,42 @@ public class MainDAO {
 		
 		return pageDTO;
 	}
+	
+	// 병합 정렬 알고리즘 (조회수로 정렬)
+    public static List<PostDTO> mergeSort(List<PostDTO> list) {
+        if (list.size() <= 1) return list; // 리스트가 비어있거나 이미 정렬되어 있으면 종료
+
+        int mid = list.size() / 2;
+        List<PostDTO> left = new ArrayList<>(list.subList(0, mid));
+        List<PostDTO> right = new ArrayList<>(list.subList(mid, list.size()));
+
+        left = mergeSort(left); // 왼쪽 부분을 재귀적으로 정렬
+        right = mergeSort(right); // 오른쪽 부분을 재귀적으로 정렬
+
+        return merge(left, right); // 정렬된 부분을 병합
+    }
+
+    public static List<PostDTO> merge(List<PostDTO> left, List<PostDTO> right) {
+        List<PostDTO> merged = new ArrayList<>();
+        int i = 0, j = 0;
+
+        while (i < left.size() && j < right.size()) {
+        	// 값을 비교 하는 부분
+            if (left.get(i).getViewCount() >= right.get(j).getViewCount()) { // 값 비교
+                merged.add(left.get(i++));
+            } else {
+                merged.add(right.get(j++));
+            }
+        }
+
+        while (i < left.size()) {
+            merged.add(left.get(i++));
+        }
+
+        while (j < right.size()) {
+            merged.add(right.get(j++));
+        }
+
+        return merged;
+    }
 }
