@@ -541,12 +541,22 @@
 							class="img-thumbnail" style="width: 30%"
 							onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/group.jpg';" />
                         </center><br>
+                           <div class="mb-3">
+						<label for="title" >프로젝트명</label>
+					<div>
+						<span class="form-control"
+							th:text="${postListbyNum.title}"></span>
+					</div>
+				</div>
+				<br>
                         <div class="mb-3">
                             <label for="studyType">유형</label>
                             <div class="input-group input-group-merge">
                                 <span class="form-control" th:text="${postListbyNum.studyType}"></span>
                             </div>
                         </div>
+                     
+				<br>
                         <div class="mb-3">
                             <div class="demo-vertical-spacing demo-only-element">
                                 <label>지역</label>
