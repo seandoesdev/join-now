@@ -31,15 +31,15 @@ public class ProjTeamDAO {
     return session.selectOne("ProjTeamMapper.selectAi");
 
   }
-  
+
   // 중복 체크
   public int selectIdById(int id) {
     try {
       return session.selectOne("ProjTeamMapper.selectIdById", id);
-    }catch (NullPointerException e) {
+    } catch (NullPointerException e) {
       return 0;
     }
-    
+
   }
 
   // 일정 추가
@@ -92,10 +92,10 @@ public class ProjTeamDAO {
     } else {
       pageDTO.setPageNum(totalCount() / pageDTO.getPerPage() + 1);
     }
-    
-    if(totalCount()==0) {
-		pageDTO.setPageNum(1);
-	}
+
+    if (totalCount() == 0) {
+      pageDTO.setPageNum(1);
+    }
 
     return pageDTO;
   }
@@ -118,6 +118,21 @@ public class ProjTeamDAO {
   // 회의록 수정
   public int updateMeetingById(HashMap<String, Object> map) {
     return session.update("ProjTeamMapper.updateMeetingById", map);
+  }
+
+  // 회의록 검색 - 전체
+  public List<MeetingDTO> searchAll(HashMap<String, Object> map) {
+    return session.selectList("ProjTeamMapper.searchAll", map);
+  }
+
+  // 회의록 검색 - 제목
+  public List<MeetingDTO> searchTitle(HashMap<String, Object> map) {
+    return session.selectList("ProjTeamMapper.searchTitle", map);
+  }
+
+  // 회의록 검색 - 내용
+  public List<MeetingDTO> searchContent(HashMap<String, Object> map) {
+    return session.selectList("ProjTeamMapper.searchContent", map);
   }
 
 

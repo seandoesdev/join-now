@@ -349,7 +349,7 @@
     			url:"/app/team/meeting/delete/"+ teamId + "/" + meetingNo,
     			success: function(){
     				console.log("success");
-    				location.href = "/app/team/meeting/1";
+    				location.href = "/app/team/meeting/" + [[${ meetingDTO.teamId }]] + "/" + '1';
     			},
     			error: function(){
     				console.log("error");

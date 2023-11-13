@@ -106,6 +106,24 @@ public class ProjTeamServiceImpl implements ProjTeamService {
   public int updateMeetingById(HashMap<String, Object> map){
     return dao.updateMeetingById(map);
   }
+  
+  // 검색 - 전체
+  @Override
+  public List<MeetingDTO> searchAll(HashMap<String, Object> map) {
+    return dao.searchAll(map);
+  }
+  
+  // 검색 - 제목
+  @Override
+  public List<MeetingDTO> searchTitle(HashMap<String, Object> map) {
+    return dao.searchTitle(map);
+  }
+  
+  // 검색 - 내용
+  @Override
+  public List<MeetingDTO> searchContent(HashMap<String, Object> map) {
+    return dao.searchContent(map);
+  }
 
 
 }
