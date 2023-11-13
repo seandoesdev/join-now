@@ -42,7 +42,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script type="text/javascript" th:src="@{/resources/static/assets/js/config.js}"></script>
-    
+
 </head>
 
 <body>
@@ -192,8 +192,9 @@
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                 data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfo.username} + '.jpg'}" alt
-                                        class="w-px-40 h-90 rounded-circle" />
+                                    <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfo.username} + '.jpg'}"
+                                    onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/default.jpg';"
+                                        alt class="w-px-40 h-90 rounded-circle" />
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -202,8 +203,9 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfo.username} + '.jpg'}" alt
-                                                        class="w-px-40 h-90 rounded-circle" />
+                                                    <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfo.username} + '.jpg'}"
+                                                    onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/default.jpg';"
+                                                        alt class="w-px-40 h-90 rounded-circle" />
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
@@ -245,25 +247,30 @@
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="py-3 mb-4"><span class="text-muted fw-light" th:text="${teamDTO.teamName}"> </span> 's 희의록</h4>
+                        <h4 class="py-3 mb-4"><span class="text-muted fw-light" th:text="${teamDTO.teamName}"> </span>
+                            's 희의록</h4>
                         <!-- Basic Bootstrap Table -->
 
                         <div class="mb-4" style="display: inline-block;">
 
-                            <form th:action="@{/team/meeting/search/{teamId}(teamId=${teamId})}" method="get" class="form-block">
+                            <form th:action="@{/team/meeting/search/{teamId}(teamId=${teamId})}" method="get"
+                                class="form-block">
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="검색어를 입력하세요" name="keyword">
                                 </div>
                                 <div class="form-check form-check-inline ml-3 d-lg-inline-block">
-                                    <input class="form-check-input" type="radio" name="searchType" id="searchAll" value="all" checked>
+                                    <input class="form-check-input" type="radio" name="searchType" id="searchAll"
+                                        value="all" checked>
                                     <label class="form-check-label" for="searchAll">전체</label>
                                 </div>
                                 <div class="form-check form-check-inline d-inline-block">
-                                    <input class="form-check-input" type="radio" name="searchType" id="searchTitle" value="title">
+                                    <input class="form-check-input" type="radio" name="searchType" id="searchTitle"
+                                        value="title">
                                     <label class="form-check-label" for="searchTitle">제목</label>
                                 </div>
                                 <div class="form-check form-check-inline d-inline-block">
-                                    <input class="form-check-input" type="radio" name="searchType" id="searchContent" value="content">
+                                    <input class="form-check-input" type="radio" name="searchType" id="searchContent"
+                                        value="content">
                                     <label class="form-check-label" for="searchContent">내용</label>
                                 </div>
                             </form>
@@ -299,9 +306,10 @@
                                                     </button>
                                                     <div class="dropdown-menu">
                                                         <!-- Slide from Top Modal -->
-                                                        <a class="dropdown-item" th:href="@{/team/meeting/retrieve/{teamId}/{meetingNo}(teamId=${meetingDTO.teamId}, meetingNo=${meetingDTO.meetingNo})}"><i
+                                                        <a class="dropdown-item"
+                                                            th:href="@{/team/meeting/retrieve/{teamId}/{meetingNo}(teamId=${meetingDTO.teamId}, meetingNo=${meetingDTO.meetingNo})}"><i
                                                                 class="bx bx-edit-alt me-1"></i>
-                                                            	수정/삭제
+                                                            수정/삭제
                                                         </a>
                                                     </div>
                                                 </div>
@@ -310,48 +318,93 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div> 
+                        </div>
                         <a th:href="@{'/team/meeting/write/' + ${teamId}}" style="float: right;">
                             <button type="button" class="btn btn-primary mt-3">작성</button>
                         </a>
-                        
-                        <!--/ Basic Bootstrap Table -->
-                        <div class="content-backdrop fade"></div>
+                        <!-- 페이징 처리 -->
+                        <th:block th:with="perPage=${pageDTO.perPage}, curPage=${pageDTO.curPage},
+            totalCount=${pageDTO.totalCount}, pageNum=${pageDTO.pageNum}">
+
+                            <div class="row mt-4">
+                                <div class="col-md-12 text-center">
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center">
+
+                                            <li class="page-item">
+                                                <th:block th:switch="${curPage}">
+                                                    <a class="page-link text-dark" th:href="${'1'}"
+                                                        th:case="1">Previous</a>
+                                                    <a class="page-link text-dark" th:href="${curPage-1}"
+                                                        th:case="*">Previous</a>
+                                                </th:block>
+                                            </li>
+
+                                            <th:block th:each="num : ${#numbers.sequence(1,pageNum)}"
+                                                th:switch="${curPage}">
+                                                <li class="page-item active">
+                                                    <span class="page-link bg-white text-dark" th:case="${num}"
+                                                        th:text="${num}">1</span>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link text-dark" th:href="${+num}" th:case="*"
+                                                        th:text="${num}">1</a>
+                                                </li>
+                                            </th:block>
+
+
+                                            <li class="page-item">
+                                                <th:block th:switch="${curPage}">
+                                                    <a class="page-link text-dark" th:href="${+pageNum}"
+                                                        th:case="${pageNum}">Next</a>
+                                                    <a class="page-link text-dark" th:href="${+(curPage+1)}"
+                                                        th:case="*">Next</a>
+                                                </th:block>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+                        </th:block>
                     </div>
-                    <!-- Content wrapper -->
+
+                    <!--/ Basic Bootstrap Table -->
+                    <div class="content-backdrop fade"></div>
                 </div>
-                <!-- / Layout page -->
+                <!-- Content wrapper -->
             </div>
-
-            <!-- Overlay -->
-            <div class="layout-overlay layout-menu-toggle"></div>
+            <!-- / Layout page -->
         </div>
-        <!-- / Layout wrapper -->
+
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
 
 
-        <!-- Core JS -->
-        <!-- build:js assets/vendor/js/core.js -->
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
 
-        <script type="text/javascript" th:src="@{/resources/static/assets/vendor/libs/jquery/jquery.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/static/assets/vendor/libs/popper/popper.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/static/assets/vendor/js/bootstrap.js}"></script>
-        <script type="text/javascript"
-            th:src="@{/resources/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/static/assets/vendor/js/menu.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/static/assets/vendor/libs/jquery/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/static/assets/vendor/libs/popper/popper.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/static/assets/vendor/js/bootstrap.js}"></script>
+    <script type="text/javascript"
+        th:src="@{/resources/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/static/assets/vendor/js/menu.js}"></script>
 
-        <!-- endbuild -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- endbuild -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-        <!-- Vendors JS -->
-        <script type="text/javascript"
-            th:src="@{/resources/static/assets/vendor/libs/apex-charts/apexcharts.js}"></script>
+    <!-- Vendors JS -->
+    <script type="text/javascript" th:src="@{/resources/static/assets/vendor/libs/apex-charts/apexcharts.js}"></script>
 
-        <!-- Main JS -->
-        <script type="text/javascript" th:src="@{/resources/static/assets/js/main.js}"></script>
+    <!-- Main JS -->
+    <script type="text/javascript" th:src="@{/resources/static/assets/js/main.js}"></script>
 
-        <!-- Page JS -->
-        <script type="text/javascript" th:src="@{/resources/static/assets/js/dashboards-analytics.js}"></script>
-        
+    <!-- Page JS -->
+    <script type="text/javascript" th:src="@{/resources/static/assets/js/dashboards-analytics.js}"></script>
+
     </div>
     </div>
 </body>

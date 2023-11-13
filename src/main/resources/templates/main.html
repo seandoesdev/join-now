@@ -163,6 +163,7 @@
                                         data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
                                             <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+                                            onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/default.jpg';" 
                                                 alt class="w-px-40 h-90 rounded-circle" />
                                         </div>
                                     </a>
@@ -173,6 +174,7 @@
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
                                                             <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+                                                            onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/default.jpg';" 
                                                                 alt class="w-px-40 h-90 rounded-circle" />
                                                         </div>
                                                     </div>
@@ -264,9 +266,11 @@
                             <th:block th:each="postDTO, index : ${pageDTO.list}">
                                 <a th:href="'retrieve?postNo='+${postDTO.postNo}" class="col-6 col-md-4 mb-3">
                                     <div class="card h-100">
+
                                         <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/post_'+${postDTO.postNo}+'.jpg'}"
 							class="img-thumbnail" 
 							onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/group.jpg';" />
+
                                         <div class="card-body">
                                             <h5 class="card-title" th:text="${postDTO.title}">Card title</h5>
                                             <p class="card-title" th:text="${truncatedContentList[index.index]}">

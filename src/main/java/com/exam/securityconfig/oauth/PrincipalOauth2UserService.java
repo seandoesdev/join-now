@@ -33,6 +33,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 	@Autowired
     private UserRepository userRepository;
 
+	// 후처리
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest); // google의 회원 프로필 조회
@@ -59,7 +60,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             System.out.println("네이버 로그인 요청~~");
             oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
         } else {
-            System.out.println("우리는 구글과 페이스북만 지원해요 ㅎㅎ");
+            System.out.println("우리는 구글과 페이스북과 네이버만 지원합니당");
         }
 
         Optional<User> userOptional = 
