@@ -20,6 +20,11 @@ public class MainServiceImpl implements MainService {
 		return dao.selectList(curPage);
 	}
 
+	@Override
+	public PageDTO searchTitle(int curPage, String keyword) {
+		return dao.searchTitle(curPage, keyword);
+	}
+
 	
 
 }
