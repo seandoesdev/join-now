@@ -250,18 +250,9 @@
                                 <!-- 팀 정보 -->
                                 <div class="card-body">
                                     <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                        <th:switch="${teamDTO.teamLogo}">
-                                            <th:case="">
-                                                <img th:src="@{https://kr.object.ncloudstorage.com/team1-bucket/default.jpg}"
-                                                    alt="user-avatar" class="d-block rounded" height="100" width="100"
-                                                    id="uploadedAvatar" style="margin-bottom: 20px;" />
-                                                </th:case>
-                                                <th:case th:unless="as">
-                                                    <!-- <img th:src="${'https://kr.object.ncloudstorage.com/team1-bucket/' + ${teamDTO.teamId} + '.jpg'}" 
+                                        <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${teamId} + '.jpg'}" 
                                                     	 alt="user-avatar" class="d-block rounded" height="100" width="100"
-                                                        id="uploadedAvatar" style="margin-bottom: 20px;" /> -->
-                                                </th:case>
-                                                </th:switch>
+                                                        id="uploadedAvatar" style="margin-bottom: 20px;" />
                                     </div>
                                 </div>
                                 <hr class="my-0" />
