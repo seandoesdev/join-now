@@ -16,7 +16,9 @@ import org.springframework.http.HttpLogging;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -193,7 +195,7 @@ public class PostContoller {
 
 	// 게시글 업데이트 화면
 	@PostMapping("/update")
-	public String postUpdate(PostDTO dto, PositionDTO dto2, HttpSession session) {
+	public String postUpdate(PostDTO dto, PositionDTO dto2, HttpSession session,@ModelAttribute("uploadDTO") UploadDTO uploadDTO, BindingResult bindingResult, int postNo) {
 		//작성자 아이디 확인
 		UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 		dto.setUserid(userInfoDTO.getId());
@@ -215,6 +217,65 @@ public class PostContoller {
 			System.out.println("update:" + pd);
 			positionService.positionOneAdd(pd);
 		}
+		
+		//////////////////////////////////////
+		 String theText = uploadDTO.getTheText();
+         MultipartFile theFile = uploadDTO.getTheFile();
+         
+//////////파일 없으면 생성////////////
+		String folderPath = "C:\\upload";
+       File folder = new File(folderPath);
+       if (!folder.exists()) {
+           boolean created = folder.mkdirs();
+           if (created) {
+               System.out.println("폴더가 생성되었습니다.");
+           } else {
+               System.out.println("폴더 생성에 실패했습니다.");
+           }
+       } else {
+           System.out.println("이미 폴더가 존재합니다.");
+       }
+       //////////파일 없으면 생성/////////////
+         
+         //파일정보
+         long size = theFile.getSize();
+         String name = theFile.getName();
+         String originalFilename = theFile.getOriginalFilename();
+         String contentType = theFile.getContentType();
+         
+         
+         System.out.println(theText);
+         System.out.println(size);
+         System.out.println(name);
+         System.out.println(originalFilename);
+         System.out.println(contentType);
+         
+         String postProfileName = "post_" + postNo +".jpg";
+         File f = new File("c:\\upload", postProfileName) ;
+         
+         try {
+             theFile.transferTo(f);
+         } catch (IllegalStateException e) {
+             e.printStackTrace();
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+      // 클라우드에 저장
+         storageService.upload(postProfileName, "c:\\upload\\"+postProfileName);
+         
+         // 파일 삭제
+         String filePath = "c:\\upload\\"+postProfileName;
+       File file = new File(filePath);
+       if (file.exists()) {
+           boolean deleted = file.delete();
+           if (deleted) {
+               System.out.println("파일이 삭제되었습니다.");
+           } else {
+               System.out.println("파일 삭제에 실패했습니다.");
+           }
+       } else {
+           System.out.println("파일이 존재하지 않습니다.");
+       }
 
 		return "redirect:main";
 	}

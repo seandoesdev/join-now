@@ -347,7 +347,7 @@ $(document).ready(function() {
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
 					<!-- Content -->
-		<form class="form" action="update" method="post">
+		<form class="form" action="update" method="post" enctype="multipart/form-data">
 		<div class="container-xxl flex-grow-1 container-p-y">
 		<h4 class="py-3 mb-4">
 			<span class="text-muted fw-light">프로젝트 /</span> 모집요강
@@ -368,6 +368,13 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<br>
+				
+				<!-- 프로필 사진 -->                   
+		<br><hr>
+			
+		프로필 사진 설정 <br/>
+		📸<input type="file" name="theFile"><br><hr>
+			
 				<div class="mb-3">
 					<label class="list-group-item" for="studyType">유형 </label>
 						<input class="form-check-input me-1" type="radio" name="studyType" value="project" th:checked="${postListbyNum.studyType}=='project'"> 프로젝트 <br>
