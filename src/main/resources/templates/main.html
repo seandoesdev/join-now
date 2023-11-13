@@ -266,28 +266,11 @@
                             <th:block th:each="postDTO, index : ${pageDTO.list}">
                                 <a th:href="'retrieve?postNo='+${postDTO.postNo}" class="col-6 col-md-4 mb-3">
                                     <div class="card h-100">
-                                    
-                                    <!-- 수정 전 코드
-                                        <img class="card-img-top"
-                                            src="https://kr.object.ncloudstorage.com/team1-bucket/group.jpg"
-                                            alt="Card image cap" style="max-width: 100%;" />
-                                        -->    
-                                        <div class="card h-100">
-    									<img
-        									src="https://kr.object.ncloudstorage.com/team1-bucket/${postDTO.postNo}.jpg"
-        									onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/group.jpg';"
-        									alt="Card image cap"
-        									style="max-width: 100%;"
-    										/>
-										</div>
 
-									<script>
-    								function loadDefaultImage() {
-       								 // 대체 이미지 로드
-        							document.getElementById('postImage').src = "https://kr.object.ncloudstorage.com/team1-bucket/group.jpg";
-    										}
-									</script>
-                                            
+                                        <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/post_'+${postDTO.postNo}+'.jpg'}"
+							class="img-thumbnail" 
+							onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/group.jpg';" />
+
                                         <div class="card-body">
                                             <h5 class="card-title" th:text="${postDTO.title}">Card title</h5>
                                             <p class="card-title" th:text="${truncatedContentList[index.index]}">
