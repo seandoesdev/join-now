@@ -15,6 +15,18 @@
 	     from post
    </select>
    
+   <select id="totalCountTitle" resultType="int">
+	     select count(*)
+	     from post
+	     where title LIKE CONCAT('%', #{keyword}, '%')
+   </select>
+      
+   <select id="searchTitle" resultType="PostDTO">
+	    select *
+		from post
+		where deadline >= CURDATE() and title LIKE CONCAT('%', #{keyword}, '%')
+   </select>
+   
 </mapper>
 
 
