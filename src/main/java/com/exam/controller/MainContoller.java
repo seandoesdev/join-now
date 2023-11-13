@@ -67,6 +67,30 @@ public class MainContoller {
 		return "main";
 	}
 	
+	@GetMapping("/searchMain")
+	public String searchMain(@RequestParam(value = "curPage", required = false, defaultValue = "1")int curPage, @RequestParam String keyword,
+			Model m) {
+		
+		PageDTO pageDTO = service.searchTitle(curPage, keyword);
+		
+		pageDTO.setList(mergeSort(pageDTO.getList()));
+		
+		m.addAttribute("pageDTO", pageDTO);
+
+		//메인에 보여지는 게시글 설명 글자수 제한 후 화면단으로 정보 전달
+		List<PostDTO> list = pageDTO.getList();
+		List<String> truncatedContentList = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			String content = list.get(i).getContent();
+		    if (content.length() > 50) {
+		        content = content.substring(0, 50) + "...";
+		    }
+		    truncatedContentList.add(content);
+        }
+		m.addAttribute("truncatedContentList", truncatedContentList);
+		return "main";
+	}
+	
 	// 병합 정렬 알고리즘 (조회수로 정렬)
     public static List<PostDTO> mergeSort(List<PostDTO> list) {
         if (list.size() <= 1) return list; // 리스트가 비어있거나 이미 정렬되어 있으면 종료
