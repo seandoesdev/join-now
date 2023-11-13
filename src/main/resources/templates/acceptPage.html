@@ -169,7 +169,11 @@
                                         data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
 
-                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+
+                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfoDTO.username} + '.jpg'}"
+
+
+
                                                 alt class="w-px-40 h-90 rounded-circle" />
                                         </div>
                                     </a>
@@ -178,7 +182,10 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+
+                                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfoDTO.username} + '.jpg'}"
+
+
                                                                 alt class="w-px-40 h-90 rounded-circle" />
                                                         </div>
                                                     </div>
@@ -283,39 +290,6 @@
 						</div>
                 		<!-- /table -->
                 		</div>
-	
-	
-	
-						
-
-                        <!-- Footer -->
-                        <footer class="content-footer footer bg-footer-theme">
-                            <div
-                                class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                                <div class="mb-2 mb-md-0">
-                                    ©
-                                    <script>
-                                        document.write(new Date().getFullYear());
-                                    </script>
-                                    , made with ❤️ by
-                                    <a href="https://themeselection.com" target="_blank"
-                                        class="footer-link fw-medium">ThemeSelection</a>
-                                </div>
-                                <div class="d-none d-lg-inline-block">
-                                    <a href="https://themeselection.com/license/" class="footer-link me-4"
-                                        target="_blank">License</a>
-                                    <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More
-                                        Themes</a>
-
-                                    <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
-                                        target="_blank" class="footer-link me-4">Documentation</a>
-
-                                    <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                                        target="_blank" class="footer-link">Support</a>
-                                </div>
-                            </div>
-                        </footer>
-                        <!-- / Footer -->
 
                         <div class="content-backdrop fade"></div>
                     </div>
