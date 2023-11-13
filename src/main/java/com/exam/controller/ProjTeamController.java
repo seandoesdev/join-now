@@ -102,11 +102,13 @@ public class ProjTeamController {
 
   // 팀 소개 수정 작업
   @GetMapping("/update/retrieve.do/{teamId}")
-  public String infoRetrieveDo(@PathVariable int teamId, TeamDTO teamDTO) {
+  public String infoRetrieveDo(@PathVariable int teamId, TeamDTO teamDTO, HttpSession session, Model model) {
     log.info("info retrieve do works");
 
+    UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     teamDTO.setTeamId(teamId);
     teamService.updateTeamInfoById(teamDTO);
+    model.addAttribute("userInfo", userInfoDTO);
 
     return "infoRetrieve";
   }
