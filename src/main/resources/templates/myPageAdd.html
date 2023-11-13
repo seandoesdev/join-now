@@ -175,6 +175,43 @@
                                             </div>
                                         </div>
                                     </a>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <div class="d-flex">
+                                                    <div class="flex-shrink-0 me-3">
+                                                        <div class="avatar avatar-online">
+                                                            <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfoDTO.username} + '.jpg'}"
+                                                                onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/default.jpg';" 
+                                                                alt class="w-px-40 h-90 rounded-circle" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <span class="fw-medium d-block">Me</span>
+                                                        <small class="text-muted">Online</small>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="dropdown-divider"></div>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" th:href="@{mypage}">
+                                                <i class="bx bx-user me-2"></i>
+                                                <span class="align-middle">My Page</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="dropdown-divider"></div>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" th:href="@{logout}">
+                                                <i class="bx bx-power-off me-2"></i>
+                                                <span class="align-middle">Log Out</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>
                                     <div class="dropdown-divider"></div>
