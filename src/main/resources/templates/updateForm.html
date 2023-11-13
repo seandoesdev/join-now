@@ -285,6 +285,7 @@ $(document).ready(function() {
                                         data-bs-toggle="dropdown">
                                         <div class="avatar">
                                             <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+                                                onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/default.jpg';"
                                                 alt class="w-px-40 h-90 rounded-circle" />
                                         </div>
                                     </a>
@@ -302,6 +303,7 @@ $(document).ready(function() {
                                         data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
                                             <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+                                                onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/default.jpg';"
                                                 alt class="w-px-40 h-90 rounded-circle" />
                                         </div>
                                     </a>
@@ -311,6 +313,7 @@ $(document).ready(function() {
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
                                                             <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${session.loginInfo.username} + '.jpg'}"
+                                                                onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/default.jpg';"
                                                                 alt class="w-px-40 h-90 rounded-circle" />
                                                         </div>
                                                     </div>
