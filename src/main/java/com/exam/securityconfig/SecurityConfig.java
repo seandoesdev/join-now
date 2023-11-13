@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private PrincipalOauth2UserService principalOauth2UserService;
 	
-	@Bean
+	@Bean // 어디서든 쓸 수 있도록 빈 등록
 	public BCryptPasswordEncoder encodePwd() {
 		return new BCryptPasswordEncoder();
 	}
@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.csrf().disable();
+		http.csrf().disable();	// 
 		http.authorizeRequests()
 			.antMatchers("/user/**").authenticated()
 			//.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
@@ -43,9 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.defaultSuccessUrl("/app")
 		.and()
 			.oauth2Login()
-			.loginPage("/login")
+			.loginPage("/login")	// 토큰 + 정보를 받아옴
 			.userInfoEndpoint()
-			.userService(principalOauth2UserService);
+			.userService(principalOauth2UserService); // 후처리
 	}
 }
 

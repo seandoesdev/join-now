@@ -48,26 +48,31 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 		return user.getUsername();
 	}
 
+	// 이 계정이 만료되었는가?
 	@Override
 	public boolean isAccountNonExpired() {
-		return true;
+		return true; // 아니오
 	}
 
+	// 이 계정이 잠겼는가?
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+		return true; // 아니오
 	}
 
+	// 이 계정의 비밀번호 유효기간이 지났는가?
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return true;
+		return true; // 아니오
 	}
 
+	// 이 계정이 활성화 잠겨있는가?
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return true; // 아니오
 	}
-	
+	 
+	// 해당 User의 권한을 리턴하는 곳
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> collet = new ArrayList<GrantedAuthority>();
