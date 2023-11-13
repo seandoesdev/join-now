@@ -275,13 +275,14 @@
                                         <div class="mb-3">
                                             <label for="introdution" class="form-label"
                                                 style="font-size: 20px;">소개</label>
-                                            <p class="form-control" id="introdution" th:text="${teamDTO.teamIntro}">
+                                            <textarea class="form-control" id="introdution" rows="3"
+                                              		th:text="${teamDTO.teamIntro}" readonly></textarea>
                                             </p>
                                         </div>
                                         <div class="mb-3">
                                             <label for="plan" class="form-label" style="font-size: 20px;">계획</label>
-                                            <p type="text" class="form-control" id="plan" name="plan"
-                                                th:text="${teamDTO.teamPlan}"></p>
+                                            <textarea class="form-control" id="plan" rows="3"
+                                              		th:text="${teamDTO.teamPlan}" readonly></textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label for="period" class="form-label" style="font-size: 20px;">일정</label>

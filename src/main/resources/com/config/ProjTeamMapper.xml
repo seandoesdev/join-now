@@ -94,6 +94,29 @@
 		set title = #{meetingDTO.title}, content = #{meetingDTO.content}
 		where meetingNo = #{meetingNo} and teamId = #{teamId}
 	</update>
+	
+	<!-- 검색 -->
+	<select id="searchAll" resultType="MeetingDTO" parameterType="HashMap">
+		select meetingNo, writer, title, createdDate
+		from meeting
+		where teamId = #{teamId} and (
+                           title LIKE CONCAT('%', #{keyword}, '%')
+                        OR content LIKE CONCAT('%', #{keyword}, '%')
+                        OR writer LIKE CONCAT('%', #{keyword}, '%')
+                    )
+	</select>
+	
+	<select id="searchTitle" resultType="MeetingDTO" parameterType="HashMap">
+		select meetingNo, writer, title, createdDate
+		from meeting
+		where teamId = #{teamId} and title LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+	
+	<select id="searchContent" resultType="MeetingDTO" parameterType="HashMap">
+		select meetingNo, writer, title, createdDate
+		from meeting
+		where teamId = #{teamId} and content LIKE CONCAT('%', #{keyword}, '%')
+	</select>
 
 
 	<!-- 공고 신청 관리 -->

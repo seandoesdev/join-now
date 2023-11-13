@@ -52,10 +52,10 @@ public class ProjTeamController {
 
   @Autowired
   private TeamService teamService;
-  
+
   @Autowired
   private UserService userService;
-  
+
   @Autowired
   ObjectStorageService storageService;
 
@@ -64,156 +64,158 @@ public class ProjTeamController {
   public String info(@PathVariable int teamId, HttpSession session, Model model) {
 
     log.info("info works");
-    
+
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     TeamDTO teamDTO = teamService.selectByTeamId(teamId);
     List<TeamMemberDTO> teamMemberDTO = teamService.selectMemberListByTeamId(teamId);
-    
+
     List<String> members = new ArrayList<>();
-    
-    for(TeamMemberDTO dto : teamMemberDTO) {
+
+    for (TeamMemberDTO dto : teamMemberDTO) {
       UserInfoDTO tmp = userService.selectAllById(dto.getUserId());
       members.add(tmp.getUsername());
     }
-    
+
     System.out.println(members);
     model.addAttribute("teamDTO", teamDTO);
     model.addAttribute("memberList", teamMemberDTO);
-    model.addAttribute("members",members);
+    model.addAttribute("members", members);
     model.addAttribute("userInfo", userInfoDTO);
-    
+
     return "info";
   }
-  
+
   // 팀 소개 수정 페이지
   @GetMapping("/update/{teamId}")
   public String infoRetrieve(@PathVariable int teamId, Model model, HttpSession session) {
     log.info("info retrieve works");
-    
+
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     TeamDTO teamDTO = teamService.selectByTeamId(teamId);
-    
+
     model.addAttribute("teamDTO", teamDTO);
     model.addAttribute("userInfo", userInfoDTO);
-    
-    
+
+
     return "infoRetrieve";
   }
-  
+
   // 팀 소개 수정 작업
   @GetMapping("/update/retrieve.do/{teamId}")
   public String infoRetrieveDo(@PathVariable int teamId, TeamDTO teamDTO) {
     log.info("info retrieve do works");
-    
+
     teamDTO.setTeamId(teamId);
     teamService.updateTeamInfoById(teamDTO);
-    
+
     return "infoRetrieve";
   }
 
 
-    @PostMapping("/teamupload/{teamId}")
+  @PostMapping("/teamupload/{teamId}")
   public String teamupload(@PathVariable int teamId, UploadDTO dto, Model m, HttpSession session) {
-      
-      //세션에서 id값 받아오기
-      UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
-      int id = userInfoDTO.getId();
-      //현재 로그인된 id에 해당하는 정보 받아와서 출력
-      UserInfoDTO info = userService.selectAllById(id);
-      m.addAttribute("UserInfoDTO", info);        
-      
-      //팀정보 가져오기
-      TeamDTO teamDTO = teamService.selectByTeamId(teamId);
-      m.addAttribute("teamDTO", teamDTO);
-      
-      String theText = dto.getTheText();
-      MultipartFile theFile = dto.getTheFile();
-      
-      //파일정보
-      long size = theFile.getSize();
-      String name = theFile.getName();
-      String originalFilename = theFile.getOriginalFilename();
-      String contentType = theFile.getContentType();
-      
-      
-      System.out.println(theText);
-      System.out.println(size);
-      System.out.println(name);
-      System.out.println(originalFilename);
-      System.out.println(contentType);
-      
-      String teamProfileName = Integer.toString(teamDTO.getTeamId())+".jpg";
-      File f = new File("c:\\upload", teamProfileName) ;
-      
-      try {
-          theFile.transferTo(f);
-      } catch (IllegalStateException e) {
-          e.printStackTrace();
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-      
 
-      
-      // 클라우드에 저장
-      storageService.upload(teamProfileName, "c:\\upload\\"+teamProfileName);
-      
-      // 파일 삭제
-      String filePath = "c:\\upload\\"+teamProfileName;
+    // 세션에서 id값 받아오기
+    UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+    int id = userInfoDTO.getId();
+    // 현재 로그인된 id에 해당하는 정보 받아와서 출력
+    UserInfoDTO info = userService.selectAllById(id);
+    m.addAttribute("UserInfoDTO", info);
+
+    // 팀정보 가져오기
+    TeamDTO teamDTO = teamService.selectByTeamId(teamId);
+    m.addAttribute("teamDTO", teamDTO);
+
+    String theText = dto.getTheText();
+    MultipartFile theFile = dto.getTheFile();
+
+    // 파일정보
+    long size = theFile.getSize();
+    String name = theFile.getName();
+    String originalFilename = theFile.getOriginalFilename();
+    String contentType = theFile.getContentType();
+
+
+    System.out.println(theText);
+    System.out.println(size);
+    System.out.println(name);
+    System.out.println(originalFilename);
+    System.out.println(contentType);
+
+    String teamProfileName = Integer.toString(teamDTO.getTeamId()) + ".jpg";
+    File f = new File("c:\\upload", teamProfileName);
+
+    try {
+      theFile.transferTo(f);
+    } catch (IllegalStateException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+
+
+    // 클라우드에 저장
+    storageService.upload(teamProfileName, "c:\\upload\\" + teamProfileName);
+
+    // 파일 삭제
+    String filePath = "c:\\upload\\" + teamProfileName;
     File file = new File(filePath);
 
     if (file.exists()) {
-        boolean deleted = file.delete();
-        if (deleted) {
-            System.out.println("파일이 삭제되었습니다.");
-        } else {
-            System.out.println("파일 삭제에 실패했습니다.");
-        }
+      boolean deleted = file.delete();
+      if (deleted) {
+        System.out.println("파일이 삭제되었습니다.");
+      } else {
+        System.out.println("파일 삭제에 실패했습니다.");
+      }
     } else {
-        System.out.println("파일이 존재하지 않습니다.");
+      System.out.println("파일이 존재하지 않습니다.");
     }
-      
-      return "redirect:/team/" + teamId;
+
+    return "redirect:/team/" + teamId;
   }
 
   /**
    * 일정표 기능 구현
    */
 
-  // 일정표 
+  // 일정표
   @GetMapping("/schedule/{teamId}")
   public String schedule(@PathVariable int teamId, HttpSession session, Model model) {
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     TeamDTO teamDTO = teamService.selectByTeamId(teamId);
-    
-    model.addAttribute("userInfo",userInfoDTO);
+
+    model.addAttribute("userInfo", userInfoDTO);
     model.addAttribute("teamDTO", teamDTO);
     return "schedule";
   }
 
   // 일정표 이벤트 조회
   @GetMapping("/schedule/select/{teamId}")
-  public @ResponseBody List<ScheduleDTO> selectEvents(@PathVariable int teamId, HttpSession session, Model model) {
+  public @ResponseBody List<ScheduleDTO> selectEvents(@PathVariable int teamId, HttpSession session,
+      Model model) {
     List<ScheduleDTO> events = projTeamService.selectAllEventbyId(teamId);
     if (events == null) {
       return null;
-    }else {
+    } else {
       return events;
     }
   }
 
   // 일정표 - 이벤트 저장 기능
   @PostMapping("/schedule/add/event/{teamId}")
-  public String saveEvent(@RequestBody ScheduleDTO scheduleDTO, @PathVariable int teamId, Model model) {
+  public String saveEvent(@RequestBody ScheduleDTO scheduleDTO, @PathVariable int teamId,
+      Model model) {
     System.out.println("event insert test");
-    
-    HashMap<String, Object> map = new HashMap<>();    
+
+    HashMap<String, Object> map = new HashMap<>();
     map.put("teamId", teamId);
     map.put("scheduleDTO", scheduleDTO);
-    
+
     System.out.println(scheduleDTO);
     int n = projTeamService.insertEvent(map);
-    
+
     return "schedule";
   }
 
@@ -221,8 +223,8 @@ public class ProjTeamController {
   @PostMapping("/schedule/update/event/{teamId}")
   public String updateEvent(@RequestBody ScheduleDTO scheduleDTO, @PathVariable int teamId) {
     System.out.println("event update test");
-    
-    
+
+
     try {
       projTeamService.updateEvent(scheduleDTO);
     } catch (Exception e) {
@@ -237,37 +239,37 @@ public class ProjTeamController {
   public String deleteEvent(@RequestBody ScheduleDTO scheduleDTO, @PathVariable int teamId) {
 
     int check_num = projTeamService.deleteEvent(scheduleDTO);
-    
+
     if (check_num == 0) {
       log.info("schedule Table has already been EMPTY");
     }
-    
+
     return "schedule";
   }
+
+
+  /**
+   * 희의록
+   */
 
   // 회의록
   @GetMapping("/meeting/{teamId}/{curPage}")
   public String meeting(@PathVariable int teamId,
-                        @PathVariable(value = "curPage", required = false) int curPage, 
-                        Model model,
-                        HttpSession session) {
+      @PathVariable(value = "curPage", required = false) int curPage, Model model,
+      HttpSession session) {
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     TeamDTO teamDTO = teamService.selectByTeamId(teamId);
 
-    System.out.println("meeting test");
     HashMap<String, Integer> hashmap = new HashMap<>();
 
     hashmap.put("teamId", teamId);
-    // hashmap.put("userId", userInfoDTO.getId());
     hashmap.put("curPage", curPage);
-    
-    
 
     MeetingPageDTO pageDTO = projTeamService.getAllPost(hashmap);
     model.addAttribute("pageDTO", pageDTO);
     model.addAttribute("teamId", teamId);
     model.addAttribute("teamDTO", teamDTO);
-    model.addAttribute("userInfo", userInfoDTO);    
+    model.addAttribute("userInfo", userInfoDTO);
     return "meeting";
   }
 
@@ -275,16 +277,10 @@ public class ProjTeamController {
   @GetMapping("/meeting/write/{teamId}")
   public String meetingWrite(@PathVariable int teamId, HttpSession session, Model model) {
     UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
-    model.addAttribute("userInfo", userInfoDTO);    
+    model.addAttribute("userInfo", userInfoDTO);
     model.addAttribute("teamId", teamId);
     return "meetingWrite";
   }
-
-
-
-  /**
-   * 희의록 기능
-   */
 
   // 회의록 작성
   @GetMapping("/meeting/write.do/{teamId}")
@@ -320,22 +316,24 @@ public class ProjTeamController {
     meetingDTO.setMeetingNo(meetingNo);
     meetingDTO.setTeamId(teamId);
     model.addAttribute("meetingDTO", meetingDTO);
-    model.addAttribute("userInfo", userInfoDTO);    
+    model.addAttribute("userInfo", userInfoDTO);
 
     return "meetingDetail";
   }
 
   // 회의록 삭제
   @GetMapping("/meeting/delete/{teamId}/{meetingNo}")
-  public String meetingDelete(@PathVariable int teamId, @PathVariable int meetingNo) {
+  public String meetingDelete(@PathVariable int teamId, @PathVariable int meetingNo, HttpSession session, Model model) {
+    UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
 
     HashMap<String, Integer> map = new HashMap<>();
     map.put("teamId", teamId);
     map.put("meetingNo", meetingNo);
 
     projTeamService.deleteOneById(map);
+    model.addAttribute("userInfo", userInfoDTO);
 
-    return "redirect:/app/team/meeting" + teamId + '/' + meetingNo;
+    return "meetingRetrieve";
   }
 
   // 회의록 수정페이지
@@ -353,7 +351,7 @@ public class ProjTeamController {
     MeetingDTO meetingDTO = projTeamService.selectOneById(map);
 
     model.addAttribute("meetingDTO", meetingDTO);
-    model.addAttribute("userInfo", userInfoDTO);    
+    model.addAttribute("userInfo", userInfoDTO);
 
     return "meetingRetrieve";
   }
@@ -361,8 +359,9 @@ public class ProjTeamController {
   // 회의록 수정 기능
   @GetMapping("/meeting/retrieve.do/{teamId}/{meetingNo}")
   public String meetingRetrieveDo(@PathVariable int teamId, @PathVariable int meetingNo,
-      MeetingDTO meetingDTO, HttpSession session) {
+      MeetingDTO meetingDTO, HttpSession session, Model model) {
 
+    UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
     HashMap<String, Object> map = new HashMap<>();
     map.put("teamId", teamId);
     map.put("meetingNo", meetingNo);
@@ -372,58 +371,87 @@ public class ProjTeamController {
     System.out.println(meetingDTO.getTitle());
     projTeamService.updateMeetingById(map);
 
+    model.addAttribute("userInfo", userInfoDTO);
     return "meetingRetrieve";
   }
+
+  // 회의록 검색
+  @GetMapping("/meeting/search/{teamId}")
+  public String meetingSearch(@PathVariable int teamId, @RequestParam String keyword, @RequestParam String searchType, Model model,
+                              HttpSession session) {
+    List<MeetingDTO> listMeetingDTO = null;
+    UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+    TeamDTO teamDTO = teamService.selectByTeamId(teamId);
+    
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("keyword", keyword);
+    map.put("teamId", teamId);
+    
+    if (searchType == "all") {
+      listMeetingDTO = projTeamService.searchAll(map);
+      System.out.println("ddd");
+    } else if(searchType == "title") {
+      listMeetingDTO = projTeamService.searchTitle(map);
+    } else {
+      listMeetingDTO = projTeamService.searchContent(map);
+    }
   
-  
-  
+    model.addAttribute("listMeetingDTO", listMeetingDTO);
+    model.addAttribute("teamId", teamId);
+    model.addAttribute("teamDTO", teamDTO);
+    model.addAttribute("userInfo", userInfoDTO);
+    return "meetingSearch";
+  }
+
+
+
   /**
    * 팀 신청관리
+   * 
    * @return
    */
-  
+
   @GetMapping("/teamManage/{teamId}")
   public String teamManage(@PathVariable int teamId, Model model, HttpSession session) {
-      UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
-      List<TeamMemberDTO> memberList = teamService.selectMemberListByTeamId(teamId);
-      
-      List<UserInfoDTO> userList = new ArrayList<UserInfoDTO>();
-      for(TeamMemberDTO dto : memberList) {
-          userList.add(userService.selectAllById(dto.getUserId()));
-      }
-      
-      TeamDTO teamDTO = teamService.selectByTeamId(teamId); 
-      boolean leader = false;
-      if(userInfoDTO.getId() == teamDTO.getUserId()) {
-          leader=true;
-      }
-      
-      System.out.println(leader);
-      model.addAttribute("memberList", userList);
-      model.addAttribute("leader", leader);
-      model.addAttribute("teamId", teamId);
-      model.addAttribute("teamDTO", teamDTO);
-      model.addAttribute("userInfo", userInfoDTO);
-          
-      return "TeamManagementPage";
+    UserInfoDTO userInfoDTO = (UserInfoDTO) session.getAttribute("loginInfo");
+    List<TeamMemberDTO> memberList = teamService.selectMemberListByTeamId(teamId);
+
+    List<UserInfoDTO> userList = new ArrayList<UserInfoDTO>();
+    for (TeamMemberDTO dto : memberList) {
+      userList.add(userService.selectAllById(dto.getUserId()));
+    }
+
+    TeamDTO teamDTO = teamService.selectByTeamId(teamId);
+    boolean leader = false;
+    if (userInfoDTO.getId() == teamDTO.getUserId()) {
+      leader = true;
+    }
+
+    System.out.println(leader);
+    model.addAttribute("memberList", userList);
+    model.addAttribute("leader", leader);
+    model.addAttribute("teamId", teamId);
+    model.addAttribute("teamDTO", teamDTO);
+    model.addAttribute("userInfo", userInfoDTO);
+
+    return "TeamManagementPage";
   }
-  
+
   @PostMapping("/memberDelete/{teamId}/{userId}")
   public String teamMemberDelete(@PathVariable int teamId, @PathVariable int userId) {
-      teamService.teamMemberDel(userId);
-      System.out.println("memberDel"+teamId + userId);
-      return "redirect:/team/teamManage/"+teamId;
+    teamService.teamMemberDel(userId);
+    System.out.println("memberDel" + teamId + userId);
+    return "redirect:/team/teamManage/" + teamId;
   }
-  
+
   @PostMapping("/teamDelete")
   @Transactional
-  public String teamDelete(@RequestParam int teamId) {
-    System.out.println(teamId);
+  public String teamDelete(@RequestParam int teamId, HttpSession session) {
     try {
       teamService.deleteTeamMemberByteamId(teamId);
       teamService.deleteTeamMemberByteamId(teamId);
       log.info("teamId team is deleted now");
-    }catch (Exception e) {
+    } catch (Exception e) {
       log.warn("It have deleted a team. Please check your system.");
       e.printStackTrace();
     }

@@ -247,6 +247,28 @@
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <h4 class="py-3 mb-4"><span class="text-muted fw-light" th:text="${teamDTO.teamName}"> </span> 's 희의록</h4>
                         <!-- Basic Bootstrap Table -->
+
+                        <div class="mb-4" style="display: inline-block;">
+
+                            <form th:action="@{/team/meeting/search/{teamId}(teamId=${teamId})}" method="get" class="form-block">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="검색어를 입력하세요" name="keyword">
+                                </div>
+                                <div class="form-check form-check-inline ml-3 d-lg-inline-block">
+                                    <input class="form-check-input" type="radio" name="searchType" id="searchAll" value="all" checked>
+                                    <label class="form-check-label" for="searchAll">전체</label>
+                                </div>
+                                <div class="form-check form-check-inline d-inline-block">
+                                    <input class="form-check-input" type="radio" name="searchType" id="searchTitle" value="title">
+                                    <label class="form-check-label" for="searchTitle">제목</label>
+                                </div>
+                                <div class="form-check form-check-inline d-inline-block">
+                                    <input class="form-check-input" type="radio" name="searchType" id="searchContent" value="content">
+                                    <label class="form-check-label" for="searchContent">내용</label>
+                                </div>
+                            </form>
+                        </div>
+
                         <div class="card">
                             <div class="table-responsive text-nowrap">
                                 <table class="table">
