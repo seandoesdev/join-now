@@ -153,22 +153,22 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a th:href="@{/team/{teamId}(teamId=${teamDTO.teamId})}" class="menu-link">
+                                <a th:href="@{/team/{teamId}(teamId=${teamId})}" class="menu-link">
                                     <div data-i18n="Information">Information</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a th:href="@{/team/schedule/{teamId}(teamId=${teamDTO.teamId})}" class="menu-link">
+                                <a th:href="@{/team/schedule/{teamId}(teamId=${teamId})}" class="menu-link">
                                     <div data-i18n="Schedule">Schedule</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a th:href="@{/team/meeting/{teamId}/1(teamId=${teamDTO.teamId})}" class="menu-link">
+                                <a th:href="@{/team/meeting/{teamId}/1(teamId=${teamId})}" class="menu-link">
                                     <div data-i18n="Meeting Note">Meeting Note</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a th:href="@{/team/teamManage/{teamId}(teamId=${teamDTO.teamId})}" class="menu-link">
+                                <a th:href="@{/team/teamManage/{teamId}(teamId=${teamId})}" class="menu-link">
                                     <div data-i18n="teamManage">Team Manangement</div>
                                 </a>
                             </li>
@@ -191,7 +191,7 @@
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                 data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img th:src="${session.loginInfo.pofoLink}"
+                                    <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${userInfo.username} + '.jpg'}"
                                         alt class="w-px-40 h-90 rounded-circle" />
                                 </div>
                             </a>
@@ -275,13 +275,14 @@
                                         <div class="mb-3">
                                             <label for="introdution" class="form-label"
                                                 style="font-size: 20px;">소개</label>
-                                            <p class="form-control" id="introdution" th:text="${teamDTO.teamIntro}">
+                                            <textarea class="form-control" id="introdution" rows="3"
+                                              		th:text="${teamDTO.teamIntro}" readonly></textarea>
                                             </p>
                                         </div>
                                         <div class="mb-3">
                                             <label for="plan" class="form-label" style="font-size: 20px;">계획</label>
-                                            <p type="text" class="form-control" id="plan" name="plan"
-                                                th:text="${teamDTO.teamPlan}"></p>
+                                            <textarea class="form-control" id="plan" rows="3"
+                                              		th:text="${teamDTO.teamPlan}" readonly></textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label for="period" class="form-label" style="font-size: 20px;">일정</label>
@@ -289,8 +290,12 @@
                                                 th:text="${teamDTO.period}"></p>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="member" class="form-label" style="font-size: 20px;">팀원</label>
-                                            <p type="text" class="form-control" id="member" name="member"></p>
+                                            <label for="member" class="form-label d-block" style="font-size: 20px;">팀원</label>
+                                            <div th:each="member : ${members}" class="d-lg-inline-block">
+                                                <!-- 각 사용자마다 이미지를 동적으로 로딩 -->
+                                                <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/' + ${member} + '.jpg'}"
+                                                     class="" alt="member Image" width="70" height="70" style="border-radius: 70%; overflow: hidden; display: inline-block;"/>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="mt-2">

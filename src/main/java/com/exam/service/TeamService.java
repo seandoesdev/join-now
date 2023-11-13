@@ -17,4 +17,6 @@ public interface TeamService {
 	
 	// 팀 페이지 팀 정보 수정
 	public int updateTeamInfoById(TeamDTO teamDTO);
+	public int deleteTeamByteamId(int teamId);
+	public int deleteTeamMemberByteamId(int teamId);
 }
