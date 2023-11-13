@@ -33,6 +33,12 @@ public interface ProjTeamService {
   public int deleteOneById(HashMap<String, Integer> map); // 회의록 삭제
 
   public int updateMeetingById(HashMap<String, Object> map); // 희의록 수정
+  
+  public List<MeetingDTO> searchAll(HashMap<String, Object> map); // 회의록 검색 - 전체
+  
+  public List<MeetingDTO> searchTitle(HashMap<String, Object> map); // 회의록 검색 - 제목
+  
+  public List<MeetingDTO> searchContent(HashMap<String, Object> map); // 회의록 검색 - 내용
 
   // 팀 정보
 

@@ -49,6 +49,18 @@
 		set	teamSubject = #{teamSubject}, teamIntro = #{teamIntro}, teamPlan = #{teamPlan}, period = #{period}
 		where teamId = #{teamId}
 	</update>
+	
+	<!-- 팀 삭제 -->
+	<delete id="deleteTeamByteamId" parameterType="int">
+		delete from team
+		where teamId = #{teamId} 
+	</delete>
+	
+	<!-- 팀원 삭제 -->
+	<delete id="deleteTeamMemberByteamId" parameterType="int">
+		delete from teammember
+		where teamId = #{teamId}
+	</delete>
 </mapper>
 
 
