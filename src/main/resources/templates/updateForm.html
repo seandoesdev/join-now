@@ -371,8 +371,12 @@ $(document).ready(function() {
 				
 				<!-- 프로필 사진 -->                   
 		<br><hr>
-			
-		프로필 사진 설정 <br/>
+		 <center>
+                        <img th:src="@{'https://kr.object.ncloudstorage.com/team1-bucket/post_'+${postListbyNum.postNo}+'.jpg'}"
+							class="img-thumbnail" style="width: 30%"
+							onerror="this.onerror=null; this.src='https://kr.object.ncloudstorage.com/team1-bucket/group.jpg';" />
+                        </center><br>	
+		공고 사진 재설정 <br/>
 		📸<input type="file" name="theFile"><br><hr>
 			
 				<div class="mb-3">
