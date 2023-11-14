@@ -47,3 +47,10 @@
 - 회의록
 - 팀 & 팀원 관리
 
+# ✅ ERD
+[링크](https://www.erdcloud.com/d/m4qHybJJ6brDwvGf8)
+
+# ✅ 팀원
+|               seandoesdev                  |            sonchanhyeok          |hyyewon        |ChoiSeonJun            |milkteabread|
+|:---------:|:----------:|:-----:|:---------:|:----------:|
+| <a href="https://github.com/seandoesdev"> <img src="https://avatars.githubusercontent.com/u/122565412?v=4" width=100px alt="_"/> </a> | <a href="https://github.com/sonchanhyeok"> <img src="https://avatars.githubusercontent.com/u/87889071?v=4" width=100px alt="_"/> </a> | <a href="https://github.com/hyyewon"> <img src="https://avatars.githubusercontent.com/u/139234542?v=4" width=100px alt="_"/> </a> | <a href="https://github.com/ChoiSeonJun"> <img src="https://avatars.githubusercontent.com/u/138845013?v=4" width=100px alt="_"/> </a> | <a href="https://github.com/milkteabread"> <img src="https://avatars.githubusercontent.com/u/98167564?v=4" width=100px alt="_"/> </a>
