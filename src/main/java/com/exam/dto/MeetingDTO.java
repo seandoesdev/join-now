@@ -11,8 +11,8 @@ public class MeetingDTO {
   private String writer;
   private String title;
   private String content;
-  private LocalDateTime createdDate;
-  private LocalDateTime modifiedDate;
+  private String createdDate;
+  private String modifiedDate;
 
 
 
@@ -21,7 +21,7 @@ public class MeetingDTO {
 
 
   public MeetingDTO(int meetingNo, int teamId, String writer, String title, String content,
-      LocalDateTime createdDate, LocalDateTime modifiedDate) {
+      String createdDate, String modifiedDate) {
     this.meetingNo = meetingNo;
     this.teamId = teamId;
     this.writer = writer;
@@ -93,25 +93,25 @@ public class MeetingDTO {
 
 
 
-  public LocalDateTime getCreatedDate() {
+  public String getCreatedDate() {
     return createdDate;
   }
 
 
 
-  public void setCreatedDate(LocalDateTime createdDate) {
+  public void setCreatedDate(String createdDate) {
     this.createdDate = createdDate;
   }
 
 
 
-  public LocalDateTime getModifiedDate() {
+  public String getModifiedDate() {
     return modifiedDate;
   }
 
 
 
-  public void setModifiedDate(LocalDateTime modifiedDate) {
+  public void setModifiedDate(String modifiedDate) {
     this.modifiedDate = modifiedDate;
   }
 
